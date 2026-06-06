@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+  <title>FT 今日外層盤面 GOAL SCORER</title>
+  <script id="homeJS">{JS}</script>
+
+  <link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+  <link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+  <link href="{CDNURL}/style/flag.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="content_l">
+		<div class="box_league box_mygame ft *ART_lang*">
+
+			<!-- no data -->
+			<div id="div_nodata" name="div_nodata" class="no_event" style="display: none;"><i></i><span>*ART_game_nodata*</span></div>
+
+			<!-- mygame no data -->
+			<div id="div_nodata_mygame" name="div_nodata" class="box_mygame_nodata" style="display: none;">
+				<div class="title_mygame">
+					<i class="icon_mygame"><svg><use xlink:href="#icon_star"/></svg></i>
+				</div>
+				<span>*ART_game_mygame1*<tt>*ART_game_mygame2*</tt>*ART_game_mygame3*</span>
+				<div class="img_mygame"></div>
+			</div>
+
+			<!-- outer bet page content -->
+			<div id="div_show" class="box_outer ft_outer ft_sfs"></div>
+
+			<!-- pagination -->
+			<div id="pageDiv" class="box_page" style="display: none;"></div>
+			<div id="page_model" class="box_page page_5" style="display: none;"><!-- class="page_5 / page_3 / page_2" -->
+				<!-- 反灰按鈕class="off" -->
+				<span id="pg_first" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr2"/></svg></span>
+				<span id="pg_prev" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr"/></svg></span>
+				*PAGES*
+				<span id="pg_next" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr"/></svg></span>
+			</div>
+			<div id="pageBtn_model" style="display: none;">
+				<span id="pg_*PAGENUM*" class="btn_page">*PAGENUM*</span>
+			</div>
+
+
+			<div id="div_model" class="box_outer ft_outer ft_sfs" style="display:none;">
+				<div>
+					<!-- league name -->
+					<div *ST* class="btn_title_le *DIS_LINE*">
+						<tt id="lea_name">*LEAGUE*</tt>
+						<i class="icon_flag *LEAGUE_FLAG*"></i>
+					</div>
+					<div id="game_*ECID*" class="box_lebet bet_type_sfs *BLOCKSCROLL* *FANTASYGAME*" *DIS_GAME*><!-- live event add class="live_lebet" -->
+						<div class="tag_sort sort_time" *CUP_DIS*><span>*CUP_GAMEDATE*</span></div>
+						<div class="box_lebet_top">
+							<div id="mainShow_*ECID*" class="box_lebet_l">*MAIN_SHOW*</div>
+							<div id="ratioShow_*ECID*" class="box_lebet_r *CHOSETEAM* *SHOWMORE* *scroll_lock*">*RATIO_SHOW*</div>
+							*FANTASYINFO*
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Time sort tag Model -->
+			<div id="timeSort_model" style="display: none;"><div class="tag_sort"><span>*TIMESORT_DATE*</span></div></div>
+
+			<!-- 單式 league content Model -->
+			<div id="left_info_R" name="left_info" style="display:none;">
+				<div class="box_star">
+					<i id="star_*ECID*" class="icon_star"><svg><use xlink:href="#icon_star"/></svg></i>
+				</div>
+				<div id="div_icon_info" class="box_state">
+					<tt class="text_time">
+						<i id="icon_info" class="*TXT_BLUE*">*DATETIME*</i>
+					</tt>
+					<i id="icon_N" class="icon_n" style="display:*MIDFIELD_SHOW*"></i>
+				</div>
+				<div class="box_total">
+					<i id="icon_rb" class="icon_inplay" style="display:*RB_SHOW*"></i>
+					<div id="info_more" class="btn_total">
+						<span class="game_total">*MORE*</span>
+						<i class="icon_arrow"><svg><use xlink:href="#icon_morearr"/></svg></i>
+					</div>	
+				</div>
+				<label class="">
+					<div id="info_team" class="btn_inn_team">
+						<div class="box_team teamH"><span class="text_team *STRONG_H*">*TEAM_H*</span><!-- 強隊 Add class="strong_team" --></div>
+						<div class="box_team teamC"><span class="text_team *STRONG_C*">*TEAM_C*</span></div>
+					</div>
+				</label>
+			</div>
+
+
+			<!-- 夢幻賽隊伍資訊 -->
+			<div id="model_fansty_info" style="display:none;">
+				<div class="fc_info">
+					<div class="fc_wrap">
+						<div>
+							<div class="fc_lea_name">*GAMEH_LEAGUE*</div>
+							<div id="*GAMEH_GID*" class="fc_team">
+								<div>
+									<span class="teamC *GAMEH_TEAM_H_ID_GOLD*">*GAMEH_TEAM_H*</span>
+									<tt class="txt_v">v</tt>
+								</div>
+								<span class="teamH *GAMEH_TEAM_C_ID_GOLD*">*GAMEH_TEAM_C*</span>
+							</div>
+							<div class="fc_time">
+								<span>*GAMEH_DATETIME*</span>
+							</div>
+						</div>
+						<div>
+							<div class="fc_lea_name">*GAMEC_LEAGUE*</div>
+							<div id="*GAMEC_GID*" class="fc_team">
+								<div>
+									<span class="teamC *GAMEC_TEAM_H_ID_GOLD*">*GAMEC_TEAM_H*</span>
+									<tt class="txt_v">v</tt>
+								</div>
+								<span class="teamH *GAMEC_TEAM_C_ID_GOLD*">*GAMEC_TEAM_C*</span>
+							</div>
+							<div class="fc_time">
+								<span>*GAMEC_DATETIME*</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+			<!-- 單式的上半場 -->
+			<div id="model_HT_R" name="div_model" style="display:none;">
+				<div class="sfs_submenu">
+					<div id="title_sfs_h_*ECID*" class="btn_submenu teamH"><span>*TEAM_H*</span></div>
+					<div id="title_sfs_c_*ECID*" class="btn_submenu teamC"><span>*TEAM_C*</span></div>
+				</div>
+
+				<div class="form_lebet_sfs head_lebet">
+					<div class="row_sfs teamH">
+						<div class="name">*ART_game_player*</div>
+						<div class="odd_sfs">
+							<div>*ART_game_anytime*</div>
+							<div>*ART_game_1st*</div>
+							<div>*ART_game_last*</div>
+						</div>
+					</div>
+					<div class="row_sfs teamC">
+						<div class="name">*ART_game_player*</div>
+						<div class="odd_sfs">
+							<div>*ART_game_anytime*</div>
+							<div>*ART_game_1st*</div>
+							<div>*ART_game_last*</div>
+						</div>
+					</div>
+				</div>
+				<div class="form_lebet_sfs">*SFS_CONTENT*</div>
+
+				<div class="box_innbet_btn">
+					<div id="sfs_show_more_*ECID*" class="btn_innbet_more" style="*SHOWMOREBTN*" data-less="*ART_btn_viewless*" data-more="*ART_btn_viewall*"><i class="icon_toparr"><svg><use xlink:href="#icon_toparr"/></svg></i></div>
+				</div>
+			</div>
+			<div id="model_sfs_game" class="form_lebet_sfs" style="display: none;">
+				<!-- TEAM_H -->
+				<div id="" class="row_sfs teamH *STY_NO_GOAL_H* *NOIORDATA_H*"><!-- 三格合併的無進球 class="sfs_nogoal" / 無資料 class="none" -->
+					<div class="name">*SFS_TEAM_NAME_H*</div>
+					<div class="odd_sfs">
+						<div id="bet_*H204_GID*_*ECID*_*RTYPE_H*" class="btn_sfs_odd *CLOSE_H204_*RTYPE_H**">
+							<span class="text_odds">*SFS_IOR_H204*</span>
+						</div>
+						<div id="bet_*H19_GID*_*ECID*_*RTYPE_H*" class="btn_sfs_odd *CLOSE_H19_*RTYPE_H**">
+							<span class="text_odds">*SFS_IOR_H19*</span>
+						</div>
+						<div id="bet_*H20_GID*_*ECID*_*RTYPE_H*" class="btn_sfs_odd *CLOSE_H20_*RTYPE_H**">
+							<span class="text_odds">*SFS_IOR_H20*</span>
+						</div>
+					</div>
+				</div>
+				<!-- TEAM_C -->
+				<div id="" class="row_sfs teamC *STY_NO_GOAL_C* *NOIORDATA_C*"><!-- 三格合併的無進球 class="sfs_nogoal" / 無資料 class="none" -->
+					<div class="name">*SFS_TEAM_NAME_C*</div>
+					<div class="odd_sfs">
+						<div id="bet_*C204_GID*_*ECID*_*RTYPE_C*" class="btn_sfs_odd *CLOSE_C204_*RTYPE_C**">
+							<span class="text_odds">*SFS_IOR_C204*</span>
+						</div>
+						<div id="bet_*C19_GID*_*ECID*_*RTYPE_C*" class="btn_sfs_odd *CLOSE_C19_*RTYPE_C**">
+							<span class="text_odds">*SFS_IOR_C19*</span>
+						</div>
+						<div id="bet_*C20_GID*_*ECID*_*RTYPE_C*" class="btn_sfs_odd *CLOSE_C20_*RTYPE_C**">
+							<span class="text_odds">*SFS_IOR_C20*</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>

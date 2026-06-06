@@ -1,0 +1,11 @@
+data/*.sqlite
+data/*.sql
+data/_mysql_datadir/
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+.DS_Store
+*.log

@@ -1,0 +1,286 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover">
+    <title>右面板</title>
+    <script id="homeJS">{JS}</script>
+    <link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/tvmt.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/aspen_LMT2.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/aspen_stylesheet.css" rel="stylesheet" type="text/css">
+</head>
+   <body>
+        <div class="content_r">
+            <div id="R_loading" class="right_wrap">
+                <!-- loading 開啟時 class幫加 on_loading-->
+                <div class="loading loading_r">
+                    <i class="icon_load"></i>
+                </div>
+                <!-- 載入計分板 -->
+                <div id="right_content"></div>
+                <!-- TV/MT -->
+                <div id="R_watch_live" class="box_tvmt" style="display: none;">
+                    <div id="R_timeline_btn" class="timeline_btn_off" style="display: none;"></div>
+                    <!--show Change class="timeline_btn_on"-->
+                    <div id="R_live_div" class="content_live">
+                        <div id="R_tv_box" class="box_tv_maxwidth">
+                            <div class="box_tv">
+                                <div id="R_tv_loading" class="loading inn_loading" style="display: none;">
+                                    <i class="icon_load"></i>
+                                </div>
+                                <div id="R_tv_show" class="show_tv">
+                                    <div id="R_player">
+                                        <video id="R_html5_player" width="100%" height="100%" autoplay="" playsinline="" webkit-playsinline=""></video>
+                                    </div>
+                                </div>
+                                <div id="R_tv_error" class="error_tv" style="display: none;">
+                                    <i class="img_tv"></i>
+                                    <tt id="R_tv_error_msg"></tt>
+                                    <tt id="R_tv_error_data"></tt>
+                                </div>
+                                <div id="R_def_pic" class="bg_tv">
+                                    <div id="R_tv_start" class="btn_tvplay" style="display: none1;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="R_mt_box" class="box_mt" style="display: none;">
+                            <div id="R_mt_loading" class="loading inn_loading" style="display: none;">
+                                <i class="icon_load"></i>
+                            </div>
+                            <div id="R_mt_show" class="show_mt">
+                            <!--iframe id="R_mt_main" class="mt_main" scrolling="no"></iframe-->
+                            </div>
+                        </div>
+                    </div>
+                    <div id="R_mt_btn_div" class="menu_mt">
+                        <div id="R_div_showtype" class="box_scroll mt_scroll">
+                            <div id="R_mt_left" class="btn_go_l">
+                                <svg>
+                                    <use xlink:href="#icon_rightarr"></use>
+                                </svg>
+                            </div>
+                            <div id="R_mt_right" class="btn_go_r">
+                                <svg>
+                                    <use xlink:href="#icon_rightarr"></use>
+                                </svg>
+                            </div>
+                            <div id="R_mt_scroll" class="box_slide">
+                                <label id="R_mt_total">
+                                    <span id="R_tv_btn" class="btn_mt on">
+                                        <i class="icon_tv">
+                                            <svg>
+                                                <use xlink:href="#icon_play"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_mt_btn" class="btn_mt">
+                                        <i id="R_mt_icon" class="icon_match_FT"></i>
+                                        <!-- 依據球類更換代碼 -->
+                                    </span>
+                                    <span id="R_statistic_btn" class="btn_mt">
+                                        <i class="icon_statistics">
+                                            <svg>
+                                                <use xlink:href="#icon_statistics"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_comment_btn" class="btn_mt">
+                                        <i class="icon_commentary">
+                                            <svg>
+                                                <use xlink:href="#icon_commentary"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_team_btn" class="btn_mt">
+                                        <i class="icon_team">
+                                            <svg>
+                                                <use xlink:href="#icon_team"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_htoh_btn" class="btn_mt">
+                                        <i class="icon_headhead">
+                                            <svg>
+                                                <use xlink:href="#icon_headhead"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_livetable_btn" class="btn_mt">
+                                        <i class="icon_league">
+                                            <svg>
+                                                <use xlink:href="#icon_league"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_pointBypoint_btn" class="btn_mt">
+                                        <i class="icon_pbyp">
+                                            <svg>
+                                                <use xlink:href="#icon_pbyp"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_probabilities_btn" class="btn_mt">
+                                        <i class="icon_probabilities">
+                                            <svg>
+                                                <use xlink:href="#icon_probabilities"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                    <span id="R_boxscore_btn" class="btn_mt">
+                                        <i class="icon_boxscore">
+                                            <svg>
+                                                <use xlink:href="#icon_boxscore"></use>
+                                            </svg>
+                                        </i>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div id="R_collapse_btn" class="btn_switch on">
+                            <!-- tv/mt展開時 Add class="on" -->
+                            <i class="icon_toparr">
+                                <svg>
+                                    <use xlink:href="#icon_toparr"></use>
+                                </svg>
+                            </i>
+                        </div>
+                    </div>
+                    <!-- MT 物件 -->
+                    <div id="R_mt_pop" class="box_r_mt">
+                        <!-- show Add class="on"-->
+                        <div id="R_box_popup" class="">
+                            <div id="R_title_popup" class="title_r_mt">
+                                <span id="R_mt_pop_title">MT TITLE</span>
+                                <div id="R_mt_sub_close" class="btn_close" type="mt_close">
+                                    <i type="mt_close">
+                                        <svg type="mt_close">
+                                            <use type="mt_close" xlink:href="#icon_close_bold"></use>
+                                        </svg>
+                                    </i>
+                                </div>
+                            </div>
+                            <div id="R_mt_pop_loading" class="loading inn_loading" style="display: none;">
+                                <i class="icon_load"></i>
+                            </div>
+                            <div id="R_no_pop_data" class="no_mtpop" style="display: none;">
+                                <i></i>
+                                <span>*ART_game_nomtpop*</span>
+                            </div>
+                            <div id="R_content_popup" class="R_content_popup">
+                            <!--iframe id="R_mt_sub" scrolling="no"></iframe-->
+                            <!--BET RADAR-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 聲明連結 -->
+                <div id="R_relating_box" class="box_relating" style="display: none;">
+                    <div id="R_relating_title" class="title_relating">
+                        <div>*ART_title_relate*</div>
+                    </div>
+                </div>
+            </div>
+            <div id="right_event" class="bg_right_panel">
+                <div class="wrap_event *ART_lang*">
+                    <div id="R_dl_innart" class="box_event event_5" style="display: none;">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_event_5*>
+                                <source id="img_jpg" *ART_img_Xevent_5*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                            <button id="R_dl_google" type="button" class="btn_link1"></button>
+                            <button id="R_btn_store" type="button" class="btn_link2"></button>
+                        </div>
+                    </div>
+                    <!-- <div class="box_event event_0">
+					<div class="img_event">
+						<picture class="">
+							<source id="img_webp" *ART_img_event_0*>
+							<source id="img_jpg" *ART_img_Xevent_0*>
+							<img src="../../images/bg_frame.svg">
+						</picture>
+					</div>
+				</div> -->
+                    <div class="box_event event_esport">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_esport*>
+                                <source id="img_jpg" *ART_img_Xesport*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                            <button id="rightP_ES" type="button"></button>
+                        </div>
+                    </div>
+                    <div class="box_event event_hotgame">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_hotgame*>
+                                <source id="img_jpg" *ART_img_Xhotgame*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                            <button id="rightP_hotgame" type="button"></button>
+                        </div>
+                    </div>
+                    <div class="box_event event_timeset">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_timeset*>
+                                <source id="img_jpg" *ART_img_Xtimeset*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                            <button id="rightP_timeset" type="button"></button>
+                        </div>
+                    </div>
+                    <div class="box_event event_newPD">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_newPD*>
+                                <source id="img_jpg" *ART_img_XnewPD*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                        </div>
+                    </div>
+                    <div class="box_event event_liveTV">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_liveTV*>
+                                <source id="img_jpg" *ART_img_XliveTV*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                        </div>
+                    </div>
+                    <div class="box_event event_forecast">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_forecast*>
+                                <source id="img_jpg" *ART_img_Xforecast*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                            <button id="rightP_forecast" type="button"></button>
+                        </div>
+                    </div>
+                    <div class="box_event event_3">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_event_3*>
+                                <source id="img_jpg" *ART_img_Xevent_3*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                            <button id="R_innart03" type="button"></button>
+                        </div>
+                    </div>
+                    <div class="box_event event_myGame">
+                        <div class="img_event">
+                            <picture class="">
+                                <source id="img_webp" *ART_img_mygame*>
+                                <source id="img_jpg" *ART_img_Xmygame*>
+                                <img src="../../images/bg_frame.svg">
+                            </picture>
+                            <button id="rightP_myGame" type="button"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

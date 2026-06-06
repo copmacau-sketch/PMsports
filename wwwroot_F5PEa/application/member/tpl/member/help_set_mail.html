@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <script>{JS}</script>
+    <link href="{CDNURL}/style/login.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="SETPW">
+    <div class="help_pwd content_acchelp *ART_lang*">
+        <div id="LayoutDiv1_contact" class="title_help">
+            <div id="toback" class="btn_back"><i><svg><use xlink:href="#icon_back"></use></svg></i></div>
+            <span>*ART_hp_setmail*</span>
+        </div>
+
+        <!--輸入電子郵件-->
+        <div id="div_set_email" name="div_acc" class="box_help_pwd help_pwd01">
+            <div class="text_help_pwd">*ART_hp_setmail_1_text*</div>
+
+            <div class="box_help_input">
+                <label id="set_err_Email" class="lab_input"><!--  錯誤時新增class="error" -->
+                    <input id="set_Email" name="set_Email" type="text" required="required" class="input_mail">
+                    <span class="text_input" data-tooltip="*ART_hp_email*"></span>
+                    <i id="emailclear_btn" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+                </label>
+            </div>
+
+            <!-- error -->
+            <span id="set1_text_error" class="text_error" style="display: none;"><!-- 錯誤訊息 --></span>
+
+            <!-- buttons login cancel -->
+            <div id="div_buttons" name="div_buttons" class="box_help_btn">
+                <div id="cancel_set" class="btn_cancel" data-system="ios12">*ART_hp_btn_cancel*</div>
+                <div id="getVerify" class="btn_next">*ART_hp_btn_next*</div>
+            </div>
+        </div>
+
+
+        <!--輸入驗證碼-->
+        <div id="div_set_verify" name="div_acc" class="box_help_pwd help_pwd02" style="display: none;">
+            <!-- <p>驗證碼已發送到您的電子郵件。</p> -->
+            <div class="box_pwd_mail">
+                <span id="myEmail">user001@gmail.com</span>
+                <div id="reset_mail" class="btn_edit"><svg><use xlink:href="#icon_edit"></use></svg></div>
+            </div>
+
+            <div class="text_help_pwd">*ART_hp_setmail_2_text*</div>
+
+            <div class="box_help_input">
+                <label id="err_myVerify" class="lab_input"><!--  錯誤時新增class="error" -->
+                    <input id="myVerify" name="myVerify" type="text" required="required" class="input_safecode">
+                    <span class="text_input" data-tooltip="*ART_hp_safecode*"></span>
+                    <i id="acc_myVerify_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+                </label>
+            </div>
+
+            <!-- error -->
+            <span id="set2_text_error" class="text_error" style="display: none;"><!-- 錯誤訊息 --></span>
+
+            <div class="box_help_btn">
+                <div id="getVerify2" class="btn_safecode">*ART_hp_btn_resent*</div>
+            </div>
+
+            <!-- buttons login cancel -->
+            <div id="div_buttons" name="div_buttons" class="box_help_btn">
+                <div id="cancel_verify" class="btn_cancel" data-system="ios12">*ART_hp_btn_cancel*</div>
+                <div id="chkVerify" class="btn_submit" data-system="ios12">*ART_hp_btn_submit*</div>
+            </div>
+        </div>
+
+
+        <!--驗證完成-->
+        <div id="div_set_done" name="div_acc" class="box_help_pwd help_pwd03" style="display: none;">
+            <div class="box_pwd_mail">
+                <span id="Email_done">abc123@gmail.com</span>
+                <div id="reset_mail_done" class="btn_edit"><svg><use xlink:href="#icon_edit"></use></svg></div>
+                <div id="remove" class="btn_delet"><svg><use xlink:href="#icon_delet"></use></svg></div>
+            </div>
+            <div class="box_help_note">
+                <span>*ART_hp_setmail_notice*</span>
+                *ART_hp_setmail_3_text*
+            </div>
+        </div>
+
+
+        <!--刪除郵件-->
+        <div id="div_rm_done" name="div_acc" class="box_help_pwd help_pwd04" style="display: none;">
+            <div class="text_help_pwd">*ART_hp_setmail_delemsg*</div>
+            <!-- buttons login cancel -->
+            <div id="div_buttons" name="div_buttons" class="box_help_btn">
+                <div id="add_Email" class="btn_submit" data-system="ios12">*ART_hp_btn_addmail*</div>
+            </div>
+        </div>
+
+        <!--
+                    <div id="div_mail_alert" class="msg_help_pwd" style="display: none;">
+                        <div class="box_msg">
+                            <span id="mail_alert_msg" class="" style="display: none33;">認證碼已經送到您的電子信箱</span>
+                            <div id="close_mail_alert" name="box_exit" class="btn_msg">確定</div>
+                        </div>
+                    </div>
+        -->
+    </div>
+</div>
+</body>
+</html>

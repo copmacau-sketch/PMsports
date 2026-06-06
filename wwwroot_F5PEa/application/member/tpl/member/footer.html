@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+  <title>footer</title>
+  <script id="footerJS">{JS}</script>
+  <link href="{CDNURL}/style/main.css" rel="stylesheet" type="text/css">
+ <!-- <link href="{CDNURL}/style/reset.css" rel="stylesheet" type="text/css">-->
+ <!-- <link href="{CDNURL}/style/frame.css" rel="stylesheet" type="text/css">-->
+
+</head>
+    <body>
+        <div id="footer" class="footer">
+            <div id="today_notice" class="notice_text" style="display: none;">
+                <span>
+                    <tt id="timeZone_msg">*ART_game_gmt4*</tt>
+                    <p id="footer_time">
+                    <!-- 18:30:00 -->
+                    </p>
+                </span>
+            </div>
+            <div class="div_space"></div>
+            <div id="content_footer" class="content_footer">
+                <div class="box_footer_btn">
+                    <div id="footer_live" class="btn_footer">
+                        <span>*ART_footer_inplay*</span>
+                    </div>
+                    <div id="footer_hot" class="btn_footer">
+                        <span>*ART_footer_hot*</span>
+                    </div>
+                    <div id="footer_today" class="btn_footer">
+                        <span>*ART_footer_today*</span>
+                    </div>
+                    <div id="footer_soon" class="btn_footer">
+                        <span>*ART_footer_soon*</span>
+                    </div>
+                    <div id="footer_early" class="btn_footer">
+                        <span>*ART_footer_early*</span>
+                    </div>
+                    <div id="footer_outrights" class="btn_footer">
+                        <span>*ART_footer_outrights*</span>
+                    </div>
+                    <div id="footer_tv" class="btn_footer">
+                        <span>*ART_footer_liveTV*</span>
+                    </div>
+                    <div id="footer_features_new" class="btn_footer">
+                        <span>*ART_footer_feature*</span>
+                    </div>
+                    <div id="footer_help_faq" class="btn_footer">
+                        <span>*ART_footer_faq*</span>
+                    </div>
+                    <div id="footer_help_sys" class="btn_footer">
+                        <span>*ART_footer_system*</span>
+                    </div>
+                    <div id="footer_help_term" class="btn_footer">
+                        <span>*ART_footer_term*</span>
+                    </div>
+                    <div id="footer_rules_general" class="btn_footer">
+                        <span>*ART_footer_rule*</span>
+                    </div>
+                </div>
+                <div id="footer_relating_box" class="box_relating" style="display: ;">
+                    <div id="footer_relating_title" class="title_relating">
+                        <div>*ART_footer_relate*</div>
+                    </div>
+                </div>
+                <div id="footer_app" class="btn_footer_app" style="display: none;">
+                    <i>
+                        <svg>
+                            <use xlink:href="#icon_appdownload"/>
+                        </svg>
+                    </i>
+                    <span>*ART_footer_app*</span>
+                </div>
+                <div class="box_footer_sel">
+                    <div id="footer_chg_language" class="sel_footer">
+                        <div class="title_sel_footer">*ART_footer_language*</div>
+                        <span>
+                            <tt id="footer_zh-cn" class="btn_acc_sub" style="display:none;">*ART_lan_cn*</tt>
+                            <tt id="footer_zh-tw" class="btn_acc_sub" style="display:none;">*ART_lan_tw*</tt>
+                            <tt id="footer_en-us" class="btn_acc_sub" style="display:none;">*ART_lan_en*</tt>
+                        </span>
+                        <i id="footer_icon_zh-tw" class="icon_lang icon_hk" style="display:none;"></i>
+                        <i id="footer_icon_zh-cn" class="icon_lang icon_cn" style="display:none;"></i>
+                        <i id="footer_icon_en-us" class="icon_lang icon_en" style="display:none;"></i>
+                        <select id="footer_langx_dropdown" class="" tabindex="-1">
+                            <option value="langx_zh-cn">*ART_lan_cn*</option>
+                            <option value="langx_zh-tw">*ART_lan_tw*</option>
+                            <option value="langx_en-us">*ART_lan_en*</option>
+                        </select>
+                        <!-- 語系選擇 -->
+                        <div id="footer_selec_language" class="box_popup_selec">
+                            <!-- Show add class="on"-->
+                            <div id="footer_lang_focus" class="popup_lange">
+                                <label id="footer_selec_zh-cn" class="btn_popup_selec">
+                                    <i class="icon_lang icon_cn"></i>
+                                    <tt>*ART_lan_cn*</tt>
+                                    <input id="footer_langx_zh-cn" value="zh-cn" type="radio" name="selec_lang">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="footer_selec_zh-tw" class="btn_popup_selec">
+                                    <i class="icon_lang icon_hk"></i>
+                                    <tt>*ART_lan_tw*</tt>
+                                    <input id="footer_langx_zh-tw" value="zh-tw" type="radio" name="selec_lang">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="footer_selec_en-us" class="btn_popup_selec">
+                                    <i class="icon_lang icon_en"></i>
+                                    <tt>*ART_lan_en*</tt>
+                                    <input id="footer_langx_en-us" value="en-us" type="radio" name="selec_lang">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="footer_timetype" class="sel_footer" style="display: ;">
+                        <div class="title_sel_footer">*ART_footer_time*</div>
+                        <span>
+                            <tt id="footer_sysTime" class="btn_acc_sub" style="display:none;">*ART_time_sys*</tt>
+                            <tt id="footer_devTime" class="btn_acc_sub" style="display:none;">*ART_time_dev*</tt>
+                        </span>
+                        <select id="footer_timetype_dropdown" class="" tabindex="-1">
+                            <option value="time_sysTime">*ART_time_sys*</option>
+                            <option value="time_devTime">*ART_time_dev*</option>
+                        </select>
+                        <!-- 時間顯示選擇 -->
+                        <div id="footer_selec_timetype" class="box_popup_selec">
+                            <!-- Show add class="on"-->
+                            <div id="footer_timetype_focus" class="popup_oddtype">
+                                <label id="footer_selec_sysTime" class="btn_popup_selec">
+                                    <tt>*ART_time_sys*</tt>
+                                    <input id="footer_timetype_sysTime" value="sysTime" type="radio" name="selec_timetype">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="footer_selec_devTime" class="btn_popup_selec">
+                                    <tt>*ART_time_dev*</tt>
+                                    <input id="footer_timetype_devTime" value="devTime" type="radio" name="selec_timetype">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box_footer_text">
+                    <div class="contantus_footer">
+                        <span>*ART_footer_phone*</span>
+                        <div>
+                            <a id="tel01" href="tel:+85258089063">+852 5808 9063</a>
+                            <a id="tel02" href="tel:+85258088664">+852 5808 8664</a>
+                            <a id="tel03" href="tel:+639151950193">+63  915  195  0193</a>
+                            <a id="tel04" href="tel:+639267066868">+63  926  706  6868</a>
+                        </div>
+                    </div>
+                    <div class="contantus_footer">
+                        <span>*ART_footer_email*</span>
+                        <a id="" href="mailto:cs1@ra2288.com">cs1@ra2288.com</a>
+                    </div>
+                </div>
+                <div class="box_copyright">*ART_footer_copyright*
+			</div>
+            </div>
+        </div>
+    </body>
+</html>

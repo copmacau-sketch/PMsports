@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>nav menu</title>
+    <script id="bottomJS">{JS}</script>
+    <link href="{CDNURL}/style/main.css" rel="stylesheet" type="text/css">
+</head>
+    <body>
+        <div class="nav_menu">
+            <div class="menu_bottom">
+                <div id="menu_sport" class="btn_nav" style="display: none!important;">
+                    <i class="icon_sport">
+                        <svg>
+                            <use xlink:href="#icon_sport"/>
+                        </svg>
+                    </i>
+                    <span>*ART_bottom_sport*</span>
+                </div>
+                <!-- 電視直播 -->
+                <div id="menu_tv" class="btn_nav">
+                    <i class="icon_tv">
+                        <svg>
+                            <use xlink:href="#icon_tv"/>
+                        </svg>
+                    </i>
+                    <span>*ART_bottom_schedule*</span>
+                </div>
+                <!-- 我的賽事：０>１場新增class="mygame_ani0" , 1場以上的新增 class="mygame_ani" | 700ms後須將mygame_ani0/mygame_ani移除 -->
+                <div id="menu_myGame" class="btn_nav btn_myGame">
+                    <i id="menu_myGame_num" class="text_num"></i>
+                    <i class="icon_star">
+                        <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M14.9,6.9l-2.4,2.9c-0.2,0.2-0.3,0.5-0.2,0.8l0.3,3.8c0,0.2-0.1,0.5-0.3,0.6c-0.2,0.1-0.4,0.1-0.6,0.1l-3.3-1.5c-0.3-0.1-0.5-0.1-0.8,0L4.3,15c-0.2,0.1-0.4,0.1-0.6-0.1c-0.2-0.1-0.3-0.4-0.3-0.6l0.3-3.8c0-0.3-0.1-0.5-0.2-0.8L1.1,6.9C0.9,6.7,0.9,6.5,1,6.3C1.1,6,1.2,5.9,1.4,5.8L5,5c0.3-0.1,0.5-0.2,0.6-0.5l1.9-3.3c0.2-0.4,0.8-0.4,1,0l1.9,3.3C10.5,4.8,10.7,4.9,11,5l3.6,0.8c0.2,0,0.4,0.2,0.4,0.4C15.1,6.5,15.1,6.7,14.9,6.9z"/>
+                        </svg>
+                    </i>
+                    <span>*ART_bottom_mygame*</span>
+                    <!-- CRM-55移除 -->
+                    <tt id="menu_myGame_dot" class="dot_green" style="display: none!important;"></tt>
+                </div>
+                <!-- 注單：注單數量大於１ class="betslip_exist" | 新增注單 class="betslip_add" | "注單"文字與賠率持續輪播 class="betslip_loop" -->
+                <div id="menu_betslip" class="btn_betslip">
+                    <i id="bet_select_count" class="bet_amount">0</i>
+                    <span class="text_betslip">
+                        <div class="wrap_betslip">
+                            <span class="betslip_name">*ART_bottom_betslip*</span>
+                            <p id="bet_select_ior" class="betslip_odd"></p>
+                            <span class="betslip_name">*ART_bottom_betslip*</span>
+                        </div>
+                    </span>
+                </div>
+                <!-- 投注記錄：數量大於１ class="wager_exist" | 新增單量 class="wager_add" -->
+                <div id="menu_todaywagers" class="btn_nav btn_wager">
+                    <i id="wager_count" class="num_betslip"></i>
+                    <span>*ART_bottom_mybets*</span>
+                </div>
+                <!-- 我的帳戶 -->
+                <div id="menu_acc_page" class="btn_nav btn_myCredit">
+                    <tt id="menu_myAcc_new" class="dot_red"></tt>
+                    <i>
+                        <svg>
+                            <use xlink:href="#icon_account"/>
+                        </svg>
+                    </i>
+                    <span id="menu_acc_credit" class="text_credit"></span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

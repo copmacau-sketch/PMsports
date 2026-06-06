@@ -1,0 +1,42 @@
+[Unit]
+Description=Crown-Gold bdata collectors (BAT.exe replacement)
+Documentation=file:///opt/crown-gold/collector/crown_gold_collector.py
+After=network-online.target mariadb.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+
+# 主进程 = 监督器；它再 fork 出 14 个 php 子进程
+ExecStart=/usr/bin/python3 /opt/crown-gold/collector/crown_gold_collector.py \
+    --bdata /home/ubuntu/crown-gold/wwwroot_F5PEa/application/bdata \
+    --log-dir /var/log/crown-gold \
+    --config /home/ubuntu/crown-gold/wwwroot_F5PEa/application/bdata/bat/hm_config.ini \
+    --restart-interval 1600
+
+# 优雅停 → 给 30s 让所有 php 子进程退干净
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=30s
+
+# 进程崩溃 → 5s 后重启
+Restart=always
+RestartSec=5s
+
+# 资源限制 —— 14 个 php-cli 通常 < 800MB
+MemoryMax=2G
+TasksMax=128
+
+# 安全 —— 只允许写日志目录
+ProtectSystem=full
+ReadWritePaths=/var/log/crown-gold /home/ubuntu/crown-gold/wwwroot_F5PEa/application/bdata
+NoNewPrivileges=yes
+
+# 必须能跑 PHP CLI + 写日志
+Environment=LANG=zh_CN.UTF-8
+Environment=PHP_INI_SCAN_DIR=/etc/php/7.4/cli/conf.d
+
+[Install]
+WantedBy=multi-user.target

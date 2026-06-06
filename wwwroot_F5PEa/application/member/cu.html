@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script>
+        var streamid = "";
+        function init(){
+            //window.addEventListener("message", onMessage, false);
+            sendMsg("CU_OK");
+        }
+
+        function sendMsg(msg){
+            echo("[cu][sendMsg]"+ msg);
+            // echo(parent.postMessage);
+            parent.postMessage(msg,"*");
+        }
+
+        function showError(msg){
+            sendMsg("error,"+msg);
+        }
+
+        function getTime(){
+            return "["+new Date().toString().substring(16,24)+"][sub]";
+        }
+
+        var echo = function(msg){
+            outPrint(getTime()+msg);
+        }
+        var outPrint = console.log;
+    </script>
+</head>
+<body onload="init();">
+</body>
+</html>

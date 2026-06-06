@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>SK 外層盤面</title>
+	<script id="homeJS">{JS}</script>
+	
+	<link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/flag.css" rel="stylesheet" type="text/css">
+<body>
+	<div class="content_l">
+		<div class="box_league box_live sk *ART_lang*">
+
+			<!-- no data -->
+			<div id="div_nodata" name="div_nodata" class="no_event" style="display: none;"><i></i><span>*ART_game_nodata*</span></div>
+
+			<!-- outer bet page content -->
+			<div id="div_show" class="box_outer sk_outer"></div>
+
+			<!-- pagination -->
+			<div id="pageDiv" class="box_page" style="display: none;"></div>
+			<div id="page_model" class="box_page page_5" style="display: none;"><!-- class="page_5 / page_3 / page_2" -->
+				<!-- 反灰按鈕class="off" -->
+				<span id="pg_first" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr2"/></svg></span>
+				<span id="pg_prev" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr"/></svg></span>
+				*PAGES*
+				<span id="pg_next" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr"/></svg></span>
+			</div>
+			<div id="pageBtn_model" style="display: none;">
+				<span id="pg_*PAGENUM*" class="btn_page">*PAGENUM*</span>
+			</div>
+
+			<!-- outer bet page models -->
+			<div id="div_model" class="box_outer bk_outer" style="display:none;">
+				<div>
+					<!-- league name -->
+					<div *ST* class="btn_title_le *DIS_LINE*">
+						<tt id="lea_name">*LEAGUE*</tt>
+						<i class="icon_flag *LEAGUE_FLAG*"></i>
+					</div>
+					<div id="game_*ECID*" class="box_lebet bet_type_6 *BLOCKSCROLL*" *DIS_GAME*>
+						<div class="tag_sort" *CUP_DIS*><span>*CUP_GAMEDATE*</span></div>
+						<div class="box_lebet_top">
+							<div id="mainShow_*ECID*" class="box_lebet_l">*MAIN_SHOW*</div>
+							<div id="ratioShow_*ECID*" class="box_lebet_r">*RATIO_SHOW*</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Time sort tag Model -->
+			<div id="timeSort_model" style="display: none;"><div class="tag_sort"><span>*TIMESORT_DATE*</span></div></div>
+
+			<!-- league content Model -->
+			<xmp id="left_info" name="left_info" style="display:none;">
+				<div class="box_star">
+					<i id="star_*ECID*" class="icon_star"><svg><use xlink:href="#icon_star"/></svg></i>
+				</div>
+				<div id="div_icon_info" class="box_state">
+					<tt class="text_time_go">
+						<i>*BEST*</i>
+					</tt>
+					<i id="icon_info" class="icon_information" style="display:*INFO_SHOW*"><svg><use xlink:href="#icon_i"></use></svg></i>
+					<i id="icon_rb" class="icon_inplay" style="display:none"></i>
+					<i id="icon_N" class="icon_n" style="display:*MIDFIELD_SHOW*"></i>
+				</div>
+				<label class="">
+					<div id="info_team" class="btn_inn_team">
+						<div class="box_score bs">
+							<span class="text_point teamH *LASTESTSCORE_H*"><!-- 最後入球 Add class="last_goal" -->
+								*SCORE_H*
+							</span>
+							<span class="text_point teamC *LASTESTSCORE_C*">
+								*SCORE_C*
+							</span>
+						</div>
+						<div class="box_team teamH"><span class="text_team *STRONG_H*">*TEAM_H*</span><!-- 強隊 Add class="strong_team" --></div>
+						<div class="box_team teamC"><span class="text_team *STRONG_C*">*TEAM_C*</span></div>
+					</div>
+					<div class="btn_game_more">
+						<div id="info_more" class="btn_total">
+							<span class="game_total">*MORE*</span>
+							<i class="icon_arrow"><svg><use xlink:href="#icon_morearr"/></svg></i>
+						</div>
+						<div id="info_icon_btn" class="wrap_icon_btn">
+							<i id="icon_tv_*ECID*" class="*TV_STYLE*" style="display:*DISPLAY_TV*"></i><!-- icon_tv /icon_mt_[球類代碼] -->
+						</div>
+					</div>
+				</label>
+			</xmp>
+
+			<xmp id="model_FT" name="div_model" style="display:none;">
+				<!-- RF 獨贏 第Ｘ局-->
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet"><span>*ART_game_rm*</span><tt>*STR_RF*</tt></div>
+					<div id="bet_*GID*_*ECID*_RFH" class="btn_lebet_odd *CLOSE_RFH*">
+						<span class="text_odds">*IOR_RFH*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_RFC" class="btn_lebet_odd *CLOSE_RFC*">
+						<span class="text_odds">*IOR_RFC*</span>
+					</div>
+				</div>
+
+				<!-- RM 獨贏 -->
+				<div class="box_lebet_odd">
+					<div class="head_lebet"><p>*ART_game_rm*</p></div>
+					<div id="bet_*GID*_*ECID*_RMH" class="btn_lebet_odd *CLOSE_RMH*">
+						<span class="text_odds">*IOR_RMH*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_RMC" class="btn_lebet_odd *CLOSE_RMC*">
+						<span class="text_odds">*IOR_RMC*</span>
+					</div>
+				</div>
+
+				<!-- RE 讓局 -->
+				<div class="box_lebet_odd">
+					<div class="head_lebet"><p>*ART_game_re*</p></div>
+					<div id="bet_*GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_REH*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*IOR_REH*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_REC*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*IOR_REC*</span>
+					</div>
+				</div>
+
+				<!-- ROU 總局數-->
+				<div class="box_lebet_odd">
+					<div class="head_lebet"><p>*ART_game_rou*</p></div>
+					<div id="bet_*GID*_*ECID*_ROUC" class="btn_lebet_odd *CLOSE_ROUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUC*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUH" class="btn_lebet_odd *CLOSE_ROUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUH*</span>
+					</div>
+				</div>
+
+				<!-- RM-ms 獨贏 第x-y局-->
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet"><span>*ART_game_rm*</span><tt>*STR_MS*</tt></div>
+					<div id="bet_*MS_GID*_*ECID*_RMH" class="btn_lebet_odd *CLOSE_MS_RMH*">
+						<span class="text_odds">*MS_IOR_RMH*</span>
+					</div>
+					<div id="bet_*MS_GID*_*ECID*_RMC" class="btn_lebet_odd *CLOSE_MS_RMC*">
+						<span class="text_odds">*MS_IOR_RMC*</span>
+					</div>
+				</div>
+
+				<!-- RE-ms 讓局 第x-y局-->
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet"><span>*ART_game_re*</span><tt>*STR_MS*</tt></div>
+					<div id="bet_*MS_GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_MS_REH*">
+						<span>
+							<tt class="text_ballhead">*MS_RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*MS_IOR_REH*</span>
+					</div>
+					<div id="bet_*MS_GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_MS_REC*">
+						<span>
+							<tt class="text_ballhead">*MS_RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*MS_IOR_REC*</span>
+					</div>
+				</div>
+			</xmp>
+		</div>
+	</div>
+</body>
+</html>

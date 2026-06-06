@@ -1,0 +1,1570 @@
+<!DOCTYPE HTML>
+<html id="scroll_html" lang="en" translate="no">
+    <title>Welcome</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover"/>
+        <meta name='theme-color' content='#FFFFFE'/>
+		<script id="homeJS">{JS}</script>
+ <style id="indexCS">
+            * {
+                padding: 0;
+                margin: 0;
+                font-family: Arial;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+            }
+
+            ul,li {
+                margin: 0;
+                padding: 0;
+            }
+
+            li {
+                list-style: none;
+            }
+
+            a {
+                text-decoration: none;
+            }
+
+            tt,i {
+                font-style: normal;
+            }
+
+            a img {
+                border: 0px;
+            }
+
+            .clear {
+                clear: both;
+            }
+
+            html,body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                touch-action: manipulation;
+                /* overflow: hidden; */
+            }
+
+            body {
+                overflow-x: hidden;
+                overscroll-behavior: none;
+            }
+
+            /* ios15 */
+            .ios15 body {
+                /* overflow: hidden; */
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+
+            /* iphone 6 / 7 / 8 */
+            @media screen and (orientation: portrait) and (height: 629px), screen and (orientation:portrait) and (height: 664px), screen and (orientation:portrait) and (height: 746px), screen and (orientation:portrait) and (height: 715px), screen and (orientation:portrait) and (height: 635px), screen and (orientation:portrait) and (height: 719px) {
+                html.ios15 {
+                    height: 100vh!important;
+                }
+            }
+
+            @media screen and (orientation: portrait) and (height: 548px), screen and (orientation:portrait) and (height: 552px) {
+                html.ios15 {
+                    height: 624px!important;
+                }
+
+                .ios15 body {
+                    height: 100%;
+                }
+            }
+
+            @media screen and (orientation: portrait) and (height: 617px), screen and (orientation:portrait) and (height: 620px) {
+                html.ios15 {
+                    height: 693px!important;
+                }
+
+                .ios15 body {
+                    height: 100%;
+                }
+            }
+
+            i>svg {
+                display: block;
+                width: 100%;
+                height: 100%;
+            }
+
+            table {
+                border-collapse: collapse;
+            }
+
+            input {
+                -webkit-appearance: none;
+                -moz-appearance: none;
+                appearance: none;
+            }
+
+            input::-ms-reveal, input::-ms-clear {
+                display: none;
+            }
+
+            input:hover {
+                outline: none;
+            }
+
+            *, *:focus, *:active, *:hover {
+                outline: none;
+                -moz-outline: none;
+                -webkit-user-modify: read-write-plaintext-only;
+                -webkit-user-modify: read-only;
+                -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+                -webkit-tap-highlight-color: transparent;
+            }
+
+            [class^="btn_"] {
+                -webkit-text-size-adjust: none;
+                text-size-adjust: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            label {
+                background: none;
+            }
+
+            * {
+                -webkit-text-size-adjust: none;
+                text-size-adjust: none;
+            }
+
+            @media screen and (orientation: landscape) {
+                body {
+                    padding-right: env(safe-area-inset-right);
+                    padding-left: env(safe-area-inset-left);
+                }
+            }
+
+            select:-moz-focusring {
+                color: transparent;
+                text-shadow: 0 0 0 #000;
+                outline: none;
+                border: none;
+            }
+
+            select {
+                background: transparent;
+            }
+
+            ::-moz-focus-inner {
+                border: 0;
+            }
+
+            .ord_down_style {
+                pointer-events: auto;
+            }
+
+            /* hide scrollbar */
+            .box_slide::-webkit-scrollbar {
+                display: none;
+            }
+
+            .box_slide {
+                -ms-overflow-style: none;
+            }
+
+            /* fixed android chrome pull to refresh issuse */
+            body {
+                margin: 0;
+            }
+
+            input {
+                -webkit-user-select: auto!important;
+                user-select: text!important;
+            }
+
+            @font-face {
+                font-family: 'TAHOMA2';
+                src: local('Tahoma');
+            }
+
+            @media screen and (max-width: 1023px) {
+                :root {
+                    --bottom_show: 0px;
+                    --popup_show: 56px;
+                    --popup_margin_show: 56px;
+                    --wrap_show: 56px;
+                }
+
+                .hide {
+                    --bottom_show: 0px;
+                    --popup_show: 0 px;
+                    --popup_margin_show: 0px;
+                }
+
+                .ios_scroll {
+                    --bottom_show: 0px;
+                    --popup_show: 56px;
+                    --popup_margin_show: 56px;
+                    --wrap_show: 0px;
+                }
+
+                .ios_scroll .hide {
+                    --bottom_show: 0px;
+                    --popup_show: 0px;
+                    --popup_margin_show: 0px;
+                }
+            }
+
+            @media screen and (min-width: 1024px) {
+                :root {
+                    --bottom_show: 0px;
+                    --wrap_show: 0px;
+                    --popup_show: 0px;
+                }
+            }
+
+            html {
+                overflow: hidden;
+            }
+
+            body {
+                overflow: hidden;
+            }
+
+            .main {
+                width: 100%;
+                height: 100%;
+                margin-bottom: env(safe-area-inset-bottom);
+                background: #fff;
+                overflow: hidden;
+            }
+
+            .main_height {
+                height: calc(100% + 1px);
+            }
+
+            .wrapper {
+                position: relative;
+                display: flex;
+                width: 100%;
+                /* height: auto; */
+                height: 100%;
+                min-height: 100%;
+                justify-content: flex-start;
+                align-items: flex-start;
+                align-content: flex-start;
+                flex-wrap: wrap;
+                flex-direction: column;
+                /* padding-bottom: 56px; */
+                overflow: hidden;
+            }
+
+            /* LOADING */
+            .loading {
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: -webkit-box;
+                display: -ms-flexbox;
+                display: flex;
+                width: 100%;
+                height: 100%;
+                min-height: 80px;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                background: #fff;
+            }
+
+            .loading_right {
+                position: fixed;
+                right: 0;
+                top: 56px;
+                display: none;
+                width: 33.33%;
+                height: calc(100% - 56px);
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+                background: #fff;
+            }
+
+            .content_sport .loading {
+                position: absolute;
+                flex: none;
+            }
+
+            .right_wrap.on_loading {
+                height: 80px;
+            }
+
+            .loading_r {
+                display: none;
+            }
+
+            .on_loading .loading_r {
+                position: absolute;
+                z-index: 6!important;
+                display: flex;
+            }
+
+            .icon_load {
+                display: block;
+                width: 32px;
+                height: 32px;
+                background-image: url('../images/icon_load.svg');
+                background-size: 32px 32px;
+                background-repeat: no-repeat;
+                animation: loading-animate 1s linear infinite both;
+                -webkit-animation: loading-animate 1s linear infinite both;
+            }
+
+            @keyframes loading-animate {
+                0% {
+                    transform: rotate(0);
+                }
+
+                100% {
+                    transform: rotate(360deg);
+                }
+            }
+
+            @-webkit-keyframes loading-animate {
+                0% {
+                    -webkit-transform: rotate(0);
+                }
+
+                100% {
+                    -webkit-transform: rotate(360deg);
+                }
+            }
+
+            /* LOADING */
+            /* HEADER */
+            .header {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                display: flex;
+                width: 100%;
+                height: 56px;
+                font-size: 14px;
+                align-items: center;
+                justify-content: space-between;
+                flex: 0 0 56px;
+            }
+
+            /* .box_header{
+	transform: translate3d(0, 0, 0);
+	transition: transform 0.3s ease;
+} */
+            /* HEADER */
+            /* 左右選單 */
+            .menu_l, .slide_r {
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                width: 100%;
+                height: calc(100% - var(--bottom_show));
+                visibility: collapse;
+                transition: visibility 0s 0.3s;
+            }
+
+            .slide_r {
+                align-items: flex-start;
+            }
+
+            .menu_l.on, .slide_r.on {
+                visibility: visible;
+                transition: visibility 0s;
+            }
+
+            /* 左右選單 */
+            /* BET SLIP */
+            .bet_slip {
+                position: fixed;
+                bottom: var(--bottom_show);
+                left: 0;
+                right: 0;
+                display: flex;
+                width: 100%;
+                height: auto;
+                max-height: calc(100% - var(--bottom_show));
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                /* background: #FAFAF9; */
+                pointer-events: none;
+                z-index: 7;
+                transition: bottom 0.2s ease;
+            }
+
+            .bet_slip .ord_full_mask {
+                pointer-events: none;
+            }
+
+            .bet_slip.on .ord_full_mask {
+                pointer-events: auto;
+            }
+
+            @keyframes bet_slip_on {
+                0% {
+                    transform: translate3d(0, 100%, 0);
+                }
+
+                1% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                100% {
+                    transform: translate3d(0, 0%, 0);
+                }
+            }
+
+            @-webkit-keyframes bet_slip_on {
+                0% {
+                    transform: translate3d(0, 100%, 0);
+                }
+
+                1% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                100% {
+                    transform: translate3d(0, 0%, 0);
+                }
+            }
+
+            @keyframes bet_slip_off {
+                0% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                99% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                100% {
+                    transform: translate3d(0, 100%, 0);
+                }
+            }
+
+            @-webkit-keyframes bet_slip_off {
+                0% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                99% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                100% {
+                    transform: translate3d(0, 100%, 0);
+                }
+            }
+
+            @keyframes bet_slip_mini {
+                0% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                100% {
+                    transform: translate3d(0, 0%, 0);
+                }
+            }
+
+            @-webkit-keyframes bet_slip_mini {
+                0% {
+                    transform: translate3d(0, 0%, 0);
+                }
+
+                100% {
+                    transform: translate3d(0, 0%, 0);
+                }
+            }
+
+            /* BET SLIP */
+            /* POPUP & 輸贏預測 & ES資料分析 */
+            .popup, .forecast, .league_set {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: var(--bottom_show);
+                display: flex;
+                width: 100%;
+                height: calc(100% - var(--bottom_show));
+                align-items: center;
+                justify-content: center;
+                visibility: hidden;
+                overflow: hidden;
+                pointer-events: none;
+            }
+
+            .es_statistic {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: var(--bottom_show);
+                display: flex;
+                width: 100%;
+                height: 100%;
+                align-items: flex-end;
+                justify-content: center;
+                visibility: unset;
+                overflow: hidden;
+                pointer-events: none;
+            }
+
+            .forecast {
+                max-height: calc(100% - var(--popup_show));
+                margin-top: var(--popup_margin_show);
+                visibility: unset!important;
+            }
+
+            .es_statistic {
+                visibility: unset;
+            }
+
+            .popup.on, .popup>.on, .league_set.on {
+                visibility: visible;
+            }
+
+            .forecast.on, .es_statistic.on {
+                display: flex;
+            }
+
+            .popup > div > div, .forecast>div, .league_set>div, .es_statistic>div {
+                pointer-events: auto;
+            }
+
+            /* POPUP & 輸贏預測 & ES資料分析 */
+            /* 手機控制面板 */
+            .nav_menu {
+                position: fixed;
+                left: 0;
+                bottom: var(--bottom_show);
+                display: block;
+                width: 100vw;
+                /* min-height: 58px; */
+                height: calc(58px + env(safe-area-inset-bottom));
+                flex: 0 0;
+                transform: translate3d(0, 0, 0);
+                transition: transform 0.3s ease;
+            }
+
+            .menu_bottom {
+                width: 100%;
+                height: 100%;
+                border-top: 2px solid #3C2F26;
+            }
+
+            .ios15 .menu_bottom {
+                height: auto;
+                min-height: 58px;
+            }
+
+            /* 手機控制面板 */
+            /* 維護畫面框架 */
+            .maintain, .maintain_clear {
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                background: #fff;
+                overflow-y: auto;
+                padding-bottom: constant(safe-area-inset-bottom);
+                padding-bottom: env(safe-area-inset-bottom);
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .maintain_clear {
+                position: fixed;
+                top: 56px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: auto;
+                padding-bottom: calc(58px + env(safe-area-inset-bottom));
+                -webkit-overflow-scrolling: auto;
+                / }
+
+            @media (orientation: portrait) {
+                .maintain_clear {
+                    touch-action: none;
+                    overflow-y: hidden;
+                    height: calc(100% - 1px);
+                }
+            }
+
+            @media (orientation: landscape) {
+                .maintain_clear {
+                    -webkit-overflow-scrolling: auto;
+                    overflow-y: auto;
+                    overflow-x: hidden;
+                    3 height: calc(100% - env(safe-area-inset-bottom) - 20px);
+                }
+            }
+
+            /* 維護畫面框架 */
+            /* 右面板 */
+            .content_r {
+                display: none;
+            }
+
+            .right_wrap {
+                position: relative;
+                height: auto;
+                padding: 8px 8px 0 8px;
+                overflow: hidden;
+                background: #FFF;
+            }
+
+            /* 右面板 */
+            /* 登入 & 帳號設定 & 忘記密碼 */
+            .login {
+                display: flex;
+                width: 100%;
+                height: auto;
+                min-height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+                overflow: hidden;
+            }
+
+            .scroll_lock .login {
+                overflow: hidden;
+                -webkit-overflow-scrolling: auto;
+            }
+
+            .chg_acc {
+                position: relative;
+                height: 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .login:empty, .chg_acc:empty {
+                display: none;
+            }
+
+            /* 登入 & 帳號設定 & 忘記密碼 */
+            /* 主面板 */
+            .content_l {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                min-height: unset;
+                max-height: 100%;
+                padding-top: 56px;
+                flex-direction: column;
+                flex: 1 1 100%;
+                overflow: hidden;
+            }
+
+            .box_l {
+                display: flex;
+                width: 100%;
+                height: 100%;
+                flex-direction: column;
+                flex: 1 1 100%;
+                overflow-x: hidden;
+                overflow-y: auto;
+                /*	content-visibility: auto;*/
+                /* will-change: scroll-position; */
+            }
+
+            .box_l_height {
+                display: none!important;
+            }
+
+            /* 主面板 */
+            /* 橫向選單相關 */
+            .box_scroll {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                overflow: hidden;
+            }
+
+            .box_slide>label, .menu_sport>label, .menu_date>label {
+                display: inline-block;
+                width: auto;
+                height: 100%;
+            }
+
+            .box_scroll:not(.header_scroll) .btn_go_l, .box_scroll:not(.header_scroll) .btn_go_r {
+                position: absolute;
+                z-index: 3;
+                display: block;
+                opacity: 0;
+                transition: visibility 0s , opacity 0.3s ease;
+            }
+
+            .box_scroll .btn_go_l {
+                transform: translate3d(0, 0, 0) rotate(180deg);
+            }
+
+            .box_scroll .btn_go_r {
+                transform: translate3d(0, 0, 0);
+            }
+
+            .box_scroll .btn_go_l.on, .box_scroll .btn_go_r.on {
+                opacity: 1;
+            }
+
+            .btn_go_l {
+                transform: rotate(180deg);
+            }
+
+            .btn_go_r {
+                padding-left: 10px;
+            }
+
+            .btn_go_l svg, .btn_go_r svg {
+                width: 8px;
+                height: 12px;
+            }
+
+            /* 橫向選單相關 */
+            /* clone_show setting*/
+            .zindex {
+                position: absolute!important;
+                top: 176px;
+                width: 100%;
+                height: auto;
+                z-index: -1;
+                opacity: 0.5;
+                pointer-events: none;
+            }
+
+            .zindex .box_lebet_r {
+                max-width: calc(100% - 192px);
+            }
+
+            /* clone_show setting*/
+            /* 提前加載盤面圖案 */
+            .locker {
+                visibility: hidden;
+                background-image: url('../images/icon_nobet.webp?v0419');
+            }
+
+            /* 提前加載盤面圖案 */
+            /* 背景鎖定 */
+            body.scroll_lock {
+                overflow: hidden;
+            }
+
+            .box_l.scroll_lock {
+                overflow: hidden;
+                -webkit-overflow-scrolling: auto!important;
+            }
+
+            /* 背景鎖定 */
+            /* 頁腳 */
+            .footer {
+                position: relative;
+                display: flex;
+                width: 100%;
+                height: auto;
+                margin-top: auto;
+                flex-direction: column;
+                flex: none;
+                overflow: hidden;
+            }
+
+            .content_footer {
+                padding-bottom: 58px;
+            }
+
+            /* 頁腳 */
+            /* z-index */
+            .forecast {
+                z-index: 8;
+            }
+
+            .popup {
+                z-index: 8;
+            }
+
+            .popup_sys {
+                z-index: 10;
+            }
+
+            .slide_r,.menu_l {
+                z-index: 9;
+            }
+
+            .header {
+                z-index: 7;
+            }
+
+            .nav_menu,.menu_bottom {
+                z-index: 7;
+            }
+
+            .maintain {
+                z-index: 7;
+            }
+
+            .maintain_clear {
+                z-index: 6;
+            }
+
+            .loading {
+                z-index: 6;
+            }
+
+            .head_sport {
+                z-index: 4;
+            }
+
+            .content_l .loading,.content_r .loading {
+                z-index: 3;
+            }
+
+            .league_set {
+                z-index: 8;
+            }
+
+            .es_statistic {
+                z-index: 8;
+            }
+
+            /* z-index */
+            /* ios畫面 */
+            html.ios_scroll {
+                height: auto;
+                min-height: 100vh;
+                overflow-y: auto;
+            }
+
+            .ios_scroll body {
+                height: auto;
+                min-height: 100%;
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+
+            .ios_scroll .main {
+                height: auto;
+                min-height: 100%;
+            }
+
+            .ios_scroll .wrapper {
+                height: auto;
+                padding-bottom: 58px;
+            }
+
+            .ios_scroll .content_l {
+                height: auto;
+                max-height: unset;
+            }
+
+            .ios_scroll .box_l {
+                height: auto;
+                overflow-y: hidden;
+            }
+
+            .ios_scroll .nav_menu {
+                left: 0;
+                right: 0;
+                padding-bottom: env(safe-area-inset-bottom);
+                background: #503f32;
+            }
+
+            .ios_scroll .box_header {
+                padding-left: env(safe-area-inset-left);
+                padding-right: env(safe-area-inset-right);
+            }
+
+            .swiper-container_ios {
+                touch-action: pan-y;
+            }
+
+            .ios_scroll.scroll_lock {
+                overflow: hidden;
+                touch-action: none;
+            }
+
+            .ios_scroll body.scroll_lock {
+                overflow: hidden;
+                touch-action: none;
+            }
+
+            .scroll_lock .ios_scroll .box_lebet_top {
+                /* 	will-change: opacity; */
+            }
+
+            /* ios畫面 */
+            /* 0-639畫面*/
+            @media screen and (min-width: 1px) and (max-width: 639px) {
+                .box_acc>.box_content {
+                    padding-bottom: 0;
+                    padding-bottom: constant(safe-area-inset-bottom);
+                    padding-bottom: env(safe-area-inset-bottom);
+                }
+            }
+
+            /* 0-1023畫面*/
+            @media screen and (min-width: 1024px) {
+                .sideshow_l, .sideshow_s {
+                    display: none;
+                }
+            }
+
+            /* 1024以上畫面 */
+            @media screen and (min-width: 1024px) {
+                body {
+                    height: 100%;
+                    overflow-x: hidden;
+                    overflow-y: hidden;
+                }
+
+                .main {
+                    height: 100%;
+                }
+
+                .wrapper {
+                    height: 100%;
+                    padding-bottom: 0;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    flex-wrap: nowrap;
+                }
+
+                /* 主面板 */
+                .content_l {
+                    position: relative;
+                    top: 56px;
+                    height: 100%;
+                    max-height: calc(100% - 56px);
+                    margin-top: 0;
+                    padding-top: 0;
+                    flex: 1 1 66.6%;
+                    padding-bottom: 0;
+                }
+
+                .content_l > .loading {
+                    position: fixed;
+                    top: 56px;
+                    left: 0;
+                    width: calc(200% / 3);
+                    z-index: 7;
+                }
+
+                .box_l {
+                    height: 100%;
+                    overflow-y: scroll;
+                    -webkit-overflow-scrolling: touch;
+                    will-change: scroll-position;
+                }
+
+                /* 主面板 */
+                /* 右面板 */
+                .content_r {
+                    position: relative;
+                    top: 56px;
+                    display: block;
+                    min-width: 342px;
+                    height: calc(100% - 56px);
+                    /* padding-bottom: 56px; */
+                    overflow-x: hidden;
+                    overflow-y: scroll;
+                    flex: 1 1 33.3%;
+                    background: #FAFAF9;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                .bg_right_panel {
+                    padding: 0 8px 8px 8px;
+                    background: #FFF;
+                }
+
+                .loading_right {
+                    display: flex;
+                }
+
+                .content_r > .loading {
+                    position: relative;
+                    width: 100%;
+                    height: 80px;
+                    margin-bottom: 16px;
+                }
+
+                /* 右面板 */
+                /* BET SLIP */
+                .bet_slip {
+                    bottom: 0;
+                    left: auto;
+                    right: 0;
+                    width: calc(100% / 3);
+                    padding-top: 56px;
+                }
+
+                /* BET SLIP */
+                /* 手機控制面板 */
+                .nav_menu {
+                    display: none;
+                }
+
+                /* 手機控制面板 */
+                /* 維護畫面框架 */
+                .maintain_clear {
+                    width: 66.66%;
+                    height: 100%;
+                }
+
+                /* 維護畫面框架 */
+            }
+
+            /* 小畫面隱藏header+nav_menu */
+            @media screen and (max-width: 1023px) {
+                .wrapper {
+                    height: calc(100% + var(--wrap_show));
+                    padding-bottom: var(--bottom_show);
+                }
+
+                .hide .wrapper {
+                    padding-bottom: 0;
+                }
+
+                .ios_scroll .wrapper {
+                    margin-top: 0!important;
+                }
+
+                .ios_scroll .hide .wrapper {
+                    padding-bottom: 0;
+                }
+
+                .content_l {
+                    transition: transform 0.3s ease;
+                }
+
+                .hide .content_l {
+                    transform: translate3d(0, -56px, 0);
+                }
+
+                .ios_scroll .content_l {
+                    transform: none!important;
+                }
+
+                .ios_scroll .hide .content_l {
+                    margin-top: 56px!important;
+                    will-change: margin-top;
+                }
+
+                .ios_scroll .hide .box_l {
+                    margin-top: -56px!important;
+                    will-change: margin-top;
+                }
+
+                .header {
+                    transition: transform 0.3s ease;
+                }
+
+                .hide .header {
+                    transform: translate3d(0, -56px, 0);
+                }
+
+                .ios_scroll .header {
+                    transform: none;
+                    transition: none;
+                }
+
+                .ios_scroll .hide .header {
+                    height: 0;
+                    overflow: hidden;
+                    transition: height 0s ease 0.3s;
+                }
+
+                .ios_scroll .box_header {
+                    transform: translate3d(0, 0, 0);
+                    transition: transform 0.3s ease;
+                }
+
+                .ios_scroll .hide .box_header {
+                    transform: translate3d(0, -56px, 0);
+                }
+
+                .hide .nav_menu {
+                    transition: transform 0.3s ease;
+                    transform: translate3d(0, calc(58px + env(safe-area-inset-bottom)), 0);
+                    overflow: hidden;
+                }
+
+                .ios_scroll .nav_menu {
+                    bottom: 0;
+                }
+
+                .hide .content_footer {
+                    padding-bottom: 24px;
+                }
+            }
+
+            /* 小畫面隱藏header+nav_menu */
+            /* MOBILE setting */
+            @media (pointer: coarse), (hover: none), (-moz-touch-enabled: 1) {
+                /* HEADER  */ .header_scroll:not(.header_scroll) .btn_go_l, .header_scroll:not(.header_scroll) .btn_go_r {
+                    background-image: linear-gradient(to right, rgba(72, 57, 45, 0), #48392d);
+                }
+
+                /* BET SLIP */
+                .bet_slip.on {
+                    animation: none;
+                }
+
+                .main_ios .bet_slip.on {
+                    animation: bet_slip_on 0.3s ease backwards;
+                }
+
+                main:not(.main_ios) .bet_slip.off {
+                    animation: none;
+                    transform: translate3d(0, 100%, 0);
+                }
+
+                .main_ios .bet_slip.off {
+                    animation: bet_slip_off 0.3s ease both;
+                    transform: auto;
+                }
+
+                /* 橫向選單相關 */
+                div:not(.header_scroll) .btn_go_l, div:not(.header_scroll) .btn_go_r {
+                    top: 0;
+                    width: 16px;
+                    height: 100%;
+                    pointer-events: none;
+                    background-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.1));
+                    opacity: 0!important;
+                }
+
+                .date_scroll .btn_go_l, .date_scroll .btn_go_r {
+                    background-image: linear-gradient(to right, rgba(255,255,255,0), #fafafa);
+                }
+
+                .team_scroll .btn_go_l, .team_scroll .btn_go_r {
+                    background-image: linear-gradient(to right, rgba(255,255,255,0.0001), #fff);
+                }
+
+                .cup .market_scroll .btn_go_l, .cup .market_scroll .btn_go_r {
+                    display: none;
+                    /* background-image: linear-gradient(to right, rgba(219, 195, 125, 0), rgba(219, 195, 123, 1)); */
+                }
+
+                .btn_go_l {
+                    left: 0;
+                }
+
+                .btn_go_r {
+                    right: 0;
+                }
+
+                .btn_go_l svg, .btn_go_r svg {
+                    display: none;
+                }
+
+                .box_scroll .btn_go_l.on, .box_scroll .btn_go_r.on {
+                    transition: none!important;
+                }
+            }
+
+            /* MOBILE setting */
+            /* PC setting */
+            @media (pointer: fine) and (max-resolution: 2dppx), screen and (pointer: fine) and (-webkit-max-device-pixel-ratio: 2), (-moz-touch-enabled: 0), screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+                /* 主要設定 */ .main_height {
+                    height: 100%;
+                }
+
+                /* 滾軸樣式 */
+                ::-webkit-scrollbar {
+                    width: 4px;
+                    height: 8px;
+                }
+
+                ::-webkit-scrollbar-thumb {
+                    background: rgba(0,0,0,0.16);
+                    border-radius: 20px;
+                }
+
+                ::-webkit-scrollbar-track {
+                    background: #F0F0F0;
+                    border-radius: 20px;
+                }
+
+                .box_obt_lebet .box_lebet_r::-webkit-scrollbar-track {
+                    background: #ededed;
+                }
+
+                .fore_form_box::-webkit-scrollbar {
+                    width: 8px;
+                    height: 8px;
+                }
+
+                /* BET SLIP */
+                .bet_slip.on {
+                    animation: bet_slip_on 0.3s ease backwards;
+                }
+
+                .bet_slip.off {
+                    animation: bet_slip_off 0.3s ease both;
+                    transform: auto;
+                }
+
+                /* 橫向選單相關 */
+                .btn_go_l.on ~ div[class*="dragscroll_"] > label, .btn_go_r.on ~ div[class*="dragscroll_"] > label, .btn_go_l.on ~ div[class*="dragscroll_"] > div, .btn_go_r.on ~ div[class*="dragscroll_"] > div {
+                    cursor: grab;
+                }
+
+                .box_scroll:not(.header_scroll) .btn_go_l, .box_scroll:not(.header_scroll) .btn_go_r {
+                    top: -100%;
+                    width: 44px;
+                    height: 38px;
+                    line-height: 38px;
+                    padding-top: 13px;
+                    cursor: pointer;
+                    background: #d6d6d6;
+                    border-radius: 50% 0 0 50%;
+                    box-shadow: 0 0 2px rgba(0,0,0,0.24);
+                }
+
+                .btn_go_l {
+                    left: -22px;
+                    padding-left: 10px;
+                    transition: all 0.3s ease;
+                }
+
+                .btn_go_r {
+                    right: -22px;
+                    padding-left: 10px;
+                    transition: all 0.3s ease;
+                }
+
+                .box_scroll .btn_go_l.on, .box_scroll .btn_go_r.on {
+                    top: calc(50% - 19px);
+                    pointer-events: auto;
+                }
+
+                .btn_go_l svg, .btn_go_r svg {
+                    display: block;
+                }
+
+                .btn_go_l:hover {
+                    left: 0;
+                    background: #ebebeb;
+                }
+
+                .btn_go_r:hover {
+                    right: 0;
+                    background: #ebebeb;
+                }
+
+                .btn_go_l:active, .btn_go_r:active {
+                    background: #c2c2c2;
+                }
+
+                .dragscroll:active {
+                    cursor: grabbing;
+                }
+
+                /* 背景鎖定 */
+                .box_l.scroll_lock {
+                    overflow-y: scroll;
+                }
+
+                .locker {
+                    background-image: url('../images/icon_nobet.svg?v0419');
+                }
+            }
+
+            /* set for mobile input focus hide bottom menu */
+            @media (pointer: coarse), (hover: none), (-moz-touch-enabled: 1) {
+                .keyin_scroll .nav_menu {
+                    height: 0px;
+                    opacity: 0;
+                    pointer-events: none!important;
+                }
+
+                .keyin_scroll .nav_menu .menu_bottom {
+                    pointer-events: none;
+                }
+            }
+			.popup, .forecast, .league_set {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                width: 100%;
+                height: 100dvh;
+                align-items: center;
+                justify-content: center;
+                visibility: hidden;
+                overflow: hidden;
+                pointer-events: none;
+            }
+
+            .forecast {
+                visibility: unset!important;
+            }
+
+            .es_statistic {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                display: flex;
+                width: 100%;
+                height: 100dvh;
+                align-items: flex-end;
+                justify-content: center;
+                visibility: unset;
+                overflow: hidden;
+                pointer-events: none;
+            }
+
+            .popup.on, .popup>.on, .league_set.on {
+                visibility: visible;
+            }
+
+            .forecast.on, .es_statistic.on {
+                display: flex;
+            }
+
+            .popup > div > div, .forecast>div, .league_set>div, .es_statistic>div {
+                pointer-events: auto;
+            }
+        </style>
+		<script>
+            function killerror() {
+                return true;
+            }
+            window.onerror = killerror;
+            function grmsg() {
+                if (top.grmsg.length > 0) {
+                    alert(top.grmsg);
+                }
+            }
+            setInterval(function() {
+                if (top['userData'].talert) {
+                    document.querySelector('#msgcon').innerHTML = top['userData'].talert;
+                    console.log(top['userData'].talert);
+                    document.querySelector('.web_notice').style.display = '';
+                } else {
+                    //document.querySelector('.web_notice').style.display = 'none'
+                }
+            }, 10000);
+        </script>
+		</head>
+    <body id="scroll_body" onload=";new index(window, document).init();" class="">
+        <div id="main" class="main">
+            <!-- rotate screen add class="main_height"-->
+            <!-- Lazy loading get height -->
+            <div id="clone_show" class="zindex box_league ft box_outer ft_outer"></div>
+            <!-- <iframe id="clone_show" allowtransparency="yes" scrolling="no" frameborder="0" height="100%"  width="100%" class="zindex box_league ft box_outer ft_outer"></iframe> -->
+            <div id="clone_obt_show" class="box_obt_lebet"></div>
+            <!-- chrome Lite mode load locker img -->
+            <i class="locker"></i>
+            <div id="home_show" ontouchstart="" class="wrapper" style="display:none">
+                <!-- icon SVG -->
+                <div id="icon_all" style="display: none;"></div>
+                <!-- top menu -->
+                <div id="header_show" class="header"></div>
+                <!-- PC left content / MOBILE center content-->
+                <div id="body_content" class="content_l">
+                    <div id="body_loading" class="loading" style="display: none;">
+                        <i class="icon_load"></i>
+                    </div>
+                    <div id="body_show" class="box_l">
+                    <!-- 各頁內容 -->
+                    <!-- 載入footer.html -->
+                    </div>
+                </div>
+                <!-- 多選聯盟提交鈕 -->
+                <div id="select_lea" class="btn_lea_submit" style="display: none;">*ART_btn_submit*</div>
+                <!-- PC right content-->
+                <div id="right_show" class="content_r"></div>
+                <!-- PC right content full loading page -->
+                <div id="right_loading" class="loading_right" style="display: none;">
+                    <i class="icon_load"></i>
+                </div>
+                <!-- left menu -->
+                <!-- open compelet menu add calss="on" -->
+                <div class="menu_l"></div>
+                <!-- right slide account -->
+                <!-- don't use display -->
+                <div id="myAcc_show" class="slide_r"></div>
+                <!-- MOBILE bottom menu -->
+                <div id="bottom_show" class="nav_menu"></div>
+                <!-- bet slip -->
+                <!-- don't use display -->
+                <div id="betslip_show" class="bet_slip off"></div>
+                <!-- announcement popup page -->
+                <!-- don't use display -->
+                <div id="announcement_show" class="popup"></div>
+                <!-- win/loss forecast popup page -->
+                <div id="forecast_show" class="forecast">
+                    <!-- 了解更多彈跳視窗 -->
+                    <div id="know_content" class="fore_more_popup">
+                        <div class="popup_title">
+                            <span data-title="">
+                            <!-- *ART_fore_learnMore* -->
+                            </span>
+                            <div id="knowMore_close" class="btn_close">
+                                <i class="icon_close">
+                                    <svg>
+                                        <use xlink:href="#icon_close_bold"/>
+                                    </svg>
+                                </i>
+                            </div>
+                        </div>
+                        <div id="fore_knowMore" class="popup_content">
+                        <!-- forecast's KnowMore content put here -->
+                        </div>
+                    </div>
+                    <!-- 贏輸賠率視窗 -->
+                    <div id="" class="fore_popup">
+                        <div class="popup_title" data-TW="贏輸預測" data-CN="赢输预测" data-EN="WIN/LOSS FORECAST">
+                            <span id="forecast_title"></span>
+                            <div id="btn_close" class="btn_close">
+                                <i class="icon_close">
+                                    <svg>
+                                        <use xlink:href="#icon_close_bold"/>
+                                    </svg>
+                                </i>
+                            </div>
+                        </div>
+                        <!-- Loading -->
+                        <div id="fore_loading" class="loading fore_loading page_on">
+                            <i class="icon_load"></i>
+                        </div>
+                        <!-- No Data -->
+                        <div id="fore_nodata" name="fore_nodata" class="no_event fore_no_event" style="display: none;"></div>
+                        <div id="forecast_content" class="popup_content"></div>
+                        <!-- Forecast LearnMore Popup mask -->
+                        <div class="mask_more_popup"></div>
+                    </div>
+                    <!-- 橫向阻擋視窗 -->
+                    <div id="fore_landScape" class="fore_landscape"></div>
+                    <div id="close_mask" class="mask_popup"></div>
+                    <div class="mask_popup transparent"></div>
+                </div>
+                <!-- ES popup page -->
+                <div id="statistics_show" class="es_statistic">
+                    <div id="statistics_popup" class="popup_es_statistic">
+                        <div class="popup_title" data-TW="資料分析" data-CN="资料分析" data-EN="STATISTICS">
+                            <span id="statistics_title"></span>
+                            <div id="statistics_btn_close" class="btn_close">
+                                <i class="icon_close">
+                                    <svg>
+                                        <use xlink:href="#icon_close_bold"/>
+                                    </svg>
+                                </i>
+                            </div>
+                        </div>
+                        <!-- Loading -->
+                        <div id="statistics_loading" class="loading">
+                            <i class="icon_load"></i>
+                        </div>
+                        <div id="statistics_content" class="es_content"></div>
+                        <!-- class="es_MOBA-1 / es_FPS-1 / es_BASIC" -->
+                    </div>
+                    <!-- 橫向阻擋視窗 -->
+                    <div id="statistics_landScape" class="es_landscape"></div>
+                    <!-- Popup mask -->
+                    <div id="statistics_pop" class="mask_popup"></div>
+                    <div class="mask_popup transparent"></div>
+                </div>
+                <!-- 聯盟 popup page -->
+                <div id="league_setting_show" class="league_set">
+                    <div id="league_set_popup" class="league_set_popup">
+                        <div class="popup_title" data-TW="設定" data-CN="设定" data-EN="SETTINGS">
+                            <span id="league_setting_title"></span>
+                            <div id="league_btn_close" class="btn_close">
+                                <i class="icon_close">
+                                    <svg>
+                                        <use xlink:href="#icon_close_bold"/>
+                                    </svg>
+                                </i>
+                            </div>
+                        </div>
+                        <!-- Loading -->
+                        <div id="league_setting_loading" class="loading page_on">
+                            <i class="icon_load"></i>
+                        </div>
+                        <div id="league_setting_content" class="popup_content"></div>
+                    </div>
+                    <!-- Popup mask -->
+                    <div id="leagueSet_pop" class="mask_popup"></div>
+                </div>
+            </div>
+            <!-- loading -->
+			<style>
+.ann_title{position:relative;height:48px;line-height:48px;padding:0 16px;background-color:#ededed;color:#000;font-weight:700;flex:none}
+.ann_auto_box{width:auto;min-width:288px}
+.ann_auto_box,.ann_box{max-width:480px;max-height:100%;background-color:#fff;border-radius:8px;overflow:hidden;display:-webkit-flex;display:-ms-flex;display:flex;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;overflow-x:hidden;overflow-y:auto;-webkit-flex:1 1 100%;-ms-flex:1 1 100%;flex:1 1 640px;align-self:center}
+.ann_title span{font-size:14px}
+.ann_txt{max-height:512px;flex:1 1 auto;padding:16px 16px 0 16px;overflow-x:hidden;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.ann_txt li{line-height:19px;color:#000;word-break:break-word;white-space:normal}
+.ann_foot{padding:16px;height:80px;flex:none}
+.ann_mask{width:100%;height:100%;padding:16px;padding-bottom:calc(constant(safe-area-inset-bottom) + 16px);padding-bottom:calc(env(safe-area-inset-bottom) + 16px);background-color:rgba(0,0,0,.32);display:-webkit-flex;display:-ms-flex;display:flex;-webkit-justify-content:center;-ms-justify-content:center;justify-content:center;pointer-events:auto}
+
+</style>
+<script>
+function hide_web_notice(){
+	var msgid = document.querySelector('.web_notice').getAttribute("data-id");
+	var par = "p=set_message&id="+msgid+"&"+top.param
+	var getHTML = new HttpRequest();
+	getHTML.addEventListener("LoadComplete", function(){});
+	getHTML.loadURL(top.m2_url, "POST", par);
+	document.querySelector('.web_notice').style.display='none';
+}
+</script>
+
+			<div class="web_notice" style="position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0,0,0,0.3);z-index: 99999;display:none;">
+                <div id="ann" class="ann_mask" style="">
+                    <div class="ann_auto_box">
+                        <div id="ann_title02" class="ann_title">
+                            <span>公告</span>
+                        </div>
+                        <div id="ann_scroll02" class="ann_txt">
+                            <ul>
+                                <li id="msgcon"></li>
+                            </ul>
+                        </div>
+                        <div class="ann_foot">
+							<button id="close_btn1" type="button" onclick="hide_web_notice();" class="btn_gray_full">确认</button>
+                            <!-- <button id="close_btn1" type="button" onclick="javascript:document.querySelector('.web_notice').style.display='none'" class="btn_gray_full">确认</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="loading" class="loading">
+                <i class="icon_load"></i>
+            </div>
+            <!-- maintain page -->
+            <div id="maintain_show" class=""></div>
+            <!-- popup / alert page -->
+            <div id="alert_show" class="popup"></div>
+            <!-- 系統訊息 popup / alert page -->
+            <div id="system_show" class="popup popup_sys"></div>
+            <!-- login page -->
+            <div id="acc_show" class="login"></div>
+            <!-- change id/pwd page -->
+            <div id="chgAcc_show" class="chg_acc"></div>
+            <!-- systemrequire -->
+            <div id="sysreq_show" class="sys"></div>
+        </div>
+        <!-- <iframe name="SI2_func" id="SI2_func" src="" scrolling="NO" noresize width=0 height=0 style="display:none"></iframe> -->
+    </body>
+</html>

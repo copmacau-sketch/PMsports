@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>體育規則 - 足球</title>
+
+    <script id="homeJS">{JS}</script>
+
+    <link href="{CDNURL}/style/rules.css" rel="stylesheet" type="text/css"
+</head>
+<body>
+<div class="content_l">
+    <div class="box_rules">
+        <div class="title_rules">
+            <div id="back_btn" name="back_btn" class="btn_back"><i class="icon_back"><svg><use xlink:href="#icon_back"/></svg></i></div>
+            <span>*ART_ru_title*</span>
+        </div>
+
+        <div class="select_rules">
+            <span>*ART_ru_select*</span>
+
+            <label class="box_select">
+                <i class="icon_arr"><svg><use xlink:href="#icon_toparr"/></svg></i>
+                <select name="sportsdropdown" class="sportsdropdown" id="sportsdropdown">
+                    <option value="general">*ART_ru_general*</option>
+                    <option value="outright">*ART_ru_outright*</option>
+                    <option value="multiples">*ART_ru_multiples*</option>
+                    <option value="soccer" selected="selected">*ART_ru_soccer*</option>
+                    <option value="basketball">*ART_ru_basketball*</option>
+                    <option value="tennis">*ART_ru_tennis*</option>
+                    <option value="volleyball">*ART_ru_volleyball*</option>
+                    <option value="badminton">*ART_ru_badminton*</option>
+                    <option value="table_tennis">*ART_ru_table_tennis*</option>
+                    <option value="baseball">*ART_ru_baseball*</option>
+                    <option value="snooker">*ART_ru_snooker*</option>
+                    <option value="usa_football">*ART_ru_usa_football*</option>
+                    <option value="archery">*ART_ru_archery*</option>
+                    <option value="athletic">*ART_ru_athletic*</option>
+                    <option value="aussie">*ART_ru_aussie*</option>
+                    <option value="beach_soccer">*ART_ru_beach_soccer*</option>
+                    <option value="beach_volleyball">*ART_ru_beach_volleyball*</option>
+                    <option value="boxing">*ART_ru_boxing*</option>
+                    <option value="cricket">*ART_ru_cricket*</option>
+                    <option value="cycling">*ART_ru_cycling*</option>
+                    <option value="darts">*ART_ru_darts*</option>
+                    <option value="e_sports">*ART_ru_e_sports*</option>
+                    <option value="field_hockey">*ART_ru_field_hockey*</option>
+                    <option value="financial_bets">*ART_ru_financial_bets*</option>
+                    <option value="futsal">*ART_ru_futsal*</option>
+                    <option value="golf">*ART_ru_golf*</option>
+                    <option value="gymnastics">*ART_ru_gymnastics*</option>
+                    <option value="handball">*ART_ru_handball*</option>
+                    <option value="ice_hockey">*ART_ru_ice_hockey*</option>
+                    <option value="judo">*ART_ru_judo*</option>
+                    <option value="lacrosse">*ART_ru_lacrosse*</option>
+                    <option value="medal_betting">*ART_ru_medal_betting*</option>
+                    <option value="motor_sports">*ART_ru_motor_sports*</option>
+                    <option value="olympics">*ART_ru_olympics*</option>
+                    <option value="rowing">*ART_ru_rowing*</option>
+                    <option value="rugby_league">*ART_ru_rugby_league*</option>
+                    <option value="softball">*ART_ru_softball*</option>
+                    <option value="tamp">*ART_ru_tamp*</option>
+                    <option value="water_polo">*ART_ru_water_polo*</option>
+                    <option value="weightlifting">*ART_ru_weightlifting*</option>
+                    <option value="wintersports">*ART_ru_wintersports*</option>
+                </select>
+
+                <div id="pc_sportselect" class="dropdown_select">*ART_ru_soccer*</div>
+                <ul id="pc_sportsdropdown" name="sportsdropdown" class="dropdown_pc">
+                    <li id="pc_general">*ART_ru_general*</li>
+                    <li id="pc_outright">*ART_ru_outright*</li>
+                    <li id="pc_multiples">*ART_ru_multiples*</li>
+                    <li id="pc_soccer" class="on">*ART_ru_soccer*</li>
+                    <li id="pc_basketball">*ART_ru_basketball*</li>
+                    <li id="pc_tennis">*ART_ru_tennis*</li>
+                    <li id="pc_volleyball">*ART_ru_volleyball*</li>
+                    <li id="pc_badminton">*ART_ru_badminton*</li>
+                    <li id="pc_table_tennis">*ART_ru_table_tennis*</li>
+                    <li id="pc_baseball">*ART_ru_baseball*</li>
+                    <li id="pc_snooker">*ART_ru_snooker*</li>
+                    <li id="pc_usa_football">*ART_ru_usa_football*</li>
+                    <li id="pc_archery">*ART_ru_archery*</li>
+                    <li id="pc_athletic">*ART_ru_athletic*</li>
+                    <li id="pc_aussie">*ART_ru_aussie*</li>
+                    <li id="pc_beach_soccer">*ART_ru_beach_soccer*</li>
+                    <li id="pc_beach_volleyball">*ART_ru_beach_volleyball*</li>
+                    <li id="pc_boxing">*ART_ru_boxing*</li>
+                    <li id="pc_cricket">*ART_ru_cricket*</li>
+                    <li id="pc_cycling">*ART_ru_cycling*</li>
+                    <li id="pc_darts">*ART_ru_darts*</li>
+                    <li id="pc_e_sports">*ART_ru_e_sports*</li>
+                    <li id="pc_field_hockey">*ART_ru_field_hockey*</li>
+                    <li id="pc_financial_bets">*ART_ru_financial_bets*</li>
+                    <li id="pc_futsal">*ART_ru_futsal*</li>
+                    <li id="pc_golf">*ART_ru_golf*</li>
+                    <li id="pc_gymnastics">*ART_ru_gymnastics*</li>
+                    <li id="pc_handball">*ART_ru_handball*</li>
+                    <li id="pc_ice_hockey">*ART_ru_ice_hockey*</li>
+                    <li id="pc_judo">*ART_ru_judo*</li>
+                    <li id="pc_lacrosse">*ART_ru_lacrosse*</li>
+                    <li id="pc_medal_betting">*ART_ru_medal_betting*</li>
+                    <li id="pc_motor_sports">*ART_ru_motor_sports*</li>
+                    <li id="pc_olympics">*ART_ru_olympics*</li>
+                    <li id="pc_rowing">*ART_ru_rowing*</li>
+                    <li id="pc_rugby_league">*ART_ru_rugby_league*</li>
+                    <li id="pc_softball">*ART_ru_softball*</li>
+                    <li id="pc_tamp">*ART_ru_tamp*</li>
+                    <li id="pc_water_polo">*ART_ru_water_polo*</li>
+                    <li id="pc_weightlifting">*ART_ru_weightlifting*</li>
+                    <li id="pc_wintersports">*ART_ru_wintersports*</li>
+                </ul>
+            </label>
+        </div>
+
+        <div id="rule_box" class="content_rules">
+
+            <h1>*ART_ru_h1_ft*</h1>
+
+            <span class="rules_date">*ART_ru_lastdate* <tt>*ART_ru_date*</tt></span>
+
+            <div class="rules_menu">
+                <a class="btn_rules" id="general">*ART_ru_ft_A*</a>
+                <a class="btn_rules" id="mainmarkets">*ART_ru_ft_B*</a>
+                <a class="btn_rules" id="goalmarkets">*ART_ru_ft_C*</a>
+                <a class="btn_rules" id="playersmarket">*ART_ru_ft_D*</a>
+                <a class="btn_rules" id="specials">*ART_ru_ft_E*</a>
+                <a class="btn_rules" id="corners">*ART_ru_ft_F*</a>
+                <a class="btn_rules" id="bookingscards">*ART_ru_ft_G*</a>
+                <a class="btn_rules" id="freekicks">*ART_ru_ft_H*</a>
+                <a class="btn_rules" id="goalkicks">*ART_ru_ft_I*</a>
+                <a class="btn_rules" id="throwins">*ART_ru_ft_J*</a>
+                <a class="btn_rules" id="substitutions">*ART_ru_ft_K*</a>
+                <a class="btn_rules" id="offsides">*ART_ru_ft_L*</a>
+                <a class="btn_rules" id="penaltymarkets">*ART_ru_ft_M*</a>
+                <a class="btn_rules" id="competitions">*ART_ru_ft_N*</a>
+                <a class="btn_rules" id="combinedmarkets">*ART_ru_ft_O*</a>
+                <a class="btn_rules" id="othermarkets">*ART_ru_ft_P*</a>
+                <a class="btn_rules" id="fantasymatches">*ART_ru_ft_Q*</a>
+                <a class="btn_rules" id="efootballmatches">*ART_ru_ft_R*</a>
+            </div>
+
+
+            <h2 id="General_Rules">*ART_ru_ft_A*</h2>
+            <ul>
+                <li>*ART_ru_ft_A_a_1*</li>
+                <li>*ART_ru_ft_A_a_2*</li>
+                <li>*ART_ru_ft_A_a_3*</li>
+                <li>*ART_ru_ft_A_a_4*</li>
+                <li>*ART_ru_ft_A_a_5*</li>
+                <li>*ART_ru_ft_A_a_6*</li>
+                <li>*ART_ru_ft_A_a_7*</li>
+                <li>*ART_ru_ft_A_a_8*</li>
+                <li>*ART_ru_ft_A_a_9*</li>
+                <li>*ART_ru_ft_A_a_10*</li>
+                <li>*ART_ru_ft_A_a_11*</li>
+                <li>*ART_ru_ft_A_a_12*</li>
+                <li id="tag_1">*ART_ru_ft_A_a_13*</li>
+            </ul>
+
+
+            <h2 id="MainMarkets">*ART_ru_ft_B*</h2>
+            <h3>*ART_ru_ft_B_a*</h3>
+            <h3>*ART_ru_ft_B_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_b_1*</li>
+                <li>*ART_ru_ft_B_b_2*</li>
+                <li>*ART_ru_ft_B_b_3*</li>
+                <li>*ART_ru_ft_B_b_4*</li>
+                <li>*ART_ru_ft_B_b_5*
+                    <ol>
+                        <li>*ART_ru_ft_B_b_5_1*</li>
+                        <li>*ART_ru_ft_B_b_5_2*</li>
+                        <li>*ART_ru_ft_B_b_5_3*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_c_1*</li>
+                <li>*ART_ru_ft_B_c_2*</li>
+                <li>*ART_ru_ft_B_c_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_d_1*</li>
+                <li>*ART_ru_ft_B_d_2*</li>
+                <li>*ART_ru_ft_B_d_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_e_1*</li>
+                <li>*ART_ru_ft_B_e_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_f_1*</li>
+                <li>*ART_ru_ft_B_f_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_g_1*</li>
+                <li>*ART_ru_ft_B_g_2*</li>
+                <li>*ART_ru_ft_B_g_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_h_1*</li>
+                <li>*ART_ru_ft_B_h_2*</li>
+                <li>*ART_ru_ft_B_h_3*</li>
+                <li>*ART_ru_ft_B_h_4*</li>
+                <table class="rules_table">
+                    <tr>
+                        <td>*ART_ru_ft_B_td_h4_1_1*</td>
+                        <td>*ART_ru_ft_B_td_h4_1_2*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_B_td_h4_2_1*</td>
+                        <td>*ART_ru_ft_B_td_h4_2_2*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_B_td_h4_3_1*</td>
+                        <td>*ART_ru_ft_B_td_h4_3_2*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_B_td_h4_4_1*</td>
+                        <td>*ART_ru_ft_B_td_h4_4_2*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_B_td_h4_5_1*</td>
+                        <td>*ART_ru_ft_B_td_h4_5_2*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_B_td_h4_6_1*</td>
+                        <td>*ART_ru_ft_B_td_h4_6_2*</td>
+                    </tr>
+                </table>
+                </li>
+            </ul>
+
+
+            <h3>*ART_ru_ft_B_i*</h3>
+            <h3>*ART_ru_ft_B_j*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_j_1*</li>
+                <li>*ART_ru_ft_B_j_2*</li>
+                <li>*ART_ru_ft_B_j_3*</li>
+                <li>*ART_ru_ft_B_j_4*
+                    <ol>
+                        <li>*ART_ru_ft_B_j_4_1*</li>
+                        <li>*ART_ru_ft_B_j_4_2*</li>
+                        <li>*ART_ru_ft_B_j_4_3*</li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_B_j_5*
+                    <ol>
+                        <li>*ART_ru_ft_B_j_5_1*
+                            <ul class="list_roma">
+                                <li>*ART_ru_ft_B_j_5_1_1*</li>
+                                <li>*ART_ru_ft_B_j_5_1_2*</li>
+                            </ul>
+                        </li>
+                        <li>*ART_ru_ft_B_j_5_2*
+                            <ul class="list_roma">
+                                <li>*ART_ru_ft_B_j_5_2_1*</li>
+                                <li>*ART_ru_ft_B_j_5_2_2*</li>
+                            </ul>
+                        </li>
+                        <li>*ART_ru_ft_B_j_5_3*
+                            <ul class="list_roma">
+                                <li>*ART_ru_ft_B_j_5_3_1*</li>
+                                <li>*ART_ru_ft_B_j_5_3_2*</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_k*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_k_1*</li>
+                <li>*ART_ru_ft_B_k_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_l*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_l_1*</li>
+                <li>*ART_ru_ft_B_l_2*</li>
+                <li>*ART_ru_ft_B_l_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_m*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_m_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_n*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_n_1*</li>
+                <li>*ART_ru_ft_B_n_2*</li>
+                <li>*ART_ru_ft_B_n_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_o*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_o_1*</li>
+                <li>*ART_ru_ft_B_o_2*</li>
+                <li>*ART_ru_ft_B_o_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_p*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_p_1*</li>
+                <li>*ART_ru_ft_B_p_2*</li>
+                <li>*ART_ru_ft_B_p_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_q*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_q_1*</li>
+                <li>*ART_ru_ft_B_q_2*</li>
+                <li>*ART_ru_ft_B_q_3*</li>
+                <li>*ART_ru_ft_B_q_4*
+                    <table class="rules_table">
+                        <tr>
+                            <td>*ART_ru_ft_B_td_q4_1_1*</td>
+                            <td>*ART_ru_ft_B_td_q4_1_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_q4_2_1*</td>
+                            <td>*ART_ru_ft_B_td_q4_2_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_q4_3_1*</td>
+                            <td>*ART_ru_ft_B_td_q4_3_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_q4_4_1*</td>
+                            <td>*ART_ru_ft_B_td_q4_4_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_q4_5_1*</td>
+                            <td>*ART_ru_ft_B_td_q4_5_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_q4_6_1*</td>
+                            <td>*ART_ru_ft_B_td_q4_6_2*</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_r*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_r_1*</li>
+                <li>*ART_ru_ft_B_r_2*</li>
+                <li>*ART_ru_ft_B_r_3*</li>
+                <li>*ART_ru_ft_B_r_4*
+                    <table class="rules_table">
+                        <tr>
+                            <td>*ART_ru_ft_B_td_r4_1_1*</td>
+                            <td>*ART_ru_ft_B_td_r4_1_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_r4_2_1*</td>
+                            <td>*ART_ru_ft_B_td_r4_2_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_r4_3_1*</td>
+                            <td>*ART_ru_ft_B_td_r4_3_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_r4_4_1*</td>
+                            <td>*ART_ru_ft_B_td_r4_4_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_r4_5_1*</td>
+                            <td>*ART_ru_ft_B_td_r4_5_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_r4_6_1*</td>
+                            <td>*ART_ru_ft_B_td_r4_6_2*</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+
+
+            <h3>*ART_ru_ft_B_s*</h3>
+            <h3>*ART_ru_ft_B_t*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_t_1*</li>
+                <li>*ART_ru_ft_B_t_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_u*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_u_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_v*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_v_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_w*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_w_1*</li>
+                <li>*ART_ru_ft_B_w_2*</li>
+                <li>*ART_ru_ft_B_w_3*
+                    <table class="rules_table">
+                        <tr>
+                            <th>*ART_ru_ft_B_td_w3_1_1*</th>
+                            <th>*ART_ru_ft_B_td_w3_1_2*</th>
+                            <th>*ART_ru_ft_B_td_w3_1_3*</th>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_w3_2_1*</td>
+                            <td>*ART_ru_ft_B_td_w3_2_2*</td>
+                            <td>*ART_ru_ft_B_td_w3_2_3*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_w3_3_1*</td>
+                            <td>*ART_ru_ft_B_td_w3_3_2*</td>
+                            <td>*ART_ru_ft_B_td_w3_3_3*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_w3_4_1*</td>
+                            <td>*ART_ru_ft_B_td_w3_4_2*</td>
+                            <td>*ART_ru_ft_B_td_w3_4_3*</td>
+                        </tr>
+                    </table>
+                    <ol>
+                        <li>*ART_ru_ft_B_w_3_1*
+                            <ul class="list_roma">
+                                <li>*ART_ru_ft_B_w_3_1_1*</li>
+                                <li>*ART_ru_ft_B_w_3_1_2*</li>
+                                <li>*ART_ru_ft_B_w_3_1_3*</li>
+                            </ul>
+                        </li>
+                        <li>*ART_ru_ft_B_w_3_2*
+                            <ul class="list_roma">
+                                <li>*ART_ru_ft_B_w_3_2_1*</li>
+                                <li>*ART_ru_ft_B_w_3_2_2*</li>
+                                <li>*ART_ru_ft_B_w_3_2_3*</li>
+                            </ul>
+                        </li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_B_w_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_x*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_x_1*</li>
+                <li>*ART_ru_ft_B_x_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_y*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_y_1*</li>
+                <li>*ART_ru_ft_B_y_2*</li>
+                <li>*ART_ru_ft_B_y_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_z*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_z_1*</li>
+                <li>*ART_ru_ft_B_z_2*</li>
+                <li>*ART_ru_ft_B_z_3*
+                    <table class="rules_table">
+                        <tr>
+                            <td>*ART_ru_ft_B_td_z3_1_1*</td>
+                            <td>*ART_ru_ft_B_td_z3_1_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_z3_2_1*</td>
+                            <td>*ART_ru_ft_B_td_z3_2_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_z3_3_1*</td>
+                            <td>*ART_ru_ft_B_td_z3_3_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_z3_4_1*</td>
+                            <td>*ART_ru_ft_B_td_z3_4_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_z3_5_1*</td>
+                            <td>*ART_ru_ft_B_td_z3_5_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_B_td_z3_6_1*</td>
+                            <td>*ART_ru_ft_B_td_z3_6_2*</td>
+                        </tr>
+                    </table>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_aa*</h3>
+            <ul class="list_none">
+                <li>
+                    <h3>*ART_ru_ft_B_aa_1*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_B_aa_1_1*</li>
+                        <li>*ART_ru_ft_B_aa_1_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_ft_B_aa_2*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_B_aa_2_1*</li>
+                        <li>*ART_ru_ft_B_aa_2_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_ft_B_aa_3*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_B_aa_3_1*</li>
+                        <li>*ART_ru_ft_B_aa_3_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_ft_B_aa_4*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_B_aa_4_1*</li>
+                        <li>*ART_ru_ft_B_aa_4_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_ft_B_aa_5*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_B_aa_5_1*</li>
+                        <li>*ART_ru_ft_B_aa_5_2*</li>
+                        <li>*ART_ru_ft_B_aa_5_3*
+                            <table class="rules_table">
+                                <tr>
+                                    <td>*ART_ru_ft_B_td_aa5_1_1*</td>
+                                    <td>*ART_ru_ft_B_td_aa5_1_2*</td>
+                                </tr>
+                                <tr>
+                                    <td>*ART_ru_ft_B_td_aa5_2_1*</td>
+                                    <td>*ART_ru_ft_B_td_aa5_2_2*</td>
+                                </tr>
+                                <tr>
+                                    <td>*ART_ru_ft_B_td_aa5_3_1*</td>
+                                    <td>*ART_ru_ft_B_td_aa5_3_2*</td>
+                                </tr>
+                                <tr>
+                                    <td>*ART_ru_ft_B_td_aa5_4_1*</td>
+                                    <td>*ART_ru_ft_B_td_aa5_4_2*</td>
+                                </tr>
+                                <tr>
+                                    <td>*ART_ru_ft_B_td_aa5_5_1*</td>
+                                    <td>*ART_ru_ft_B_td_aa5_5_2*</td>
+                                </tr>
+                            </table>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_ab*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_ab_1*</li>
+                <li>*ART_ru_ft_B_ab_2*</li>
+            </ul>
+            <ul class="list_none">
+                <li>
+                    <h3>*ART_ru_ft_B_ab_3*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_B_ab_3_1*</li>
+                        <li>*ART_ru_ft_B_ab_3_2*</li>
+                        <li>*ART_ru_ft_B_ab_3_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_ft_B_ab_4*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_B_ab_4_1*</li>
+                        <li>*ART_ru_ft_B_ab_4_2*</li>
+                        <li>*ART_ru_ft_B_ab_4_3*</li>
+                        <li>*ART_ru_ft_B_ab_4_4*</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_ac*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_ac_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_ad*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_ad_1*</li>
+                <li>*ART_ru_ft_B_ad_2*</li>
+                <li>*ART_ru_ft_B_ad_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_ae*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_ae_1*</li>
+                <li>*ART_ru_ft_B_ae_2*</li>
+                <li>*ART_ru_ft_B_ae_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_af*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_af_1*</li>
+                <li>*ART_ru_ft_B_af_2*
+                    <ol>
+                        <li>*ART_ru_ft_B_af_2_1*</li>
+                        <li>*ART_ru_ft_B_af_2_2*</li>
+                        <li>*ART_ru_ft_B_af_2_3*</li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_B_af_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_ag*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_ag_1*</li>
+                <li>*ART_ru_ft_B_ag_2*</li>
+                <li>*ART_ru_ft_B_ag_3*</li>
+                <li>*ART_ru_ft_B_ag_4*
+                    <ol>
+                        <li>*ART_ru_ft_B_ag_4_1*</li>
+                        <li>*ART_ru_ft_B_ag_4_2*</li>
+                        <li>*ART_ru_ft_B_ag_4_3*</li>
+                        <li>*ART_ru_ft_B_ag_4_4*</li>
+                        <li>*ART_ru_ft_B_ag_4_5*</li>
+                        <li>*ART_ru_ft_B_ag_4_6*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_ah*</h3>
+            <ul>
+                <li>*ART_ru_ft_B_ah_1*</li>
+                <li>*ART_ru_ft_B_ah_2*</li>
+                <li>*ART_ru_ft_B_ah_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_B_ai*</h3>
+            <ul>
+                <li id="tag_2">*ART_ru_ft_B_ai_1*</li>
+            </ul>
+
+
+            <h2 id="GoalMarkets">*ART_ru_ft_C*</h2>
+            <h3>*ART_ru_ft_C_a*</h3>
+            <ul class="list_none">
+                <li>
+                    <h3>*ART_ru_ft_C_a_1*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_C_a_1_1*</li>
+                        <li>*ART_ru_ft_C_a_1_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_ft_C_a_2*</h3>
+                    <ul>
+                        <li>*ART_ru_ft_C_a_1_1*</li>
+                        <li>*ART_ru_ft_C_a_1_2*</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_b_1*</li>
+                <li>*ART_ru_ft_C_b_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_c_1*</li>
+                <li>*ART_ru_ft_C_c_2*</li>
+                <li>*ART_ru_ft_C_c_3*</li>
+                <li>*ART_ru_ft_C_c_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_d_1*</li>
+                <li>*ART_ru_ft_C_d_2*</li>
+                <li>*ART_ru_ft_C_d_3*</li>
+                <li>*ART_ru_ft_C_d_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_e_1*</li>
+                <li>*ART_ru_ft_C_e_2*</li>
+                <li>*ART_ru_ft_C_e_3*</LI>
+                <li>*ART_ru_ft_C_e_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_f_1*</li>
+                <li>*ART_ru_ft_C_f_2*</li>
+                <li>*ART_ru_ft_C_f_3*</li>
+                <li>*ART_ru_ft_C_f_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_g_1*</li>
+                <li>*ART_ru_ft_C_g_2*</li>
+                <li>*ART_ru_ft_C_g_3*</li>
+                <li>*ART_ru_ft_C_g_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_h_1*</li>
+                <li>*ART_ru_ft_C_h_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_i_1*</li>
+                <li>*ART_ru_ft_C_i_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_j*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_j_1*</li>
+                <li>*ART_ru_ft_C_j_2*</li>
+                <li>*ART_ru_ft_C_j_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_k*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_k_1*</li>
+                <li>*ART_ru_ft_C_k_2*</li>
+                <li>*ART_ru_ft_C_k_3*
+                    <ol>
+                        <li>*ART_ru_ft_C_k_3_1*</li>
+                        <li>*ART_ru_ft_C_k_3_2*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_l*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_l_1*</li>
+                <li>*ART_ru_ft_C_l_2*</li>
+                <li>*ART_ru_ft_C_l_3*
+                    <ol>
+                        <li>*ART_ru_ft_C_l_3_1*</li>
+                        <li>*ART_ru_ft_C_l_3_2*</li>
+                        <li>*ART_ru_ft_C_l_3_3*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_m*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_m_1*</li>
+                <li>*ART_ru_ft_C_m_2*</li>
+                <li>*ART_ru_ft_C_m_3*</li>
+                <li>*ART_ru_ft_C_m_4*</li>
+                <li>*ART_ru_ft_C_m_5*</li>
+                <li>*ART_ru_ft_C_m_6*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_n*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_n_1*</li>
+                <li>*ART_ru_ft_C_n_2*</li>
+                <li>*ART_ru_ft_C_n_3*
+                    <ol>
+                        <li>*ART_ru_ft_C_n_3_1*</li>
+                        <li>*ART_ru_ft_C_n_3_2*</li>
+                        <li>*ART_ru_ft_C_n_3_3*</li>
+                        <li>*ART_ru_ft_C_n_3_4*</li>
+                        <li>*ART_ru_ft_C_n_3_5*</li>
+                        <li>*ART_ru_ft_C_n_3_6*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_o*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_o_1*</li>
+                <li>*ART_ru_ft_C_o_2*
+                    <table class="rules_table">
+                        <tr>
+                            <td>*ART_ru_ft_C_td_o2_1_1*</td>
+                            <td>*ART_ru_ft_C_td_o2_1_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_C_td_o2_2_1*</td>
+                            <td>*ART_ru_ft_C_td_o2_2_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_C_td_o2_3_1*</td>
+                            <td>*ART_ru_ft_C_td_o2_3_2*</td>
+                        </tr>
+                    </table>
+                </li>
+                <li>*ART_ru_ft_C_o_3*</li>
+                <li>*ART_ru_ft_C_o_4*</li>
+                <li>*ART_ru_ft_C_o_5*</li>
+                <li>*ART_ru_ft_C_o_6*</li>
+                <li>*ART_ru_ft_C_o_7*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_p*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_p_1*</li>
+                <li>*ART_ru_ft_C_p_2*
+                    <table class="rules_table">
+                        <tr>
+                            <td>*ART_ru_ft_C_td_p2_1_1*</td>
+                            <td>*ART_ru_ft_C_td_p2_1_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_C_td_p2_2_1*</td>
+                            <td>*ART_ru_ft_C_td_p2_2_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_C_td_p2_3_1*</td>
+                            <td>*ART_ru_ft_C_td_p2_3_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_C_td_p2_4_1*</td>
+                            <td>*ART_ru_ft_C_td_p2_4_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_C_td_p2_5_1*</td>
+                            <td>*ART_ru_ft_C_td_p2_5_2*</td>
+                        </tr>
+                        <tr>
+                            <td>*ART_ru_ft_C_td_p2_6_1*</td>
+                            <td>*ART_ru_ft_C_td_p2_6_2*</td>
+                        </tr>
+                    </table>
+                </li>
+                <li>*ART_ru_ft_C_p_3*</li>
+                <li>*ART_ru_ft_C_p_4*</li>
+                <li>*ART_ru_ft_C_p_5*</li>
+                <li>*ART_ru_ft_C_p_6*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_C_q*</h3>
+            <ul>
+                <li>*ART_ru_ft_C_q_1*</li>
+                <li>*ART_ru_ft_C_q_2*</li>
+                <li id="tag_3">*ART_ru_ft_C_q_3*</li>
+            </ul>
+
+
+            <h2 id="PlayersMarkets">*ART_ru_ft_D*</h2>
+            <h3>*ART_ru_ft_D_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_a_1*</li>
+                <li>*ART_ru_ft_D_a_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_b_1*</li>
+                <li>*ART_ru_ft_D_b_2*</li>
+                <li>*ART_ru_ft_D_b_3*</li>
+                <li>*ART_ru_ft_D_b_4*</li>
+                <li>*ART_ru_ft_D_b_5*</li>
+                <li>*ART_ru_ft_D_b_6*</li>
+                <li>*ART_ru_ft_D_b_7*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_c_1*</li>
+                <li>*ART_ru_ft_D_c_2*</li>
+                <li>*ART_ru_ft_D_c_3*</li>
+                <li>*ART_ru_ft_D_c_4*</li>
+                <li>*ART_ru_ft_D_c_5*</li>
+                <li>*ART_ru_ft_D_c_6*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_d_1*</li>
+                <li>*ART_ru_ft_D_d_2*</li>
+                <li>*ART_ru_ft_D_d_3*</li>
+                <li>*ART_ru_ft_D_d_4*</li>
+                <li>*ART_ru_ft_D_d_5*</li>
+                <li>*ART_ru_ft_D_d_6*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_e*</h3>
+            <h3>*ART_ru_ft_D_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_f_1*</li>
+                <li>*ART_ru_ft_D_f_2*</li>
+                <li>*ART_ru_ft_D_f_3*</li>
+                <li>*ART_ru_ft_D_f_4*</li>
+                <li>*ART_ru_ft_D_f_5*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_g_1*</li>
+                <li>*ART_ru_ft_D_g_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_h_1*</li>
+                <li>*ART_ru_ft_D_h_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_i_1*</li>
+                <li>*ART_ru_ft_D_i_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_D_j*</h3>
+            <ul>
+                <li>*ART_ru_ft_D_j_1*</li>
+                <li>*ART_ru_ft_D_j_2*</li>
+                <li id="tag_4">*ART_ru_ft_D_j_3*</li>
+            </ul>
+
+
+            <h2 id="Specials">*ART_ru_ft_E*</h2>
+            <h3>*ART_ru_ft_E_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_a_1*</li>
+                <li>*ART_ru_ft_E_a_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_b_1*</li>
+                <li>*ART_ru_ft_E_b_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_c_1*</li>
+                <li>*ART_ru_ft_E_c_2*</li>
+                <li>*ART_ru_ft_E_c_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_d_1*</li>
+                <li>*ART_ru_ft_E_d_2*</li>
+                <li>*ART_ru_ft_E_d_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_e_1*</li>
+                <li>*ART_ru_ft_E_e_2*</li>
+                <li>*ART_ru_ft_E_e_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_f_1*</li>
+                <li>*ART_ru_ft_E_f_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_g_1*</li>
+                <li>*ART_ru_ft_E_g_2*</li>
+                <li>*ART_ru_ft_E_g_3*</li>
+                <li>*ART_ru_ft_E_g_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_h_1*</li>
+                <li>*ART_ru_ft_E_h_2*</li>
+                <li>*ART_ru_ft_E_h_3*</li>
+                <li>*ART_ru_ft_E_h_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_i_1*</li>
+                <li>*ART_ru_ft_E_i_2*</li>
+                <li>*ART_ru_ft_E_i_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_j*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_j_1*</li>
+                <li>*ART_ru_ft_E_j_2*</li>
+                <li>*ART_ru_ft_E_j_3*</li>
+                <li>*ART_ru_ft_E_j_4*</li>
+                <li>*ART_ru_ft_E_j_5*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_k*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_k_1*</li>
+                <li>*ART_ru_ft_E_k_2*</li>
+                <li>*ART_ru_ft_E_k_3*</li>
+                <li>*ART_ru_ft_E_k_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_E_l*</h3>
+            <ul>
+                <li>*ART_ru_ft_E_l_1*</li>
+                <li>*ART_ru_ft_E_l_2*</li>
+                <li>*ART_ru_ft_E_l_3*</li>
+                <li id="tag_5">*ART_ru_ft_E_l_4*</li>
+            </ul>
+
+
+            <h2 id="Corners">*ART_ru_ft_F*</h2>
+            <h3>*ART_ru_ft_F_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_a_1*</li>
+                <li>*ART_ru_ft_F_a_2*</li>
+                <li>*ART_ru_ft_F_a_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_b_1*</li>
+                <li>*ART_ru_ft_F_b_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_c_1*</li>
+                <li>*ART_ru_ft_F_c_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_d_1*</li>
+                <li>*ART_ru_ft_F_d_2*</li>
+                <li>*ART_ru_ft_F_d_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_e_1*</li>
+                <li>*ART_ru_ft_F_e_2*</li>
+                <li>*ART_ru_ft_F_e_3*</li>
+                <li>*ART_ru_ft_F_e_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_f_1*</li>
+                <li>*ART_ru_ft_F_f_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_g_1*</li>
+                <li>*ART_ru_ft_F_g_2*</li>
+                <li>*ART_ru_ft_F_g_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_h_1*</li>
+                <li>*ART_ru_ft_F_h_2*</li>
+                <li>*ART_ru_ft_F_h_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_i_1*</li>
+                <li>*ART_ru_ft_F_i_2*</li>
+                <li>*ART_ru_ft_F_i_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_j*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_j_1*</li>
+                <li>*ART_ru_ft_F_j_2*</li>
+                <li>*ART_ru_ft_F_j_3*</li>
+                <li>*ART_ru_ft_F_j_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_k*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_k_1*</li>
+                <li>*ART_ru_ft_F_k_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_l*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_l_1*</li>
+                <li>*ART_ru_ft_F_l_2*</li>
+                <li>*ART_ru_ft_F_l_3*</li>
+                <li>*ART_ru_ft_F_l_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_m*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_m_1*</li>
+                <li>*ART_ru_ft_F_m_2*
+                    <ol>
+                        <li>*ART_ru_ft_F_m_2_1*</li>
+                        <li>*ART_ru_ft_F_m_2_2*</li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_F_m_3*</li>
+                <li>*ART_ru_ft_F_m_4*</li>
+                <li>*ART_ru_ft_F_m_5*</li>
+                <li>*ART_ru_ft_F_m_6*</li>
+                <li>*ART_ru_ft_F_m_7*</li>
+                <li>*ART_ru_ft_F_m_8*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_n*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_n_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_F_o*</h3>
+            <ul>
+                <li>*ART_ru_ft_F_o_1*</li>
+                <li>*ART_ru_ft_F_o_2*
+                    <ol>
+                        <li>*ART_ru_ft_F_o_2_1*</li>
+                        <li>*ART_ru_ft_F_o_2_2*</li>
+                        <li id="tag_6">*ART_ru_ft_F_o_2_3*</li>
+                    </ol>
+                </li>
+            </ul>
+
+
+            <h2 id="BookingsCards">*ART_ru_ft_G*</h2>
+            <h3>*ART_ru_ft_G_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_a_1*</li>
+                <li>*ART_ru_ft_G_a_2*</li>
+                <li>*ART_ru_ft_G_a_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_b_1*</li>
+                <li>*ART_ru_ft_G_b_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_c_1*</li>
+                <li>*ART_ru_ft_G_c_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_d_1*</li>
+                <li>*ART_ru_ft_G_d_2*</li>
+                <li>*ART_ru_ft_G_d_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_e_1*</li>
+                <li>*ART_ru_ft_G_e_2*</li>
+                <li>*ART_ru_ft_G_e_3*</li>
+                <li>*ART_ru_ft_G_e_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_f_1*</li>
+                <li>*ART_ru_ft_G_f_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_g_1*</li>
+                <li>*ART_ru_ft_G_g_2*</li>
+                <li>*ART_ru_ft_G_g_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_h_1*</li>
+                <li>*ART_ru_ft_G_h_2*</li>
+                <li>*ART_ru_ft_G_h_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_i_1*</li>
+                <li>*ART_ru_ft_G_i_2*</li>
+                <li>*ART_ru_ft_G_i_3*</li>
+                <li>*ART_ru_ft_G_i_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_j*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_j_1*</li>
+                <li>*ART_ru_ft_G_j_2*</li>
+                <li>*ART_ru_ft_G_j_3*</li>
+                <li>*ART_ru_ft_G_j_4*</li>
+                <li>*ART_ru_ft_G_j_5*</li>
+                <li>*ART_ru_ft_G_j_6*</li>
+                <li>*ART_ru_ft_G_j_7*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_k*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_k_1*</li>
+                <li>*ART_ru_ft_G_k_2*</li>
+                <li>*ART_ru_ft_G_k_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_l*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_l_1*</li>
+                <li>*ART_ru_ft_G_l_2*</li>
+                <li>*ART_ru_ft_G_l_3*
+                    <ol>
+                        <li>*ART_ru_ft_G_l_3_1*</li>
+                        <li>*ART_ru_ft_G_l_3_2*</li>
+                        <li>*ART_ru_ft_G_l_3_3*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_m*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_m_1*</li>
+                <li>*ART_ru_ft_G_m_2*
+                    <ol>
+                        <li>*ART_ru_ft_G_m_2_1*</li>
+                        <li>*ART_ru_ft_G_m_2_2*</li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_G_m_3*</li>
+                <li>*ART_ru_ft_G_m_4*</li>
+                <li>*ART_ru_ft_G_m_5*</li>
+                <li>*ART_ru_ft_G_m_6*</li>
+                <li>*ART_ru_ft_G_m_7*</li>
+                <li>*ART_ru_ft_G_m_8*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_n*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_n_1*</li>
+                <li>*ART_ru_ft_G_n_2*</li>
+                <li>*ART_ru_ft_G_n_3*</li>
+                <li>*ART_ru_ft_G_n_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_o*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_o_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_G_p*</h3>
+            <ul>
+                <li>*ART_ru_ft_G_p_1*</li>
+                <li>*ART_ru_ft_G_p_2*
+                    <ol>
+                        <li>*ART_ru_ft_G_p_2_1*</li>
+                        <li>*ART_ru_ft_G_p_2_2*</li>
+                        <li id="tag_7">*ART_ru_ft_G_p_2_3*</li>
+                    </ol>
+                </li>
+            </ul>
+
+
+            <h2 id="FreeKicks">*ART_ru_ft_H*</h2>
+            <h3>*ART_ru_ft_H_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_H_a_1*</li>
+                <li>*ART_ru_ft_H_a_2*</li>
+                <li>*ART_ru_ft_H_a_3*</li>
+                <li>*ART_ru_ft_H_a_4*</li>
+                <li id="tag_8">*ART_ru_ft_H_a_5*</li>
+            </ul>
+
+
+            <h2 id="GoalKicks">*ART_ru_ft_I*</h2>
+            <h3>*ART_ru_ft_I_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_I_a_1*</li>
+                <li>*ART_ru_ft_I_a_2*</li>
+                <li>*ART_ru_ft_I_a_3*</li>
+                <li>*ART_ru_ft_I_a_4*</li>
+                <li id="tag_9">*ART_ru_ft_I_a_5*</li>
+            </ul>
+
+
+            <h2 id="ThrowIns">*ART_ru_ft_J*</h2>
+            <h3>*ART_ru_ft_J_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_J_a_1*</li>
+                <li>*ART_ru_ft_J_a_2*</li>
+                <li>*ART_ru_ft_J_a_3*</li>
+                <li>*ART_ru_ft_J_a_4*</li>
+                <li id="tag_10">*ART_ru_ft_J_a_5*</li>
+            </ul>
+
+
+            <h2 id="Substitutions">*ART_ru_ft_K*</h2>
+            <h3>*ART_ru_ft_K_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_K_a_1*</li>
+                <li>*ART_ru_ft_K_a_2*</li>
+                <li>*ART_ru_ft_K_a_3*</li>
+                <li>*ART_ru_ft_K_a_4*</li>
+                <li>*ART_ru_ft_K_a_5*</li>
+                <li id="tag_11">*ART_ru_ft_K_a_6*</li>
+            </ul>
+
+
+            <h2 id="Offsides">*ART_ru_ft_L*</h2>
+            <h3>*ART_ru_ft_L_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_L_a_1*</li>
+                <li>*ART_ru_ft_L_a_2*</li>
+                <li>*ART_ru_ft_L_a_3*</li>
+                <li>*ART_ru_ft_L_a_4*</li>
+                <li id="tag_12">*ART_ru_ft_L_a_5*</li>
+            </ul>
+
+
+            <h2 id="PenaltyMarkets">*ART_ru_ft_M*</h2>
+            <h3>*ART_ru_ft_M_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_a_1*</li>
+                <li>*ART_ru_ft_M_a_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_b_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_c_1*</li>
+                <li>*ART_ru_ft_M_c_2*</li>
+                <li>*ART_ru_ft_M_c_3*</li>
+                <li>*ART_ru_ft_M_c_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_d_1*</li>
+                <li>*ART_ru_ft_M_d_2*</li>
+                <li>*ART_ru_ft_M_d_3*
+                    <ol>
+                        <li>*ART_ru_ft_M_d_3_1*</li>
+                        <li>*ART_ru_ft_M_d_3_2*</li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_M_d_4*</li>
+                <li>*ART_ru_ft_M_d_5*</li>
+                <li>*ART_ru_ft_M_d_6*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_e_1*</li>
+                <li>*ART_ru_ft_M_e_2*</li>
+                <li>*ART_ru_ft_M_e_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_f_1*</li>
+                <li>*ART_ru_ft_M_f_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_g_1*</li>
+                <li>*ART_ru_ft_M_g_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_h_1*</li>
+                <li>*ART_ru_ft_M_h_2*
+                    <ul class="list_none">
+                        <li>*ART_ru_ft_M_h_2_1*</li>
+                        <li>*ART_ru_ft_M_h_2_2*</li>
+                    </ul>
+                </li>
+                <li>*ART_ru_ft_M_h_3*</li>
+                <li>*ART_ru_ft_M_h_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_M_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_M_i_1*</li>
+                <li>*ART_ru_ft_M_i_2*</li>
+                <li id="tag_13">*ART_ru_ft_M_i_3*</li>
+            </ul>
+
+
+            <h2 id="Competitions">*ART_ru_ft_N*</h2>
+            <h3>*ART_ru_ft_N_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_a_1*</li>
+                <li>*ART_ru_ft_N_a_2*</li>
+                <li>*ART_ru_ft_N_a_3*</li>
+                <li>*ART_ru_ft_N_a_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_b_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_c_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_e_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_d_1*</li>
+                <li>*ART_ru_ft_N_d_2*</li>
+                <li>*ART_ru_ft_N_d_3*</li>
+                <li>*ART_ru_ft_N_d_4*</li>
+                <li>*ART_ru_ft_N_d_5*</li>
+                <li>*ART_ru_ft_N_d_6*</li>
+                <li>*ART_ru_ft_N_d_7*</li>
+                <table class="rules_table table_auto">
+                    <tr>
+                        <th>*ART_ru_ft_N_td_d7_1_1*</th>
+                        <th>*ART_ru_ft_N_td_d7_1_2*</th>
+                        <th>*ART_ru_ft_N_td_d7_1_3*</th>
+                        <th>*ART_ru_ft_N_td_d7_1_4*</th>
+                        <th>*ART_ru_ft_N_td_d7_1_5*</th>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_N_td_d7_2_1*</td>
+                        <td>*ART_ru_ft_N_td_d7_2_2*</td>
+                        <td>*ART_ru_ft_N_td_d7_2_3*</td>
+                        <td>*ART_ru_ft_N_td_d7_2_4*</td>
+                        <td>*ART_ru_ft_N_td_d7_2_5*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_N_td_d7_3_1*</td>
+                        <td>*ART_ru_ft_N_td_d7_3_2*</td>
+                        <td>*ART_ru_ft_N_td_d7_3_3*</td>
+                        <td>*ART_ru_ft_N_td_d7_3_4*</td>
+                        <td>*ART_ru_ft_N_td_d7_3_5*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_N_td_d7_4_1*</td>
+                        <td>*ART_ru_ft_N_td_d7_4_2*</td>
+                        <td>*ART_ru_ft_N_td_d7_4_3*</td>
+                        <td>*ART_ru_ft_N_td_d7_4_4*</td>
+                        <td>*ART_ru_ft_N_td_d7_4_5*</td>
+                    </tr>
+                    <tr class="text_bold">
+                        <td>*ART_ru_ft_N_td_d7_5_1*</td>
+                        <td>*ART_ru_ft_N_td_d7_5_2*</td>
+                        <td>*ART_ru_ft_N_td_d7_5_3*</td>
+                        <td>*ART_ru_ft_N_td_d7_5_4*</td>
+                        <td>*ART_ru_ft_N_td_d7_5_5*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_ru_ft_N_td_d7_6_1*</td>
+                        <td>*ART_ru_ft_N_td_d7_6_2*</td>
+                        <td>*ART_ru_ft_N_td_d7_6_3*</td>
+                        <td>*ART_ru_ft_N_td_d7_6_4*</td>
+                        <td>*ART_ru_ft_N_td_d7_6_5*</td>
+                    </tr>
+                </table>
+            </ul>
+
+            <h3>*ART_ru_ft_N_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_f_1*</li>
+                <li>*ART_ru_ft_N_f_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_g_1*</li>
+                <li>*ART_ru_ft_N_g_2*</li>
+                <li>*ART_ru_ft_N_g_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_h_1*</li>
+                <li>*ART_ru_ft_N_h_2*</li>
+                <li>*ART_ru_ft_N_h_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_i_1*</li>
+                <li>*ART_ru_ft_N_i_2*</li>
+                <li>*ART_ru_ft_N_i_3*</li>
+                <li>*ART_ru_ft_N_i_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_j*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_j_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_k*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_k_1*</li>
+                <li>*ART_ru_ft_N_k_2*</li>
+                <li>*ART_ru_ft_N_k_3*</li>
+                <li>*ART_ru_ft_N_k_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_l*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_l_1*</li>
+                <li>*ART_ru_ft_N_l_2*</li>
+                <li>*ART_ru_ft_N_l_3*</li>
+                <li>*ART_ru_ft_N_l_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_m*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_m_1*</li>
+                <li>*ART_ru_ft_N_m_2*</li>
+                <li>*ART_ru_ft_N_m_3*</li>
+                <li>*ART_ru_ft_N_m_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_n*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_n_1*</li>
+                <li>*ART_ru_ft_N_n_2*</li>
+                <li>*ART_ru_ft_N_n_3*</li>
+                <li>*ART_ru_ft_N_n_4*</li>
+                <li>*ART_ru_ft_N_n_5*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_o*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_o_1*</li>
+                <li>*ART_ru_ft_N_o_2*</li>
+                <li>*ART_ru_ft_N_o_3*</li>
+                <li>*ART_ru_ft_N_o_4*</li>
+                <li>*ART_ru_ft_N_o_5*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_p*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_p_1*</li>
+                <li>*ART_ru_ft_N_p_2*</li>
+                <li>*ART_ru_ft_N_p_3*</li>
+                <li>*ART_ru_ft_N_p_4*</li>
+                <li>*ART_ru_ft_N_p_5*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_q*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_q_1*</li>
+                <li>*ART_ru_ft_N_q_2*</li>
+                <li>*ART_ru_ft_N_q_3*</li>
+                <li>*ART_ru_ft_N_q_4*</li>
+                <li>*ART_ru_ft_N_q_5*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_r*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_r_1*</li>
+                <li>*ART_ru_ft_N_r_2*</li>
+                <li>*ART_ru_ft_N_r_3*</li>
+                <li>*ART_ru_ft_N_r_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_s*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_s_1*</li>
+                <li>*ART_ru_ft_N_s_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_t*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_t_1*</li>
+                <li>*ART_ru_ft_N_t_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_u*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_u_1*</li>
+                <li>*ART_ru_ft_N_u_2*</li>
+                <li>*ART_ru_ft_N_u_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_v*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_v_1*</li>
+                <li>*ART_ru_ft_N_v_2*</li>
+                <li>*ART_ru_ft_N_v_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_w*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_w_1*</li>
+                <li>*ART_ru_ft_N_w_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_x*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_x_1*</li>
+                <li>*ART_ru_ft_N_x_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_y*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_y_1*</li>
+                <li>*ART_ru_ft_N_y_2*</li>
+                <li>*ART_ru_ft_N_y_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_z*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_z_1*</li>
+                <li>*ART_ru_ft_N_z_2*</li>
+                <li>*ART_ru_ft_N_z_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_aa*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_aa_1*</li>
+                <li>*ART_ru_ft_N_aa_2*</li>
+                <li>*ART_ru_ft_N_aa_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_ab*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_ab_1*</li>
+                <li>*ART_ru_ft_N_ab_2*</li>
+                <li>*ART_ru_ft_N_ab_3*</li>
+                <li>*ART_ru_ft_N_ab_4*</li>
+                <li>*ART_ru_ft_N_ab_5*</li>
+                <li>*ART_ru_ft_N_ab_6*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_ac*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_ac_1*</li>
+                <li>*ART_ru_ft_N_ac_2*</li>
+                <li>*ART_ru_ft_N_ac_3*</li>
+                <li>*ART_ru_ft_N_ac_4*</li>
+                <li>*ART_ru_ft_N_ac_5*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_ad*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_ad_1*</li>
+                <li>*ART_ru_ft_N_ad_2*</li>
+                <li>*ART_ru_ft_N_ad_3*</li>
+                <li>*ART_ru_ft_N_ad_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_ae*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_ae_1*</li>
+                <li>*ART_ru_ft_N_ae_2*</li>
+                <li>*ART_ru_ft_N_ae_3*</li>
+                <li>*ART_ru_ft_N_ae_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_af*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_af_1*</li>
+                <li>*ART_ru_ft_N_af_2*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_ag*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_ag_1*</li>
+                <li>*ART_ru_ft_N_ag_2*</li>
+                <li>*ART_ru_ft_N_ag_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_N_ah*</h3>
+            <ul>
+                <li>*ART_ru_ft_N_ah_1*</li>
+                <li>*ART_ru_ft_N_ah_2*</li>
+                <li>*ART_ru_ft_N_ah_3*</li>
+                <li id="tag_14">*ART_ru_ft_N_ah_4*</li>
+            </ul>
+
+
+            <h2 id="CombinedMarkets">*ART_ru_ft_O*</h2>
+            <h3>*ART_ru_ft_O_a*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_a_1*</li>
+                <li>*ART_ru_ft_O_a_2*</li>
+                <li>*ART_ru_ft_O_a_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_b_1*</li>
+                <li>*ART_ru_ft_O_b_2*</li>
+                <li>*ART_ru_ft_O_b_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_c_1*</li>
+                <li>*ART_ru_ft_O_c_2*</li>
+                <li>*ART_ru_ft_O_c_3*</li>
+                <li>*ART_ru_ft_O_c_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_d_1*</li>
+                <li>*ART_ru_ft_O_d_2*</li>
+                <li>*ART_ru_ft_O_d_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_e*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_e_1*</li>
+                <li>*ART_ru_ft_O_e_2*</li>
+                <li>*ART_ru_ft_O_e_3*
+                    <ol>
+                        <li>*ART_ru_ft_O_e_3_1*</li>
+                        <li>*ART_ru_ft_O_e_3_2*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_f*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_f_1*</li>
+                <li>*ART_ru_ft_O_f_2*</li>
+                <li>*ART_ru_ft_O_f_3*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_g*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_g_1*</li>
+                <li>*ART_ru_ft_O_g_2*</li>
+                <li>*ART_ru_ft_O_g_3*
+                    <ol>
+                        <li>*ART_ru_ft_O_g_3_1*</li>
+                        <li>*ART_ru_ft_O_g_3_2*</li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_O_g_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_h*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_h_1*</li>
+                <li>*ART_ru_ft_O_h_2*</li>
+                <li>*ART_ru_ft_O_h_3*
+                    <ol>
+                        <li>*ART_ru_ft_O_h_3_1*</li>
+                        <li>*ART_ru_ft_O_h_3_2*</li>
+                        <li>*ART_ru_ft_O_h_3_3*</li>
+                    </ol>
+                </li>
+                <li>*ART_ru_ft_O_h_4*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_O_i*</h3>
+            <ul>
+                <li>*ART_ru_ft_O_i_1*</li>
+                <li>*ART_ru_ft_O_i_2*</li>
+                <li>*ART_ru_ft_O_i_3*
+                    <ol>
+                        <li>*ART_ru_ft_O_i_3_1*</li>
+                        <li>*ART_ru_ft_O_i_3_2*</li>
+                        <li>*ART_ru_ft_O_i_3_3*</li>
+                    </ol>
+                </li>
+                <li id="tag_15">*ART_ru_ft_O_i_4*</li>
+            </ul>
+
+
+            <h2 id="OtherMarkets">*ART_ru_ft_P*</h2>
+            <h3>*ART_ru_ft_P_a*</h3>
+            <p>*ART_ru_ft_P_a_p*</p>
+
+            <h3>*ART_ru_ft_P_b*</h3>
+            <ul>
+                <li>*ART_ru_ft_P_b_1*</li>
+                <li>*ART_ru_ft_P_b_2*
+                    <ol>
+                        <li>*ART_ru_ft_P_b_2_1*</li>
+                        <li>*ART_ru_ft_P_b_2_2*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_P_c*</h3>
+            <ul>
+                <li>*ART_ru_ft_P_c_1*
+                    <ol>
+                        <li>*ART_ru_ft_P_c_1_1*</li>
+                        <li>*ART_ru_ft_P_c_1_2*</li>
+                    </ol>
+                </li>
+            </ul>
+
+            <h3>*ART_ru_ft_P_d*</h3>
+            <ul>
+                <li>*ART_ru_ft_P_d_1*</li>
+            </ul>
+
+            <h3>*ART_ru_ft_P_e*</h3>
+            <ul>
+                <li id="tag_16">*ART_ru_ft_P_e_1*</li>
+            </ul>
+
+
+            <h2 id="FantasyMatches">*ART_ru_ft_Q*</h2>
+            <h3>*ART_ru_ft_Q_a*</h3>
+            <p>*ART_ru_ft_Q_a_p*</p>
+            <ul>
+                <li>*ART_ru_ft_Q_a_1*</li>
+                <li>*ART_ru_ft_Q_a_2*</li>
+                <li>*ART_ru_ft_Q_a_3*</li>
+                <li>*ART_ru_ft_Q_a_4*</li>
+                <li>*ART_ru_ft_Q_a_5*</li>
+            </ul>
+
+            <h2 id="EFootballMatches">*ART_ru_ft_R*</h2>
+            <ul>
+                <li>*ART_ru_ft_R_a_1*</li>
+                <li>*ART_ru_ft_R_a_2*</li>
+                <li>*ART_ru_ft_R_a_3*</li>
+                <li>*ART_ru_ft_R_a_4*</li>
+                <li>*ART_ru_ft_R_a_5*</li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

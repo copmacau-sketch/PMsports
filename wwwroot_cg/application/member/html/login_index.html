@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html lang="en" translate="no">
+<title>Welcome</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <meta name='theme-color' content='#FFFFFE' />
+    <script id="indexJS">{JS}</script>
+    <style id="indexCS">{CSS}</style>
+
+</head>
+<body id="scroll_body" onload=";new login_index(window, document).init();" class="">
+<div id="main" class="main">
+    <!-- rotate screen add class="main_height"-->
+    <!-- chrome Lite mode load locker img -->
+    <i class="locker"></i>
+    <div id="home_show" ontouchstart="" class="wrapper" style="display:none">
+        <!-- icon SVG -->
+        <div id="icon_all" style="display: none;"></div>
+        <!-- top menu -->
+        <div id="header_show" class="header"></div>
+        <!-- PC left content / MOBILE center content-->
+        <div id="body_content" class="content_l">
+            <div id="body_loading" class="loading" style="display: none;">
+                <i class="icon_load"></i>
+            </div>
+            <div id="body_show" class="box_l">
+                <!-- 各頁內容 -->
+                <div id="footer_show">
+                    <!-- 載入footer.html -->
+                </div>
+            </div>
+            <!-- <div id="body_show_bak" style="display: none;"></div> -->
+        </div>
+        <!-- 多選聯盟提交鈕 -->
+        <div id="select_lea" class="btn_lea_submit" style="display: none;">*ART_btn_submit*</div>
+        <!-- PC right content-->
+        <div id="right_show" class="content_r"></div>
+        <!-- PC right content full loading page -->
+        <div id="right_loading" class="loading_right" style="display: none;">
+            <i class="icon_load"></i>
+        </div>
+        <!-- left menu -->
+        <!-- open compelet menu add calss="on" -->
+        <div class="menu_l"></div>
+        <!-- right slide account -->
+        <!-- don't use display -->
+        <div id="myAcc_show" class="slide_r"></div>
+        <!-- MOBILE bottom menu -->
+        <div id="bottom_show" class="nav_menu"></div>
+        <!-- bet slip -->
+        <!-- don't use display -->
+        <div id="betslip_show" class="bet_slip off"></div>
+        <!-- announcement popup page -->
+        <!-- don't use display -->
+        <div id="announcement_show" class="popup"></div>
+    </div>
+    <!-- loading -->
+    <div id="loading" class="loading">
+        <i class="icon_load"></i>
+    </div>
+    <!-- maintain page -->
+    <div id="maintain_show" class=""></div>
+    <!-- popup / alert page -->
+    <div id="alert_show" class="popup"></div>
+    <!-- 系統訊息 popup / alert page -->
+    <div id="system_show" class="popup popup_sys"></div>
+    <!-- login page -->
+    <div id="acc_show" class="login"></div>
+    <!-- change id/pwd page -->
+    <div id="chgAcc_show" class="chg_acc"></div>
+    <!-- systemrequire -->
+    <div id="sysreq_show" class="sys"></div>
+</div>
+</body>
+</html>

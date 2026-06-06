@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>{JS}</script>
+    <style>{CSS}</style>
+    <title></title>
+</head>
+<body>
+<div>
+    <div class="dashboard">
+        <div class="da_mainbg">
+            <div class="da_banner tw"></div>
+            <div class="da_link">
+                <button id="report_btn" class="link_btn">
+                    <span class="link_txt">報表</span>
+                </button>
+                <button id="acc_btn" class="link_btn">
+                    <span class="link_txt">帳號管理</span>
+                </button>
+                <button id="bet_btn" class="link_btn">
+                    <span class="link_txt">即時注單</span>
+                </button>
+            </div>
+            <div id="box_per" class="da_box performance">
+                <div class="da_title">績效概況</div>
+                <div class="da_content" id="div_po">
+                    <!-- da_btn_box 捲動時 da_btn_container 補上 scroll-->
+                    <div class="da_btn_container">
+                        <div id="per_box_scroll" class="da_btn_box">
+                            <!-- 點擊後在.da_btn加上.active -->
+                            <button id="per_yes" class="da_btn active">昨天</button>
+                            <button id="per_lw" class="da_btn">上週</button>
+                            <button id="per_tp" class="da_btn">本期</button>
+                        </div>
+                    </div>
+                    <div class="da_range">
+                        <span>本期:</span>
+                        <span id="this_period_performance">-</span>
+                    </div>
+                    <div class="bar_graph">
+
+                        <label id="div_profit" class="bar_graph_box">
+                            <span class="bar_title">獲利率</span>
+                            <!-- 調整字體大小麻煩幫加上.fz36~.fz18 -->
+                            <!-- 負值加上.word_red -->
+                            <span class="bar_value" id="per_profit">-%</span>
+                            <!-- 較之前增加時在#show_compare_profit加上.increase,減少時加上.decrease -->
+                            <div id="show_compare_profit" style="display: none;">
+                                <span class="bar_percent" id="compare_profit" data-inc="比前一天增加" data-dec="比前一天減少">-%</span>
+                                <i class="bar_graph_bg">
+                                    <!-- .bar_percent的數值再麻煩幫套到.bar_graph_color的寬度 -->
+                                    <i id="compare_per_profit" class="bar_graph_color" style="width: 0%;"></i>
+                                </i>
+                            </div>
+                        </label>
+                        <div id="div_result" class="bar_graph_box">
+                            <span class="bar_title">贏 / 輸</span>
+                            <!-- 負值加上.word_red -->
+                            <span class="bar_value" id="per_result">-</span>
+                            <!-- 較之前增加時在#show_compare_result加上.increase,減少時加上.decrease -->
+                            <div id="show_compare_result" style="display: none;">
+                                <span class="bar_percent" id="compare_result" data-inc="比前一天增加" data-dec="比前一天減少">-%</span>
+                                <i class="bar_graph_bg">
+                                    <i id="compare_per_result" class="bar_graph_color" style="width: 0%;"></i>
+                                </i>
+                            </div>
+                        </div>
+                        <a id="div_stock" class="bar_graph_box">
+                            <span class="bar_title">實貨量</span>
+                            <!-- 負值加上.word_red -->
+                            <span class="bar_value" id="per_stock">-</span>
+                            <!-- 較之前增加時在#show_compare_stock加上.increase,減少時加上.decrease -->
+                            <div id="show_compare_stock" style="display: none;">
+                                <span class="bar_percent" id="compare_stock" data-inc="比前一天增加" data-dec="比前一天減少">-%</span>
+                                <i class="bar_graph_bg">
+                                    <i id="compare_per_stock" class="bar_graph_color" style="width: 0%;"></i>
+                                </i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <!-- sysMsg -->
+                <div id="sysmsg_po" class="da_noData" style="display: none;">
+                    <img class="da_noData_img" src="../../images/control/da_noData.svg" alt="">
+                    <span class="da_noData_txt">維護後才有數據</span>
+                </div>
+                <!-- sysMsg end -->
+
+                <!-- 區塊load -->
+                <!-- 成功 加上class .--success -->
+                <div id="loading_po" class="da_loadBox" style="display:none;">
+                    <div class="load_bar"></div>
+                    <div class="load_fail">取數據失敗。請換網絡連接，然後重試。</div>
+                </div>
+                <!-- 區塊load end -->
+            </div>
+            <div class="da_container">
+                <div class="da_box">
+                    <div class="da_title">帳號概況</div>
+                    <div class="da_content">
+                        <div class="da_quota">
+                            <span class="quota_title">信用額度</span>
+                            <span class="quota_value" id="credits">-</span>
+                            <div id="balance_show">
+                                <span class="quota_title">剩餘額度</span>
+                                <span class="quota_value" id="balance">-</span>
+                            </div>
+                            <span class="quota_title">本期新會員數</span>
+                            <span class="quota_value" id="amount_mem">-</span>
+                        </div>
+                        <div class="da_time">
+                            <span class="time_title">本期</span>
+                            <span class="time_value" id="this_period">-</span>
+                            <div class="time_half">
+                                <span class="time_title">本期剩餘天數</span>
+                                <span class="time_value" id="remaining_days">-</span>
+                            </div>
+                            <div class="time_half">
+                                <span class="time_title">本期完成天數</span>
+                                <span class="time_value" id="completed_days">-</span>
+                            </div>
+                            <div class="time_half">
+                                <span class="time_title">最後登入時間</span>
+                                <span class="time_value" id="last_login">-</span>
+                            </div>
+                            <div class="time_half">
+                                <span class="time_title">密碼最後更新時間</span>
+                                <span class="time_value" id="lastdate">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="downlineS" class="da_box downline">
+                    <div class="da_title">下線狀態</div>
+                    <div id="div_downline_summary">
+                        <div class="da_content">
+                            <!-- da_btn_box 捲動時 da_btn_container 補上 scroll-->
+                            <div class="da_btn_container">
+                                <div id="da_box_scroll" class="da_btn_box">
+                                    <button id="da_SU" class="da_btn active">總代理</button>
+                                    <button id="da_A" class="da_btn">代理商</button>
+                                    <button id="da_M" class="da_btn">會員</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="downline_summary" style="width: 100%; height: 320px;"></div>
+                    </div>
+                    <!-- sysMsg -->
+                    <div id="sysmsg_downline_summary" class="da_noData" style=" display: none;">
+                        <img class="da_noData_img" src="../../images/control/da_noData.svg" alt="">
+                        <span class="da_noData_txt">維護後才有數據</span>
+                    </div>
+                    <!-- sysMsg end -->
+                </div>
+            </div>
+            <!--div class="da_box">
+                <div class="da_title">占成收入</div>
+                <div class="da_content"></div>
+            </div-->
+            <div id="box_possess" class="da_box">
+                <div class="da_title">佔成收入</div>
+                <div id="div_possess" class="da_scrollBox">
+                    <div id="show_possess" class="da_content" style="width: 100%; min-width: 1024px; height: 320px"></div>
+                </div>
+                <!-- sysMsg -->
+                <div id="sysmsg_possess" class="da_noData" style="display: none;">
+                    <img class="da_noData_img" src="../../images/control/da_noData.svg" alt="">
+                    <span class="da_noData_txt">維護後才有數據</span>
+                </div>
+                <!-- sysMsg end -->
+            </div>
+            <div id="box_members" class="da_box">
+                <div class="da_title">投注人數</div>
+                <div id="div_members" class="da_scrollBox">
+                    <div id="show_members" class="da_content" style="width: 100%; min-width: 1024px; height: 320px"></div>
+                </div>
+                <!-- sysMsg -->
+                <div id="sysmsg_members" class="da_noData" style="display: none;">
+                    <img class="da_noData_img" src="../../images/control/da_noData.svg" alt="">
+                    <span class="da_noData_txt">維護後才有數據</span>
+                </div>
+                <!-- sysMsg end -->
+            </div>
+            <div id="box_turnover" class="da_box">
+                <div class="da_title">實貨量</div>
+                <div id="div_turnover" class="da_scrollBox">
+                    <div id="show_turnover" class="da_content" style="width: 100%; min-width: 1024px; height: 320px"></div>
+                </div>
+                <!-- sysMsg -->
+                <div id="sysmsg_turnover" class="da_noData" style="display: none;">
+                    <img class="da_noData_img" src="../../images/control/da_noData.svg" alt="">
+                    <span class="da_noData_txt">維護後才有數據</span>
+                </div>
+                <!-- sysMsg end -->
+            </div>
+            <div id="box_winloss" class="da_box">
+                <div class="da_title">贏 / 輸</div>
+                <div id="div_winloss" class="da_scrollBox">
+                    <div id="show_winloss" class="da_content" style="width: 100%; min-width: 1024px; height: 320px"></div>
+                </div>
+                <!-- sysMsg -->
+                <div id="sysmsg_winloss" class="da_noData" style="display: none;">
+                    <img class="da_noData_img" src="../../images/control/da_noData.svg" alt="">
+                    <span class="da_noData_txt">維護後才有數據</span>
+                </div>
+                <!-- sysMsg end -->
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

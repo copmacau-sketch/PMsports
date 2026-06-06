@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>右面板</title>
+	<script id="homeJS">{JS}</script>
+	
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="content_r">
+		<!-- TT Score board in-play-->
+		<div id="R_div_matches" class="box_scoboard tt" style="display: none;">
+			<div id="R_box_scostate" class="box_scostate">
+				<tt id="R_set_name" class="text_time_go"><p><!-- 第一盘 --></p> <!-- 第6局 --></tt>
+				<tt id="R_w_delay" class="text_stop_red" style="display: none;">*ART_game_stop*</tt>
+				<i id="R_midfield" class="icon_n" style="display: none;"></i>
+			</div>
+			<div id="R_box_sco_tt" class="box_sco_tt sco_tt_th">
+				<span id="R_sc_8th" class="sco_tt sco_tt_point last">L</span><!-- 國王的第８局 -->
+				<span id="R_sc_1st" class="sco_tt sco_tt_point">1</span>
+				<span id="R_sc_2nd" class="sco_tt sco_tt_point">2</span>
+				<span id="R_sc_3th" class="sco_tt sco_tt_point">3</span>
+				<span id="R_sc_4th" class="sco_tt sco_tt_point">4</span>
+				<span id="R_sc_5th" class="sco_tt sco_tt_point">5</span>
+				<span id="R_sc_6th" class="sco_tt sco_tt_point">6</span>
+				<span id="R_sc_7th" class="sco_tt sco_tt_point">7</span>
+				<span id="R_sc_game" class="sco_tt sco_tt_set">*ART_scrtt_game*</span>
+				<span id="R_total" class="sco_tt sco_tt_tot">*ART_scrtt_tot*</span>
+			</div>
+			<div id="R_box_sco_l" class="box_sco_l">
+				<div class="box_scoteam team_h">
+					<span id="R_serve_h" class="icon_serve"></span><!-- 發球方 Add class="on" -->
+					<span id="R_team_h" class="text_team"></span>
+
+					<div class="box_sco_tt">
+						<span id="R_sc_8th_H" class="sco_tt sco_tt_point last"></span>
+						<span id="R_sc_1st_H" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_2nd_H" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_3th_H" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_4th_H" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_5th_H" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_6th_H" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_7th_H" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_game_H" class="sco_tt sco_tt_set"></span>
+						<span id="R_total_H" class="sco_tt sco_tt_tot"></span>
+					</div>
+				</div>
+
+				<div class="box_scoteam team_c">
+					<span id="R_serve_c" class="icon_serve"></span><!-- 發球方 Add class="on" -->
+					<span id="R_team_c" class="text_team"></span>
+					<div class="box_sco_tt">
+						<span id="R_sc_8th_A" class="sco_tt sco_tt_point last"></span>
+						<span id="R_sc_1st_A" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_2nd_A" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_3th_A" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_4th_A" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_5th_A" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_6th_A" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_7th_A" class="sco_tt sco_tt_point"></span>
+						<span id="R_sc_game_A" class="sco_tt sco_tt_set"></span>
+						<span id="R_total_A" class="sco_tt sco_tt_tot"></span>
+					</div>
+				</div>
+
+			</div>
+			<div id="R_box_sco_point" class="box_sco_point">
+				<div id="R_320_sc_8th" class="point_tt_s last"><tt id="R_320_sc_8th_H"></tt>-<tt id="R_320_sc_8th_A"></tt></div>
+				<div id="R_320_sc_1st" class="point_tt_s"><tt id="R_320_sc_1st_H"></tt>-<tt id="R_320_sc_1st_A"></tt></div>
+				<div id="R_320_sc_2nd" class="point_tt_s"><tt id="R_320_sc_2nd_H"></tt>-<tt id="R_320_sc_2nd_A"></tt></div>
+				<div id="R_320_sc_3th" class="point_tt_s"><tt id="R_320_sc_3th_H"></tt>-<tt id="R_320_sc_3th_A"></tt></div>
+				<div id="R_320_sc_4th" class="point_tt_s"><tt id="R_320_sc_4th_H"></tt>-<tt id="R_320_sc_4th_A"></tt></div>
+				<div id="R_320_sc_5th" class="point_tt_s"><tt id="R_320_sc_5th_H"></tt>-<tt id="R_320_sc_5th_A"></tt></div>
+				<div id="R_320_sc_6th" class="point_tt_s"><tt id="R_320_sc_6th_H"></tt>-<tt id="R_320_sc_6th_A"></tt></div>
+				<div id="R_320_sc_7th" class="point_tt_s"><tt id="R_320_sc_7th_H"></tt>-<tt id="R_320_sc_7th_A"></tt></div>
+			</div>
+		</div>
+
+		<!-- scored borad / today / early / parlay -->
+		<div id="div_matches" class="box_scoboard_r tt" style="display: none;">
+			<div class="box_scostate">
+				<tt id="game_time" class="text_time"></tt>
+				<i id="midfield" class="icon_n" style="display:none"></i>
+			</div>
+			<div class="box_sco_l">
+				<div class="box_scoteam team_h">
+					<span id="team_h" class="text_team"></span>
+				</div>
+				<div class="box_sco_vs">V</div>
+				<div class="box_scoteam team_c">
+					<span id="team_c" class="text_team"></span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

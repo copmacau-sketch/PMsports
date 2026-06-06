@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Goalserve In-Play 滚球赔率 (每秒更新 · Private Key)</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #0f172a; color: #e2e8f0; margin: 0; padding: 18px; }
+        .container { max-width: 1320px; margin: 0 auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 2px solid #1e293b; padding-bottom: 14px; margin-bottom: 18px; }
+        .header h1 { margin: 0; font-size: 22px; color: #38bdf8; }
+        .meta { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; font-size: 13px; }
+        .pill { padding: 5px 11px; border-radius: 999px; background: #1e293b; color: #94a3b8; font-weight: 600; }
+        .pill.ok { background: #14532d; color: #86efac; }
+        .pill.warn { background: #78350f; color: #fcd34d; }
+        .pill.err { background: #7f1d1d; color: #fca5a5; }
+        .toolbar { display: flex; gap: 10px; align-items: center; }
+        button { padding: 7px 14px; border: 1px solid #334155; border-radius: 6px; background: #1e293b; color: #e2e8f0; cursor: pointer; font-size: 13px; }
+        button:hover { border-color: #38bdf8; }
+        input[type=text]{ padding: 7px 12px; border:1px solid #334155; border-radius:6px; background:#0f172a; color:#fff; width:200px; }
+
+        #events { display: grid; grid-template-columns: repeat(auto-fill, minmax(440px, 1fr)); gap: 16px; }
+        .ev { background: #1e293b; border: 1px solid #334155; border-radius: 10px; padding: 14px; }
+        .ev.finished { opacity: .55; }
+        .ev-top { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #94a3b8; margin-bottom: 10px; gap: 8px; }
+        .ev-league { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .ev-state { color: #fcd34d; font-weight: 700; white-space: nowrap; }
+        .teams { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; margin-bottom: 12px; }
+        .team { font-weight: 700; font-size: 15px; }
+        .team.away { text-align: right; }
+        .score { background: #0f172a; color: #f87171; font-weight: 800; font-size: 18px; padding: 3px 12px; border-radius: 6px; white-space: nowrap; }
+        .mkt { margin-top: 8px; }
+        .mkt-name { font-size: 11px; color: #94a3b8; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .04em; }
+        .sels { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 6px; }
+        .sel { background: #0f172a; border: 1px solid #334155; border-radius: 6px; padding: 6px 10px; font-size: 13px; display: flex; justify-content: space-between; gap: 6px; align-items: baseline; }
+        .sel .nm { color: #94a3b8; }
+        .sel .vl { color: #38bdf8; font-weight: 700; }
+        .sel.suspended { opacity: .4; }
+        .sel.suspended .vl { color: #64748b; }
+        .sel.up { animation: flashUp .9s ease; }
+        .sel.down { animation: flashDown .9s ease; }
+        @keyframes flashUp { from { background:#14532d; border-color:#22c55e; } to { background:#0f172a; } }
+        @keyframes flashDown { from { background:#7f1d1d; border-color:#ef4444; } to { background:#0f172a; } }
+        .stats { margin-top: 10px; font-size: 11px; color: #64748b; border-top: 1px dashed #334155; padding-top: 8px; }
+        .raw { margin-top: 10px; }
+        .raw pre { background: #020617; border: 1px solid #1e293b; border-radius: 6px; padding: 10px; font-size: 11px; max-height: 240px; overflow: auto; color: #94a3b8; }
+        .empty { text-align: center; color: #64748b; padding: 40px; font-size: 15px; }
+        .note { color: #64748b; font-size: 12px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h1>⚽ In-Play 滚球赔率 · 每秒更新</h1>
+        <div class="meta">
+            <span class="pill" id="p-conn">连接中…</span>
+            <span class="pill" id="p-fresh">freshness: -</span>
+            <span class="pill" id="p-count">events: -</span>
+            <span class="pill" id="p-bm">bm: -</span>
+        </div>
+        <div class="toolbar">
+            <input type="text" id="filter" placeholder="筛选 联赛/球队…" oninput="lastData&&render(lastData)">
+            <button onclick="toggleRaw()" id="rawBtn">原始JSON</button>
+        </div>
+    </div>
+
+    <div class="note" style="margin-bottom:12px;">
+        数据源: <code>inplay_proxy.php</code> → <code>inplay.goalserve.com/inplay-soccer.gz</code>（IP白名单 · 私钥授权）。服务端 1 秒 TTL 缓存，浏览器每 1 秒拉取。赔率为欧赔 <code>value_eu</code>，绿涨红跌。
+    </div>
+
+    <div id="events"></div>
+</div>
+
+<script>
+    const PROXY = 'inplay_proxy.php';
+    let showRaw = false;
+    let lastData = null;
+    const lastOdds = {}; // key -> 上次欧赔，用于涨跌闪烁
+
+    const $ = id => document.getElementById(id);
+    // events / odds / participants 都是「对象」(按 id 为键)；bm 可能是数组或字符串
+    const vals = o => o == null ? [] : (Array.isArray(o) ? o : (typeof o === 'object' ? Object.values(o) : []));
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    function toggleRaw(){ showRaw = !showRaw; $('rawBtn').textContent = showRaw ? '隐藏JSON' : '原始JSON'; if(lastData) render(lastData); }
+
+    function renderMarket(evId, m){
+        const name = m.name || m.short_name || ('Market ' + (m.id ?? ''));
+        const mSus = String(m.suspend) === '1';
+        const parts = vals(m.participants);
+        if (!parts.length) return '';
+        const sels = parts.map(p => {
+            let nm = p.short_name || p.name || '';
+            if (p.handicap != null && p.handicap !== '') nm += ' ' + p.handicap;
+            const vl = (p.value_eu != null && p.value_eu !== '') ? p.value_eu : '-';
+            const sus = mSus || String(p.suspend) === '1';
+            const key = evId + '|' + (m.id ?? name) + '|' + (p.id ?? nm);
+            let cls = '';
+            const cur = parseFloat(vl), prev = lastOdds[key];
+            if (!sus && prev != null && !isNaN(cur)) { if (cur > prev) cls = 'up'; else if (cur < prev) cls = 'down'; }
+            if (!isNaN(cur)) lastOdds[key] = cur;
+            return `<div class="sel ${cls} ${sus?'suspended':''}"><span class="nm">${esc(nm)}</span><span class="vl">${esc(vl)}</span></div>`;
+        }).join('');
+        return `<div class="mkt"><div class="mkt-name">${esc(name)}</div><div class="sels">${sels}</div></div>`;
+    }
+
+    function renderEvent(ev){
+        const info = ev.info || {}, ti = ev.team_info || {}, core = ev.core || {};
+        const id = info.id || '';
+        const league = info.league || '';
+        const home = (ti.home && ti.home.name) || (info.name||'').split(' vs ')[0] || 'Home';
+        const away = (ti.away && ti.away.name) || (info.name||'').split(' vs ')[1] || 'Away';
+        const score = info.score || (((ti.home||{}).score ?? '') + ':' + ((ti.away||{}).score ?? ''));
+        const state = [info.minute ? info.minute + "'" : '', info.period || ''].filter(Boolean).join(' ');
+        const finished = String(core.finished) === '1';
+
+        const markets = vals(ev.odds).map(m => renderMarket(id, m)).join('') || '<div class="note">（该场暂无盘口 / 已封盘）</div>';
+        const statsHtml = ev.sts ? `<div class="stats">${esc(String(ev.sts).replace(/\|/g, '  ·  '))}</div>` : '';
+        const rawHtml = showRaw ? `<div class="raw"><pre>${esc(JSON.stringify(ev, null, 2))}</pre></div>` : '';
+
+        return `<div class="ev ${finished?'finished':''}">
+            <div class="ev-top"><span class="ev-league">🏆 ${esc(league)} · #${esc(id)}</span><span class="ev-state">${finished?'完场':esc(state)}</span></div>
+            <div class="teams">
+                <div class="team home">${esc(home)}</div>
+                <div class="score">${esc(score)}</div>
+                <div class="team away">${esc(away)}</div>
+            </div>
+            ${markets}
+            ${statsHtml}
+            ${rawHtml}
+        </div>`;
+    }
+
+    function render(data){
+        lastData = data;
+        const bm = Array.isArray(data.bm) ? data.bm : (data.bm ? [data.bm] : []);
+        $('p-bm').textContent = 'bm: ' + (bm.length ? bm.slice(0,3).join('/') : '-');
+
+        const ts = Number(data.updated_ts);
+        if (ts) {
+            const ageS = Math.max(0, Math.round((Date.now() - (ts > 1e12 ? ts : ts*1000))/1000));
+            const fp = $('p-fresh');
+            fp.textContent = 'freshness: ' + ageS + 's';
+            fp.className = 'pill ' + (ageS <= 5 ? 'ok' : ageS <= 30 ? 'warn' : 'err');
+        }
+
+        let events = vals(data.events);
+        const f = $('filter').value.trim().toLowerCase();
+        if (f) {
+            events = events.filter(ev => {
+                const info = ev.info||{}, ti = ev.team_info||{};
+                const hay = [(info.league||''), (info.name||''), ((ti.home||{}).name||''), ((ti.away||{}).name||'')].join(' ').toLowerCase();
+                return hay.includes(f);
+            });
+        }
+        $('p-count').textContent = 'events: ' + events.length;
+
+        const box = $('events');
+        if (!events.length) {
+            box.innerHTML = `<div class="empty">⏳ ${f?'没有匹配筛选的比赛':'当前没有进行中的滚球比赛'}。<br>Feed 正常刷新中（updated: ${esc(data.updated||'-')}）。</div>`;
+            return;
+        }
+        box.innerHTML = events.map(renderEvent).join('');
+    }
+
+    async function tick(){
+        try {
+            const res = await fetch(`${PROXY}?_t=${Date.now()}`);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            $('p-conn').textContent = 'OK ' + new Date().toLocaleTimeString();
+            $('p-conn').className = 'pill ok';
+            render(data);
+        } catch (e) {
+            $('p-conn').textContent = '错误: ' + e.message;
+            $('p-conn').className = 'pill err';
+        }
+    }
+
+    (async function loop(){ while (true) { await tick(); await new Promise(r => setTimeout(r, 1000)); } })();
+</script>
+</body>
+</html>

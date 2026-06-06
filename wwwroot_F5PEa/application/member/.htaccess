@@ -1,0 +1,14 @@
+RewriteEngine On
+
+RewriteRule ^h5/sports/?$ /h5/sports.html [L]
+
+RewriteCond %{REQUEST_URI} ^/api/(external|auth|pmppm|credit)/ [OR]
+RewriteCond %{REQUEST_URI} ^/api/settle$ [OR]
+RewriteCond %{REQUEST_URI} ^/api/bets$ [OR]
+RewriteCond %{REQUEST_URI} ^/health$
+RewriteRule ^(.*)$ /api_v2.php [L,QSA]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} ^/h5/
+RewriteRule ^h5/(.*)$ /h5/index.html [L]

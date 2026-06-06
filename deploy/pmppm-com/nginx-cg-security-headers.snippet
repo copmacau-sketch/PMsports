@@ -1,0 +1,24 @@
+# Crown-Gold / pmppm-com — security response headers snippet.
+#
+# Why this exists: nginx's `add_header` directive is NOT inherited from a
+# parent block once the child block declares ANY `add_header` of its own.
+# We have many `location` blocks that set `add_header Cache-Control ...`,
+# which silently swallowed the server-scope HSTS / X-Frame-Options /
+# nosniff / Referrer-Policy / Permissions-Policy declarations. The fix
+# is to `include` this file inside every `location` that has its own
+# add_header. As long as both add_headers live at the same scope, nginx
+# emits them all.
+#
+# Install path on server: /etc/nginx/snippets/cg-security-headers.conf
+#
+# Per OWASP/web.dev 2026 recommendations:
+#   HSTS preload-eligible (2 years + includeSubDomains + preload).
+#   X-Content-Type-Options blocks MIME sniffing → XSS via mislabelled JSON.
+#   X-Frame-Options DENY + (future) CSP frame-ancestors prevents clickjacking.
+#   Referrer-Policy avoids leaking full URLs to 3rd-party origins.
+#   Permissions-Policy disables sensors/cameras the sportsbook doesn't use.
+add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
+add_header X-Content-Type-Options    "nosniff" always;
+add_header X-Frame-Options           "DENY" always;
+add_header Referrer-Policy           "strict-origin-when-cross-origin" always;
+add_header Permissions-Policy        "geolocation=(), microphone=(), camera=(), payment=(), usb=()" always;

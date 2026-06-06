@@ -1,0 +1,9 @@
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+pydantic==2.10.4
+# WebSocket bridge to odds-api.io for sub-second odds push (see app/oddsapi_ws.py).
+websockets==13.1
+certifi>=2024.8.30
+# Direct reads of Crown's db_sports schema after the 2026-05-24
+# "PHP cron 主、Python cron 退阶" migration — see app/mysqldb.py.
+PyMySQL==1.1.1

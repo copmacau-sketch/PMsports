@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="origin">
+<title>Live Match Tracker</title>
+<style>
+  html, body { margin: 0; padding: 0; height: 100%; background: #0e0e0e; color: #fff; font: 13px -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; overflow: hidden; }
+  #widget { width: 100%; min-height: 100%; }
+  #status { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; flex-direction: column; gap: 10px; color: rgba(255,255,255,0.6); }
+  #status svg { width: 44px; height: 44px; opacity: .55; animation: spin 1.2s linear infinite; }
+  #status .msg { font-size: 12px; }
+  #status .sub { font-size: 11px; opacity: .55; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  /* Sportradar-rendered output sets `.sr-bb` on inner div — once present, hide spinner */
+  .sr-bb ~ #status, body:has(.sr-bb) #status { display: none !important; }
+</style>
+</head>
+<body>
+<div id="widget"></div>
+<div id="status" data-state="loading">
+  <svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="80 40" stroke-linecap="round"/></svg>
+  <div class="msg" id="status-msg">Live Match Tracker 加载中…</div>
+  <div class="sub" id="status-sub">Sportradar widget</div>
+</div>
+<script>
+(function(){
+  var p = new URLSearchParams(location.search);
+  var matchId = parseInt(p.get('matchId') || '0', 10);
+  var seasonId = parseInt(p.get('seasonId') || '0', 10);
+  var teamId = parseInt(p.get('teamId') || '0', 10);
+  var type = p.get('type') || 'match.lmtPlus';
+  var lang = p.get('lang') || 'zh';
+
+  var status = document.getElementById('status');
+  var msg = document.getElementById('status-msg');
+  var sub = document.getElementById('status-sub');
+  var widget = document.getElementById('widget');
+
+  function setStatus(state, message, subtext) {
+    status.setAttribute('data-state', state);
+    if (message) msg.textContent = message;
+    if (subtext) sub.textContent = subtext;
+    if (state === 'rendered') status.style.display = 'none';
+    else status.style.display = 'flex';
+  }
+
+  if (!matchId && !seasonId && !teamId) {
+    setStatus('error', '未指定 matchId / seasonId / teamId', '请通过 URL 参数传入');
+    return;
+  }
+
+  // Sportradar widget loader (verbatim from official integration snippet)
+  (function(a,b,c,d,e,f,g,h,i){
+    a[e]||(i=a[e]=function(){(a[e].q=a[e].q||[]).push(arguments)},
+    i.l=1*new Date,i.o=f,g=b.createElement(c),h=b.getElementsByTagName(c)[0],g.async=1,g.src=d,
+    g.setAttribute("n",e),h.parentNode.insertBefore(g,h));
+  })(window, document, "script", "https://ws-cdn001.akamaized.net/2370877a0ce04fbfdc9678dae41d4210/widgetloader", "SIR", { language: lang });
+
+  var cfg = { layout: 'topdown' };
+  if (matchId) cfg.matchId = matchId;
+  if (seasonId) cfg.seasonId = seasonId;
+  if (teamId) cfg.teamId = teamId;
+
+  // Wait briefly for the SIR queue to flush before adding the widget so the
+  // first render happens after the loader script is fully bootstrapped.
+  setTimeout(function() {
+    try { SIR("addWidget", "#widget", type, cfg); } catch (err) { setStatus('error', 'Widget 调用失败', String(err && err.message || err)); }
+  }, 200);
+
+  // Render-success sniffer — Sportradar injects `<div class="sr-bb sr-{type}">`
+  // into our container once it's done bootstrapping. If we never see it, the
+  // widget is either unauthorized for this client_id or has no data for this
+  // match — fall back to a textual notice.
+  var attempts = 0;
+  var iv = setInterval(function() {
+    attempts++;
+    var rendered = widget.querySelector('.sr-bb');
+    if (rendered) {
+      clearInterval(iv);
+      setStatus('rendered');
+    } else if (attempts > 60) { // 15s timeout
+      clearInterval(iv);
+      setStatus('error', '该比赛暂无数据', 'Sportradar 未覆盖此场次');
+    }
+  }, 250);
+})();
+</script>
+</body>
+</html>

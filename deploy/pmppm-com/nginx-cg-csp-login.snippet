@@ -1,0 +1,25 @@
+# Crown-Gold / pmppm-com — login-page-only CSP snippet.
+#
+# Applied ONLY to `location = /` and `location = /index.html`, the legacy
+# Crown-Gold login HTML. That page contains one inline <style> block and
+# one inline <script> block (i18n + form submit), but no eval, no fetch
+# to any 3rd-party origin, and no dynamic content interpolation — so we
+# can lock the policy down hard while still allowing 'unsafe-inline'.
+#
+# Why this is a separate file from cg-security-headers.conf: the H5 SPA
+# served from /h5/* is a Next.js static export that uses hydration
+# bootstrap chunks. Applying this CSP there would break the SPA. The
+# SPA gets its own (looser, nonce-based) CSP in a future P1 follow-up.
+#
+# Install path on server: /etc/nginx/snippets/cg-csp-login.conf
+#
+# Threats covered:
+#   - default-src 'none' fails closed on anything not explicitly listed
+#   - script/style 'self' + 'unsafe-inline' allows the existing inline
+#     blocks but blocks any injected <script src=evil> tag (XSS)
+#   - connect-src 'self' blocks data exfil to attacker origins
+#   - form-action 'self' prevents credential POSTs to off-site forms
+#   - frame-ancestors 'none' prevents clickjacking of the login UI
+#   - base-uri 'self' prevents <base href=evil> rewriting of all URLs
+#   - upgrade-insecure-requests promotes any stray http:// to https://
+add_header Content-Security-Policy "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; upgrade-insecure-requests" always;

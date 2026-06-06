@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>{JS}</script>
+    <style>{CSS}</style>
+
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title></title>
+</head>
+<body>
+<div>
+
+    <!-- 卷轴滑动后在class="re_main_container"后面加上 class="report_fixed" -->
+    <div class="re_main_container" id="showBody" >
+
+        <!-- 快速搜寻上方功能 -->
+        <div class="re_functionG" id="re_functionG">
+            <!-- 搜寻按钮 -->
+            <div class="quick_titlebtnG">
+                <ul class="re_titleG">
+                    <li class="on" id="search_ma">总代理</li>
+                    <li class="" id="search_ag">代理商</li>
+                    <li class="" id="search_mem">会员</li>
+                    <li class="" id="search_subAcc">子帐号</li>
+                </ul>
+            </div>
+            <!-- 搜寻按钮end -->
+
+            <!-- 搜寻 -->
+            <div class="quick_searchtitleG">
+                <div class="quick_searchG tw">
+                    <!-- 原有class后加上 错误状态框红色线class="err_input" 按下输入框蓝色线 class="focus_input" -->
+                    <div id="search_Div" class="search_functionG">
+                        <input id="search_txt" type="text" class="search_functionTxt" placeholder="搜寻帐号或登入帐号" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" autocomplete="off">
+                        <input id="clear_search_btn" type="button" class="search_functionClose_btn">
+                        <input id="search_btn" type="button" class="search_functionSubmit_btn">
+                    </div>
+                </div>
+                <div class="search_function_err" id="hr_info1" style="display: none;">请至少输入3个字元</div>
+            </div>
+            <!-- 搜寻end -->
+
+        </div>
+        <!-- 快速搜寻上方功能end -->
+
+        <div id="showmain"></div>
+        <div id="no_data_view"  class="data_noneG"  style="display:none">无资料</div>
+    </div>
+
+
+
+    <!--XMP-->
+    <div style="display:none">
+        <xmp id="xmp_1024_header">
+            <!-- 报表固定header -->
+            <div class="re_head_fixed original">
+                <!-- 没有按到的排序class="re_sort"  大到小加上 class="sort_down"  小到大加上 class="sort_up" -->
+                <div class="re_table_autoW">
+                    <table cellpadding="0" cellspacing="0" class="re_table_main">
+                        <thead>
+                        <!-- 第一行head -->
+                        <tr class="re_table_head_actG">
+                            <td class="re_td_w13 txtl">
+                                <div id="username_sort" class="re_tdTxt re_sort">帐号</div>
+                            </td>
+                            <td class="re_td_w13 txtl">
+                                <div class="re_tdTxt">阶层</div>
+                            </td>
+                            <td class="re_td_w12 txtl">
+                                <div id="alias_sort" class="re_tdTxt re_sort">名称</div>
+                            </td>
+                            <td class="re_td_w12 txtl">
+                                <div class="re_tdTxt_br">登入帐号/<br>安全代码</div>
+                            </td>
+                            <td class="re_td_w12 txtl">
+                                <div id="status_sort" class="re_tdTxt re_sort">帐号状态</div>
+                            </td>
+                            <td class="re_td_w16 txtl">
+                                <div id="adddate_sort" class="re_tdTxt re_sort">新增日期</div>
+                            </td>
+                            <td class="re_td_w11 txtl">
+                                <div class="re_tdTxt_br">代理商</div>
+                            </td>
+                            <td class="re_td_w11 txtl">
+                                <div class="re_tdTxt_br">总代理</div>
+                            </td>
+                        </tr>
+                        <!-- 第一行head -->
+                        </thead>
+                    </table>
+                </div>
+            </div>
+            <!-- 报表固定header end -->
+
+
+            <!-- 报表资料生成model -->
+            <div class="re_body_scroll">
+                <div class="re_table_autoW">
+                    <table cellpadding="0" cellspacing="0" class="re_table_main">
+                        <tbody id="tbody_div">
+        </xmp>
+        <xmp id="xmp_1024_contant">
+            <tr class="re_table_body_auto">
+                <td class="re_td_w13 txtl">
+                    <div class="word_link" id="link_*ID*">*USERNAME*</div>
+                </td>
+                <td class="re_td_w13 txtl">
+                    *USERTYPE*
+                </td>
+                <td class="re_td_w12 txtl">
+                    *ALIAS*
+                </td>
+                <td class="re_td_w12 txtl">
+                    *PASSWD_SAFE*
+                </td>
+                <td class="re_td_w12 txtl">
+                    *STAUAS*
+                </td>
+                <td class="re_td_w16 txtl">
+                    *ADDDATE*
+                </td>
+                <td class="re_td_w11 txtl">
+                    *UPAGENTS*
+                </td>
+                <td class="re_td_w11 txtl">
+                    *UPSUPERAGENTS*
+                </td>
+            </tr>
+        </xmp>
+        <xmp id="xmp_1024_foot">
+            </tbody>
+            </table>
+    </div>
+</div>
+<!-- 报表资料生成model end -->
+
+
+
+</div>
+</xmp>
+
+<xmp id="xmp_360_header">
+    <div class="re_body_scroll">
+        <div class="re_table_autoW">
+            <table cellpadding="0" cellspacing="0" class="re_table_main">
+                <tbody id="tbody_div">
+</xmp>
+<xmp id="xmp_360_contant">
+    <tr class="re_table_body_auto" id="link_*ID*">
+        <td class="re_td_w50 txtl">
+            <ul class="re_act_list">
+                <li>
+                    <span class="quick_username">*USERNAME*</span>
+                    <tt class="word_green">*USERTYPE*</tt>
+                </li>
+                <li>
+                    *ALIAS*
+                </li>
+                <li class="word_gray">
+                    *PASSWD_SAFE*
+                </li>
+            </ul>
+        </td>
+        <td class="re_td_w50 txtl">
+            *STAUAS*
+        </td>
+    </tr>
+</xmp>
+<xmp id="xmp_360_foot">
+    </tbody>
+    </table>
+    </div>
+    </div>
+    <!-- 报表资料生成model end -->
+
+
+
+    </div>
+</xmp>
+</div>
+</body>
+</html>

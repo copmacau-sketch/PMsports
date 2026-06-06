@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>{JS}</script>
+    <link href="{CDNURL}/style/login.css" rel="stylesheet" type="text/css">
+    <title></title>
+</head>
+<body>
+<div class="wrapper">
+    <div class="title_chgpwd *ART_lang*">
+        <span>*ART_chgid_title*</span>
+        <div id="cghid_help" class="btn_help"><svg><use xlink:href="#icon_help"/></svg></div>
+    </div>
+    <div class="content_chgpwd">
+        <span class="text_user">*ART_chgid_hello* <b id="show_username"></b>,</span>
+        <span class="text_sub">*ART_chgid_text1*</span>
+        <br>
+        <span class="text_sub">*ART_chgid_text2*</span>
+        <br>
+        <p class="text_normal">
+            *ART_chgid_text3*
+            <br>
+            <br>
+            *ART_chgid_text4*
+        </p>
+
+        <div class="input_chgpwd chgid_input">
+            <i id="icon_status" class="icon_status" style="display: none;"></i><!--  錯誤時新增class="error" -->
+            <label id="lab_login" class="lab_input"><!--  錯誤時新增class="error" -->
+                <input id="username" class="userid" type="text" autocomplete="off" required="required">
+                <span class="text_input" data-tooltip="*ART_chgid_inp_id*"></span>
+                <i id="chgid_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+            </label>
+            <div id="check_name" class="btn_choose unable">*ART_chgid_btn_check*</div><!--  反灰時新增class="unable" -->
+        </div>
+
+        <span id="chgid_text_error" class="text_msg" style="display: none;"><!-- 錯誤訊息 --></span><!--  錯誤時新增class="error" -->
+
+        <div class="tip_chgpwd">
+            <b>*ART_chgid_text5*</b>
+            *ART_chgid_text6*
+            <br>
+        </div>
+
+        <div class="btn_chgpwd">
+            <div id="cancel_btn" class="btn_cancel" data-system="ios12">*ART_chgid_btn_cancel*</div>
+            <div id="login_btn" class="btn_submit" data-system="ios12">*ART_chgid_btn_submit*</div>
+        </div>
+    </div>
+
+    <iframe id="getData" style="height:0px; border:none;"></iframe>
+</div>
+</body>
+</html>

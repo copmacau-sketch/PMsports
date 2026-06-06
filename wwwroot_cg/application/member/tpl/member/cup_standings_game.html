@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>FT 特殊賽事盤面 - 排名</title>
+	<script id="homeJS">
+top.ver = '2024-06-03-cupImage_17';
+top.game_model = 'cup_standings_game';
+var artjson = {
+	"ART_lang": "CN",
+	"ART_game_nodata": "目前没有任何赛事。",
+	"ART_obt_nodata": "目前暂时没有任何赌盘",
+	"ART_title_relate": "相关信息",
+
+//小组物件
+	"ART_cup_group_team": "队伍",
+	"ART_cup_group_P": "比赛",
+	"ART_cup_group_pts": "积分",
+	"ART_cup_group_GD": "净胜",
+	"ART_cup_group_win": "冠军",
+	"ART_cup_group_top2": "首两名",
+	"ART_cup_group_3rd": "季军",
+	"ART_cup_group_last": "殿军",
+	"ART_cup_group_W": "胜",
+	"ART_cup_group_L": "负",
+	"ART_cup_group_D": "平",
+	"ART_cup_group_GF": "进球",
+	"ART_cup_group_GA": "失球",
+}
+</script>
+
+	<link href="https://123.108.119.85/style/bet_game.css" rel="stylesheet" type="text/css">
+	<link href="https://123.108.119.85/style/score_board.css" rel="stylesheet" type="text/css">
+	<link href="https://123.108.119.85/style/banner.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content_l">
+		<!-- no data -->
+		<div id="div_nodata" name="div_nodata" class="no_event" style="display: none;"><i></i><span>*ART_game_nodata*</span></div>
+
+		<!-- league content -->
+		<div id="div_show" class="box_outer" style="display: none;"></div>
+
+		<div id="standings_show" class="tag_standings"></div>
+
+		<div id="model_GROUP" class="tag_standings" style="display: none;">
+			<div class="cup_tag_group"><span>*GROUPNAME*</span></div>
+
+			<div class="box_standings">
+					
+				<div class="th_row_l">
+					<span class="td_name">
+						<tt class="text_sort">#</tt>
+						<tt>*ART_cup_group_team*</tt>
+					</span>
+				</div>
+				<div class="td_row_l">*TEAM_CONTENT*</div>
+				<div class="thd_row_r" id="table_group*PH_GROUPID*_PH">
+					<div class="th_row_r box_scroll group_scroll">
+						<div id="group*GROUPNUMBER_LEFT*_left" class="btn_go_l *LEFT_ON*"><svg><use xlink:href="#icon_rightarr"/></svg></div>
+						<div id="group*GROUPNUMBER_RIGHT*_right" class="btn_go_r *RIGHT_ON*"><svg><use xlink:href="#icon_rightarr"/></svg></div>
+						<div id="group*GROUPNUMBER_SCROLL*_scroll" class="dragscroll_group_*PH_GROUPNUMBER*">
+							<div id="group*GROUPNUMBER_TOTAL*_total" class="table_group">
+								<!-- Group Title -->
+								<div class="th_row">
+									<span class="td_P">*ART_cup_group_P*</span>
+									<span class="td_pts">*ART_cup_group_pts*</span>
+									<span class="td_GD">*ART_cup_group_GD*</span>
+									<span class="td_win">*groupsheader1*</span>
+									<span class="td_top2">*groupsheader2*</span>
+									<span class="td_3rd">*groupsheader3*</span>
+									<span class="td_last">*groupsheader4*</span>
+									<span class="td_W">*ART_cup_group_W*</span>
+									<span class="td_L">*ART_cup_group_L*</span>
+									<span class="td_D">*ART_cup_group_D*</span>
+									<span class="td_GF">*ART_cup_group_GF*</span>
+									<span class="td_GA">*ART_cup_group_GA*</span>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="td_row_r" id="table_group*GROUPID*">*BODY_CONTENT*</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Group *TEAM_CONTENT* -->
+		<div id="group_model_team" style="display: none;">
+			<span id="group_team_*TEAMID*_*TEAMGROUP*" class="td_name">
+				<tt class="text_sort">*TEAMNUMBER*</tt>
+				<tt>*PARTINAME*</tt>
+			</span>
+		</div>
+
+		<!-- Group *BODY_CONTENT* -->
+		<div id="group_model_body" style="display: none;">
+			<div class="td_row">
+				<span class="td_P">*PLAYED*</span>
+				<span class="td_pts">*POINTS*</span>
+				<span class="td_GD">*GOALSDIFF*</span>
+				<span id="group_bet_*GID_WIN*_*ECID_WIN*_*RTYPE_WIN*" class="td_win td_odds">*IOR_WIN*</span>
+				<span id="group_bet_*GID_TOP2*_*ECID_TOP2*_*RTYPE_TOP2*" class="td_top2 td_odds">*IOR_TOP2*</span>
+				<span id="group_bet_*GID_3RD*_*ECID_3RD*_*RTYPE_3RD*" class="td_3rd td_odds">*IOR_3RD*</span>
+				<span id="group_bet_*GID_LAST*_*ECID_LAST*_*RTYPE_LAST*" class="td_last td_odds">*IOR_LAST*</span>
+				<span class="td_W">*WIN*</span>
+				<span class="td_L">*LOSS*</span>
+				<span class="td_D">*DRAW*</span>
+				<span class="td_GF">*GOALSFOR*</span>
+				<span class="td_GA">*GOALSAGAINST*</span>
+			</div>
+		</div>
+
+		<!-- ::: Widget 第三方物件 ::: -->
+		<div id="widget_show" class="box_highlights_widget tag_standings" style="display: none;">
+			<div id="loading_preview" class="loading" style="display: none;"><i class="icon_load"></i></div>
+			<iframe id="widgetFrame" class="" scrolling="no"></iframe>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<!-- saved from url=(0048)https://ag.hga030.com/tpl/zh-cn/report_main.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script>{JS}</script>
+<style>{CSS}</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+<title></title>
+</head>
+<body>
+<div>
+<div class="report_main zh-cn">
+				<!-- 開始往左滑.re_quick_links加上.--scroll 滑到底右邊不顯示漸層加上.--right_no_scroll  -->
+				<div id="div_quick_title" class="re_quick_links">
+					<div class="re_link_scroll_hidden re_mw_box">
+						<div id="type_quick_scroll" class="re_link_btn_box">
+							<button id="yes_Y" class="quick_link_btn">
+								<span class="period">昨天</span>
+								<span class="result">有结果</span>
+							</button>
+							<button id="to_Y" class="quick_link_btn">
+								<span class="period">今日</span>
+								<span class="result">有结果</span>
+							</button>
+							<button id="tw_Y" class="quick_link_btn">
+								<span class="period">本周</span>
+								<span class="result">有结果</span>
+							</button>
+							<button id="lw_Y" class="quick_link_btn">
+								<span class="period">上周</span>
+								<span class="result">有结果</span>
+							</button>
+							<button id="to_N" class="quick_link_btn">
+								<span class="period">今日</span>
+								<span class="result">未有结果</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="filter_param">
+					<div class="filter_select_box re_mw_box">
+						<!-- 報表PC start -->
+						<!-- PC展開選單加上class="--on" -->
+						<div id="result_type_div" class="md_label --pc --select">
+							<span id="result_type_now" class="md_select_title">有结果</span>
+							<ul id="result_type_sel" class="md_select_ul use_animate">
+								<li id="result_type_Y" class="--on">有结果</li>
+								<li id="result_type_N">未有结果</li>
+								<li id="result_type_D">取消单</li>
+								<li id="result_type_D4">非正常投注单</li>
+							</ul>
+							<code>报表</code>
+							<i class="icon_dropdown"></i>
+						</div>
+						<!-- 報表PC end -->
+						<!-- 報表PH start -->
+						<label class="md_label --ph --select">
+							<select id="result_type_div_600">
+								<option id="result_type_Y" value="Y">有结果</option>
+								<option id="result_type_N" value="N">未有结果</option>
+								<option id="result_type_D" value="D">取消单</option>
+								<option id="result_type_D4" value="D4">非正常投注单</option>
+							</select>
+							<code>报表</code>
+							<i class="icon_dropdown"></i>
+						</label>
+						<!-- 報表PH end -->
+						<div id="div_date" class="md_period_group">
+							<div id="date_start" tabindex="0" hidefocus="true" class="md_label --period">
+								<input type="text" id="input_start" value="0000/00/00" readonly="">
+								<code>起始日期</code>
+								<i id="icon_start" class="icon_calendar"></i>
+							</div>
+							<div id="date_end" tabindex="0" hidefocus="true" class="md_label --period">
+								<input type="text" id="input_end" value="0000/00/00" readonly="">
+								<code>结束日期</code>
+								<i id="icon_end" class="icon_calendar"></i>
+							</div>
+						<div name="fank_calander_element" class="cal_div" style="position: absolute; top: 193px; left: 526px; display: none;"><div name="fank_calander_element" class="cal_YearContain"><span name="fank_calander_element" class="cal_previous"></span><label name="fank_calander_element" class="cal_month_label"><select name="fank_calander_element" class="cal_month"><option value="8">九月</option><option value="9">十月</option><option value="10">十一月</option><option value="11">十二月</option></select></label><label name="fank_calander_element" class="cal_year_label"><select name="fank_calander_element" class="cal_year"><option value="2023">2023</option><option value="2024">2024</option></select></label><span name="fank_calander_element" class="cal_next"></span></div><div name="fank_calander_element"><span name="fank_calander_element" class="cal_week_left">日</span><span name="fank_calander_element" class="cal_week">一</span><span name="fank_calander_element" class="cal_week">二</span><span name="fank_calander_element" class="cal_week">三</span><span name="fank_calander_element" class="cal_week">四</span><span name="fank_calander_element" class="cal_week">五</span><span name="fank_calander_element" class="cal_week">六</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">1</span><span name="fank_calander_element" class="cal_date ">2</span><span name="fank_calander_element" class="cal_date ">3</span><span name="fank_calander_element" class="cal_date ">4</span><span name="fank_calander_element" class="cal_date ">5</span><span name="fank_calander_element" class="cal_date ">6</span><span name="fank_calander_element" class="cal_date_right ">7</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">8</span><span name="fank_calander_element" class="cal_date ">9</span><span name="fank_calander_element" class="cal_date ">10</span><span name="fank_calander_element" class="cal_date cal_start cal_end cal_goal">11</span><span name="fank_calander_element" class="cal_date ">12</span><span name="fank_calander_element" class="cal_date ">13</span><span name="fank_calander_element" class="cal_date_right ">14</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">15</span><span name="fank_calander_element" class="cal_date ">16</span><span name="fank_calander_element" class="cal_date ">17</span><span name="fank_calander_element" class="cal_date ">18</span><span name="fank_calander_element" class="cal_date ">19</span><span name="fank_calander_element" class="cal_date ">20</span><span name="fank_calander_element" class="cal_date_right ">21</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">22</span><span name="fank_calander_element" class="cal_date ">23</span><span name="fank_calander_element" class="cal_date ">24</span><span name="fank_calander_element" class="cal_date ">25</span><span name="fank_calander_element" class="cal_date ">26</span><span name="fank_calander_element" class="cal_date ">27</span><span name="fank_calander_element" class="cal_date_right ">28</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">29</span><span name="fank_calander_element" class="cal_date ">30</span><span name="fank_calander_element" class="cal_date month_end">31</span><span name="fank_calander_element" class="cal_date cal_space">1</span><span name="fank_calander_element" class="cal_date cal_space">2</span><span name="fank_calander_element" class="cal_date cal_space">3</span><span name="fank_calander_element" class="cal_date cal_space">4</span></div></div><div name="fank_calander_element" class="cal_div" style="position: absolute; top: 193px; left: 760px; display: none;"><div name="fank_calander_element" class="cal_YearContain"><span name="fank_calander_element" class="cal_previous"></span><label name="fank_calander_element" class="cal_month_label"><select name="fank_calander_element" class="cal_month"><option value="8">九月</option><option value="9">十月</option><option value="10">十一月</option><option value="11">十二月</option></select></label><label name="fank_calander_element" class="cal_year_label"><select name="fank_calander_element" class="cal_year"><option value="2023">2023</option><option value="2024">2024</option></select></label><span name="fank_calander_element" class="cal_next"></span></div><div name="fank_calander_element"><span name="fank_calander_element" class="cal_week_left">日</span><span name="fank_calander_element" class="cal_week">一</span><span name="fank_calander_element" class="cal_week">二</span><span name="fank_calander_element" class="cal_week">三</span><span name="fank_calander_element" class="cal_week">四</span><span name="fank_calander_element" class="cal_week">五</span><span name="fank_calander_element" class="cal_week">六</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">1</span><span name="fank_calander_element" class="cal_date ">2</span><span name="fank_calander_element" class="cal_date ">3</span><span name="fank_calander_element" class="cal_date ">4</span><span name="fank_calander_element" class="cal_date ">5</span><span name="fank_calander_element" class="cal_date ">6</span><span name="fank_calander_element" class="cal_date_right ">7</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">8</span><span name="fank_calander_element" class="cal_date ">9</span><span name="fank_calander_element" class="cal_date ">10</span><span name="fank_calander_element" class="cal_date cal_start cal_end cal_goal">11</span><span name="fank_calander_element" class="cal_date ">12</span><span name="fank_calander_element" class="cal_date ">13</span><span name="fank_calander_element" class="cal_date_right ">14</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">15</span><span name="fank_calander_element" class="cal_date ">16</span><span name="fank_calander_element" class="cal_date ">17</span><span name="fank_calander_element" class="cal_date ">18</span><span name="fank_calander_element" class="cal_date ">19</span><span name="fank_calander_element" class="cal_date ">20</span><span name="fank_calander_element" class="cal_date_right ">21</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">22</span><span name="fank_calander_element" class="cal_date ">23</span><span name="fank_calander_element" class="cal_date ">24</span><span name="fank_calander_element" class="cal_date ">25</span><span name="fank_calander_element" class="cal_date ">26</span><span name="fank_calander_element" class="cal_date ">27</span><span name="fank_calander_element" class="cal_date_right ">28</span><br name="fank_calander_element"><span name="fank_calander_element" class="cal_date_left ">29</span><span name="fank_calander_element" class="cal_date ">30</span><span name="fank_calander_element" class="cal_date month_end">31</span><span name="fank_calander_element" class="cal_date cal_space">1</span><span name="fank_calander_element" class="cal_date cal_space">2</span><span name="fank_calander_element" class="cal_date cal_space">3</span><span name="fank_calander_element" class="cal_date cal_space">4</span></div></div></div>
+						<!-- 時期&球類PC start -->
+						<!-- PC展開選單加上class="--on" -->
+						<div id="date_div" class="md_label --pc --select">
+							<span id="date_now" class="md_select_title">昨日</span>
+							<ul id="date_sel" class="md_select_ul use_animate">
+								<li id="date_yes" class="--on">昨日</li>
+								<li id="date_to">今日</li>
+								<li id="date_tm">明日</li>
+								<li id="date_tw">本周</li>
+								<li id="date_lw">上周</li>
+								<li id="date_tp">本期</li>
+								<li id="date_lp">上期</li>
+							</ul>
+							<code>时期</code>
+							<i class="icon_dropdown"></i>
+						</div>
+						<!-- PC展開選單加上class="--on" -->
+						<div id="gtype_div" class="md_label --pc --select">
+							<span id="gtype_now" class="md_select_title">所有球类</span>
+							<ul id="gtype_sel" class="md_select_ul use_animate">
+								<li id="gtype_ALL" class="--on">所有球类</li>
+								<li id="gtype_FT">足球</li>
+								<li id="gtype_BK">篮球 / 美式足球</li>
+								<li id="gtype_TN">网球</li>
+								<li id="gtype_VB">排球</li>
+								<li id="gtype_BS">棒球</li>
+								<li id="gtype_OP">其它球类</li>
+								<li id="gtype_FS">冠军</li>
+								<li id="gtype_BM">羽毛球</li>
+								<li id="gtype_TT">乒乓球</li>
+								<li id="gtype_SK">斯诺克 / 台球</li>
+							</ul>
+							<code>球类</code>
+							<i class="icon_dropdown"></i>
+						</div>
+						<!-- 時期&球類PC end -->
+						<!-- 時期&球類PH start -->
+						<label class="md_label --ph --select">
+							<select id="date_div_600">
+								<option id="date_yes" value="yes">昨日</option>
+								<option id="date_to" value="to">今日</option>
+								<option id="date_tm" value="tm">明日</option>
+								<option id="date_tw" value="tw">本周</option>
+								<option id="date_lw" value="lw">上周</option>
+								<option id="date_tp" value="tp">本期</option>
+								<option id="date_lp" value="lp">上期</option>
+							</select>
+							<code>时期</code>
+							<i class="icon_dropdown"></i>
+						</label>
+						<label class="md_label --ph --select">
+							<select id="gtype_div_600">
+								<option id="gtype_ALL" value="ALL">所有球类</option>
+								<option id="gtype_FT" value="FT">足球</option>
+								<option id="gtype_BK" value="BK">篮球 / 美式足球</option>
+								<option id="gtype_TN" value="TN">网球</option>
+								<option id="gtype_VB" value="VB">排球</option>
+								<option id="gtype_BS" value="BS">棒球</option>
+								<option id="gtype_OP" value="OP">其它球类</option>
+								<option id="gtype_FS" value="FS">冠军</option>
+								<option id="gtype_BM" value="BM">羽毛球</option>
+								<option id="gtype_TT" value="TT">乒乓球</option>
+								<option id="gtype_SK" value="SK">斯诺克 / 台球</option>
+							</select>
+							<code>球类</code>
+							<i class="icon_dropdown"></i>
+						</label>
+						<!-- 時期&球類PH end -->
+					</div>
+					<div class="filter_btn_box re_mw_box">
+						<button id="clear_btn" class="md_normal_btn --cancel">清除</button>
+						<button id="search_btn" class="md_normal_btn">查询</button>
+					</div>
+				</div>
+				<div class="re_info_box">
+					<!-- 開始往左滑.md_type加上class="--scroll" 滑到底右邊不顯示漸層加上class="--right_no_scroll"  -->
+					<div id="div_type_title" class="md_type re_mw_box">
+						<!-- 當前選項li 加上class="--on" -->
+						<ul id="type_title_scroll" class="md_type_list">
+							<li id="summary_btn" class="--on">赛事结果概要</li>
+							<li id="period_btn">月帐期数表</li>
+							<li id="exchange_btn">汇率</li>
+						</ul>
+					</div>
+					<div class="re_info re_mw_box">
+						<!-- 賽事概要 -->
+						<div id="summary_box" class="re_settlementG">
+							<!-- 開始往左滑.md_list加上class="--scroll" 滑到底右邊不顯示漸層加上class="--right_no_scroll"  -->
+							<div id="div_summary_title" class="md_list">
+								<ul id="summary_title_scroll" class="md_list_item">
+									<!-- 當前選項li 加上class="--on" -->
+									<li id="yesterday_finish_600" class="--on">2023/10/11</li>
+									<li id="today_finish_600">2023/10/12</li>
+								</ul>
+							</div>
+							<!-- 手機版切換為今日報表加上class="re_today" -->
+							<table id="date_class" cellpadding="0" cellspacing="0" class="re_settlement_tb">
+								<tbody><tr class="re_settlement_th01 fix_trColor">
+									<th class="re_title"></th>
+									<!-- 完成加上class="word_green" 未完成加上class="word_red"-->
+									<th id="yesterday_finish" colspan="2" class="re_yes word_green">2023/10/11</th>
+									<th id="today_finish" colspan="2" class="re_to word_red">2023/10/12</th>
+								</tr>
+								<tr class="re_table_title_th fix_trColor">
+									<th class="re_title"></th>
+									<th class="re_yes">未有结果</th>
+									<th class="re_yes">有结果</th>
+									<th class="re_to">未有结果</th>
+									<th class="re_to">有结果</th>
+								</tr>
+								<tr>
+									<td class="re_title">足球</td>
+									<td id="FT_yes_un" class="word_red re_yes">0</td>
+									<td id="FT_yes_set" class="re_yes">0</td>
+									<td id="FT_to_un" class="word_red re_to">0</td>
+									<td id="FT_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">篮球 / 美式足球</td>
+									<td id="BK_yes_un" class="word_red re_yes">0</td>
+									<td id="BK_yes_set" class="re_yes">0</td>
+									<td id="BK_to_un" class="word_red re_to">0</td>
+									<td id="BK_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">网球</td>
+									<td id="TN_yes_un" class="word_red re_yes">0</td>
+									<td id="TN_yes_set" class="re_yes">0</td>
+									<td id="TN_to_un" class="word_red re_to">0</td>
+									<td id="TN_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">排球</td>
+									<td id="VB_yes_un" class="word_red re_yes">0</td>
+									<td id="VB_yes_set" class="re_yes">0</td>
+									<td id="VB_to_un" class="word_red re_to">0</td>
+									<td id="VB_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">羽毛球</td>
+									<td id="BM_yes_un" class="word_red re_yes">0</td>
+									<td id="BM_yes_set" class="re_yes">52</td>
+									<td id="BM_to_un" class="word_red re_to">16</td>
+									<td id="BM_to_set" class="re_to">25</td>
+								</tr>
+								<tr>
+									<td class="re_title">乒乓球</td>
+									<td id="TT_yes_un" class="word_red re_yes">0</td>
+									<td id="TT_yes_set" class="re_yes">0</td>
+									<td id="TT_to_un" class="word_red re_to">0</td>
+									<td id="TT_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">棒球</td>
+									<td id="BS_yes_un" class="word_red re_yes">0</td>
+									<td id="BS_yes_set" class="re_yes">0</td>
+									<td id="BS_to_un" class="word_red re_to">0</td>
+									<td id="BS_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">斯诺克 / 台球</td>
+									<td id="SK_yes_un" class="word_red re_yes">0</td>
+									<td id="SK_yes_set" class="re_yes">0</td>
+									<td id="SK_to_un" class="word_red re_to">0</td>
+									<td id="SK_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">其它球类</td>
+									<td id="OP_yes_un" class="word_red re_yes">0</td>
+									<td id="OP_yes_set" class="re_yes">0</td>
+									<td id="OP_to_un" class="word_red re_to">0</td>
+									<td id="OP_to_set" class="re_to">0</td>
+								</tr>
+								<tr>
+									<td class="re_title">冠军</td>
+									<td id="FS_yes_un" class="word_red re_yes">0</td>
+									<td id="FS_yes_set" class="re_yes">0</td>
+									<td id="FS_to_un" class="word_red re_to">0</td>
+									<td id="FS_to_set" class="re_to">0</td>
+								</tr>
+							</tbody></table>
+						</div>
+						<!-- 賽事概要end -->
+						<!-- 期數表 -->
+						<!-- 本期顏色class="word_green" -->
+						<div id="period_box" class="re_accountingG" style="display: none;">
+						
+						
+							<div class="md_list">
+								<ul class="md_list_item">
+									<!-- 當前選項li 加上class="--on" -->
+									<li id="y2023" name="period_btn" class="--on">2023</li>
+									<li id="y2022" name="period_btn">2022</li>
+								</ul>
+							</div>
+							<!-- 手機版切換為去年期數表加上class="last_year" -->
+							<table id="year_class" cellpadding="0" cellspacing="0" class="re_accounting_tb">
+								<tbody><tr class="re_accounting_th fix_trColor">
+									<th class="re_title"></th>
+									<th class="re_this_year">2023</th>
+									<th class="re_last_year">2022</th>
+								</tr>
+								<tr>
+									<td class="re_title">1</td>
+									<td class="re_this_year" id="y2023_1">2022/12/26 ~ 2023/01/29</td>
+									<td class="re_last_year" id="y2022_1">2021/12/27 ~ 2022/01/23</td>
+								</tr>
+								<tr>
+									<td class="re_title">2</td>
+									<td class="re_this_year" id="y2023_2">2023/01/30 ~ 2023/02/26</td>
+									<td class="re_last_year" id="y2022_2">2022/01/24 ~ 2022/02/20</td>
+								</tr>
+								<tr>
+									<td class="re_title">3</td>
+									<td class="re_this_year" id="y2023_3">2023/02/27 ~ 2023/03/26</td>
+									<td class="re_last_year" id="y2022_3">2022/02/21 ~ 2022/03/20</td>
+								</tr>
+								<tr>
+									<td class="re_title">4</td>
+									<td class="re_this_year" id="y2023_4">2023/03/27 ~ 2023/04/23</td>
+									<td class="re_last_year" id="y2022_4">2022/03/21 ~ 2022/04/17</td>
+								</tr>
+								<tr>
+									<td class="re_title">5</td>
+									<td class="re_this_year" id="y2023_5">2023/04/24 ~ 2023/05/21</td>
+									<td class="re_last_year" id="y2022_5">2022/04/18 ~ 2022/05/15</td>
+								</tr>
+								<tr>
+									<td class="re_title">6</td>
+									<td class="re_this_year" id="y2023_6">2023/05/22 ~ 2023/06/18</td>
+									<td class="re_last_year" id="y2022_6">2022/05/16 ~ 2022/06/12</td>
+								</tr>
+								<tr>
+									<td class="re_title">7</td>
+									<td class="re_this_year" id="y2023_7">2023/06/19 ~ 2023/07/16</td>
+									<td class="re_last_year" id="y2022_7">2022/06/13 ~ 2022/07/10</td>
+								</tr>
+								<tr>
+									<td class="re_title">8</td>
+									<td class="re_this_year" id="y2023_8">2023/07/17 ~ 2023/08/13</td>
+									<td class="re_last_year" id="y2022_8">2022/07/11 ~ 2022/08/07</td>
+								</tr>
+								<tr>
+									<td class="re_title">9</td>
+									<td class="re_this_year" id="y2023_9">2023/08/14 ~ 2023/09/10</td>
+									<td class="re_last_year" id="y2022_9">2022/08/08 ~ 2022/09/04</td>
+								</tr>
+								<tr>
+									<td class="re_title">10</td>
+									<td class="re_this_year" id="y2023_10">2023/09/11 ~ 2023/10/08</td>
+									<td class="re_last_year" id="y2022_10">2022/09/05 ~ 2022/10/02</td>
+								</tr>
+								<tr>
+									<td class="re_title">11</td>
+									<td class="re_this_year word_green" id="y2023_11">2023/10/09 ~ 2023/11/05</td>
+									<td class="re_last_year" id="y2022_11">2022/10/03 ~ 2022/10/23</td>
+								</tr>
+								<tr>
+									<td class="re_title">12</td>
+									<td class="re_this_year" id="y2023_12">2023/11/06 ~ 2023/12/03</td>
+									<td class="re_last_year" id="y2022_12">2022/10/24 ~ 2022/11/27</td>
+								</tr>
+								<tr>
+									<td class="re_title">15</td>
+									<td class="re_this_year" id="y2023_13">0</td>
+									<td class="re_last_year" id="y2022_13">0</td>
+								</tr>
+							</tbody></table>
+						</div>
+
+						<div id="period_box_model" class="re_accountingG" style="display: none;">
+							<xmp>
+							<table cellpadding="0" cellspacing="0" class="re_accounting_tb">
+								<tbody>
+								<div class="md_list">
+									<ul class="md_list_item">
+										<!-- 當前選項li 加上class="--on" -->
+										<li id="y*YEAR*" name="period_btn" class="--on">*YEAR*</li>
+										<li id="y*LAST_YEAR*" name="period_btn">*LAST_YEAR*</li>
+									</ul>
+								</div>
+								*CONTENT*
+								</tbody>
+							</table>
+							</xmp>
+						</div>
+						<div id="period_box_rq_model" style="display: none;">
+							<xmp>
+								<tr  class="re_accounting_th fix_trColor">
+									<td class="re_title"></td>
+									<td class="re_this_year" >*YEAR*</td>
+									<td class="re_last_year">*LAST_YEAR*</td>
+								</tr>
+							</xmp>
+						</div>
+						<div id="period_box_tr_model" style="display: none;">
+							<xmp>
+								<tr>
+									<td class="re_title">*ID*</td>
+									<td class="re_this_year" id="y*YEAR_ID*">*SE*</td>
+									<td class="re_last_year" id="y*LAST_YEAR_ID*">*L_SE*</td>
+								</tr>
+							</xmp>
+						</div>
+						<!-- 期數表end -->
+						<!-- 匯率表 -->
+						<div id="exchange_box" class="re_exchangeG" style="display: none;">
+							<table cellpadding="0" cellspacing="0" class="re_exchange_tb">
+								<tbody><tr class="re_exchange_th fix_trColor">
+									<th class="re_title">货币名称</th>
+									<th class="re_code">货币代码</th>
+									<th class="re_rate">目前汇率</th>
+								</tr>
+								
+								<tr>
+									<td class="re_title">人民币</td>
+									<td class="re_code">RMB</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">港币</td>
+									<td class="re_code">HKD</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">美金</td>
+									<td class="re_code">USD</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">马币</td>
+									<td class="re_code">MYR</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">新币</td>
+									<td class="re_code">SGD</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">泰铢</td>
+									<td class="re_code">THB</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">英磅</td>
+									<td class="re_code">GBP</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">日币</td>
+									<td class="re_code">JPY</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">欧元</td>
+									<td class="re_code">EUR</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+								<tr>
+									<td class="re_title">印尼盾</td>
+									<td class="re_code">IND</td>
+									<td class="re_rate">0</td>
+								</tr>
+								
+							</tbody></table>
+						</div>
+						<div id="exchange_box_model" class="re_exchangeG" style="display: none;">
+							<table cellpadding="0" cellspacing="0" class="re_exchange_tb">
+								<tbody><tr class="re_exchange_th fix_trColor">
+									<th class="re_title">货币名称</th>
+									<th class="re_code">货币代码</th>
+									<th class="re_rate">目前汇率</th>
+								</tr>
+								<!-- START DYNAMIC BLOCK: CURRENCY -->
+								<tr>
+									<td class="re_title">*CODE_NAME*</td>
+									<td class="re_code">*CODE*</td>
+									<td class="re_rate">*CODE_VALUE*</td>
+								</tr>
+								<!-- END DYNAMIC BLOCK: CURRENCY -->
+							</tbody></table>
+						</div>
+						<!-- 匯率表end -->
+					</div>
+				</div>
+				
+			</div>
+
+
+</body></html>

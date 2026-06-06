@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>滾球球類選單</title>
+	<script id="homeJS">{JS}</script>
+	<link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/flag.css" rel="stylesheet" type="text/css">
+</head>
+ <body>
+        <div class="content_l">
+            <div class="head_sport *ART_lang*">
+                <div id="head_league" class="head_league">
+                    <!--class幫帶入各球類代碼-->
+                    <div id="sport_menu" class="box_scroll sport_scroll">
+                        <div id="sport_left" class="btn_go_l">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="sport_right" class="btn_go_r">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="sport_scroll" class="menu_sport dragscroll_gtype">
+                            <label id="sport_total">
+                                <div id="symbol_ft" style="display: none" class="btn_le_sport on">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_ft"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_ft*</span>
+                                </div>
+                                <div id="symbol_bk" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_bk"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_bk*</span>
+                                </div>
+                                <div id="symbol_es" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_es"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_es*</span>
+                                </div>
+                                <div id="symbol_tn" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_tn"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_tn*</span>
+                                </div>
+                                <div id="symbol_vb" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_vb"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_vb*</span>
+                                </div>
+                                <div id="symbol_bm" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_bm"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_bm*</span>
+                                </div>
+                                <div id="symbol_tt" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_tt"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_tt*</span>
+                                </div>
+                                <div id="symbol_bs" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_bs"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_bs*</span>
+                                </div>
+                                <div id="symbol_sk" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_sk"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_sk*</span>
+                                </div>
+                                <div id="symbol_op" style="display: none" class="btn_le_sport">
+                                    <i>
+                                        <svg>
+                                            <use xlink:href="#icon_op"/>
+                                        </svg>
+                                    </i>
+                                    <span>*ART_ball_op*</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="title_le">
+                        <div id="total_league_title" class="title_le_sport">
+                            <div id="back_btn" class="btn_back" style="display: none;">
+                                <i>
+                                    <svg>
+                                        <use xlink:href="#icon_back"/>
+                                    </svg>
+                                </i>
+                            </div>
+                            <div id="league_now" class="txt_sport txt_sport_on">
+                                <!-- class="disable" -->
+                                <i id="total_league_icon" class="icon_arr">
+                                    <svg>
+                                        <use xlink:href="#icon_gamearr"/>
+                                    </svg>
+                                </i>
+                                <tt id="showtype_now" class="" data-showLeague="*ART_title_league*"></tt>
+                                <!-- class="show_league" -->
+                            </div>
+                            <span id="gtype_now" class=""></span>
+                            <!-- class="event_hot" -->
+                        </div>
+                        <div id="league_title" class="title_le_sport" style="display: none;">
+                            <div id="goToLegPage" class="txt_sport txt_sport_on">
+                                <i id="league_icon" class="icon_arr">
+                                    <svg>
+                                        <use xlink:href="#icon_gamearr"/>
+                                    </svg>
+                                </i>
+                                <tt id="league_gtype" class="" data-showLeague="*ART_title_league*">足球</tt>
+                                <!-- class="show_league" -->
+                            </div>
+                            <span id="league_name" class="">聯盟名稱</span>
+                            <!-- class="event_hot" -->
+                        </div>
+                        <div id="sel_sort" style="display: none;" class="btn_le_sort" data-new="*ART_game_new*">
+                            <i>
+                                <svg>
+                                    <use xlink:href="#icon_sort_new"/>
+                                </svg>
+                            </i>
+                        </div>
+                        <div id="sel_date" style="display: none;" class="btn_le_cla">
+                            <i id="date_icon" class="icon_calendar"></i>
+                        </div>
+                        <div id="showPLimit" style="display: none;" class="text_p_in">
+                            <p id="game_parlay"></p>
+                            <p>*ART_game_3in1*</p>
+                            <p>1</p>
+                        </div>
+                    </div>
+                    <!-- SPES過濾 -->
+                    <div id="SPES_tab" class="box_scroll spES_game_list" style="display: none;">
+                        <!-- 拖曳滑動功能：一定要記得加上dragScroll程式才能正常執行滾動 -->
+                        <div id="SPES_tab_left" class="btn_go_l">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="SPES_tab_right" class="btn_go_r">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="SPES_tab_scroll" class="box_slide dragscroll_SPES_tab_out">
+                            <label id="SPES_tab_total">
+                                <div id="SPES_tab_main" class="btn_spES_filter es_high">
+                                    <i></i>
+                                    <span>*ART_ES_Highlights*</span>
+                                </div>
+                                <div id="SPES_tab_sprb" class="btn_spES_filter es_inplay">
+                                    <i></i>
+                                    <span>*ART_ES_INPLAY*</span>
+                                </div>
+                                <div id="SPES_tab_lol" class="btn_spES_filter es_LOL">
+                                    <i></i>
+                                    <span>*ART_ES_LOL*</span>
+                                </div>
+                                <div id="SPES_tab_dota" class="btn_spES_filter es_DOTA">
+                                    <i></i>
+                                    <span>*ART_ES_DOTA*</span>
+                                </div>
+                                <div id="SPES_tab_cs" class="btn_spES_filter es_CS">
+                                    <i></i>
+                                    <span>*ART_ES_CS*</span>
+                                </div>
+                                <div id="SPES_tab_kog" class="btn_spES_filter es_KOG">
+                                    <i></i>
+                                    <span>*ART_ES_KOG*</span>
+                                </div>
+                                <div id="SPES_tab_val" class="btn_spES_filter es_VAL">
+                                    <i></i>
+                                    <span>*ART_ES_VAL*</span>
+                                </div>
+                                <div id="SPES_tab_wr" class="btn_spES_filter es_WR">
+                                    <i></i>
+                                    <span>*ART_ES_WR*</span>
+                                </div>
+                                <div id="SPES_tab_ml" class="btn_spES_filter es_ML">
+                                    <i></i>
+                                    <span>*ART_ES_ML*</span>
+                                </div>
+                                <div id="SPES_tab_star2" class="btn_spES_filter es_STAR2">
+                                    <i></i>
+                                    <span>*ART_ES_STAR2*</span>
+                                </div>
+                                <div id="SPES_tab_pubg" class="btn_spES_filter es_PUBG">
+                                    <i></i>
+                                    <span>*ART_ES_PUBG*</span>
+                                </div>
+                                <div id="SPES_tab_aov" class="btn_spES_filter es_AOV">
+                                    <i></i>
+                                    <span>*ART_ES_AOV*</span>
+                                </div>
+                                <div id="SPES_tab_ove" class="btn_spES_filter es_OVE">
+                                    <i></i>
+                                    <span>*ART_ES_OVE*</span>
+                                </div>
+                                <div id="SPES_tab_rs" class="btn_spES_filter es_RS">
+                                    <i></i>
+                                    <span>*ART_ES_RS*</span>
+                                </div>
+                                <div id="SPES_tab_rl" class="btn_spES_filter es_RL">
+                                    <i></i>
+                                    <span>*ART_ES_RL*</span>
+                                </div>
+                                <div id="SPES_tab_star" class="btn_spES_filter es_STAR">
+                                    <i></i>
+                                    <span>*ART_ES_STAR*</span>
+                                </div>
+                                <div id="SPES_tab_war" class="btn_spES_filter es_WAR">
+                                    <i></i>
+                                    <span>*ART_ES_WAR*</span>
+                                </div>
+                                <div id="SPES_tab_cro" class="btn_spES_filter es_CRO">
+                                    <i></i>
+                                    <span>*ART_ES_CRO*</span>
+                                </div>
+                                <div id="SPES_tab_cod" class="btn_spES_filter es_COD">
+                                    <i></i>
+                                    <span>*ART_ES_COD*</span>
+                                </div>
+                                <div id="SPES_tab_ff" class="btn_spES_filter es_FF">
+                                    <i></i>
+                                    <span>*ART_ES_FF*</span>
+                                </div>
+                                <div id="SPES_tab_aoe" class="btn_spES_filter es_AOE">
+                                    <i></i>
+                                    <span>*ART_ES_AOE*</span>
+                                </div>
+                                <div id="SPES_tab_aoe2" class="btn_spES_filter es_AOE2">
+                                    <i></i>
+                                    <span>*ART_ES_AOE2*</span>
+                                </div>
+                                <div id="SPES_tab_pu" class="btn_spES_filter es_PU">
+                                    <i></i>
+                                    <span>*ART_ES_PU*</span>
+                                </div>
+                                <div id="SPES_tab_al" class="btn_spES_filter es_AL">
+                                    <i></i>
+                                    <span>*ART_ES_AL*</span>
+                                </div>
+                                <div id="SPES_tab_others" class="btn_spES_filter es_OTHERS">
+                                    <i></i>
+                                    <span>*ART_ES_OTHERS*</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <!-- 玩法過濾 -->
+                    <div id="league_tab" class="box_scroll market_scroll">
+                        <div id="tab_left" class="btn_go_l">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="tab_right" class="btn_go_r">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="tab_scroll" class="box_slide dragscroll_tab">
+                            <label id="tab_total">
+                                <div id="league_tab_mix" class="btn_market" style="display: ;">*ART_btn_all*</div>
+                                <div id="league_tab_prestart" class="btn_market" style="display: ;">*ART_btn_prestart*</div>
+                                <div id="league_tab_highlights" class="btn_market" style="display: none;">*ART_btn_highlights*</div>
+                                <div id="league_tab_game" class="btn_market">*ART_btn_matches*</div>
+                                <div id="league_tab_rb" class="btn_market" style="display: none;">*ART_btn_inplay*</div>
+                                <div id="league_tab_next1" class="btn_market" style="display: ;">*ART_btn_next1*</div>
+                                <div id="league_tab_next6" class="btn_market" style="display: ;">*ART_btn_next6*</div>
+                                <div id="league_tab_teams" class="btn_market" style="display: none;">*ART_btn_teams*</div>
+                                <div id="league_tab_fs" class="btn_market">*ART_btn_FS*</div>
+                                <div id="league_tab_standings" class="btn_market" style="display: none;">*ART_btn_standings*</div>
+                                <div id="league_tab_fantasy" class="btn_market" style="display: none;">*ART_btn_FC*</div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- 玩法過濾 -->
+                <div id="total_tab" class="box_scroll box_market" style="display: none;">
+                    <!-- 拖曳滑動功能：一定要記得加上dragScroll程式才能正常執行滾動 -->
+                    <div id="filter_left" class="btn_go_l">
+                        <svg>
+                            <use xlink:href="#icon_rightarr"/>
+                        </svg>
+                    </div>
+                    <div id="filter_right" class="btn_go_r">
+                        <svg>
+                            <use xlink:href="#icon_rightarr"/>
+                        </svg>
+                    </div>
+                    <div id="filter_scroll" class="box_slide dragscroll_filter_out">
+                        <label id="filter_total">
+                            <div id="tab_main" class="btn_filter">*ART_tag_mainmarket*</div>
+                            <div id="tab_rnou" class="btn_filter">*ART_tag_RNOU*</div>
+                            <div id="tab_cn" class="btn_filter">*ART_tag_CN*</div>
+                            <div id="tab_rn" class="btn_filter">*ART_tag_RN*</div>
+                            <div id="tab_pd" class="btn_filter">*ART_tag_PD*</div>
+                            <div id="tab_sfs" class="btn_filter">*ART_tag_SFS*</div>
+                            <div id="tab_moua" class="btn_filter">*ART_tag_MOUA*</div>
+                            <div id="tab_fantasy" class="btn_filter" style="display: none;">*ART_tag_FC*</div>
+                        </label>
+                    </div>
+                </div>
+                <!-- ES過濾 -->
+                <div id="ES_tab" class="box_scroll es_game_list" style="display: none;">
+                    <!-- 拖曳滑動功能：一定要記得加上dragScroll程式才能正常執行滾動 -->
+                    <div id="ES_tab_left" class="btn_go_l">
+                        <svg>
+                            <use xlink:href="#icon_rightarr"/>
+                        </svg>
+                    </div>
+                    <div id="ES_tab_right" class="btn_go_r">
+                        <svg>
+                            <use xlink:href="#icon_rightarr"/>
+                        </svg>
+                    </div>
+                    <div id="ES_tab_scroll" class="box_slide dragscroll_ES_tab_out">
+                        <label id="ES_tab_total">
+                            <div id="ES_tab_main" class="btn_es_filter es_all on">
+                                <i></i>
+                                *ART_ES_all*
+                            </div>
+                            <div id="ES_tab_lol" class="btn_es_filter es_LOL">
+                                <i></i>
+                                *ART_ES_LOL*
+                            </div>
+                            <div id="ES_tab_dota" class="btn_es_filter es_DOTA">
+                                <i></i>
+                                *ART_ES_DOTA*
+                            </div>
+                            <div id="ES_tab_cs" class="btn_es_filter es_CS">
+                                <i></i>
+                                *ART_ES_CS*
+                            </div>
+                            <div id="ES_tab_kog" class="btn_es_filter es_KOG">
+                                <i></i>
+                                *ART_ES_KOG*
+                            </div>
+                            <div id="ES_tab_val" class="btn_es_filter es_VAL">
+                                <i></i>
+                                *ART_ES_VAL*
+                            </div>
+                            <div id="ES_tab_wr" class="btn_es_filter es_WR">
+                                <i></i>
+                                *ART_ES_WR*
+                            </div>
+                            <div id="ES_tab_ml" class="btn_es_filter es_ML">
+                                <i></i>
+                                *ART_ES_ML*
+                            </div>
+                            <div id="ES_tab_star2" class="btn_es_filter es_STAR2">
+                                <i></i>
+                                *ART_ES_STAR2*
+                            </div>
+                            <div id="ES_tab_pubg" class="btn_es_filter es_PUBG">
+                                <i></i>
+                                *ART_ES_PUBG*
+                            </div>
+                            <div id="ES_tab_aov" class="btn_es_filter es_AOV">
+                                <i></i>
+                                *ART_ES_AOV*
+                            </div>
+                            <div id="ES_tab_ove" class="btn_es_filter es_OVE">
+                                <i></i>
+                                *ART_ES_OVE*
+                            </div>
+                            <div id="ES_tab_rs" class="btn_es_filter es_RS">
+                                <i></i>
+                                *ART_ES_RS*
+                            </div>
+                            <div id="ES_tab_rl" class="btn_es_filter es_RL">
+                                <i></i>
+                                *ART_ES_RL*
+                            </div>
+                            <div id="ES_tab_star" class="btn_es_filter es_STAR">
+                                <i></i>
+                                *ART_ES_STAR*
+                            </div>
+                            <div id="ES_tab_war" class="btn_es_filter es_WAR">
+                                <i></i>
+                                *ART_ES_WAR*
+                            </div>
+                            <div id="ES_tab_cro" class="btn_es_filter es_CRO">
+                                <i></i>
+                                *ART_ES_CRO*
+                            </div>
+                            <div id="ES_tab_cod" class="btn_es_filter es_COD">
+                                <i></i>
+                                *ART_ES_COD*
+                            </div>
+                            <div id="ES_tab_ff" class="btn_es_filter es_FF">
+                                <i></i>
+                                *ART_ES_FF*
+                            </div>
+                            <div id="ES_tab_aoe" class="btn_es_filter es_AOE">
+                                <i></i>
+                                *ART_ES_AOE*
+                            </div>
+                            <div id="ES_tab_aoe2" class="btn_es_filter es_AOE2">
+                                <i></i>
+                                *ART_ES_AOE2*
+                            </div>
+                            <div id="ES_tab_pu" class="btn_es_filter es_PU">
+                                <i></i>
+                                *ART_ES_PU*
+                            </div>
+                            <div id="ES_tab_al" class="btn_es_filter es_AL">
+                                <i></i>
+                                *ART_ES_AL*
+                            </div>
+                            <div id="ES_tab_others" class="btn_es_filter es_OTHERS">
+                                <i></i>
+                                *ART_ES_OTHERS*
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                <!-- 夢幻賽提示訊息 -->
+                <div id="fantasy_message" class="fs_note" style="display: none;">*ART_note_FS*</div>
+                <!-- 波膽模式 -->
+                <!-- <div id="tab_PDswitch" class="tab_PDswitch" style="display: none;">
+				<div id="tab_pd_all" class="btn_PDswitch on">*ART_pdview_list*</div>
+				<div id="tab_pd_choice" class="btn_PDswitch new">*ART_pdview_score*</div>
+			</div> -->
+            </div>
+        </div>
+    </body>
+</html>
+

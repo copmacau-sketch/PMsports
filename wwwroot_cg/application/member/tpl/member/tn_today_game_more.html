@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>TN 今日內層盤面</title>
+	<script id="homeJS">{JS}</script>
+	
+	<link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/tvmt.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/aspen_LMT2.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/aspen_stylesheet.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content_l">
+
+	<!-- game title -->
+	<div class="head_league tn">
+		<div class="head_inngame">
+			<div class="title_inn">
+				<div id="btn_back" class="btn_back"><i><svg><use xlink:href="#icon_back"/></svg></i></div>
+				<div class="title_le_sport">
+					<span id="league"></span>
+				</div>
+				<div class="btn_le_sort"></div>
+			</div>
+		</div>
+	</div>
+
+	<!-- TN Score board -->
+	<div id="div_matches" class="box_scoboard_r tn" style="display: ;">
+		<div class="box_scostate">
+			<tt id="game_time" class="text_time"></tt>
+			<i id="midfield" class="icon_n" style="display: none;"></i>
+		</div>
+		<div class="box_sco_l">
+			<div class="box_scoteam team_h">
+				<span id="team_h" class="text_team"></span>
+			</div>
+			<div class="box_sco_vs">V</div>
+			<div class="box_scoteam team_c">
+				<span id="team_c" class="text_team"></span>
+			</div>
+		</div>
+	</div>
+
+	<!-- TV / MT hide in PC size -->
+	<div id="watch_live" class="box_tvmt" style="display: none;">
+		<div id="timeline_btn" class="timeline_btn_off" style="display: none;"></div><!--show Change class="timeline_btn_on"-->
+
+		<div id="live_div" class="content_live">
+			<div id="tv_box" class="box_tv">
+				<div id="tv_loading" class="loading inn_loading" style="display: none;"><i class="icon_load"></i></div>
+				<div id="tv_show" class="show_tv">
+					<div id="player">
+						<video id="html5_player" width="100%" height="100%" autoplay playsinline webkit-playsinline>
+						</video>
+					</div>
+				</div>
+				<div id="tv_error" class="error_tv" style="display: none;">
+					<i class="img_tv"></i>
+					<tt id="tv_error_msg"></tt>
+					<tt id="tv_error_data"></tt>
+				</div>
+				<div id="def_pic" class="bg_tv">
+					<div id="tv_start" class="btn_tvplay" style="display: none1;"></div>
+				</div>
+			</div>
+
+			<div id="mt_box" class="box_mt" style="display: none;">
+				<div id="mt_loading" class="loading inn_loading" style="display: none;"><i class="icon_load"></i></div>
+				<div id="mt_show" class="show_mt">
+					<iframe id="mt_main" class="mt_main" scrolling="no"></iframe>
+				</div>
+			</div>
+		</div>
+
+		<div id="mt_btn_div" class="menu_mt" >
+			<div id="div_showtype" class="box_scroll mt_scroll">
+				<div id="mt_left" class="btn_go_l"><svg><use xlink:href="#icon_rightarr"/></svg></div>
+				<div id="mt_right" class="btn_go_r"><svg><use xlink:href="#icon_rightarr"/></svg></div>
+				<div id="mt_scroll" class="box_slide">
+					<label id="mt_total">
+						<span id="tv_btn" class="btn_mt on"><i class="icon_tv"><svg><use xlink:href="#icon_play"></use></svg></i></span>
+
+						<span id="mt_btn" class="btn_mt">
+								<i id="mt_icon" class="icon_match_TN"></i><!-- 依據球類更換代碼 -->
+							</span>
+
+						<span id="statistic_btn" class="btn_mt"><i class="icon_statistics"><svg><use xlink:href="#icon_statistics"></use></svg></i></span>
+						<span id="comment_btn" class="btn_mt"><i class="icon_commentary"><svg><use xlink:href="#icon_commentary"></use></svg></i></span>
+						<span id="team_btn" class="btn_mt"><i class="icon_team"><svg><use xlink:href="#icon_team"></use></svg></i></span>
+						<span id="htoh_btn" class="btn_mt"><i class="icon_headhead"><svg><use xlink:href="#icon_headhead"></use></svg></i></span>
+						<span id="livetable_btn" class="btn_mt"><i class="icon_league"><svg><use xlink:href="#icon_league"></use></svg></i></span>
+						<span id="pointBypoint_btn" class="btn_mt"><i class="icon_pbyp"><svg><use xlink:href="#icon_pbyp"></use></svg></i></span>
+						<span id="probabilities_btn" class="btn_mt"><i class="icon_probabilities"><svg><use xlink:href="#icon_probabilities"></use></svg></i></span>
+						<span id="boxscore_btn" class="btn_mt"><i class="icon_boxscore"><svg><use xlink:href="#icon_boxscore"></use></svg></i></span>
+					</label>
+				</div>
+			</div>
+
+			<div id="collapse_btn" class="btn_switch on"><!-- tv/mt展開時 Add class="on" -->
+				<i class="icon_toparr"><svg><use xlink:href="#icon_toparr"></use></svg></i>
+			</div>
+		</div>
+
+		<div id="mt_pop" class="popup_mt"><!-- show Add class="on"-->
+			<div id="mt_pop_mask" class="mask_popup"></div>
+			<div id="box_popup" class="box_popup"><!-- full height Add class="on" -->
+				<div id="title_popup" class="title_popup">
+					<div class="btn_fullscr"><i><svg><use xlink:href="#icon_toparr"/></svg></i></div>
+					<span id="mt_pop_title"><!-- MT TITLE --></span>
+					<div id="mt_sub_close" class="btn_close" type="mt_close"><i type="mt_close"><svg type="mt_close"><use type="mt_close" xlink:href="#icon_close"/></svg></i></div>
+				</div>
+				<div id="mt_pop_loading" class="loading inn_loading" style="display: none;">
+					<i class="icon_load"></i>
+				</div>
+				<div id="no_pop_data" class="no_mtpop" style="display: none;">
+					<i></i>
+					<span>*ART_game_nomtpop*</span>
+				</div>
+				<div class="content_popup">
+					<iframe id="mt_sub" scrolling="no"><!--BET RADAR--></iframe>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- no data -->
+	<div id="div_nodata" name="div_nodata" class="no_event" style="display: none;"><i></i><span>*ART_game_nodata*</span></div>
+
+
+	<div id="div_show" class="box_inn tn_inn"></div>
+
+	<div id="div_model" class="box_inn tn_inn" style="display: none;">
+		<!-- M model -->
+		<label>
+			<div id="header_m" class="game_title_inn">
+				<tt><span>*ART_game_m*</span><i>*SESSION*</i></tt>
+			</div>
+			<div id="body_m" class="box_innbet box_innbet_s2m2"></div>
+			<div id="model_m" class="box_innbet box_innbet_s2m2" style="display: none2;">
+				<div id="bet_*GID*_*ECID*_MH" class="btn_lebet_odd *CLOSE_MH*">
+						<span>
+							<tt class="text_ballou">*TEAM_H*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_MH*</span>
+				</div>
+
+				<div id="bet_*GID*_*ECID*_MC" class="btn_lebet_odd *CLOSE_MC*">
+						<span>
+							<tt class="text_ballou">*TEAM_C*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_MC*</span>
+				</div>
+			</div>
+		</label>
+
+		<!-- R model -->
+		<label>
+			<div id="header_r" class="game_title_inn">
+				<tt>
+					<div class="game_title_type"><span>*ART_game_r*</span></div>
+					<i>*SESSION*</i>
+				</tt>
+			</div>
+			<div id="body_r" class="box_innbet box_innbet_s2m2"></div>
+			<div id="model_r" class="box_innbet box_innbet_s2m2" style="display: none2;">
+				<div id="bet_*GID*_*ECID*_RH" class="btn_lebet_odd *CLOSE_RH*">
+						<span>
+							<tt class="text_ballou">*TEAM_H*</tt>
+							<tt class="text_ballhead">*RATIO_RH*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_RH*</span>
+				</div>
+
+				<div id="bet_*GID*_*ECID*_RC" class="btn_lebet_odd *CLOSE_RC*">
+						<span>
+							<tt class="text_ballou">*TEAM_C*</tt>
+							<tt class="text_ballhead">*RATIO_RC*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_RC*</span>
+				</div>
+			</div>
+		</label>
+
+		<!-- OU model -->
+		<label>
+			<div id="header_ou" class="game_title_inn">
+				<tt>
+					<div class="game_title_type"><span>*ART_game_ou*</span></div>
+					<i>*SESSION*</i>
+				</tt>
+			</div>
+			<div id="body_ou" class="box_innbet box_innbet_s2m2"></div>
+			<div id="model_ou" class="box_innbet box_innbet_s2m2" style="display: none2;">
+				<div id="bet_*GID*_*ECID*_OUC" class="btn_lebet_odd *CLOSE_OUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_OUC*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_OUC*</span>
+				</div>
+
+				<div id="bet_*GID*_*ECID*_OUH" class="btn_lebet_odd *CLOSE_OUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_OUH*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_OUH*</span>
+				</div>
+			</div>
+		</label>
+
+		<!-- OUH model -->
+		<label>
+			<div id="header_ouh" class="game_title_inn">
+				<tt>
+					<div class="game_title_type"><span>*ART_game_ouhc* *TEAM_H*  *ART_game_o_u*</span></div>
+					<i>*SESSION*</i>
+				</tt>
+			</div>
+			<div id="body_ouh" class="box_innbet box_innbet_s2m2"></div>
+			<div id="model_ouh" class="box_innbet box_innbet_s2m2" style="display: none2;">
+				<div id="bet_*GID*_*ECID*_OUHO" class="btn_lebet_odd *CLOSE_OUHO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_OUHO*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_OUHO*</span>
+				</div>
+
+				<div id="bet_*GID*_*ECID*_OUHU" class="btn_lebet_odd *CLOSE_OUHU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_OUHU*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_OUHU*</span>
+				</div>
+			</div>
+		</label>
+
+		<!-- OUC model -->
+		<label>
+			<div id="header_ouc" class="game_title_inn">
+				<tt>
+					<div class="game_title_type"><span>*ART_game_ouhc* *TEAM_C*  *ART_game_o_u*</span></div>
+					<i>*SESSION*</i>
+				</tt>
+			</div>
+			<div id="body_ouc" class="box_innbet box_innbet_s2m2"></div>
+			<div id="model_ouc" class="box_innbet box_innbet_s2m2" style="display: none2;">
+				<div id="bet_*GID*_*ECID*_OUCO" class="btn_lebet_odd *CLOSE_OUCO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_OUCO*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_OUCO*</span>
+				</div>
+
+				<div id="bet_*GID*_*ECID*_OUCU" class="btn_lebet_odd *CLOSE_OUCU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_OUCU*</tt>
+						</span>
+					<span class="text_odds">*IORATIO_OUCU*</span>
+				</div>
+			</div>
+		</label>
+
+		<!-- EO model -->
+		<label>
+			<div id="header_eo" class="game_title_inn">
+				<tt>
+					<div class="game_title_type"><span>*ART_game_eo*</span></div>
+					<i>*SESSION*</i>
+				</tt>
+			</div>
+			<div id="body_eo" class="box_innbet box_innbet_s2m2"></div>
+			<div id="model_eo" class="box_innbet box_innbet_s2m2" style="display: none2;">
+				<div id="bet_*GID*_*ECID*_EOO" class="btn_lebet_odd *CLOSE_EOO*">
+						<span>
+							<tt class="text_ballou">*ART_game_odd*</tt>
+							<tt class="text_ballhead"></tt>
+						</span>
+					<span class="text_odds">*IORATIO_EOO*</span>
+				</div>
+				<div id="bet_*GID*_*ECID*_EOE" class="btn_lebet_odd *CLOSE_EOE*">
+						<span>
+							<tt class="text_ballou">*ART_game_even*</tt>
+							<tt class="text_ballhead"></tt>
+						</span>
+					<span class="text_odds">*IORATIO_EOE*</span>
+				</div>
+			</div>
+		</label>
+
+		<!-- PD3 model -->
+		<label>
+			<div id="header_pd3" class="game_title_inn">
+				<tt>
+					<div class="game_title_type"><span>*ART_game_pd3*</span></div>
+					<i>*SESSION*</i>
+				</tt>
+			</div>
+			<div id="body_pd3" class="box_innbet box_innbet_s2gm2g"></div>
+			<div id="model_pd3" class="box_innbet box_innbet_s2gm2g" style="display: none2;">
+				<label class="innbet_rout">
+					<div class="sub_title"><tt>*TEAM_H*</tt></div>
+					<div class="sub_title"><tt>*TEAM_C*</tt></div>
+
+					<div id="bet_*GID*_*ECID*_PD320" class="btn_lebet_odd *CLOSE_PD320*">
+							<span>
+								<tt class="text_ballhead">2 - 0</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD320*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_PD302" class="btn_lebet_odd *CLOSE_PD302*">
+							<span>
+								<tt class="text_ballhead">0 - 2</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD302*</span>
+					</div>
+
+					<div id="bet_*GID*_*ECID*_PD321" class="btn_lebet_odd *CLOSE_PD321*">
+							<span>
+								<tt class="text_ballhead">2 - 1</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD321*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_PD312" class="btn_lebet_odd *CLOSE_PD312*">
+							<span>
+								<tt class="text_ballhead">1 - 2</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD312*</span>
+					</div>
+				</label>
+
+			</div>
+		</label>
+
+		<!-- PD5 model -->
+		<label>
+			<div id="header_pd5" class="game_title_inn">
+				<tt>
+					<div class="game_title_type"><span>*ART_game_pd5*</span></div>
+					<i>*SESSION*</i>
+				</tt>
+			</div>
+			<div id="body_pd5" class="box_innbet box_innbet_s2gm2g"></div>
+			<div id="model_pd5" class="box_innbet box_innbet_s2gm2g" style="display: none2;">
+				<label class="innbet_rout">
+					<div class="sub_title"><tt>*TEAM_H*</tt></div>
+					<div class="sub_title"><tt>*TEAM_C*</tt></div>
+
+					<div id="bet_*GID*_*ECID*_PD530" class="btn_lebet_odd *CLOSE_PD530*">
+							<span>
+								<tt class="text_ballhead">3 - 0</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD530*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_PD503" class="btn_lebet_odd *CLOSE_PD503*">
+							<span>
+								<tt class="text_ballhead">0 - 3</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD503*</span>
+					</div>
+
+					<div id="bet_*GID*_*ECID*_PD531" class="btn_lebet_odd *CLOSE_PD531*">
+							<span>
+								<tt class="text_ballhead">3 - 1</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD531*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_PD513" class="btn_lebet_odd *CLOSE_PD513*">
+							<span>
+								<tt class="text_ballhead">1 - 3</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD513*</span>
+					</div>
+
+					<div id="bet_*GID*_*ECID*_PD532" class="btn_lebet_odd *CLOSE_PD532*">
+							<span>
+								<tt class="text_ballhead">3 - 2</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD532*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_PD523" class="btn_lebet_odd *CLOSE_PD523*">
+							<span>
+								<tt class="text_ballhead">2 - 3</tt>
+							</span>
+						<span class="text_odds">*IORATIO_PD523*</span>
+					</div>
+				</label>
+
+			</div>
+		</label>
+
+	</div>
+
+	<div id="relating_box" class="box_relating" style="display: none;">
+		<div id="relating_title" class="title_relating"><div>*ART_title_relate*</div></div>
+		<div id="relating_content" class="popup_relating"><!-- show Add class="on"-->
+			<div class="mask_popup"></div>
+			<div class="box_popup">
+				<div class="title_popup">
+					<span>*ART_title_relate*</span>
+					<div class="btn_close"><i class="icon_close"><svg><use xlink:href="#icon_close"/></svg></i></div>
+				</div>
+				<div class="content_popup">
+					*ART_text_relate_text*
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="box_empty"></div>
+</div>
+</body>
+</html>

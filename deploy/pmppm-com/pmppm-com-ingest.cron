@@ -1,0 +1,24 @@
+# /etc/cron.d/pmppm-com-ingest — refresh odds-api.io snapshot for pmppm.com.
+#
+# DISABLED 2026-05-24: this cron writes to oddsapi.sqlite, which became a
+# dead-end after /api/external/* migrated to MySQL (foot_match +
+# foot_match_xml.r_cn) for prematch and /dev/shm/oddsapi_live for
+# in-play.  Nothing reads from oddsapi.sqlite anymore — see comment at
+# the top of crown-explorer/backend/app/routers/external.py.  Leaving
+# the cron line commented (not deleted) so it's a one-character revert
+# if the SQLite path ever needs to come back as a fallback.
+#
+# Layout: standard cron 5-field schedule, then `user`, then command.
+# Every 5 min, scoped to the keys in /etc/default/pmppm-com.env (which
+# must be sourced *and exported* by the cron line — the original `.
+# file` form silently failed because env-file vars weren't exported).
+
+SHELL=/bin/bash
+PATH=/opt/pmppm-com/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ODDSAPI_DB_PATH=/opt/pmppm-com/data/oddsapi.sqlite
+
+# odds-api.io + api-sports.io keys — sourced from /etc/default/pmppm-com.env
+# so they never leak into git. See deploy-setup.sh for how the env file is
+# created.
+
+# */5 * * * * root set -a && . /etc/default/pmppm-com.env && set +a && systemd-cat -t pmppm-com-ingest /opt/pmppm-com/venv/bin/python3 /opt/pmppm-com/api/scripts/ingest_oddsapi.py >/dev/null 2>&1

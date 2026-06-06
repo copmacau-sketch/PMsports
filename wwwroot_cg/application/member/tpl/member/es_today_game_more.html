@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>es   today內層盤面</title>
+	<script id="homeJS">{JS}</script>
+	
+	<link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/tvmt.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/aspen_LMT2.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/aspen_stylesheet.css" rel="stylesheet" type="text/css">
+</head>
+     <body>
+        <div class="content_l">
+            <!-- game title -->
+            <div class="head_league es">
+                <div class="head_inngame">
+                    <div class="title_inn">
+                        <div id="btn_back" class="btn_back">
+                            <i>
+                                <svg>
+                                    <use xlink:href="#icon_back"/>
+                                </svg>
+                            </i>
+                        </div>
+                        <div class="title_le_sport">
+                            <span id="league"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ES Score board -->
+            <div id="div_matches" class="box_scoboard es" style="display: ;">
+                <!-- 帶入class="color[H/C]_編號" -->
+                <!-- class帶入遊戲代碼 & 計分版模式MOBA/FPS/BASIC -->
+                <div class="top">
+                    <div class="text_team team_h">
+                        <i>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 19L0 0H16.5L20 17.5L4 19Z" fill-opacity="0.56"/>
+                                <path d="M19.3333 3H3L7.66667 24H24L19.3333 3Z"/>
+                            </svg>
+                        </i>
+                        <div>
+                            <span id="team_h"></span>
+                        </div>
+                    </div>
+                    <div id="box_scostate" class="box_score">
+                        <!-- 無次比分,狀態 class="box_score_2row"-->
+                        <div class="text_time">
+                            <div class="box_time">
+                                <tt id="game_time" class="txt_gametime"></tt>
+                                <i id="midfield" class="icon_n" style="display:none"></i>
+                                <p id="gameType" class="txt_gametype"></p>
+                            </div>
+                        </div>
+                        <div class="main_point">
+                            <p id="icon_v" class="icon_v" style="display: ;">V</p>
+                        </div>
+                        <div id="scoreBoard_start" class="text_start"></div>
+                    </div>
+                    <div class="text_team team_c">
+                        <i>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 19L24 0H7.5L4 17.5L20 19Z" fill-opacity="0.56"/>
+                                <path d="M4.66667 3H21L16.3333 24H0L4.66667 3Z"/>
+                            </svg>
+                        </i>
+                        <div>
+                            <span id="team_c"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="div_rate" class="bottom"></div>
+            </div>
+            <!-- rate model -->
+            <div id="div_rate_model" class="bottom" style="display: none;">
+                <div class="percent_text">
+                    <div class="main_num team_h">
+                        *WIN_RATE_H* %
+					<span class="*RATE_H_CLASS*">*RATE_CHANGE*</span>
+                        <!-- 無數值請留空｜class="text_up / text_down" -->
+                    </div>
+                    <tt id="rate">*NOW_PERIOD* *ART_win*</tt>
+                    <div class="main_num team_c">
+                        *WIN_RATE_C* %
+					<span class="*RATE_C_CLASS*">*RATE_CHANGE*</span>
+                        <!-- 無數值請留空｜class="text_up / text_down" -->
+                    </div>
+                </div>
+                <div class="percent_graph" style="--win_h: *WIN_RATE_H*%; --win_c: *WIN_RATE_C*%;">
+                    <span class="team_h"></span>
+                    <span class="team_c"></span>
+                </div>
+            </div>
+            <!-- ES Statistics menu -->
+            <div id="statistics" class="menu_es_statistic" style="display: none;">
+                <div id="statistics_btn" class="btn_es_statistic">
+                    <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                        <g>
+                            <path d="M12.7,0c0.6,0,1,0.4,1,1v10c0,0.6-0.4,1-1,1H10c-0.6,0-1-0.4-1-1V1c0-0.6,0.4-1,1-1H12.7z"/>
+                            <path d="M5.7,5.4c0.6,0,1,0.4,1,1V11c0,0.6-0.4,1-1,1H3c-0.6,0-1-0.4-1-1V6.4c0-0.6,0.4-1,1-1H5.7z"/>
+                            <path d="M0.5,14C0.2,14,0,14.2,0,14.5v1C0,15.8,0.2,16,0.5,16h15c0.3,0,0.5-0.2,0.5-0.5v-1c0-0.3-0.2-0.5-0.5-0.5H0.5z"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            <!-- TV / MT hide in PC size -->
+            <div id="watch_live" class="box_tvmt" style="display: none;">
+                <div id="timeline_btn" class="timeline_btn_off" style="display: none;"></div>
+                <!--show Change class="timeline_btn_on"-->
+                <div id="live_div" class="content_live">
+                    <div id="tv_box" class="box_tv">
+                        <div id="tv_loading" class="loading inn_loading" style="display: none;">
+                            <i class="icon_load"></i>
+                        </div>
+                        <div id="tv_show" class="show_tv">
+                            <div id="player">
+                                <video id="html5_player" width="100%" height="100%" autoplay playsinline webkit-playsinline></video>
+                            </div>
+                        </div>
+                        <div id="tv_error" class="error_tv" style="display: none;">
+                            <i class="img_tv"></i>
+                            <tt id="tv_error_msg"></tt>
+                            <tt id="tv_error_data"></tt>
+                        </div>
+                        <div id="def_pic" class="bg_tv">
+                            <div id="tv_start" class="btn_tvplay" style="display: none;"></div>
+                        </div>
+                    </div>
+                    <div id="mt_box" class="box_mt" style="display: none;">
+                        <div id="mt_loading" class="loading inn_loading" style="display: none;">
+                            <i class="icon_load"></i>
+                        </div>
+                        <div id="mt_show" class="show_mt">
+                            <iframe id="mt_main" class="mt_main" scrolling="no"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <!-- TV/MT menu -->
+                <div id="mt_btn_div" class="menu_mt">
+                    <div id="div_showtype" class="box_scroll mt_scroll">
+                        <div id="mt_left" class="btn_go_l">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="mt_right" class="btn_go_r">
+                            <svg>
+                                <use xlink:href="#icon_rightarr"/>
+                            </svg>
+                        </div>
+                        <div id="mt_scroll" class="box_slide">
+                            <label id="mt_total">
+                                <span id="tv_btn" class="btn_mt on">
+                                    <i class="icon_tv">
+                                        <svg>
+                                            <use xlink:href="#icon_play"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="mt_btn" class="btn_mt">
+                                    <i id="mt_icon" class="icon_match_ES"></i>
+                                    <!-- 依據球類更換代碼 -->
+                                </span>
+                                <span id="statistic_btn" class="btn_mt">
+                                    <i class="icon_statistics">
+                                        <svg>
+                                            <use xlink:href="#icon_statistics"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="comment_btn" class="btn_mt">
+                                    <i class="icon_commentary">
+                                        <svg>
+                                            <use xlink:href="#icon_commentary"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="team_btn" class="btn_mt">
+                                    <i class="icon_team">
+                                        <svg>
+                                            <use xlink:href="#icon_team"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="htoh_btn" class="btn_mt">
+                                    <i class="icon_headhead">
+                                        <svg>
+                                            <use xlink:href="#icon_headhead"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="livetable_btn" class="btn_mt">
+                                    <i class="icon_league">
+                                        <svg>
+                                            <use xlink:href="#icon_league"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="pointBypoint_btn" class="btn_mt">
+                                    <i class="icon_pbyp">
+                                        <svg>
+                                            <use xlink:href="#icon_pbyp"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="probabilities_btn" class="btn_mt">
+                                    <i class="icon_probabilities">
+                                        <svg>
+                                            <use xlink:href="#icon_probabilities"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                                <span id="boxscore_btn" class="btn_mt">
+                                    <i class="icon_boxscore">
+                                        <svg>
+                                            <use xlink:href="#icon_boxscore"></use>
+                                        </svg>
+                                    </i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div id="collapse_btn" class="btn_switch on">
+                        <!-- tv/mt展開時 Add class="on" -->
+                        <i class="icon_toparr">
+                            <svg>
+                                <use xlink:href="#icon_toparr"></use>
+                            </svg>
+                        </i>
+                    </div>
+                </div>
+                <div id="mt_pop" class="popup_mt">
+                    <!-- show Add class="on"-->
+                    <div id="mt_pop_mask" class="mask_popup"></div>
+                    <div id="box_popup" class="box_popup">
+                        <!-- full height Add class="on" -->
+                        <div id="title_popup" class="title_popup">
+                            <div class="btn_fullscr">
+                                <i>
+                                    <svg>
+                                        <use xlink:href="#icon_toparr"/>
+                                    </svg>
+                                </i>
+                            </div>
+                            <span id="mt_pop_title">
+                            <!-- MT TITLE -->
+                            </span>
+                            <div id="mt_sub_close" class="btn_close" type="mt_close">
+                                <i type="mt_close">
+                                    <svg type="mt_close">
+                                        <use type="mt_close" xlink:href="#icon_close_bold"/>
+                                    </svg>
+                                </i>
+                            </div>
+                        </div>
+                        <div id="mt_pop_loading" class="loading inn_loading" style="display: none;">
+                            <i class="icon_load"></i>
+                        </div>
+                        <div id="no_pop_data" class="no_mtpop" style="display: none;">
+                            <i></i>
+                            <span>*ART_game_nomtpop*</span>
+                        </div>
+                        <div class="content_popup">
+                            <iframe id="mt_sub" scrolling="no"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Filters -->
+            <div id="div_filter" class="box_scroll inn_filter">
+                <div id="filter_left" class="btn_go_l">
+                    <svg>
+                        <use xlink:href="#icon_rightarr"/>
+                    </svg>
+                </div>
+                <div id="filter_right" class="btn_go_r">
+                    <svg>
+                        <use xlink:href="#icon_rightarr"/>
+                    </svg>
+                </div>
+                <div id="filter_scroll" class="box_slide dragscroll_filter_inner">
+                    <label id="filter_total">
+                        <div id="Main_filter" class="btn_filter on">*ART_es_filter_all*</div>
+                        <div id="Match_filter" class="btn_filter">*ART_es_filter_match*</div>
+                        <div id="G1_filter" class="btn_filter">*ART_es_filter_game1*</div>
+                        <div id="G2_filter" class="btn_filter">*ART_es_filter_game2*</div>
+                        <div id="G3_filter" class="btn_filter">*ART_es_filter_game3*</div>
+                        <div id="G4_filter" class="btn_filter">*ART_es_filter_game4*</div>
+                        <div id="G5_filter" class="btn_filter">*ART_es_filter_game5*</div>
+                        <div id="G6_filter" class="btn_filter">*ART_es_filter_game6*</div>
+                        <div id="G7_filter" class="btn_filter">*ART_es_filter_game7*</div>
+                    </label>
+                </div>
+            </div>
+            <!-- Filters loading -->
+            <div id="filter_loading" class="loading filter_loading" style="display: none;">
+                <i class="icon_load"></i>
+            </div>
+            <!-- class="loading_on"-->
+            <!-- no data -->
+            <div id="div_nodata" name="div_nodata" class="no_event" style="display: none;">
+                <i></i>
+                <span>*ART_game_nodata*</span>
+            </div>
+            <div id="div_show" class="box_inn es_inn"></div>
+            <div id="div_model" class="box_inn es_inn" style="display: none;">
+                <!-- M 獨贏 model -->
+                <label>
+                    <div id="header_m" class="game_title_inn">
+                        <tt>
+                            <div class="game_title_type">
+                                <span>*PERIOD* *ART_game_rm*</span>
+                            </div>
+                        </tt>
+                    </div>
+                    <div id="body_m" class="box_innbet box_innbet_s2m2"></div>
+                    <div id="model_m" class="box_innbet box_innbet_s2m2" style="display: none2;">
+                        <div id="bet_*GID*_*ECID*_MH" class="btn_lebet_odd *CLOSE_MH*">
+                            <span>
+                                <tt class="text_ballou">*TEAM_H*</tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_MH*</span>
+                        </div>
+                        <div id="bet_*GID*_*ECID*_MC" class="btn_lebet_odd *CLOSE_MC*">
+                            <span>
+                                <tt class="text_ballou">*TEAM_C*</tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_MC*</span>
+                        </div>
+                    </div>
+                </label>
+                <!-- R 讓盤 model -->
+                <label>
+                    <div id="header_r" class="game_title_inn">
+                        <tt>
+                            <div class="game_title_type">
+                                <span>*PERIOD* *ART_game_re*</span>
+                            </div>
+                        </tt>
+                    </div>
+                    <div id="body_r" class="box_innbet box_innbet_s2m2"></div>
+                    <div id="model_r" class="box_innbet box_innbet_s2m2" style="display: none2;">
+                        <div id="bet_*GID*_*ECID*_RH" class="btn_lebet_odd *CLOSE_RH*">
+                            <span>
+                                <tt class="text_ballou">*TEAM_H*</tt>
+                                <tt class="text_ballhead">*RATIO_RH*</tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_RH*</span>
+                        </div>
+                        <div id="bet_*GID*_*ECID*_RC" class="btn_lebet_odd *CLOSE_RC*">
+                            <span>
+                                <tt class="text_ballou">*TEAM_C*</tt>
+                                <tt class="text_ballhead">*RATIO_RC*</tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_RC*</span>
+                        </div>
+                    </div>
+                </label>
+                <!-- OU 大/小 model -->
+                <label>
+                    <div id="header_ou" class="game_title_inn">
+                        <tt>
+                            <div class="game_title_type">
+                                <span>*PERIOD* *ART_game_rou*</span>
+                            </div>
+                        </tt>
+                    </div>
+                    <div id="body_ou" class="box_innbet box_innbet_s2m2"></div>
+                    <div id="model_ou" class="box_innbet box_innbet_s2m2" style="display: none2;">
+                        <div id="bet_*GID*_*ECID*_OUC" class="btn_lebet_odd *CLOSE_OUC*">
+                            <span>
+                                <tt class="text_ballou">*ART_game_over*</tt>
+                                <tt class="text_ballhead">*RATIO_OUC*</tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_OUC*</span>
+                        </div>
+                        <div id="bet_*GID*_*ECID*_OUH" class="btn_lebet_odd *CLOSE_OUH*">
+                            <span>
+                                <tt class="text_ballou">*ART_game_under*</tt>
+                                <tt class="text_ballhead">*RATIO_OUH*</tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_OUH*</span>
+                        </div>
+                    </div>
+                </label>
+                <!-- EO 單/雙 model -->
+                <label>
+                    <div id="header_eo" class="game_title_inn">
+                        <tt>
+                            <div class="game_title_type">
+                                <span>*PERIOD* *ART_game_reo*</span>
+                            </div>
+                        </tt>
+                    </div>
+                    <div id="body_eo" class="box_innbet box_innbet_s2m2"></div>
+                    <div id="model_eo" class="box_innbet box_innbet_s2m2" style="display: none2;">
+                        <div id="bet_*GID*_*ECID*_EOO" class="btn_lebet_odd *CLOSE_EOO*">
+                            <span>
+                                <tt class="text_ballou">*ART_game_odd*</tt>
+                                <tt class="text_ballhead"></tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_EOO*</span>
+                        </div>
+                        <div id="bet_*GID*_*ECID*_EOE" class="btn_lebet_odd *CLOSE_EOE*">
+                            <span>
+                                <tt class="text_ballou">*ART_game_even*</tt>
+                                <tt class="text_ballhead"></tt>
+                            </span>
+                            <span class="text_odds">*IORATIO_EOE*</span>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <div class="box_empty"></div>
+        </div>
+    </body>
+</html>

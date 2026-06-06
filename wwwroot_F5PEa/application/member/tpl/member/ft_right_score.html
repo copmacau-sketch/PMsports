@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>右面板</title>
+	<script id="homeJS">{JS}</script>
+	
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content_r">
+	<!-- FT Score board in-play -->
+	<div id="R_score_board" class="box_scoboard ft" style="display: none;">
+		<div id="R_box_scostate" class="box_scostate">
+			<!--tt class="text_time_go"><p>1H</p> 27:51</tt-->
+			<tt id="R_re_time" class="text_time_go"></tt>
+			<!---->
+			<i id="R_midfield" class="icon_n" style="display:none"></i>
+			<span id="R_clothes_h_600" class="icon_shirt" style="display:none">
+                        <svg>
+                            <use xlink:href="#icon_shirt"/>
+                        </svg>
+                    </span>
+			<span id="R_clothes_c_600" class="icon_shirt" style="display:none">
+                        <svg>
+                            <use xlink:href="#icon_shirt"/>
+                        </svg>
+                    </span>
+		</div>
+		<div id="R_box_sco_l" class="box_sco_l">
+			<div class="box_scoteam team_h">
+				<span id="R_pk_h" class="icon_serve"></span>
+				<!-- 發球方 Add class="on" -->
+				<span id="R_redcard_h" class="icon_redcard"></span>
+				<!-- show red card Add class="on" -->
+				<span id="R_score_h" class="text_point"></span>
+				<!-- 最後入球 Add class="last_goal" -->
+				<span id="R_clothes_h" class="icon_shirt" style="display:none">
+                            <svg>
+                                <use xlink:href="#icon_shirt"/>
+                            </svg>
+                        </span>
+				<span id="R_team_h" class="text_team"></span>
+				<!-- 強隊 Add class="strong_team" -->
+			</div>
+			<span id="R_dash_show" class="box_sco_center">-</span>
+			<div id="R_vs_show" class="box_sco_vs" style="display: none;">V</div>
+			<div class="box_scoteam team_c">
+				<span id="R_pk_c" class="icon_serve"></span>
+				<span id="R_redcard_c" class="icon_redcard"></span>
+				<span id="R_score_c" class="text_point"></span>
+				<span id="R_clothes_c" class="icon_shirt" style="display:none">
+                            <svg>
+                                <use xlink:href="#icon_shirt"/>
+                            </svg>
+                        </span>
+				<span id="R_team_c" class="text_team"></span>
+			</div>
+		</div>
+		<div id="R_ET_mode" class="box_et" style="display: none;">
+			*ART_game_et_ft*<tt id="R_ET_mode_scH"></tt>
+			-<tt id="R_ET_mode_scC"></tt>
+		</div>
+		<div id="R_pk_score" class="box_live_rps" style="display: none;">
+			<i id="R_sc_1st_H">
+				<!--rps_goal / rps_nogoal / rps_ing-->
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_2nd_H">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_3th_H">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_4th_H">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_5th_H">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<div class="text_round">
+				<span id="R_now_goal"></span>
+				<tt id="R_PK_Method"></tt>
+			</div>
+			<i id="R_sc_1st_C">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_2nd_C">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_3th_C">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_4th_C">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+			<i id="R_sc_5th_C">
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+				<div class="obj_rps_ani"></div>
+			</i>
+		</div>
+	</div>
+	<!-- scored borad / today / early / parlay -->
+	<div id="div_matches" class="box_scoboard_r ft" style="display: none;">
+		<div class="box_scostate">
+			<tt id="game_time" class="text_time"></tt>
+			<i id="midfield" class="icon_n" style="display:none"></i>
+		</div>
+		<div class="box_sco_l">
+			<div class="box_scoteam team_h">
+				<span id="team_h" class="text_team"></span>
+			</div>
+			<div class="box_sco_vs">V</div>
+			<div class="box_scoteam team_c">
+				<span id="team_c" class="text_team"></span>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

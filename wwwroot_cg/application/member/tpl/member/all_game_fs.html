@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>全球類 冠軍</title>
+	<script id="homeJS">{JS}</script>
+	
+	
+	<link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/flag.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content_l">
+	<div class="box_league box_fs">
+		<!-- no data -->
+		<div id="div_nodata" name="div_nodata" class="no_event" style="display: none;"><i></i><span>*ART_game_nodata*</span></div>
+
+
+		<div class="fs_inn">
+			<label id="div_show" name="div_show"></label>
+
+			<div id="model_game_head" name="model_game_head" style="display:none;">
+				<!-- league name -->
+				<div id="title_fs_*GID*" class="event_title_fs" style="display:*GAME_TITLE_DISPLAY*;">
+					<tt id="FS_league">*GAME_LEAGUE_NAME*</tt>
+					<i id="FS_datetime">*GAME_DATETIME*</i>
+				</div>
+
+				<div id="game_head_*GID*" name="game_head_*GID*" class="btn_title_fs"><span>*TEAM_NAME*</span></div>
+
+				<div id="game_movie_*GID*" class="box_innbet box_innbet_fs" name="game_movie_*GID*" style="display:*GAME_BODY_DISPLAY*;">
+					<div class="fs_btn_box">*GAME_BODY_CONTENT*</div>
+					<div class="box_innbet_btn">
+						<div id="fs_show_more_*GID*" class="btn_innbet_more" data-less="*ART_btn_viewless*" data-more="*ART_btn_viewmore*"><i class="icon_toparr"><svg><use xlink:href="#icon_toparr"/></svg></i></div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="model_game_body" name="model_game_body" class="box_innbet box_innbet_fs" style="display:none;"><!-- show more Add class="on" -->
+			<div id="bet_*GID*_*ECID*_*RTYPE*" name="bet_*GID*_*ECID*_*RTYPE*" class="btn_lebet_odd">
+					<span>
+						<tt class="text_ballou">*RTYPE_NAME*</tt>
+					</span>
+				<span class="text_odds">*IORATIO*</span>
+			</div>
+		</div>
+
+
+	</div>
+</div>
+</body>
+</html>

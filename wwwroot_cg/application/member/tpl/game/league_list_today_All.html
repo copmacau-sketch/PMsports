@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>其他球類 今日聯盟</title>
+    <script id="homeJS">{JS}</script>
+
+    <link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/flag.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<div class="content_l">
+
+
+    <div class="box_filter today_filter ft">
+        <div id="div_nodata" class="no_event" style="display: none;"><i></i><span>*ART_game_nodata*</span></div>
+
+        <div id="div_hasdata" style="display: none;">
+
+            <div id="div_coupon" class="popular_league" style="display: none;"></div>
+            <div id="div_classifier" class="classic_league" style="display: none;"></div>
+
+            <!----------------------------- model ----------------------------->
+            <div id="model_coupon" style="display: none;">
+
+                <div id="model_coupon_content" style="display: none;">
+                    <!-- league name -->
+                    <div class="btn_title_le"><tt>*ART_coupon_popular*</tt></div>
+
+                    <div class="box_le_filter">
+                        *COUPON_CONTENT*
+                    </div>
+                </div>
+
+                <div id="model_coupon_league" style="display: none;">
+                    <div id="btn_*COUPON_ID*" class="btn_event"><!-- 複選時 Add class="on" -->
+                        <div class="bg_event"></div>
+                        <span class="title_event">*COUPON_NAME*</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="model_classifier" style="display: none;">
+
+                <div id="model_region" style="display: none;">
+                    <div class="content_filter">
+                        <!-- league name -->
+                        <div id="region_head_*REGION_ID*" class="btn_title_le"><tt>*REGION_NAME*</tt><i class="*FLAG_CLASS*"></i></div>
+
+                        <div id="region_body_*REGION_ID*" class="box_le_filter" style="display: *DEFAULT_OPEN*;">
+                            *LEAGUE_COUNTENT*
+                        </div>
+                    </div>
+                </div>
+
+                <div id="model_league" style="display: none;">
+                    <div id="league_*LEAGUE_ID*" class="btn_event">
+                        <label class="check_event">
+                            <input id="chkbox_*LEAGUE_ID*" value="" name="chkbox_league" type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+                        <div class="bg_event"></div>
+                        <span class="title_event">*LEAGUE_NAME*</span>
+                    </div>
+                </div>
+
+                <div id="model_az" style="display: none;">
+                    <div class="title_filter"><tt>*ART_coupon_AZ*</tt></div>
+                </div>
+            </div>
+            <!----------------------------- model ----------------------------->
+
+            <!-- <div id="select_lea" class="btn_submit" data-submit="*ART_btn_submit*" style="display: none;"></div> -->
+
+        </div>
+
+        <!--
+        <div id="div_gmt" class="notice_text">
+            <span><i></i><tt>*ART_game_gmt4*</tt></span>
+        </div>
+        -->
+
+    </div>
+</div>
+</body>
+</html>

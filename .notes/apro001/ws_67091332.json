@@ -1,0 +1,27 @@
+{
+    "type": "updated",
+    "id": "67091332",
+    "bookie": "Bet365 (no latency)",
+    "markets": [
+        {
+            "name": "Spread",
+            "odds": [
+                {
+                    "hdp": 0.0,
+                    "home": 1.775,
+                    "away": 2.025
+                }
+            ]
+        },
+        {
+            "name": "Totals",
+            "odds": [
+                {
+                    "hdp": 2.5,
+                    "over": 2.0,
+                    "under": 1.8
+                }
+            ]
+        }
+    ]
+}

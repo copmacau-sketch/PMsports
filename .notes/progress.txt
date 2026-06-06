@@ -1,0 +1,89 @@
+Crown-Gold ingest 重构进展 (2026-05-21)
+============================================
+
+目标
+----
+- 前端: wwwroot_F5PEa SPA 保持不变
+- 数据源: Odds-API.io (赔率) + api-football.io / api-sports.io (赛果)
+- 数据库: 复用旧 schema db_sports.foot_match + foot_match_xml + sfs_match
+- 弃用 catalog.json + CatalogBridge 这条路 (用户决定: 选项1)
+
+已完成
+------
+[x] 取到 foot_match / foot_match_xml / sfs_match / url 真实 schema → .notes/schemas.sql
+[x] 取到 foot_match_xml.r_cn 的 XML 真实样本 → .notes/foot_match_xml_sample_r_cn.xml
+[x] 编码: r_cn = base64_encode(gzdeflate(xml))    解码: gzinflate(base64_decode(r_cn))
+[x] 写 OddsApiToCrownXml.php  → wwwroot_F5PEa/vendor/common/OddsApiToCrownXml.php
+[x] 写 ingest_odds_api.php    → wwwroot_F5PEa/application/bdata/ingest_odds_api.php
+[x] api-football → score_h/score_c/is_inball 已并入 ingest 主脚本
+[x] 部署+跑通: 80 场赛事 8 个联赛入库 (英意西法德 + 欧冠欧联 + 世界杯), avg XML 1.7KB
+[x] 验证 lid/DC/HM 修复后正确入库
+
+已覆盖盘口 (sw_XXX=Y)
+---------------------
+P1 全部: M, RE/R, OU/ROU, BH (DNB), DC, TS, W3, HM, HR, HOU, HTS, PD (波胆)
+P2 部分: AR (角球让球), AOU (角球大小)
+
+未覆盖 (sw_XXX=N, SPA 自动隐藏)
+-------------------------------
+EO/HEO (单双), HT (半场总进球分档), MW/MQ (取胜方式), OG/OT, MPG, MTS,
+MOUA-D, DG, DS, DUA-D, OUPA-D, OUTA-D, OUEA-D, BR/BOU (罚牌),
+PG/OS/ST/CN/CD/RC/YC/GA (进球先后/牌先后), AR/BR/CR/DR/ER/FR (15分钟分段),
+AM/BM/CM/DM/EM/FM (15分钟独赢), F/F2G/F3G (半全场), CS/WN/WB/WE/SB/HG/MG (各类胜).
+理由: Odds-API.io 没有这些数据，或映射关系不明。
+
+待办
+----
+[x] DbBridge.php → wwwroot_F5PEa/application/member/tools/DbBridge.php
+    - getLeagueCount / getPageCount / getLeagueListAll / getGameList / getGameMore
+[x] transform.php:9234 拦截改用 DbBridge (5 个 action: list_count, page_count, list_all, game_list, game_more)
+[x] 5 个 HTTP 端点端到端验证通过 (curl POST → DbBridge → MySQL → XML 返回)
+[x] cron 配置: deploy/pmppm-com/odds-ingest.cron 已装到 /etc/cron.d/odds-ingest
+    - 每 5 分钟跑全量 ingest (events + odds + scores)
+    - 每分钟跑 --live-only (只刷比分)
+    - 日志: /var/log/odds-ingest.log
+
+剩余
+----
+[ ] 浏览器实测 SPA (login → 比赛页面) 能看到 db 入库的盘口
+[ ] 老 Crown 数据 (lid=104036 等) 是否需要从 foot_match 清掉
+
+入口
+----
+- 登陆页: http://3.25.180.205:8080/  (repro/index.html 改造版)
+- 原 SPA: http://3.25.180.205:8080/index.php (登陆后跳转)
+- 替代 UI: http://3.25.180.205:8080/odds.html (旧版 Chinese dark UI)
+
+数据流总览
+----------
+Odds-API.io (events + odds)
+api-football.io (live scores)
+        │
+        ▼  ingest_odds_api.php (cron 5min / 1min)
+MySQL db_sports.foot_match + foot_match_xml
+        │
+        ▼  SPA POST transform.php
+        │     │ p=get_league_count etc.
+        ▼     ▼
+DbBridge.php → r_cn 解码 → XML 给 SPA worker.js
+
+关键决策
+--------
+- gid: 直接用 Odds-API event id (已是 int, 如 8596179)
+- lid: 联赛 slug → 数字映射表 (硬编码 + 自增)
+- m_date: YYYY-MM-DD (UTC+8 北京时间)
+- m_time: HH:MMa 或 HH:MMp (a=上午, p=下午)
+- 多语言: 用 i18n-teams.ts 同款翻译表, 或暂时三列都填同样的英文
+- 覆盖盘口优先级 (Odds-API 实际能提供的):
+    P1 (核心): ML/M, Spread/RE, Totals/OU, BTTS/TS, HT Result/HM, Correct Score/PD, DC, Half Total/HOU
+    P2: Spread+OU (W3), Card/Corner Totals
+    P3: 暂时 sw_XXX=N 留空
+
+部署
+----
+- ssh: ssh -i /Volumes/T7/Crown-gold/Crowngold.pem ubuntu@3.25.180.205
+- DB: mysql -uroot -p49f0863e9070 db_sports
+- DocumentRoot: /home/ubuntu/crown-gold/wwwroot_F5PEa/application/member
+- API keys:
+    Odds-API.io:    f13e2d297eb9e7006113eeca5f95682e3da7a5d39581e0ee7681c5abbd28e3b9
+    api-sports.io:  967679e7c3c625a64081afc93b7fb1bf

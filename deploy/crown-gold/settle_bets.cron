@@ -1,0 +1,14 @@
+# Crown-Gold automatic bet settlement (API-Sports.io)
+# Install: sudo crontab -u ubuntu /home/ubuntu/crown-gold/wwwroot_F5PEa/application/member/settle_bets.cron
+# Logs:    /var/log/settle_bets.log
+#
+# Database credentials (CG_DB_USER, CG_DB_PASS) are read by settle_bets.php
+# via getenv() with a root fallback. To run as the low-privilege `crown_app`
+# account instead of root, install this cron under root via /etc/cron.d/
+# and source /etc/cg-db.env before invoking php. The user-crontab variant
+# below intentionally relies on the legacy root fallback (settle_bets.php
+# only does DML on db_client.bet, db_client.member, db_sports.foot_match —
+# crown_app has all the grants it needs but cannot read /etc/cg-db.env).
+
+# Run every 5 minutes (uses root MySQL fallback inside settle_bets.php).
+*/5 * * * * /usr/bin/php /home/ubuntu/crown-gold/wwwroot_F5PEa/application/member/settle_bets.php >> /var/log/settle_bets.log 2>&1

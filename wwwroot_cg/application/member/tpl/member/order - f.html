@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>{JS}</script>
+
+    <link href="{CDNURL}/style/order.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/share_tool.css" rel="stylesheet" type="text/css">
+    <title></title>
+</head>
+<body>
+<div id="div_bet" class="all_outside">
+
+
+    <div id="div_mask" class="ord_full_mask" style="display:none;"></div>
+    <div id="bet_show" class="ord_down_style"></div>
+
+    <!-- 遮罩 -->
+    <div id="lock_betting" class="ord_nobet_mask" style="display:none;"></div>
+    <!-- 遮罩 end -->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 下注區 -->
+    <xmp id="bet_model" style="display: none;">
+        *BET_LIST*
+        <div class="ord_function">
+
+            <!-- 鍵盤 -->
+            <div id="div_calc" class="ord_keyboard" style="display:none;">
+                <div class="ord_keyboard_num">
+                    <button id="num_1">1</button>
+                    <button id="num_2">2</button>
+                    <button id="num_3">3</button>
+                    <button id="num_4">4</button>
+                    <button id="num_5">5</button>
+                    <button id="num_6">6</button>
+                    <button id="num_7">7</button>
+                    <button id="num_8">8</button>
+                    <button id="num_9">9</button>
+                    <button id="num_0">0</button>
+                </div>
+
+
+
+                <div class="ord_keyboard_more">
+                    <button id="add_1">
+                        <span>+</span>
+                        <span id="add_num_1">10</span>
+                    </button>
+                    <button id="add_2">
+                        <span>+</span>
+                        <span id="add_num_2">50</span>
+                    </button>
+                    <button id="add_3">
+                        <span>+</span>
+                        <span id="add_num_3">100</span>
+                    </button>
+                    <button id="num_x" class="del"></button>
+                    <button id="num_done" class="dom">*ART_order_complete*</button>
+                </div>
+            </div>
+            <!-- 鍵盤 end -->
+
+
+            <!-- 注單級別訊息 +底色訊息 -->
+            <!-- 注單級別.ord_levelmsg 紅底白字.bg_red 綠底白字.bg_green 黃底白字.bg_yellow -->
+            <div id="orderMsg_div" class="ord_msg ord_levelmsg" style="display: none;">
+                <ul id="orderMsg"></ul>
+                <button id="remove_bet" type="button" style="display: none;">*ART_order_removeItem*</button>
+            </div>
+            <!-- 注單級別訊息 +底色訊息 end -->
+
+
+            <!-- 下注功能按鈕 -->
+            <div id="bet_btn_area" class="ord_order_button">
+
+                <!-- 下注單設定按鈕 -->
+                <button id="set_btn" class="btn_ord_betterbet mouse_hover">
+                    <i><svg><use xlink:href="#icon_betset"/></svg></i>
+                </button>
+                <!-- 下注單設定按鈕 end -->
+
+
+
+                <!-- 記住下注金額按鈕(按出鍵盤時使用) -->
+                <div id="div_lastBetCredit" class="btn_ord_rem" style="display: none;">
+                    <label>
+                        <input id="last_betCredit" type="checkbox">
+                        <i></i>
+                        <span>*ART_order_rememberAmount*</span>
+                    </label>
+                </div>
+                <!-- 記住下注金額按鈕 end -->
+
+
+
+                <!-- 加到下注單按鈕(快捷注單使用) -->
+                <button id="add_total_bet" type="button" class="btn_ord_addslip mouse_hover">*ART_order_addOrder*</button>
+                <!-- 加到下注單按鈕 end -->
+
+
+
+                <!-- 下注+接受變化按鈕 -->
+                <!-- 按鈕不能點選直接加上disabled -->
+                <button id="order_bet" type="button" class="btn_ord_pLacebet">
+							<span id="betBtn_show">
+								<span id="betBtn_txt" class="status_db word_bold">*ART_order_betting*</span>
+								<span id="bet_gold2_tt" class="status_db currency" data-currency="">0.00</span>
+							</span>
+
+                    <!-- loadding -->
+                    <span id="bet_loading" class="load_ring" style="display: none;"></span>
+                    <!-- loadding end -->
+
+                    <!-- 延遲下注 -->
+                    <span id="delay_loading" class="delay_loading" style="display: none;">
+								<div class="delay_animate">
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+									<div></div>
+								</div>
+								<tt>*ART_order_processing*</tt>
+							</span>
+                    <!-- 延遲下注 end -->
+                </button>
+                <!-- 下注+接受變化按鈕 end -->
+            </div>
+            <!-- 下注功能按鈕 end -->
+        </div>
+    </xmp>
+    <!-- 下注區 -->
+
+
+
+
+
+
+
+
+
+
+    <!-- 收據區 -->
+    <xmp id="finish_model" style="display: none;">
+        *FINISH_LIST*
+        <div class="ord_function">
+
+            <!-- 注單級別訊息 +底色訊息 -->
+            <!-- 注單級別.ord_levelmsg 紅底白字.bg_red 綠底白字.bg_green 黃底白字.bg_yellow -->
+            <div id="orderMsg_div" class="ord_msg ord_levelmsg" style="display: none;">
+                <ul id="orderMsg"></ul>
+            </div>
+            <!-- 注單級別訊息 +底色訊息 end -->
+
+            <!-- 下注成功按鈕 -->
+            <div id="finish_btn_area" class="ord_order_button">
+                <!-- 記住上次下注選項 -->
+                <button id="div_lastBetOption" type="button" class="btn_ord_reselect mouse_hover">
+                    <span id="div_lastBetOption_txt"></span>
+                </button>
+                <!-- 記住上次下注選項 end -->
+
+                <button id="finishBtn_show" type="button" class="btn_ord_ok">*ART_order_confirm*</button>
+            </div>
+            <!-- 下注成功按鈕 end -->
+        </div>
+    </xmp>
+    <!-- 收據區 end -->
+
+
+
+
+
+
+
+
+
+
+    <!-- 快捷下注內容 -->
+    <xmp id="fast_bet" style="display: none;">
+        <div class="ord_qkslip">
+            <!-- model -->
+            <div id="div_betInfo" class="ord_slip_model *ART_order_lang*">
+                <button id="order_close" type="button" class="btn_ord_miniclose"></button>
+
+                <!-- 下注資訊 -->
+                <!-- 各種注單狀態 過關串.parlay 關盤locked -->
+                <!-- 紅字.word_red 藍字.word_blue 綠字.word_green 黃字word_yellow 賠率改變.word_oddbg -->
+                <div id="betInfo_bg" class="ord_slip_info">
+                    <ul class="ord_odd_txt">
+                        <li>
+                            <tt id="bet_menutype"></tt><tt id="bet_score" name="bet_score" class="word_yellow"></tt>
+                        </li>
+                        <li class="word_gray">
+                            <tt id="bet_league"></tt>
+                        </li>
+                        <li id="bet_teamData">
+                            <tt id="bet_team_h"></tt>
+                            <tt id="bet_con" name="bet_con" class="word_red"></tt>
+                            <tt> v </tt>
+                            <tt id="bet_team_c" ></tt>
+                            <tt id="bet_con_c" name="bet_con_c" class="word_red"></tt>
+                        </li>
+                        <li class="type">
+                            <tt id="bet_chose_team"></tt>
+                            <tt id="bet_chose_con" class="word_red"></tt>
+                            <tt class="mouse">@</tt>
+                            <tt id="bet_ior" name="bet_ior" class="word_red"></tt>
+                        </li>
+                    </ul>
+                    <!-- 下注資訊 end -->
+
+                    <!-- 夢幻賽 -->
+                    <div id="div_icon_info_bet" class="load_inorder ope_fantasy" style="display: none;">
+                        <i id="div_icon_info_bet_i" class="ope_reason">
+                            <svg><use xlink:href="#icon_i"></use></svg>
+                        </i>
+                        <span id="" >
+									<span class="load_ring">
+									</span>
+									*ART_order_fantasy*
+								</span>
+                    </div>
+                    <!-- 夢幻賽end -->
+
+
+                    <!-- 下注金額 -->
+                    <div class="ord_amount">
+
+
+                        <!-- 不能下注請在.ord_amount_enter後面加上加上.noenter-->
+                        <!-- PC用 輸入input -->
+                        <div id="bet_gold_bg_pc" class="ord_amount_enter" style="display:none;">
+                            <input id="bet_gold_pc" type="text" class="pc_typing" autocomplete="off" tabindex="-1" placeholder="*ART_order_input*" maxlength="13">
+                            <input id="bet_input_pc" type="password" autocomplete="new-password">
+                            <div id="bet_gold_tt_pc" class="normal _pc" tabindex="-1"></div>
+                        </div>
+                        <!-- 輸入input end -->
+
+                        <!-- 非PC用 輸入input -->
+                        <!-- 不能下注請在.ord_amount_enter後面加上加上.noenter-->
+                        <div id="bet_gold_bg" class="ord_amount_enter">
+                            <div id="bet_gold" class="typing"></div>
+                            <input id="bet_input" type="text"  tabindex="-1">
+                            <div id="bet_gold_tt" class="normal" tabindex="-1"></div>
+                        </div>
+                        <!-- 輸入input end -->
+
+
+                        <!-- 限額 -->
+                        <div class="ord_maxbet">
+                            <span id="div_showlimit" name="div_showlimit">*ART_order_getAmount*</span>
+                        </div>
+                        <!-- 限額 end -->
+
+
+                        <!-- 設置金額 -->
+                        <div id="div_limit" name="div_limit" class="ord_maxbet" style="display: none;">
+                            <tt id="max_limit" class="word_gray"></tt>
+                            <span id="set_max">*ART_order_setAmount*</span>
+                        </div>
+                        <!-- 設置金額 end -->
+
+
+                        <!-- 可贏金額 -->
+                        <ul id="div_wingold" name="div_wingold" class="ord_amount_txt" style="display: none;">
+                            <li>*ART_order_toWin*</li>
+                            <li id="bet_wingold" class="word_green">0.00</li>
+                        </ul>
+                        <!-- 可贏金額 end -->
+                    </div>
+                    <!-- 下注金額 end -->
+
+
+                    <!-- 錯誤訊息 -->
+                    <div id="err_msg" class="ord_err" style="display: none"></div>
+                    <!-- 錯誤訊息 end -->
+                </div>
+                <!-- 下注資訊 end -->
+            </div>
+            <!-- model end -->
+
+
+
+            <!-- 下注整頁loading -->
+            <div id="info_loading" class="ord_betload">
+                <span class="load_ring"></span>
+            </div>
+            <!-- 下注整頁loading end -->
+
+
+
+            <!-- 橫向阻擋 -->
+            <div class="ord_rotate_ph">
+                <span>*ART_order_rotateBet*</span>
+                <span id="rotate_removeALL" class="btn_ord_rotate">*ART_order_removeAllItem*</span>
+            </div>
+            <!-- 橫向阻擋 end -->
+        </div>
+    </xmp>
+    <!-- 快捷下注內容 end -->
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 快捷收據內容 -->
+    <xmp id="fast_finish" style="display: none">
+        <div class="ord_qkslip">
+            <!-- model -->
+            <div class="ord_slip_model *ART_order_lang*">
+                <button id="order_close" type="button" class="btn_ord_miniclose"></button>
+
+                <!-- 下注資訊 -->
+                <!-- 各種注單狀態 過關串.parlay 關盤locked -->
+                <!-- 紅字.word_red 藍字.word_blue 綠字.word_green 黃字word_yellow 賠率改變.word_oddbg -->
+                <div class="ord_slip_info">
+                    <ul class="ord_odd_txt">
+                        <li>
+                            <tt id="bet_finish_menutype"></tt><tt id="bet_finish_score" class="word_yellow"></tt>
+                        </li>
+                        <li class="word_gray">
+                            <tt id="bet_finish_league"></tt>
+                        </li>
+                        <li id="bet_finish_teamData">
+                            <tt id="bet_finish_team_h"></tt>
+                            <tt id="bet_finish_con" class="word_red"></tt>
+                            <tt> v </tt>
+                            <tt id="bet_finish_team_c"></tt>
+                            <tt id="bet_finish_con_c" class="word_red"></tt>
+                        </li>
+                        <li class="type">
+                            <tt id="bet_finish_chose_team"></tt>
+                            <tt id="bet_finish_chose_con" class="word_red"></tt>
+                            <tt class="mouse">@</tt>
+                            <tt id="bet_finish_ior" class="word_red"></tt>
+                        </li>
+                    </ul>
+                    <!-- 下注資訊 end -->
+
+                    <!-- 夢幻賽 -->
+                    <div id="div_icon_info_bet" class="load_inorder ope_fantasy" style="display: none;">
+                        <i id="div_icon_info_bet_i" class="ope_reason">
+                            <svg><use xlink:href="#icon_i"></use></svg>
+                        </i>
+                        <span id="" >
+									<span class="load_ring">
+									</span>
+									*ART_order_fantasy*
+								</span>
+                    </div>
+                    <!-- 夢幻賽end -->
+
+
+                    <!-- 狀態+單號 -->
+                    <!-- 已拒絕.word_red 已確認.word_green 確認中.word_yellow -->
+                    <div class="ord_status load_inorder">
+								<span id="bet_finish_dg" class="status_word word_yellow">
+									<span class="load_ring"></span>
+								</span>
+                        <span id="bet_finish_tid"></span>
+                    </div>
+                    <!-- 狀態+單號 end -->
+
+
+
+                    <!-- 下注可贏金額 -->
+                    <div class="ord_betwin">
+                        <ul>
+                            <li>*ART_order_stake*</li>
+                            <li id="bet_finish_gold" class="word_black"></li>
+                        </ul>
+                        <ul>
+                            <li>*ART_order_toWin*</li>
+                            <li id="bet_finish_win_gold" class="word_green"></li>
+                        </ul>
+                    </div>
+                    <!-- 下注可贏金額 end -->
+                </div>
+                <!-- 下注資訊 end -->
+            </div>
+            <!-- model end -->
+
+
+
+            <!-- 橫向阻擋 -->
+            <div class="ord_rotate_ph">
+                <span>*ART_order_rotateView*</span>
+            </div>
+            <!-- 橫向阻擋 end -->
+        </div>
+    </xmp>
+    <!-- 快捷收據內容 end -->
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 完整下注單內容 -->
+    <xmp id="total_bet" style="display: none;">
+        <!-- 一般head -->
+        <div class="ord_title">
+            <div id="div_betHeader" class="ord_info collapse">
+                <button id="ord_collapse" class="ord_collapse">
+                    <i><svg><use xlink:href="#icon_arrdown"/></svg></i>
+                </button>
+                <span class="title_txt">
+							<tt>*ART_order_order*</tt>
+							<i class="ord_sline"></i>
+							<tt id="betCount">0</tt>
+						</span>
+                <span id="nowCredit" class="balance currency" data-currency=""></span>
+
+                <!-- 幾串幾 -->
+                <div id="div_parlay_limit" class="ord_ins" style="display: none">
+                    <span id="parlay_limit">2</span><tt> *ART_order_in* </tt>1
+                </div>
+                <!-- 幾串幾 end -->
+            </div>
+
+            <button id="showRemoveALL" type="button" class="btn_ord_del mouse_hover">
+                <i><svg><use xlink:href="#icon_trash"/></svg></i>
+            </button>
+        </div>
+        <!-- 一般head end -->
+
+
+
+        <!-- 移除全部head -->
+        <div id="div_removeALL" class="ord_title remove">
+            <div id="removeALL" class="btn_ord_remove">*ART_order_removeAll*</div>
+
+            <button id="cancel_removeALL" type="button" class="btn_ord_close mouse_hover">
+                <i><svg><use xlink:href="#icon_close"/></svg></i>
+            </button>
+        </div>
+        <!-- 移除全部head end -->
+
+        <!-- model -->
+        <div id="div_betInfo" class="ord_fullslip">
+
+            <!-- 注單組合 -->
+
+            *BET_SLIP_SHOW*
+
+            <!-- parlay -->
+            <div id="total_parlay" class="ord_slip_model *ART_order_lang*" style="display: none">
+                <!-- 下注資訊 -->
+                <!-- 各種注單狀態 過關串.parlay 關盤locked -->
+                <!-- 紅字.word_red 藍字.word_blue 綠字.word_green 黃字word_yellow 賠率改變.word_oddbg 不可串單.no_parlayin -->
+                <div id="total_parlay_locked" class="ord_slip_info parlay">
+                    <ul class="ord_odd_txt">
+                        <li class="type">
+                            <tt>*ART_order_parlay*</tt>
+                            <tt class="mouse">@</tt>
+                            <tt id="parlay_ior" name="bet_ior"></tt>
+                        </li>
+                    </ul>
+
+
+                    <!-- 下注金額 -->
+                    <div class="ord_amount">
+                        <!-- 輸入input -->
+                        <!-- 不能下注請在.ord_amount_enter後面加上加上.noenter 可在data-more 輸入串數-->
+                        <!-- PC用 輸入input -->
+                        <div id="total_parlay_count_pc" class="ord_amount_enter" style="display:none;">
+                            <input id="bet_gold_p3_pc" type="text" name="bet_gold_pc" class="pc_typing" autocomplete="off" tabindex="-1" placeholder="*ART_order_input*" maxlength="13">
+                            <input id="bet_parlay_input_pc" type="password" autocomplete="new-password">
+                            <div id="bet_gold_tt_p3_pc" class="normal _pc" tabindex="-1"></div>
+                        </div>
+                        <!-- 輸入input end -->
+
+                        <!-- 非PC用 輸入input -->
+                        <div id="total_parlay_count" class="ord_amount_enter parlay_x" data-more="1">
+                            <div id="bet_gold_p3" name="bet_gold" class="typing"></div>
+                            <input id="bet_parlay_input" type="text" autocomplete="off">
+                            <div id="bet_gold_tt_p3" class="normal" tabindex="-1"></div>
+                        </div>
+                        <!-- 輸入input end -->
+
+
+                        <!-- 限額 -->
+                        <div class="ord_maxbet">
+                            <span id="div_showlimit_p3" name="div_showlimit">*ART_order_getAmount*</span>
+                        </div>
+                        <!-- 限額 end -->
+
+
+                        <!-- 設置金額 -->
+                        <div id="div_limit_p3" name="div_limit" class="ord_maxbet" style="display: none">
+                            <tt id="max_limit_p3" class="word_gray"></tt>
+                            <span id="set_max_p3">*ART_order_setAmount*</span>
+                        </div>
+                        <!-- 設置金額 end -->
+
+
+                        <!-- 可贏金額 -->
+                        <ul id="div_wingold_p3" name="div_wingold" class="ord_amount_txt" style="display: none;">
+                            <li>*ART_order_toWin*</li>
+                            <li id="bet_wingold_p3" name="bet_wingold" class="word_green">0.00</li>
+                        </ul>
+                        <!-- 可贏金額 end -->
+                    </div>
+                    <!-- 下注金額 end -->
+
+                </div>
+                <!-- 下注資訊 end -->
+            </div>
+            <!-- parlay end-->
+
+
+
+            <!-- single -->
+            <div id="total_single" class="ord_slip_model *ART_order_lang*" style="display: none">
+                <!-- 下注資訊 -->
+                <!-- 各種注單狀態 過關串.parlay 關盤locked -->
+                <!-- 紅字.word_red 藍字.word_blue 綠字.word_green 黃字word_yellow 賠率改變.word_oddbg 不可串單.no_parlayin -->
+                <div id="total_single_locked" class="ord_slip_info parlay">
+                    <ul class="ord_odd_txt">
+                        <li class="type">
+                            <tt>*ART_order_singleOrder*</tt>
+                        </li>
+                    </ul>
+                    <!-- 下注資訊 end -->
+
+
+                    <!-- 下注金額 -->
+                    <div class="ord_amount">
+
+                        <!-- 不能下注請在.ord_amount_enter後面加上加上.noenter 可在data-more 輸入串數-->
+                        <!-- PC用 輸入input -->
+                        <div id="total_single_count_pc" class="ord_amount_enter" style="display:none;">
+                            <input id="bet_gold_single_pc" type="text" class="pc_typing" autocomplete="off" tabindex="-1" placeholder="*ART_order_input*" maxlength="13">
+                            <input id="bet_input_single_pc" type="password" autocomplete="new-password">
+                            <div id="bet_gold_tt_single_pc" class="normal _pc" tabindex="-1"></div>
+                        </div>
+                        <!-- 輸入input end -->
+
+                        <!-- 非PC用 輸入input -->
+                        <!-- 輸入input -->
+                        <div id="total_single_count" class="ord_amount_enter parlay_x" data-more="1">
+                            <div id="bet_gold_single" class="typing"></div>
+                            <input id="bet_input_single" type="text" autocomplete="off">
+                            <div id="bet_gold_tt_single" class="normal" tabindex="-1"></div>
+                        </div>
+                        <!-- 輸入input end -->
+                    </div>
+                    <!-- 下注金額 end -->
+
+                </div>
+                <!-- 下注資訊 end -->
+            </div>
+            <!-- single end-->
+
+
+
+            <!-- 沒有注單 -->
+            <div id="div_empty" class="ord_empty">*ART_order_null*</div>
+            <!-- 沒有注單 end -->
+
+
+
+            <!-- 橫向阻擋 -->
+            <div class="ord_rotate_ph">
+                <span>*ART_order_rotateBet*</span>
+                <span id="rotate_removeALL" class="btn_ord_rotate">*ART_order_removeAllItem*</span>
+            </div>
+            <!-- 橫向阻擋 end -->
+
+
+
+
+            <!-- 最後注單級別 -->
+            <div id="parlay_error" class="ord_lasterr" style="display: none"></div>
+            <!-- 最後注單級別 end -->
+
+            <!-- 總額資訊 -->
+            <div class="ord_total">
+                <div class="ord_total_title">
+							<span>
+								*ART_order_total*
+								<i class="ord_sline"></i>
+								<tt id="betCount_tt" class="word_black word_bold">0</tt>
+							</span>
+                    <span>*ART_order_estimate*</span>
+                </div>
+                <div class="ord_total_amount">
+                    <span id="bet_total_gold" class="currency" data-currency="">0.00</span>
+                    <span id="bet_total_wingold" class="word_green currency" data-currency="">0.00</span>
+                </div>
+            </div>
+            <!-- 總額資訊 end -->
+        </div>
+        <!-- model end -->
+
+
+
+        <!-- 下注整頁loading -->
+        <div id="info_loading" class="ord_betload">
+            <span class="load_ring"></span>
+        </div>
+        <!-- 下注整頁loading end -->
+    </xmp>
+    <!-- 完整下注單內容 end -->
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 完整下注收據內容 -->
+    <xmp id="total_finish" style="display: none;">
+
+        <!-- 一般head -->
+        <div class="ord_title">
+            <div class="ord_info">
+						<span class="title_txt">
+							*ART_order_betlist*
+						</span>
+                <span id="finish_nowCredit" class="balance currency" data-currency="">0.00</span>
+            </div>
+            <button id="total_print" type="button" class="btn_ord_del mouse_hover">
+                <i>
+                    <svg>
+                        <use xlink:href="#icon_print" />
+                    </svg>
+                </i>
+            </button>
+        </div>
+        <!-- 一般head end -->
+
+        <div id="div_finishInfo" class="ord_fullslip">
+
+            *FINISH_BET_SLIP_SHOW*
+
+            <!-- 綜合過關 -->
+            <div id="finish_total_parlay_header" class="ord_multiple">*ART_order_multiple*</div>
+
+            <div id="finish_total_parlay" class="ord_slip_info *ART_order_lang*">
+                <ul class="ord_odd_txt">
+                    <li class="type">
+                        <tt>*ART_order_parlay*</tt>
+                        <tt class="mouse">@</tt>
+                        <tt id="finish_parlay_ior"></tt>
+                    </li>
+                </ul>
+
+
+
+                <!-- 狀態+單號 -->
+                <!-- 已拒絕.word_red 已確認.word_green 確認中.word_yellow -->
+                <div class="ord_status load_inorder">
+							<span id="finish_bet_dg_p3" class="status_word word_green">
+								<span class="load_ring"></span>
+							</span>
+                    <span id="finish_bet_tid_p3" name="finish_bet_tid"></span>
+                </div>
+                <!-- 狀態+單號 end -->
+
+
+
+                <!-- 下注金額 -->
+                <div class="ord_betwin">
+                    <ul>
+                        <li>*ART_order_stake*</li>
+                        <li id="finish_bet_gold_p3" name="finish_bet_gold" class="word_black betwin_x" data-betwin="1"></li>
+                    </ul>
+                    <ul>
+                        <li>*ART_order_toWin*</li>
+                        <li id="finish_bet_wingold_p3" name="finish_bet_wingold" class="word_green"></li>
+                    </ul>
+                </div>
+                <!-- 下注金額 end -->
+
+            </div>
+            <!-- 綜合過關 end -->
+
+
+
+            <!-- 橫向阻擋 -->
+            <div class="ord_rotate_ph">
+                <span>*ART_order_rotateView*</span>
+            </div>
+            <!-- 橫向阻擋 end -->
+
+
+
+            <!-- 總額資訊 -->
+            <div class="ord_total">
+                <div class="ord_total_title">
+							<span>
+								*ART_order_total*
+								<i class="ord_sline"></i>
+								<tt id="finish_betCount_tt" class="word_black word_bold">99</tt>
+							</span>
+                    <span>*ART_order_estimate*</span>
+                </div>
+                <div class="ord_total_amount">
+                    <span id="finish_bet_total_gold" class="currency" data-currency=""></span>
+                    <span id="finish_bet_total_wingold" class="word_green currency" data-currency=""></span>
+                </div>
+            </div>
+            <!-- 總額資訊 end -->
+        </div>
+    </xmp>
+    <!-- 完整下注收據內容 end -->
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 單串下注單內容 -->
+    <xmp id="model_betslip" style="display: none">
+        <div id="betslip_*BET_KEY*" class="ord_slip_model *ART_order_lang*">
+            <button id="delete_betslip_*ECID*" type="button" class="btn_ord_miniclose"></button>
+
+            <!-- 下注資訊 -->
+            <!-- 各種注單狀態 過關串.parlay 關盤locked -->
+            <!-- 紅字.word_red 藍字.word_blue 綠字.word_green 黃字word_yellow 賠率改變.word_oddbg 不可串單.no_parlayin -->
+            <div id="betslip_locked_*ECID*" class="ord_slip_info">
+                <ul class="ord_odd_txt">
+                    <li id="dots_*ECID*">
+                        <tt id="bet_menutype">*WTYPESHOW*</tt><tt id="bet_score" name="bet_score" class="word_yellow">*SCORE*</tt>
+                    </li>
+                    <li class="word_gray">
+                        <tt id="bet_league">*LEAGUE*</tt>
+                    </li>
+                    <li id="bet_teamData">
+                        <tt id="bet_team_h">*TEAM_H*</tt>
+                        <tt id="bet_con" name="bet_con" class="word_red">*CON_H*</tt>
+                        <tt> v </tt>
+                        <tt id="bet_team_c">*TEAM_C*</tt>
+                        <tt id="bet_con_c" name="bet_con_c" class="word_red">*CON_C*</tt>
+                    </li>
+                    <li class="type">
+                        <tt id="bet_chose_team">*CHOSE_TEAM*</tt>
+                        <tt id="bet_chose_con" class="word_red">*CHOSE_CON*</tt>
+                        <tt class="mouse">@</tt>
+                        <tt id="bet_ior" name="bet_ior" class="word_red">*BET_IOR*</tt>
+                    </li>
+                </ul>
+
+                <!-- 夢幻賽 -->
+                <div id="div_icon_info_bet_*ECID*" class="load_inorder ope_fantasy" style="display: none;">
+                    <i id="div_icon_info_bet_i_*ECID*" class="ope_reason">
+                        <svg><use xlink:href="#icon_i"></use></svg>
+                    </i>
+                    <span id="" >
+								<span class="load_ring">
+								</span>
+								*ART_order_fantasy*
+							</span>
+                </div>
+                <!-- 夢幻賽end -->
+
+                <!-- 下注金額 -->
+                <div class="ord_amount">
+                    <!-- 不能下注請在.ord_amount_enter後面加上加上.noenter-->
+                    <!-- PC用 輸入input -->
+                    <div id="bet_gold_bg_*ECID*_pc" class="ord_amount_enter" style="display:none;">
+                        <input id="bet_gold_*ECID*_pc" type="text" name="bet_gold_pc" class="pc_typing" autocomplete="off" tabindex="-1" placeholder="*ART_order_input*" maxlength="13">
+                        <input id="bet_input_*ECID*_pc" type="password" autocomplete="new-password">
+                        <div id="bet_gold_tt_*ECID*_pc" class="normal _pc" tabindex="-1"></div>
+                    </div>
+
+                    <!-- 輸入input end -->
+                    <!-- 非PC用 輸入input -->
+                    <!-- 輸入input -->
+                    <!-- 不能下注請在.ord_amount_enter後面加上加上.noenter-->
+                    <div id="bet_gold_bg_*ECID*" class="ord_amount_enter">
+                        <div id="bet_gold_*ECID*" name="bet_gold" class="typing"></div>
+                        <input id="bet_input_*ECID*" type="text" autocomplete="off">
+                        <div id="bet_gold_tt_*ECID*" class="normal" tabindex="-1"></div>
+                    </div>
+                    <!-- 輸入input end -->
+
+
+                    <!-- 限額 -->
+                    <div class="ord_maxbet">
+                        <span id="div_showlimit_*ECID*" name="div_showlimit">*ART_order_getAmount*</span>
+                    </div>
+                    <!-- 限額 end -->
+
+
+                    <!-- 設置金額 -->
+                    <div id="div_limit_*ECID*" name="div_limit" class="ord_maxbet" style="display: none">
+                        <tt id="max_limit" class="word_gray"></tt>
+                        <span id="set_max_*ECID*">*ART_order_setAmount*</span>
+                    </div>
+                    <!-- 設置金額 end -->
+
+
+                    <!-- 可贏金額 -->
+                    <ul id="div_wingold_*ECID*" name="div_wingold" class="ord_amount_txt" style="display: none;">
+                        <li>*ART_order_toWin*</li>
+                        <li id="bet_wingold_*ECID*" name="bet_wingold" class="word_green">0.00</li>
+                    </ul>
+                    <!-- 可贏金額 end -->
+                </div>
+                <!-- 下注金額 end -->
+
+
+                <!-- 錯誤訊息 -->
+                <!-- 不可串單時加上class.no_parlayin -->
+                <div id="err_msg_*ECID*" class="ord_err" style="display: none"></div>
+                <!-- 錯誤訊息 end -->
+            </div>
+            <!-- 下注資訊 end -->
+        </div>
+    </xmp>
+    <!-- 單串下注單內容 end -->
+
+
+
+
+
+
+
+
+
+
+    <!-- 單串下注收據內容 -->
+    <xmp id="model_finish" style="display: none">
+        <div id="finish_*ECID*" class="ord_slip_model *ART_order_lang*">
+
+            <!-- 下注資訊 -->
+            <!-- 各種注單狀態 過關串.parlay 關盤locked -->
+            <!-- 紅字.word_red 藍字.word_blue 綠字.word_green 黃字word_yellow 賠率改變.word_oddbg 不可串單.no_parlayin -->
+            <div class="ord_slip_info">
+                <ul class="ord_odd_txt">
+                    <li>
+                        <tt>*WTYPESHOW*</tt><tt id="finish_bet_score" class="word_yellow" style="*PARLAY_SC*">*SCORE*</tt>
+                    </li>
+                    <li class="word_gray">
+                        <tt id="finish_bet_league">*LEAGUE*</tt>
+                    </li>
+                    <li id="bet_finish_teamData" style="*NEED_TEAM*">
+                        <tt id="finish_bet_team_h">*TEAM_H*</tt>
+                        <tt id="finish_bet_con" name="finish_bet_con" class="word_red">*CON_H*</tt>
+                        <tt> v </tt>
+                        <tt id="finish_bet_team_c">*TEAM_C*</tt>
+                        <tt id="finish_bet_con_c" name="finish_bet_con_c" class="word_red">*CON_C*</tt>
+                    </li>
+                    <li class="type">
+                        <tt id="finish_bet_chose_team">*CHOSE_TEAM*</tt>
+                        <tt id="finish_bet_chose_con" class="word_red *CON_R_COLOR*">*CHOSE_CON*</tt>
+                        <tt class="mouse">@</tt>
+                        <tt id="finish_bet_ior" name="finish_bet_ior" class="*ior_color*">*BET_IOR*</tt>
+                    </li>
+                </ul>
+
+                <!-- 夢幻賽 -->
+                <div id="div_icon_info_bet_*ECID*" class="load_inorder ope_fantasy" style="display: none;">
+                    <i id="div_icon_info_bet_i_*ECID*" class="ope_reason">
+                        <svg><use xlink:href="#icon_i"></use></svg>
+                    </i>
+                    <span id="" >
+								<span class="load_ring">
+								</span>
+								*ART_order_fantasy*
+							</span>
+                </div>
+                <!-- 夢幻賽end -->
+
+
+                <div id="show_tid_*ECID*" name="show_tid"  style="display: none">
+                    <!-- 狀態+單號 -->
+                    <!-- 已拒絕.word_red 已確認.word_green 確認中.word_yellow -->
+                    <div class="ord_status load_inorder">
+								<span id="finish_bet_dg" class="status_word word_green">
+									<span class="load_ring"></span>
+								</span>
+                        <span id="finish_bet_tid" name="finish_bet_tid"></span>
+                    </div>
+                    <!-- 狀態+單號 end -->
+
+
+                    <!-- 下注可贏金額 -->
+                    <div class="ord_betwin">
+                        <ul>
+                            <li>*ART_order_stake*</li>
+                            <li id="finish_bet_gold" name="finish_bet_gold" class="word_black"></li>
+                        </ul>
+                        <ul>
+                            <li>*ART_order_toWin*</li>
+                            <li id="finish_bet_wingold" name="finish_bet_wingold" class="word_green"></li>
+                        </ul>
+                    </div>
+                    <!-- 下注可贏金額 end -->
+                </div>
+
+            </div>
+            <!-- 下注資訊 end -->
+        </div>
+    </xmp>
+    <!-- 單串下注收據內容 end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- 下注單設定 -->
+    <!-- open Add class="on" -->
+    <div id="div_set" class="ord_setting">
+        <div class="ord_full_mask"></div>
+        <div class="ord_betset">
+            <div class="ord_title">
+                <span class="ord_title_center">*ART_order_setOrder*</span>
+                <button id="close_set" type="button" class="btn_ord_close mouse_hover">
+                    <i><svg><use xlink:href="#icon_close"/></svg></i>
+                </button>
+            </div>
+            <div class="ord_betset_txt">
+                <h1>*ART_order_setOdd*</h1>
+                <div class="ord_betset_function">
+                    <tt>*ART_order_bestOdd*</tt>
+                    <label class="ord_betset_switch">
+                        <input id="bet_better_odds" type="checkbox">
+                        <span></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 下注單設定 end -->
+</div>
+
+
+</body>
+</html>

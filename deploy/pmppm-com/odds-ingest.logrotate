@@ -1,0 +1,12 @@
+# Odds ingest log rotation
+# 部署: /etc/logrotate.d/odds-ingest
+/var/log/odds-ingest.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    create 640 www-data adm
+    sharedscripts
+}

@@ -1,0 +1,28 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -H 127.0.0.1 -p 3001",
+    "build": "next build",
+    "postbuild": "cp -R .next/static .next/standalone/.next/static && ([ -d public ] && cp -R public .next/standalone/public || true)",
+    "start": "next start -H 127.0.0.1 -p 3001",
+    "start:standalone": "HOSTNAME=127.0.0.1 PORT=3001 node .next/standalone/server.js",
+    "lint": "eslint"
+  },
+  "dependencies": {
+    "next": "16.2.2",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.2",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

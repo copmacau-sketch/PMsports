@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>盘口 - Crown Gold</title>
+<style>
+:root {
+  --bg: #1a1a2e;
+  --card: #16213e;
+  --accent: #c9a84c;
+  --accent2: #e6c66e;
+  --text: #e0e0e0;
+  --text2: #999;
+  --green: #4caf50;
+  --red: #f44336;
+  --blue: #2196f3;
+  --border: #2a2a4a;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #0f0c29, #1a1a2e);
+  border-bottom: 2px solid var(--accent);
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header .logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+.header .user-info {
+  font-size: 13px;
+  color: var(--text2);
+}
+.header .logout-btn {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+/* Tabs */
+.tab-bar {
+  display: flex;
+  gap: 2px;
+  background: #0d0d1a;
+  padding: 8px 12px;
+  overflow-x: auto;
+}
+.tab-bar .tab {
+  padding: 8px 16px;
+  background: var(--card);
+  color: var(--text2);
+  border: none;
+  border-radius: 6px 6px 0 0;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: all .2s;
+}
+.tab-bar .tab.active {
+  background: var(--accent);
+  color: #111;
+  font-weight: bold;
+}
+
+/* Sport selector */
+.sport-bar {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #111;
+  overflow-x: auto;
+}
+.sport-bar .sport-btn {
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  white-space: nowrap;
+  transition: all .2s;
+}
+.sport-bar .sport-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(201,168,76,.1);
+}
+
+/* League list */
+.league-select {
+  padding: 10px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.league-select select {
+  flex: 1;
+  padding: 8px 12px;
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 14px;
+}
+.league-select .refresh-btn {
+  padding: 8px 16px;
+  background: var(--accent);
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Match cards */
+.matches {
+  padding: 8px 12px;
+}
+.league-group {
+  margin-bottom: 16px;
+}
+.league-header {
+  padding: 8px 12px;
+  background: rgba(201,168,76,.12);
+  border-left: 3px solid var(--accent);
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--accent2);
+  margin-bottom: 4px;
+  border-radius: 4px;
+}
+.match-card {
+  background: var(--card);
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 6px;
+  border: 1px solid var(--border);
+  transition: border-color .2s;
+}
+.match-card:hover {
+  border-color: var(--accent);
+}
+.match-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+.match-teams {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.team {
+  font-size: 15px;
+  font-weight: 600;
+  max-width: 40%;
+}
+.team.home { text-align: left; }
+.team.away { text-align: right; }
+.vs {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: bold;
+}
+.score-live {
+  font-size: 22px;
+  font-weight: bold;
+  color: var(--green);
+  min-width: 60px;
+  text-align: center;
+}
+
+/* Odds grid */
+.odds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  gap: 4px;
+}
+.odds-cell {
+  background: rgba(255,255,255,.04);
+  border-radius: 4px;
+  padding: 6px 4px;
+  text-align: center;
+}
+.odds-cell .label {
+  font-size: 10px;
+  color: var(--text2);
+  margin-bottom: 2px;
+}
+.odds-cell .value {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--accent2);
+}
+.odds-cell .hdp {
+  font-size: 11px;
+  color: var(--blue);
+}
+
+/* Loading */
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--text2);
+}
+.loading .spinner {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Results tab */
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: var(--card);
+  border-radius: 6px;
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+.result-row .r-team { max-width: 35%; }
+.result-row .r-score {
+  font-weight: bold;
+  color: var(--accent2);
+  font-size: 16px;
+  min-width: 50px;
+  text-align: center;
+}
+.result-row .r-status {
+  font-size: 11px;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+.r-status.ft { background: rgba(76,175,80,.2); color: var(--green); }
+.r-status.live { background: rgba(244,67,54,.2); color: var(--red); }
+.r-status.ns { background: rgba(33,150,243,.2); color: var(--blue); }
+
+.empty-msg {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text2);
+  font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .team { font-size: 13px; }
+  .odds-grid { grid-template-columns: repeat(3, 1fr); }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="logo">CROWN GOLD</div>
+  <div style="display:flex;align-items:center;">
+    <span class="user-info" id="userInfo"></span>
+    <button class="logout-btn" onclick="doLogout()">退出</button>
+  </div>
+</div>
+
+<div class="tab-bar" id="tabBar">
+  <button class="tab active" data-tab="odds" onclick="switchTab('odds')">今日盘口</button>
+  <button class="tab" data-tab="live" onclick="switchTab('live')">滚球(实时)</button>
+  <button class="tab" data-tab="results" onclick="switchTab('results')">赛果</button>
+</div>
+
+<div class="sport-bar" id="sportBar">
+  <button class="sport-btn active" data-g="ft" onclick="switchSport('ft')">⚽ 足球</button>
+  <button class="sport-btn" data-g="bk" onclick="switchSport('bk')">🏀 篮球</button>
+  <button class="sport-btn" data-g="tn" onclick="switchSport('tn')">🎾 网球</button>
+  <button class="sport-btn" data-g="bs" onclick="switchSport('bs')">⚾ 棒球</button>
+</div>
+
+<div class="league-select" id="leagueSelect">
+  <select id="leagueDropdown" onchange="loadEvents()">
+    <option value="">全部联赛</option>
+  </select>
+  <button class="refresh-btn" onclick="refreshAll()">刷新</button>
+</div>
+
+<div id="content">
+  <div class="loading"><div class="spinner"></div><p style="margin-top:12px">加载中...</p></div>
+</div>
+
+<script>
+var API = 'api_odds.php';
+var currentTab = 'odds';
+var currentSport = 'ft';
+var leaguesCache = {};
+
+// URL 参数
+var params = new URLSearchParams(location.search);
+var uid = params.get('uid') || '';
+var username = params.get('username') || '';
+document.getElementById('userInfo').textContent = username || '用户';
+
+function switchTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
+  document.querySelector('.tab[data-tab="'+tab+'"]').classList.add('active');
+  document.getElementById('sportBar').style.display = (tab === 'results') ? 'none' : 'flex';
+  document.getElementById('leagueSelect').style.display = (tab === 'odds') ? 'flex' : 'none';
+  if (tab === 'odds') loadLeagues();
+  else if (tab === 'live') loadLive();
+  else if (tab === 'results') loadResults();
+}
+
+function switchSport(g) {
+  currentSport = g;
+  document.querySelectorAll('.sport-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelector('.sport-btn[data-g="'+g+'"]').classList.add('active');
+  if (currentTab === 'odds') loadLeagues();
+  else if (currentTab === 'live') loadLive();
+}
+
+function showLoading() {
+  document.getElementById('content').innerHTML = '<div class="loading"><div class="spinner"></div><p style="margin-top:12px">加载中...</p></div>';
+}
+
+function refreshAll() {
+  leaguesCache = {};
+  if (currentTab === 'odds') loadLeagues();
+  else if (currentTab === 'live') loadLive();
+  else loadResults();
+}
+
+// === 联赛列表 ===
+function loadLeagues() {
+  var cacheKey = currentSport;
+  if (leaguesCache[cacheKey]) {
+    renderLeagueDropdown(leaguesCache[cacheKey]);
+    loadEvents();
+    return;
+  }
+  fetch(API + '?action=leagues&gtype=' + currentSport)
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      var leagues = (d.code === 200) ? d.data : [];
+      leagues.sort(function(a,b){ return (b.eventsCount||0) - (a.eventsCount||0); });
+      leaguesCache[cacheKey] = leagues;
+      renderLeagueDropdown(leagues);
+      loadEvents();
+    })
+    .catch(function(e){ document.getElementById('content').innerHTML = '<div class="empty-msg">加载联赛失败: '+e.message+'</div>'; });
+}
+
+function renderLeagueDropdown(leagues) {
+  var sel = document.getElementById('leagueDropdown');
+  sel.innerHTML = '<option value="">全部联赛 (' + leagues.length + ')</option>';
+  leagues.forEach(function(l){
+    var opt = document.createElement('option');
+    opt.value = l.slug;
+    opt.textContent = l.name + ' (' + (l.eventsCount||0) + ')';
+    sel.appendChild(opt);
+  });
+}
+
+// === 赛事+赔率 ===
+function loadEvents() {
+  showLoading();
+  var league = document.getElementById('leagueDropdown').value;
+  fetch(API + '?action=events&gtype=' + currentSport + '&league=' + encodeURIComponent(league))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.code === 200 && d.data && d.data.length > 0) {
+        renderMatches(d.data);
+      } else {
+        document.getElementById('content').innerHTML = '<div class="empty-msg">暂无赛事数据</div>';
+      }
+    })
+    .catch(function(e){ document.getElementById('content').innerHTML = '<div class="empty-msg">加载失败: '+e.message+'</div>'; });
+}
+
+function renderMatches(events) {
+  // 按联赛分组
+  var groups = {};
+  events.forEach(function(ev){
+    var lgName = (ev.league && ev.league.name) ? ev.league.name : '其他';
+    if (!groups[lgName]) groups[lgName] = [];
+    groups[lgName].push(ev);
+  });
+
+  var html = '<div class="matches">';
+  for (var lg in groups) {
+    html += '<div class="league-group"><div class="league-header">' + esc(lg) + ' (' + groups[lg].length + ')</div>';
+    groups[lg].forEach(function(ev){
+      html += renderMatchCard(ev);
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+  document.getElementById('content').innerHTML = html;
+}
+
+function renderMatchCard(ev) {
+  var dt = ev.date ? new Date(ev.date) : null;
+  var timeStr = dt ? (pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+' '+pad(dt.getHours())+':'+pad(dt.getMinutes())) : '';
+  var statusLabel = ev.status === 'live' ? '<span style="color:var(--red)">● 进行中</span>' : timeStr;
+
+  var html = '<div class="match-card">';
+  html += '<div class="match-header"><span>' + statusLabel + '</span><span>ID:' + (ev.id||'') + '</span></div>';
+  html += '<div class="match-teams">';
+  html += '<div class="team home">' + esc(ev.home||'') + '</div>';
+
+  if (ev.scores && (ev.scores.home !== null && ev.scores.home !== undefined)) {
+    html += '<div class="score-live">' + ev.scores.home + ' - ' + ev.scores.away + '</div>';
+  } else {
+    html += '<div class="vs">VS</div>';
+  }
+  html += '<div class="team away">' + esc(ev.away||'') + '</div>';
+  html += '</div>';
+
+  // 赔率
+  html += renderOdds(ev.odds || {});
+  html += '</div>';
+  return html;
+}
+
+function renderOdds(bookmakers) {
+  var bk = bookmakers['Bet365'] || bookmakers[Object.keys(bookmakers)[0]] || [];
+  if (!bk || bk.length === 0) return '<div style="font-size:12px;color:var(--text2);text-align:center;padding:4px;">暂无赔率</div>';
+
+  var html = '<div class="odds-grid">';
+  bk.forEach(function(mkt) {
+    var name = mkt.name || '';
+    var odds = (mkt.odds && mkt.odds[0]) ? mkt.odds[0] : {};
+
+    if (name === 'ML') {
+      html += oddsCell('主胜', odds.home);
+      html += oddsCell('平局', odds.draw);
+      html += oddsCell('客胜', odds.away);
+    } else if (name === 'Spread') {
+      html += oddsCell('让球 主', odds.home, odds.hdp ? (odds.hdp > 0 ? '+'+odds.hdp : ''+odds.hdp) : '');
+      html += oddsCell('让球 客', odds.away, odds.hdp ? (odds.hdp > 0 ? ''+(-odds.hdp) : '+'+(-odds.hdp)) : '');
+    } else if (name === 'Totals') {
+      html += oddsCell('大 '+odds.hdp, odds.over);
+      html += oddsCell('小 '+odds.hdp, odds.under);
+    } else if (name === 'Both Teams To Score') {
+      html += oddsCell('双方进球 是', odds.yes);
+      html += oddsCell('双方进球 否', odds.no);
+    }
+  });
+  html += '</div>';
+  return html;
+}
+
+function oddsCell(label, value, hdp) {
+  return '<div class="odds-cell"><div class="label">' + esc(label) + '</div>' +
+    (hdp ? '<div class="hdp">' + esc(hdp) + '</div>' : '') +
+    '<div class="value">' + (value || '-') + '</div></div>';
+}
+
+// === 滚球 ===
+function loadLive() {
+  showLoading();
+  fetch(API + '?action=live')
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.code === 200 && d.data && d.data.length > 0) {
+        renderLiveMatches(d.data);
+      } else {
+        document.getElementById('content').innerHTML = '<div class="empty-msg">当前没有进行中的比赛</div>';
+      }
+    })
+    .catch(function(e){ document.getElementById('content').innerHTML = '<div class="empty-msg">加载失败: '+e.message+'</div>'; });
+}
+
+function renderLiveMatches(fixtures) {
+  var html = '<div class="matches">';
+  fixtures.forEach(function(f) {
+    var fi = f.fixture || {};
+    var t = f.teams || {};
+    var g = f.goals || {};
+    var lg = f.league || {};
+    html += '<div class="match-card">';
+    html += '<div class="match-header"><span style="color:var(--red)">● ' + esc(fi.status && fi.status.elapsed ? fi.status.elapsed+"'" : 'LIVE') + '</span>';
+    html += '<span>' + esc(lg.name||'') + '</span></div>';
+    html += '<div class="match-teams">';
+    html += '<div class="team home">' + esc(t.home && t.home.name || '') + '</div>';
+    html += '<div class="score-live">' + (g.home!==null?g.home:'-') + ' - ' + (g.away!==null?g.away:'-') + '</div>';
+    html += '<div class="team away">' + esc(t.away && t.away.name || '') + '</div>';
+    html += '</div></div>';
+  });
+  html += '</div>';
+  document.getElementById('content').innerHTML = html;
+}
+
+// === 赛果 ===
+function loadResults() {
+  showLoading();
+  fetch(API + '?action=results&date=' + new Date().toISOString().slice(0,10))
+    .then(function(r){ return r.json(); })
+    .then(function(d){
+      if (d.code === 200 && d.data && d.data.length > 0) {
+        renderResults(d.data);
+      } else {
+        document.getElementById('content').innerHTML = '<div class="empty-msg">今天暂无赛果</div>';
+      }
+    })
+    .catch(function(e){ document.getElementById('content').innerHTML = '<div class="empty-msg">加载失败: '+e.message+'</div>'; });
+}
+
+function renderResults(fixtures) {
+  // 按联赛分组
+  var groups = {};
+  fixtures.forEach(function(f){
+    var lgName = (f.league && f.league.name) ? f.league.name : '其他';
+    if (!groups[lgName]) groups[lgName] = [];
+    groups[lgName].push(f);
+  });
+
+  var html = '<div class="matches">';
+  for (var lg in groups) {
+    html += '<div class="league-group"><div class="league-header">' + esc(lg) + '</div>';
+    groups[lg].forEach(function(f){
+      var fi = f.fixture || {};
+      var t = f.teams || {};
+      var g = f.goals || {};
+      var short = (fi.status && fi.status.short) ? fi.status.short : 'NS';
+      var statusClass = (short === 'FT' || short === 'AET' || short === 'PEN') ? 'ft' :
+                        (short === '1H' || short === '2H' || short === 'HT' || short === 'ET' || short === 'LIVE') ? 'live' : 'ns';
+      html += '<div class="result-row">';
+      html += '<div class="r-team">' + esc(t.home && t.home.name || '') + '</div>';
+      html += '<div class="r-score">' + (g.home!==null?g.home:'?') + ' - ' + (g.away!==null?g.away:'?') + '</div>';
+      html += '<div class="r-team" style="text-align:right">' + esc(t.away && t.away.name || '') + '</div>';
+      html += '<span class="r-status '+statusClass+'">' + short + '</span>';
+      html += '</div>';
+    });
+    html += '</div>';
+  }
+  html += '</div>';
+  document.getElementById('content').innerHTML = html;
+}
+
+// === Utils ===
+function esc(s) { var d=document.createElement('div'); d.textContent=s; return d.innerHTML; }
+function pad(n) { return n < 10 ? '0'+n : ''+n; }
+
+function doLogout() {
+  if (confirm('确认退出？')) {
+    window.location.href = '/';
+  }
+}
+
+// Init
+loadLeagues();
+</script>
+</body>
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://ag.hga030.com/tpl/zh-cn/report_index.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>{JS}</script>
+    <style>{CSS}</style>
+
+    <title></title>
+</head>
+<body>
+<div>
+    <div id="re_body" class="re_main_container">
+
+        <!-- 報表上方功能 -->
+        <div id="re_function" class="re_functionG">
+            <!-- 面包屑路徑+匯出報表 -->
+            <!-- 當前頁面 class="on" -->
+            <div class="re_breadG">
+                <ul class="re_breadUL">
+                    <li id="main_user">主頁</li>
+                    <li id="ad_user"></li>
+                    <li id="d0_user"></li>
+                    <li id="co_user"></li>
+                    <li id="su_user"></li>
+                    <li id="ag_user"></li>
+                    <li id="mem_user"></li>
+                </ul>
+
+                <!-- copy功能 -->
+                <button id="copy_btn" class="re_copy_btn">復製資料</button>
+
+                <!-- 匯出報表 -->
+                <!-- 內容需展開時 請在原有class後面加上class="active" -->
+                <div id="burger_div" class="re_exportG">
+                    <span id="burger_btn" class="re_export_icon"></span>
+                    <ul id="burger_sel" class="re_export_select use_animate">
+                        <li id="export_excel" class="hide_on_mini_only hide_on_small_only hide_on_med_only">導出Excel</li>
+                        <li id="show_filter" class="hide_on_large_only">顯示過濾器</li>
+                        <li id="hide_filter" class="hide_on_large_only" style="display: none;">隱藏過濾器</li>
+                        <li id="edit_filter">更改過濾器</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 面包屑路徑+匯出報表end -->
+
+            <!-- 搜尋條件 -->
+            <!-- 768以上按下會關起來 開啟下方條件重新選擇 -->
+            <div id="filter_div" class="re_sreachtermG" style="display: none;">
+                <span class="re_sreachterm_title">過濾器</span>
+                <a id="result_name" class="re_sreachtermtxt"></a>
+                <a id="sub_date" class="re_sreachtermtxt"></a>
+                <a id="sub_gtype" class="re_sreachtermtxt"></a>
+                <a id="sub_wtype" class="re_sreachtermtxt" style="display: none;"></a>
+            </div>
+            <!-- 搜尋條件end -->
+
+            <!-- 768以上 搜尋條件重新選擇 -->
+            <!-- 當前選項加上class="on" -->
+            <!-- 內容需展開時 請在原有class="re_sreachitem"後面加上class="active" -->
+            <div id="filter_edit" class="re_sreachterm_allG" style="display: none;">
+                <!-- 有無結果 -->
+                <div id="result_type_div" data-sreachitem="報表" class="re_sreachitem">
+                    <div class="re_sreachitem_title">
+                        <span id="result_type_now">有結果</span>
+                    </div>
+                    <ul id="result_type_sel" class="use_animate">
+                        <li id="result_type_Y">有結果</li>
+                        <li id="result_type_N">未有結果</li>
+                        <li id="report_kind_D">取消單</li>
+                        <li id="report_kind_D4">非正常投註單</li>
+                    </ul>
+                </div>
+                <!-- 有無結果end -->
+
+                <!-- 開始日期 -->
+                <div id="date_start" data-sreachitem="從" class="re_sreachitem">
+                    <div class="re_sreachitem_title">
+                        <input id="input_start" class="re_sreachitem_dateinput" value="0000-00-00" readonly="">
+                    </div>
+                </div>
+                <!-- 開始日期end -->
+
+                <!-- 結束日期 -->
+                <div id="date_end" data-sreachitem="至" class="re_sreachitem">
+                    <div class="re_sreachitem_title">
+                        <input id="input_end" class="re_sreachitem_dateinput" value="0000-00-00" readonly="">
+                    </div>
+                </div>
+                <!-- 結束日期end -->
+
+                <!-- 球類 -->
+                <div id="gtype_div" data-sreachitem="球類" class="re_sreachitem">
+                    <div class="re_sreachitem_title">
+                        <span id="gtype_now">所有</span>
+                    </div>
+                    <ul id="gtype_sel" class="use_animate">
+                        <li id="gtype_ALL">所有球類</li>
+                        <li id="gtype_FT">足球</li>
+                        <li id="gtype_BK">籃球 / 美式足球</li>
+                        <li id="gtype_TN">網球</li>
+                        <li id="gtype_VB">排球</li>
+                        <li id="gtype_BS">棒球</li>
+                        <li id="gtype_OP">其它球類</li>
+                        <li id="gtype_FS">冠軍</li>
+                        <li id="gtype_BM">羽毛球</li>
+                        <li id="gtype_TT">乒乓球</li>
+                        <li id="gtype_SK">斯諾克 / 臺球</li>
+                    </ul>
+                </div>
+                <!-- 球類end -->
+
+                <!-- 下註方式 -->
+                <div id="wtype_div" data-sreachitem="玩法" class="re_sreachitem" style="display: none;">
+                    <div class="re_sreachitem_title">
+                        <span id="wtype_now"></span>
+                    </div>
+                    <div id="wtype_sel" class="re_betSelectG use_animate">
+                        <!-- 搜尋輸入區 -->
+                        <div class="re_betSearchG" style="display: none;">
+                            <div class="search_functionG">
+                                <input type="text" class="search_functionTxt" placeholder="搜索" id="searchWtype">
+                                <input type="button" class="search_functionClose_btn" id="cleanWtype">
+                            </div>
+                        </div>
+                        <!-- 搜尋輸入區end -->
+
+                        <!-- 各玩法 -->
+                        <ul id="allULWtype" class="re_selectDownG" name="prev_scroll_lock">
+                            <!-- 一般玩法 -->
+                            <li class="re_bettypesG">
+                                <ul>
+                                    <li id="wtype_ALL">所有玩法</li>
+                                    <li id="wtype_R">讓球(分)</li>
+                                    <li id="wtype_RE">滾球</li>
+                                    <li id="wtype_P">綜合過關</li>
+                                    <li id="wtype_OU">大小</li>
+                                    <li id="wtype_ROU">滾球大小</li>
+                                    <li id="wtype_PD">波膽(最後一位數)</li>
+                                    <li id="wtype_RPD">滾球波膽(最後一位數)</li>
+                                    <li id="wtype_PD3">波膽(3 set)</li>
+                                    <li id="wtype_RPD3">滾球波膽(3 set)</li>
+                                    <li id="wtype_PD5">波膽(5 set)</li>
+                                    <li id="wtype_RPD5">滾球波膽(5 set)</li>
+                                    <li id="wtype_T">入球</li>
+                                    <li id="wtype_RT">滾球入球</li>
+                                    <li id="wtype_M">獨贏</li>
+                                    <li id="wtype_RM">滾球獨贏</li>
+                                    <li id="wtype_FALL">下一局獨贏</li>
+                                    <li id="wtype_RFALL">滾球下一局獨贏</li>
+                                    <li id="wtype_SP">特殊玩法</li>
+                                    <li id="wtype_F">半全場</li>
+                                    <li id="wtype_RF">滾球半全場</li>
+                                    <li id="wtype_HR">上半場讓球(分)</li>
+                                    <li id="wtype_HOU">上半場大小</li>
+                                    <li id="wtype_HM">上半場獨贏(主客和 - 首5局)</li>
+                                    <li id="wtype_HRE">上半滾球讓球(分)</li>
+                                    <li id="wtype_HROU">上半滾球大小</li>
+                                    <li id="wtype_HRM">上半滾球獨贏(主客和 - 首5局)</li>
+                                    <li id="wtype_HPD">上半波膽</li>
+                                    <li id="wtype_HRPD">上半滾球波膽</li>
+                                    <li id="wtype_OUALL">球隊: 全場大小-隊伍</li>
+                                    <li id="wtype_EOALL">總入球數（單/雙） - 全場</li>
+                                    <li id="wtype_HOUALL">球隊: 上半場大小-隊伍</li>
+                                    <li id="wtype_HEOALL">總入球數（單/雙） - 上半場</li>
+                                    <li id="wtype_ROUALL">滾球球隊: 全場大小-隊伍</li>
+                                    <li id="wtype_HRUALL">滾球球隊: 上半場大小-隊伍</li>
+                                    <li id="wtype_HT">上半場-入球</li>
+                                    <li id="wtype_HRT">上半滾球-入球</li>
+                                    <li id="wtype_WM">凈勝球數</li>
+                                    <li id="wtype_RWM">滾球凈勝球數</li>
+                                    <li id="wtype_HWM">首五局凈勝球數</li>
+                                    <li id="wtype_HRWM">滾球首五局凈勝球數</li>
+                                    <li id="wtype_DC">雙贏盤</li>
+                                    <li id="wtype_RDC">滾球雙贏盤</li>
+                                    <li id="wtype_W3">全場三項讓球投註</li>
+                                    <li id="wtype_MOUALL">(獨贏&amp;大小)</li>
+                                    <li id="wtype_MPG">(獨贏&amp;哪隊先入球)</li>
+                                    <li id="wtype_MTS">(獨贏&amp;雙方球隊進球)</li>
+                                    <li id="wtype_DUALL">(雙贏&amp;大小)</li>
+                                    <li id="wtype_DG">(雙贏&amp;哪隊先入球)</li>
+                                    <li id="wtype_DS">(雙贏&amp;雙方球隊進球)</li>
+                                    <li id="wtype_OUEALL">(大小&amp;單雙)</li>
+                                    <li id="wtype_OUPALL">(大小&amp;哪隊先入球)</li>
+                                    <li id="wtype_OUTALL">(大小&amp;雙方球隊進球)</li>
+                                    <li id="wtype_RMUALL">走地(獨贏&amp;大小)</li>
+                                    <li id="wtype_RMPG">走地(獨贏&amp;哪隊先入球)</li>
+                                    <li id="wtype_RMTS">走地(獨贏&amp;雙方球隊進球)</li>
+                                    <li id="wtype_RDUALL">走地(雙贏&amp;大小)</li>
+                                    <li id="wtype_RDG">走地(雙贏&amp;哪隊先入球)</li>
+                                    <li id="wtype_RDS">走地(雙贏&amp;雙方球隊進球)</li>
+                                    <li id="wtype_RUEALL">走地(大小&amp;單雙)</li>
+                                    <li id="wtype_RUPALL">走地(大小&amp;哪隊先入球)</li>
+                                    <li id="wtype_RUTALL">走地(大小&amp;雙方球隊進球)</li>
+                                    <li id="wtype_ARGALL">下一隊入球</li>
+                                    <li id="wtype_RNCALL">下個角球(1-30)</li>
+                                    <li id="wtype_RNBALL">下個罰牌(1-15)</li>
+                                    <li id="wtype_RSALL">下個點球(1-30)</li>
+                                    <li id="wtype_CS">無失球</li>
+                                    <li id="wtype_RCS">滾球無失球</li>
+                                    <li id="wtype_WN">零失球獲勝</li>
+                                    <li id="wtype_RWN">滾球零失球獲勝</li>
+                                    <li id="wtype_HTS">雙方球隊進球-上半場</li>
+                                    <li id="wtype_RTS2">走地雙方球隊進球-下半場</li>
+                                    <li id="wtype_TS">雙方球隊進球</li>
+                                    <li id="wtype_RTS">滾球雙方球隊進球</li>
+                                    <li id="wtype_WB">贏得所有半場</li>
+                                    <li id="wtype_RWB">滾球贏得所有半場</li>
+                                    <li id="wtype_WE">贏得任一半場</li>
+                                    <li id="wtype_RWE">滾球贏得任一半場</li>
+                                    <li id="wtype_SB">雙半場進球</li>
+                                    <li id="wtype_RSB">滾球雙半場進球</li>
+                                    <li id="wtype_HG">半場最多入球</li>
+                                    <li id="wtype_RHG">滾球半場最多入球</li>
+                                    <li id="wtype_MG">半場最多入球-獨贏</li>
+                                    <li id="wtype_RMG">滾球半場最多入球-獨贏</li>
+                                    <li id="wtype_F2G">先進2球的一方</li>
+                                    <li id="wtype_F3G">先進3球的一方</li>
+                                    <li id="wtype_T1G">首個入球時間</li>
+                                    <li id="wtype_RT1G">滾球首個入球時間</li>
+                                    <li id="wtype_T3G">首個入球時間-三項</li>
+                                    <li id="wtype_RT3G">滾球首個入球時間-三項</li>
+                                    <li id="wtype_R15">15分鐘:讓球</li>
+                                    <li id="wtype_OU15">15分鐘:大小</li>
+                                    <li id="wtype_M15">15分鐘:獨贏</li>
+                                    <li id="wtype_RE15">滾球15分鐘:讓球</li>
+                                    <li id="wtype_ROU15">滾球15分鐘:大小</li>
+                                    <li id="wtype_RM15">滾球15分鐘:獨贏</li>
+                                    <li id="wtype_TK">先開球球隊</li>
+                                    <li id="wtype_OT">加時賽</li>
+                                    <li id="wtype_ROT">滾球加時賽</li>
+                                    <li id="wtype_PA">點球懲罰</li>
+                                    <li id="wtype_OG">烏龍球</li>
+                                    <li id="wtype_RCD">紅卡(球員)</li>
+                                    <li id="wtype_FG">首個入球方式</li>
+                                    <li id="wtype_MWMQ">勝出方法/晉級方法</li>
+                                    <li id="wtype_BH">落後反超獲勝</li>
+                                    <li id="wtype_RPS">點球大戰</li>
+                                    <li id="wtype_TRUALL">加時賽 - 5分鐘盤口: 大小</li>
+                                    <li id="wtype_RTW">加時賽 - 凈勝球數</li>
+                                    <li id="wtype_RPF">點球大戰 - 最後結束回合</li>
+                                    <li id="wtype_RPXALL">1~15 點球大戰 - 第X回合</li>
+                                </ul>
+                            </li>
+                            <!-- 一般玩法end -->
+                        </ul>
+                        <!-- 各玩法end -->
+                    </div>
+                    <!-- <input type="button" id="focusBtn" class="opcity0" tabindex="0" hidefocus="true"> -->
+                </div>
+                <!-- 下註方式end -->
+
+                <!-- 搜尋送出取消按鈕 -->
+                <div id="filter_btn" class="re_sreachitem_btnG">
+                    <input id="filter_cancel" type="button" class="ps_mini_cancel_btn" value="取消">
+                    <input id="filter_submit" type="button" class="ps_mini_submit_btn ml12" value="提交">
+                </div>
+                <!-- 搜尋送出取消按鈕end -->
+
+            </div>
+            <!-- 768以上 搜尋條件重新選擇end -->
+
+            <!-- 報表選擇 (sma768以下就不出現) -->
+            <ul id="div_result_type" class="re_titleG">
+                <li id="set_btn" class="on">交收</li>
+                <li id="valid_btn">有效金額</li>
+                <li id="all_btn" class="hide_on_mini_only hide_on_small_only hide_on_med_only">所有</li>
+            </ul>
+            <!-- 報表選擇end -->
+
+
+
+
+
+
+            <!-- 報表警示訊息 -->
+            <div id="sub_message" class="re_sysMag" style="display: none;">您的子帳號已被選擇觀看部分的帳號，帳目只顯示 <span id="sub_num">10</span> / <span id="total_num">500</span> 個帳號</div>
+            <!-- 報表警示訊息 -->
+
+        </div>
+        <!-- 報表上方功能end -->
+
+
+
+
+
+
+
+
+
+
+        <div id="div_show"></div>
+        <div id="div_model" style="display:none;"></div>
+
+
+        <div id="excel_show" style="display:none;"></div>
+        <div id="excel_model" style="display:none;"></div>
+        <div id="myText" style="display:none;"></div>
+
+
+
+
+
+
+
+
+
+        <!-- 未有資料No data found -->
+        <div id="nodata_show" style="display:none;" class="data_noneG">無資料</div>
+        <!-- 未有資料end -->
+
+
+
+
+
+
+
+
+
+
+        <!-- loading -->
+        <div id="report_loading" style="display:none;" class="inside_lds_main">
+            <div class="lds_spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <!-- loading end -->
+    </div>
+</div>
+
+</body></html>

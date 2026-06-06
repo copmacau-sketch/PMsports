@@ -1,0 +1,20 @@
+@charset "UTF-8";
+/*showMaintain.html 維護畫面*/
+.show_main{ padding-top:126px;}
+.show_top{ width:786px; height:195px; background:url(images/showMaintain_top.jpg) no-repeat; margin:auto}
+.show_bottom{ width:100%;background-color:#513f33; margin:73px auto auto}
+.show_txtG{ width:1020px;height:281px; margin:auto}
+.show_txt{ position:relative;float:left; width:340px; height:281px; padding:25px 0 0 28px; font-size:15px; text-align:left;  border-right:1px solid #423329}
+.show_noline{ border-right:0}
+.show_txt ul{ color:#dabf93;margin-bottom:6px;}
+ul.show_lightTxt{ color:#c8c4b0}
+.show_txt li{ line-height:23px;}
+.show_txt tt{ font-size:14px; font-weight:bold}
+.show_space{ margin-left:38px;}
+.show_mail{ position:absolute; color:#c8c4b0; left:26px; bottom:28px;}
+
+ul.US{ font-size:14px; margin-bottom:7px; }
+.US li{line-height:20px;}
+.US .show_space{ margin-left:50px}
+
+.show_copyright{ color:#ac956c; font-size:12px; text-align:center; margin-top:19px;}

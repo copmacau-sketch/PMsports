@@ -1,0 +1,3148 @@
+{
+  "raw": [
+    {
+      "case": {
+        "path": "/admin/",
+        "user": "abu777",
+        "pwd": "Aa123456",
+        "safe": "",
+        "tab": null,
+        "captcha": true,
+        "label": "ads_abu777",
+        "expect_layer": "ads"
+      },
+      "logs": [],
+      "errors": [],
+      "login_form": {
+        "username": {
+          "text": "",
+          "placeholder": "登入帐号",
+          "visible": true
+        },
+        "pwd": {
+          "text": "",
+          "placeholder": "密码",
+          "visible": true
+        },
+        "verifycode": {
+          "text": "",
+          "placeholder": "验证码",
+          "visible": true
+        },
+        "remember": {
+          "text": "on",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_A": {
+          "text": "报表管理系统",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginBtn": {
+          "text": "登入",
+          "placeholder": "",
+          "visible": true
+        },
+        "_tab_count": 1,
+        "_tab_labels": [
+          "报表管理系统"
+        ]
+      },
+      "login_resp": {
+        "calls": [
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"code\":\"102\",\"action\":\"login\",\"status\":\"success\",\"status_code\":\"4O000\",\"user_id\":1,\"username\":\"abu777\",\"uid\":\"d410e04e909226689f61c6ecc71e8f34e7804b561bed75ad0ab9c5905664c754\",\"layer_id\":1,\"layer_username\":\"abu777\",\"pri_type\":null,\"user_type\":1,\"enable\":\"Y\",\"enable_pri\":\"Y\",\"pay_type\":0,\"login_layer\":\"ads\",\"retrieve_sw\":\"Y\",\"telbot_sw\":\"Y\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html><head><meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <script>function left_menu(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var util;\r\n    var LS;\r\n\r\n    var le_smallG;\r\n    var le_bigG;\r\n    var dashB;\r\n    var accountM;\r\n    var sacc_AD;\r\n    var sacc_D0;\r\n    var sacc_CO;\r\n    var sacc_SU;\r\n    var sacc_AG;\r\n    var sacc_MEM;\r\n    var sacc_Sub;\r\n\r\n    var acc_AD;\r\n    var acc_D0;\r\n    var acc_CO;\r\n    var acc_SU;\r\n    var acc_AG;\r\n    var acc_MEM;\r\n    var acc_Sub;\r\n\r\n    var slog_AD;\r\n    var slog_D0;\r\n    var slog_CO;\r\n    var slog_SU;\r\n    var slog_AG;\r\n    var slog_MEM;\r\n\r\n    var log_AD;\r\n    var log_D0;\r\n    var log_CO;\r\n    var log_SU;\r\n    var log_AG;\r\n    var log_MEM;\r\n\r\n    var bet_list;\r\n    var bet_edit;\r\n    var bet_abnormal;\r\n    var bet_live_dangerous;\r\n    var bet_search;\r\n\r\n    var A_isExpend=false;\r\n    var reportS;\r\n    var R_isExpend=false;\r\n    var tit_reportS;\r\n    var wagerR;\r\n    var oldRS;\r\n    var totalB;\r\n    var T_isExpend=false;\r\n    var overView;\r\n\r\n    var Betlist_isExpend=false;\r\n    var betlists;\r\n    var Log_isExpend=false;\r\n    var logs;\r\n    var Match_isExpend=false;\r\n    var matchs;\r\n    var Setting_isExpend=false;\r\n    var settings;\r\n\r\n    _self.init=function(){\r\n        util.echo(\"left load complete\");\r\n\r\n        //縮小menu\r\n        le_smallG = dom.getElementById(\"le_smallG\");\r\n        le_bigG = dom.getElementById(\"le_bigG\");\r\n "
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_msg(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_msg\";\r\n    var util;\r\n    var divBox = new Array(\"alert_ok\", \"alert_confirm\", \"status_pop\", \"possess_pop\", \"safe_pop\", \"loginid_pop\", \"AllAccount_pop\", \"account_type_pop\", \"credit_exceeded_pop\");\r\n    var _mc;\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        //util.echo(classname+\" load complete\");\r\n        obj_ids =  \",alert_ok,msg_ok,ok_btn,\";\r\n        obj_ids += \"alert_confirm,msg_confirm,no_btn,yes_btn,\";\r\n        obj_ids += \"status_pop,possess_pop,safe_pop,loginid_pop,AllAccount_pop,\";\r\n        obj_ids += \"account_type_pop,credit_exceeded_pop,\";\r\n        _mc = util.getObjAry(dom.getElementById(\"alert_show\"), obj_ids);\r\n\r\n        for (key in _mc){\r\n            if (key.search(\"_pop\") != -1){\r\n                var _mArr = util.getObjAry(_mc[key], \",pop_close,\");\r\n                util.addEvent(_mArr[\"pop_close\"], \"click\", _self.clickEvent, {});\r\n            }\r\n        }\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(vari"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function bottom_menu(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var util;\r\n    var LS;\r\n    var Cookie;\r\n    var CookieKey;\r\n    var CookieImp;\r\n    var CookieGen;\r\n\r\n    var bm_problem_li;\r\n    var bm_announcement_li;\r\n    var bm_wmc;\r\n\r\n    _self.init=function(){\r\n        util.echo(\"bottome load complete\");\r\n\r\n        bm_problem_li = dom.getElementById(\"bm_problem_li\");\r\n        bm_announcement_li = dom.getElementById(\"bm_announcement_li\");\r\n        bm_live_chat = dom.getElementById(\"bm_live_chat\");\r\n        bm_quick_search = dom.getElementById(\"bm_quick_search\");\r\n        bm_wmc = dom.getElementById(\"bm_wmc\");\r\n\r\n        util.addEvent(bm_problem_li, \"click\", _self.changePage, { \"page\": \"problem_accounts\" });\r\n        util.addEvent(bm_announcement_li, \"click\", _self.changePage, { \"page\": \"announcement\" });\r\n        util.addEvent(bm_quick_search, \"click\", _self.changePage, { \"page\": \"quick_search\" });\r\n        util.addEvent(bm_live_chat, \"click\", _self.liveChatOpen);\r\n        util.addEvent(bm_wmc, \"click\", _self.wmcOpen);\r\n        _self.setLayerDisplay();\r\n\r\n        var src = document.createElement(\"script\");\r\n     //   src.textContent = \"window.lp"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_announcement(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_announcement\";\r\n    var util;\r\n    var _mc = new Object();\r\n    var keepScrollTop = \"\";\r\n    var overScrollTop = \"\";\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        util.echo(classname+\" load complete\");\r\n        _mc[\"close_btn\"] = dom.getElementById(\"close_btn\");\r\n        _mc[\"ok_btn\"] = dom.getElementById(\"anno_ok_btn\");\r\n        _mc[\"anno_div\"] = dom.getElementById(\"anno_div\");\r\n        _mc[\"ul_show\"] = dom.getElementById(\"ul_show\");\r\n        _mc[\"anno_title\"] = dom.getElementById(\"anno_title\");\r\n        keepScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        overScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        util.addEvent(_mc[\"close_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"ok_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"anno_div\"], \"scroll\", _self.scrollEvent, _mc[\"anno_title\"]);\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(v"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <script>function top_menu(_win, _dom) {\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var util;\r\n    var LS;\r\n    var LS_code;\r\n    var eventHandler = new Object();\r\n    var Cookie;\r\n    var CookieKey;\r\n    var CookieImp;\r\n    var CookieGen;\r\n\r\n    var mu_hab;\r\n    var mu_isOpen = false;\r\n    var back;\r\n    var user_code;\r\n    var mu_profile;\r\n    var mu_profile_in;\r\n    var keepStyle = {};\r\n    var rightPanel;\r\n    var RP_isShow = false;\r\n    var mySetting;\r\n    var logOut;\r\n    var pswdRec;\r\n    var chgPswd;\r\n    var contact;\r\n    var troubleshooting;\r\n    var requirements;\r\n    var new_url;\r\n    var live_chat;\r\n    var my_activities;\r\n    var quick_search;\r\n    var announcement;\r\n    var problem_accounts;\r\n    var wmc;\r\n    var choose_lan;\r\n    var topFrame;\r\n    var feature;\r\n\r\n    var Timer;\r\n    var timerHash = new Object();\r\n    var testTimerTurn = true;  //測試用 reloadData開關\r\n\r\n    var ads_layer = {\"ad\":6,\"d0\":5,\"co\":4,\"su\":3,\"ag\":2,\"mem\":1};\r\n    var ad_layer = {\"d0\":5,\"co\":4,\"su\":3,\"ag\":2,\"mem\":1};\r\n    var d0_layer = {\"co\":4,\"su\":3,\"ag\":2,\"mem\":1};\r\n    var co_layer = {\"su\":3,\"ag\":2,\"mem\":1};\r\n    var su_layer = {\"ag\":2,\"mem\":1};\r\n    var ag_layer = {\"mem\":1};\r\n\r\n    _self.init = function () {\r\n        util.echo(\"top load complete\");\r\n        mu_hab = dom.getElementById(\"mu_hab\");\r\n        top.mu_isOpen = \"close\";\r\n        back = dom.getElementById(\"back\");\r\n\r\n        //==== Right Pane"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"ad\":{\"NAME\":\"\\u7ebf\\u4e0a\\u516c\\u53f8\",\"LAYER\":\"ad\",\"COUNT\":0},\"d0\":{\"NAME\":\"\\u7ebf\\u4e0a\\u5206\\u516c\\u53f8\",\"LAYER\":\"d0\",\"COUNT\":0},\"co\":{\"NAME\":\"\\u7ebf\\u4e0a\\u80a1\\u4e1c\",\"LAYER\":\"co\",\"COUNT\":1},\"su\":{\"NAME\":\"\\u7ebf\\u4e0a\\u603b\\u4ee3\",\"LAYER\":\"su\",\"COUNT\":1},\"ag\":{\"NAME\":\"\\u7ebf\\u4e0a\\u4ee3\\u7406\",\"LAYER\":\"ag\",\"COUNT\":4},\"mem\":{\"NAME\":\"\\u7ebf\\u4e0a\\u4f1a\\u5458\",\"LAYER\":\"mem\",\"COUNT\":0,\"HIDDEN\":\"Y\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function HttpRequest(){\r\n\t\tvar self=this;\r\n\t\tvar req;\r\n\t\tvar eventHandler=new Array();\r\n\t\tvar parentClass;\r\n\t\t\r\n\t\tself.init=function(){\r\n\t\t\t\tself.addEventListener(\"LoadComplete\",self.cmd_proc);\r\n\t\t\t\t//self.removeEventListener(\"LoadComplete\");\r\n\t\t\t\t//alert(\"onload\");\r\n\t\t\t\t}\r\n\t\tself.help=function(){\r\n\t\t\t\tvar str=\"\";\r\n\t\t\t\tstr+=\"EventName:LoadComplete Method:function(html)\\n\";\r\n\t\t\t\tstr+=\"Method:loadURL(url,post/get,pamam)\\n\";\r\n\t\t\t\treturn str;\r\n\t\t}\r\n\t\t\r\n\t\tself.setParentclass=function(parentclass){\r\n\t\t\t\tparentClass=parentclass;\r\n\t\t\t\t//util=parentClass.util;\r\n\t\t}\r\n\t\t\r\n\t\tself.getThis=function(varible){\r\n\t\t\t\treturn eval(varible);\r\n\t\t}\r\n\t\r\n\t\tself.test=function(){\r\n\t\t\t\talert(\"test\");\t\r\n\t\t}\r\n\r\n\t\t\r\n\t\tself.loadURL=function(url,method,params) {\r\n\t\t\t\treq = false;\r\n\t\t    // branch for native XMLHttpRequest object\r\n\t\t   \r\n\t\t    if(window.XMLHttpRequest && !(window.ActiveXObject)) {\r\n\t\t\t    \ttry{\r\n\t\t\t\t\t\t\t\treq = new XMLHttpRequest();\r\n\t\t\t      }catch(e){\r\n\t\t\t\t\t\t\t\treq = false;\r\n\t\t\t      }\r\n\t\t\t    // branch for IE/Windows ActiveX version\r\n\t\t    }else if(window.ActiveXObject){\r\n\t\t       \ttry{\r\n\t\t        \t\treq = new ActiveXObject(\"Msxml2.XMLHTTP\");\r\n\t\t      \t}catch(e){\r\n\t\t\t        \ttry{\r\n\t\t\t          \t\treq = new ActiveXObject(\"Micros"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"-10,459.6\",\"profit\":\"-0.99\",\"stock\":\"10,577.2\",\"date\":\"yes\",\"date_end\":\"2026-05-23\",\"date_start\":\"2026-05-23\",\"show_last\":{\"last_date_start\":\"2026-05-22\",\"last_date_end\":\"2026-05-22\",\"show_compare_result\":true,\"compare_result\":-14,\"class_result\":\"decrease\",\"show_compare_stock\":true,\"compare_stock\":0,\"class_stock\":\"increase\",\"show_compare_profit\":true,\"compare_profit\":-1.44,\"class_profit\":\"decrease\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"amount_ad\":\"0\",\"amount_d0\":0,\"amount_co\":0,\"amount_su\":0,\"amount_ag\":0,\"amount_mem\":\"0\",\"ad_enable_N\":\"0\",\"ad_enable_Y\":\"1\",\"ad_pri_N\":\"0\",\"ad_pri_Y\":\"0\",\"d0_enable_N\":\"0\",\"d0_enable_Y\":\"3\",\"d0_pri_N\":\"0\",\"d0_pri_Y\":\"0\",\"co_enable_N\":\"0\",\"co_enable_Y\":\"4\",\"co_pri_N\":\"0\",\"co_pri_Y\":\"0\",\"su_enable_N\":\"0\",\"su_enable_Y\":\"6\",\"su_pri_N\":\"0\",\"su_pri_Y\":\"0\",\"a_enable_N\":\"0\",\"a_enable_Y\":\"7\",\"a_pri_N\":\"0\",\"a_pri_Y\":\"0\",\"m_enable_N\":\"5\",\"m_enable_Y\":\"13\",\"m_pri_N\":\"0\",\"m_pri_Y\":\"0\",\"matchs\":{\"FT\":{\"red\":19,\"green\":8},\"BK\":{\"red\":0,\"green\":0},\"TN\":{\"red\":0,\"green\":0},\"VB\":{\"red\":0,\"green\":0},\"BS\":{\"red\":0,\"green\":0},\"OP\":{\"red\":0,\"green\":0},\"FS\":{\"red\":0,\"green\":0},\"BM\":{\"red\":0,\"green\":0},\"TT\":{\"red\":0,\"green\":0},\"SK\":{\"red\":0,\"green\":0},\"ES\":{\"red\":0,\"green\":0}},\"matchs_yes\":{\"FT\":{\"red\":1,\"green\":3},\"BK\":{\"red\":0,\"green\":0},\"TN\":{\"red\":0,\"green\":0},\"VB\":{\"red\":0,\"green\":0},\"BS\":{\"red\":0,\"green\":0},\"OP\":{\"red\":0,\"green\":0},\"FS\":{\"red\":0,\"green\":0},\"BM\":{\"red\":0,\"green\":0},\"TT\":{\"red\":0,\"green\":0},\"SK\":{\"red\":0,\"green\":0},\"ES\":{\"red\":0,\"green\":0}},\"game_over_yn\":{\"FT\":{\"to\":{\"RESULT_N\":19,\"RESULT_Y\":8},\"yes\":{\"RESULT_N\":1,\"RESULT_Y\":3}},\"BK\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"TN\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"VB\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"BS\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"OP\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"possess\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"members\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"turnover\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-22\",\"2025"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"winloss\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"msg\":\"success\",\"code\":\"none\",\"count\":\"0|36\"}"
+          }
+        ]
+      },
+      "final_url": "http://3.25.180.205:8080/admin",
+      "top_state": {
+        "login_layer": "ads",
+        "username": "abu777",
+        "user_id": 1,
+        "layer_id": 1,
+        "pri_type": null,
+        "user_type": 1,
+        "user_enable": "Y",
+        "pay_type": 0,
+        "uid": "..."
+      },
+      "login_json": {
+        "code": "102",
+        "action": "login",
+        "status": "success",
+        "status_code": "4O000",
+        "user_id": 1,
+        "username": "abu777",
+        "uid": "d410e04e909226689f61c6ecc71e8f34e7804b561bed75ad0ab9c5905664c754",
+        "layer_id": 1,
+        "layer_username": "abu777",
+        "pri_type": null,
+        "user_type": 1,
+        "enable": "Y",
+        "enable_pri": "Y",
+        "pay_type": 0,
+        "login_layer": "ads",
+        "retrieve_sw": "Y",
+        "telbot_sw": "Y"
+      },
+      "left_menu": [
+        {
+          "id": "le_dashboard",
+          "missing": true
+        },
+        {
+          "id": "acc_AD",
+          "text": "公司",
+          "visible": false
+        },
+        {
+          "id": "acc_D0",
+          "text": "分公司",
+          "visible": false
+        },
+        {
+          "id": "acc_CO",
+          "text": "股东",
+          "visible": false
+        },
+        {
+          "id": "acc_SU",
+          "text": "总代理",
+          "visible": false
+        },
+        {
+          "id": "acc_AG",
+          "text": "代理商",
+          "visible": false
+        },
+        {
+          "id": "acc_MEM",
+          "text": "会员",
+          "visible": false
+        },
+        {
+          "id": "acc_Sub",
+          "text": "子帐号",
+          "visible": false
+        },
+        {
+          "id": "wagerR",
+          "text": "注单报表",
+          "visible": false
+        },
+        {
+          "id": "oldRS",
+          "missing": true
+        },
+        {
+          "id": "overViewL",
+          "text": "总览",
+          "visible": false
+        },
+        {
+          "id": "re_L",
+          "text": "滚球",
+          "visible": false
+        },
+        {
+          "id": "today_L",
+          "text": "今日",
+          "visible": false
+        },
+        {
+          "id": "fu_L",
+          "text": "早盘",
+          "visible": false
+        },
+        {
+          "id": "started_L",
+          "missing": true
+        },
+        {
+          "id": "parly_L",
+          "text": "过关",
+          "visible": false
+        },
+        {
+          "id": "outright_L",
+          "text": "冠军",
+          "visible": false
+        },
+        {
+          "id": "results_L",
+          "text": "赛果",
+          "visible": false
+        },
+        {
+          "id": "bet_list",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_edit",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_abnormal",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_live_dangerous",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_search",
+          "missing": true
+        },
+        {
+          "id": "matchList",
+          "text": "赛程",
+          "visible": false
+        },
+        {
+          "id": "log_AD",
+          "text": "公司日志",
+          "visible": false
+        },
+        {
+          "id": "log_D0",
+          "text": "分公司日志",
+          "visible": false
+        },
+        {
+          "id": "log_CO",
+          "text": "股东日志",
+          "visible": false
+        },
+        {
+          "id": "log_SU",
+          "text": "总代理日志",
+          "visible": false
+        },
+        {
+          "id": "log_AG",
+          "text": "代理商日志",
+          "visible": false
+        },
+        {
+          "id": "log_MEM",
+          "text": "会员日志",
+          "visible": false
+        },
+        {
+          "id": "set_config",
+          "text": "系统设置",
+          "visible": false
+        },
+        {
+          "id": "set_curl",
+          "text": "采集设置",
+          "visible": false
+        },
+        {
+          "id": "set_data_manger",
+          "text": "数据管理",
+          "visible": false
+        }
+      ],
+      "top_menu": [
+        {
+          "id": "mu_hab",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "back",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "mu_announcement",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mu_profile",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "wmc",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "quick_search",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "problem_accounts",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "live_chat",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "new_url",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "page_name",
+          "text": "首页",
+          "visible": true
+        },
+        {
+          "id": "user_code",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mySetting",
+          "missing": true
+        },
+        {
+          "id": "my_activities",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "pswdRec",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "chgPswd",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "contact",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "troubleshooting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "feature",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "requirements",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "choose_lan",
+          "missing": true
+        },
+        {
+          "id": "logOut",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "on_d0",
+          "missing": true
+        },
+        {
+          "id": "on_co",
+          "missing": true
+        },
+        {
+          "id": "on_su",
+          "missing": true
+        },
+        {
+          "id": "on_ag",
+          "missing": true
+        },
+        {
+          "id": "on_member",
+          "missing": true
+        },
+        {
+          "id": "bm_problem_li",
+          "text": "问题帐号",
+          "visible": false
+        },
+        {
+          "id": "bm_announcement_li",
+          "text": "公告",
+          "visible": true
+        },
+        {
+          "id": "bm_quick_search",
+          "text": "快速搜索",
+          "visible": true
+        },
+        {
+          "id": "bm_live_chat",
+          "text": "在线客服",
+          "visible": true
+        },
+        {
+          "id": "bm_wmc",
+          "text": "注单监视视窗",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "case": {
+        "path": "/admin/",
+        "user": "admin1",
+        "pwd": "Aa123456",
+        "safe": "",
+        "tab": null,
+        "captcha": true,
+        "label": "ad_admin1",
+        "expect_layer": "ad"
+      },
+      "logs": [],
+      "errors": [],
+      "login_form": {
+        "username": {
+          "text": "",
+          "placeholder": "登入帐号",
+          "visible": true
+        },
+        "pwd": {
+          "text": "",
+          "placeholder": "密码",
+          "visible": true
+        },
+        "verifycode": {
+          "text": "",
+          "placeholder": "验证码",
+          "visible": true
+        },
+        "remember": {
+          "text": "on",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_A": {
+          "text": "报表管理系统",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginBtn": {
+          "text": "登入",
+          "placeholder": "",
+          "visible": true
+        },
+        "_tab_count": 1,
+        "_tab_labels": [
+          "报表管理系统"
+        ]
+      },
+      "login_resp": {
+        "calls": [
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"code\":\"102\",\"action\":\"login\",\"status\":\"success\",\"status_code\":\"4O000\",\"user_id\":52,\"username\":\"admin1\",\"uid\":\"f602920a5167b40a2f6026a657982fdb4af74cdd17dc4616e7e92bd0b156f4c4\",\"layer_id\":52,\"layer_username\":\"admin1\",\"pri_type\":null,\"user_type\":1,\"enable\":\"Y\",\"enable_pri\":\"Y\",\"pay_type\":0,\"login_layer\":\"ad\",\"retrieve_sw\":\"Y\",\"telbot_sw\":\"Y\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_msg(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_msg\";\r\n    var util;\r\n    var divBox = new Array(\"alert_ok\", \"alert_confirm\", \"status_pop\", \"possess_pop\", \"safe_pop\", \"loginid_pop\", \"AllAccount_pop\", \"account_type_pop\", \"credit_exceeded_pop\");\r\n    var _mc;\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        //util.echo(classname+\" load complete\");\r\n        obj_ids =  \",alert_ok,msg_ok,ok_btn,\";\r\n        obj_ids += \"alert_confirm,msg_confirm,no_btn,yes_btn,\";\r\n        obj_ids += \"status_pop,possess_pop,safe_pop,loginid_pop,AllAccount_pop,\";\r\n        obj_ids += \"account_type_pop,credit_exceeded_pop,\";\r\n        _mc = util.getObjAry(dom.getElementById(\"alert_show\"), obj_ids);\r\n\r\n        for (key in _mc){\r\n            if (key.search(\"_pop\") != -1){\r\n                var _mArr = util.getObjAry(_mc[key], \",pop_close,\");\r\n                util.addEvent(_mArr[\"pop_close\"], \"click\", _self.clickEvent, {});\r\n            }\r\n        }\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(vari"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html><head><meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <script>function left_menu(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var util;\r\n    var LS;\r\n\r\n    var le_smallG;\r\n    var le_bigG;\r\n    var dashB;\r\n    var accountM;\r\n    var sacc_AD;\r\n    var sacc_D0;\r\n    var sacc_CO;\r\n    var sacc_SU;\r\n    var sacc_AG;\r\n    var sacc_MEM;\r\n    var sacc_Sub;\r\n\r\n    var acc_AD;\r\n    var acc_D0;\r\n    var acc_CO;\r\n    var acc_SU;\r\n    var acc_AG;\r\n    var acc_MEM;\r\n    var acc_Sub;\r\n\r\n    var slog_AD;\r\n    var slog_D0;\r\n    var slog_CO;\r\n    var slog_SU;\r\n    var slog_AG;\r\n    var slog_MEM;\r\n\r\n    var log_AD;\r\n    var log_D0;\r\n    var log_CO;\r\n    var log_SU;\r\n    var log_AG;\r\n    var log_MEM;\r\n\r\n    var bet_list;\r\n    var bet_edit;\r\n    var bet_abnormal;\r\n    var bet_live_dangerous;\r\n    var bet_search;\r\n\r\n    var A_isExpend=false;\r\n    var reportS;\r\n    var R_isExpend=false;\r\n    var tit_reportS;\r\n    var wagerR;\r\n    var oldRS;\r\n    var totalB;\r\n    var T_isExpend=false;\r\n    var overView;\r\n\r\n    var Betlist_isExpend=false;\r\n    var betlists;\r\n    var Log_isExpend=false;\r\n    var logs;\r\n    var Match_isExpend=false;\r\n    var matchs;\r\n    var Setting_isExpend=false;\r\n    var settings;\r\n\r\n    _self.init=function(){\r\n        util.echo(\"left load complete\");\r\n\r\n        //縮小menu\r\n        le_smallG = dom.getElementById(\"le_smallG\");\r\n        le_bigG = dom.getElementById(\"le_bigG\");\r\n "
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function bottom_menu(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var util;\r\n    var LS;\r\n    var Cookie;\r\n    var CookieKey;\r\n    var CookieImp;\r\n    var CookieGen;\r\n\r\n    var bm_problem_li;\r\n    var bm_announcement_li;\r\n    var bm_wmc;\r\n\r\n    _self.init=function(){\r\n        util.echo(\"bottome load complete\");\r\n\r\n        bm_problem_li = dom.getElementById(\"bm_problem_li\");\r\n        bm_announcement_li = dom.getElementById(\"bm_announcement_li\");\r\n        bm_live_chat = dom.getElementById(\"bm_live_chat\");\r\n        bm_quick_search = dom.getElementById(\"bm_quick_search\");\r\n        bm_wmc = dom.getElementById(\"bm_wmc\");\r\n\r\n        util.addEvent(bm_problem_li, \"click\", _self.changePage, { \"page\": \"problem_accounts\" });\r\n        util.addEvent(bm_announcement_li, \"click\", _self.changePage, { \"page\": \"announcement\" });\r\n        util.addEvent(bm_quick_search, \"click\", _self.changePage, { \"page\": \"quick_search\" });\r\n        util.addEvent(bm_live_chat, \"click\", _self.liveChatOpen);\r\n        util.addEvent(bm_wmc, \"click\", _self.wmcOpen);\r\n        _self.setLayerDisplay();\r\n\r\n        var src = document.createElement(\"script\");\r\n     //   src.textContent = \"window.lp"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_announcement(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_announcement\";\r\n    var util;\r\n    var _mc = new Object();\r\n    var keepScrollTop = \"\";\r\n    var overScrollTop = \"\";\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        util.echo(classname+\" load complete\");\r\n        _mc[\"close_btn\"] = dom.getElementById(\"close_btn\");\r\n        _mc[\"ok_btn\"] = dom.getElementById(\"anno_ok_btn\");\r\n        _mc[\"anno_div\"] = dom.getElementById(\"anno_div\");\r\n        _mc[\"ul_show\"] = dom.getElementById(\"ul_show\");\r\n        _mc[\"anno_title\"] = dom.getElementById(\"anno_title\");\r\n        keepScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        overScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        util.addEvent(_mc[\"close_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"ok_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"anno_div\"], \"scroll\", _self.scrollEvent, _mc[\"anno_title\"]);\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(v"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <script>function top_menu(_win, _dom) {\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var util;\r\n    var LS;\r\n    var LS_code;\r\n    var eventHandler = new Object();\r\n    var Cookie;\r\n    var CookieKey;\r\n    var CookieImp;\r\n    var CookieGen;\r\n\r\n    var mu_hab;\r\n    var mu_isOpen = false;\r\n    var back;\r\n    var user_code;\r\n    var mu_profile;\r\n    var mu_profile_in;\r\n    var keepStyle = {};\r\n    var rightPanel;\r\n    var RP_isShow = false;\r\n    var mySetting;\r\n    var logOut;\r\n    var pswdRec;\r\n    var chgPswd;\r\n    var contact;\r\n    var troubleshooting;\r\n    var requirements;\r\n    var new_url;\r\n    var live_chat;\r\n    var my_activities;\r\n    var quick_search;\r\n    var announcement;\r\n    var problem_accounts;\r\n    var wmc;\r\n    var choose_lan;\r\n    var topFrame;\r\n    var feature;\r\n\r\n    var Timer;\r\n    var timerHash = new Object();\r\n    var testTimerTurn = true;  //測試用 reloadData開關\r\n\r\n    var ads_layer = {\"ad\":6,\"d0\":5,\"co\":4,\"su\":3,\"ag\":2,\"mem\":1};\r\n    var ad_layer = {\"d0\":5,\"co\":4,\"su\":3,\"ag\":2,\"mem\":1};\r\n    var d0_layer = {\"co\":4,\"su\":3,\"ag\":2,\"mem\":1};\r\n    var co_layer = {\"su\":3,\"ag\":2,\"mem\":1};\r\n    var su_layer = {\"ag\":2,\"mem\":1};\r\n    var ag_layer = {\"mem\":1};\r\n\r\n    _self.init = function () {\r\n        util.echo(\"top load complete\");\r\n        mu_hab = dom.getElementById(\"mu_hab\");\r\n        top.mu_isOpen = \"close\";\r\n        back = dom.getElementById(\"back\");\r\n\r\n        //==== Right Pane"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"d0\":{\"NAME\":\"\\u7ebf\\u4e0a\\u5206\\u516c\\u53f8\",\"LAYER\":\"d0\",\"COUNT\":0},\"co\":{\"NAME\":\"\\u7ebf\\u4e0a\\u80a1\\u4e1c\",\"LAYER\":\"co\",\"COUNT\":1},\"su\":{\"NAME\":\"\\u7ebf\\u4e0a\\u603b\\u4ee3\",\"LAYER\":\"su\",\"COUNT\":1},\"ag\":{\"NAME\":\"\\u7ebf\\u4e0a\\u4ee3\\u7406\",\"LAYER\":\"ag\",\"COUNT\":4},\"mem\":{\"NAME\":\"\\u7ebf\\u4e0a\\u4f1a\\u5458\",\"LAYER\":\"mem\",\"COUNT\":0,\"HIDDEN\":\"Y\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function HttpRequest(){\r\n\t\tvar self=this;\r\n\t\tvar req;\r\n\t\tvar eventHandler=new Array();\r\n\t\tvar parentClass;\r\n\t\t\r\n\t\tself.init=function(){\r\n\t\t\t\tself.addEventListener(\"LoadComplete\",self.cmd_proc);\r\n\t\t\t\t//self.removeEventListener(\"LoadComplete\");\r\n\t\t\t\t//alert(\"onload\");\r\n\t\t\t\t}\r\n\t\tself.help=function(){\r\n\t\t\t\tvar str=\"\";\r\n\t\t\t\tstr+=\"EventName:LoadComplete Method:function(html)\\n\";\r\n\t\t\t\tstr+=\"Method:loadURL(url,post/get,pamam)\\n\";\r\n\t\t\t\treturn str;\r\n\t\t}\r\n\t\t\r\n\t\tself.setParentclass=function(parentclass){\r\n\t\t\t\tparentClass=parentclass;\r\n\t\t\t\t//util=parentClass.util;\r\n\t\t}\r\n\t\t\r\n\t\tself.getThis=function(varible){\r\n\t\t\t\treturn eval(varible);\r\n\t\t}\r\n\t\r\n\t\tself.test=function(){\r\n\t\t\t\talert(\"test\");\t\r\n\t\t}\r\n\r\n\t\t\r\n\t\tself.loadURL=function(url,method,params) {\r\n\t\t\t\treq = false;\r\n\t\t    // branch for native XMLHttpRequest object\r\n\t\t   \r\n\t\t    if(window.XMLHttpRequest && !(window.ActiveXObject)) {\r\n\t\t\t    \ttry{\r\n\t\t\t\t\t\t\t\treq = new XMLHttpRequest();\r\n\t\t\t      }catch(e){\r\n\t\t\t\t\t\t\t\treq = false;\r\n\t\t\t      }\r\n\t\t\t    // branch for IE/Windows ActiveX version\r\n\t\t    }else if(window.ActiveXObject){\r\n\t\t       \ttry{\r\n\t\t        \t\treq = new ActiveXObject(\"Msxml2.XMLHTTP\");\r\n\t\t      \t}catch(e){\r\n\t\t\t        \ttry{\r\n\t\t\t          \t\treq = new ActiveXObject(\"Micros"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"-10,459.6\",\"profit\":\"-0.99\",\"stock\":\"10,577.2\",\"date\":\"yes\",\"date_end\":\"2026-05-23\",\"date_start\":\"2026-05-23\",\"show_last\":{\"last_date_start\":\"2026-05-22\",\"last_date_end\":\"2026-05-22\",\"show_compare_result\":true,\"compare_result\":-14,\"class_result\":\"decrease\",\"show_compare_stock\":true,\"compare_stock\":0,\"class_stock\":\"increase\",\"show_compare_profit\":true,\"compare_profit\":-1.44,\"class_profit\":\"decrease\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"amount_d0\":0,\"amount_co\":0,\"amount_su\":0,\"amount_ag\":0,\"amount_mem\":\"0\",\"d0_enable_N\":\"0\",\"d0_enable_Y\":\"3\",\"d0_pri_N\":\"0\",\"d0_pri_Y\":\"0\",\"co_enable_N\":\"0\",\"co_enable_Y\":\"4\",\"co_pri_N\":\"0\",\"co_pri_Y\":\"0\",\"su_enable_N\":\"0\",\"su_enable_Y\":\"6\",\"su_pri_N\":\"0\",\"su_pri_Y\":\"0\",\"a_enable_N\":\"0\",\"a_enable_Y\":\"7\",\"a_pri_N\":\"0\",\"a_pri_Y\":\"0\",\"m_enable_N\":\"5\",\"m_enable_Y\":\"13\",\"m_pri_N\":\"0\",\"m_pri_Y\":\"0\",\"matchs\":{\"FT\":{\"red\":19,\"green\":8},\"BK\":{\"red\":0,\"green\":0},\"TN\":{\"red\":0,\"green\":0},\"VB\":{\"red\":0,\"green\":0},\"BS\":{\"red\":0,\"green\":0},\"OP\":{\"red\":0,\"green\":0},\"FS\":{\"red\":0,\"green\":0},\"BM\":{\"red\":0,\"green\":0},\"TT\":{\"red\":0,\"green\":0},\"SK\":{\"red\":0,\"green\":0},\"ES\":{\"red\":0,\"green\":0}},\"matchs_yes\":{\"FT\":{\"red\":1,\"green\":3},\"BK\":{\"red\":0,\"green\":0},\"TN\":{\"red\":0,\"green\":0},\"VB\":{\"red\":0,\"green\":0},\"BS\":{\"red\":0,\"green\":0},\"OP\":{\"red\":0,\"green\":0},\"FS\":{\"red\":0,\"green\":0},\"BM\":{\"red\":0,\"green\":0},\"TT\":{\"red\":0,\"green\":0},\"SK\":{\"red\":0,\"green\":0},\"ES\":{\"red\":0,\"green\":0}},\"game_over_yn\":{\"FT\":{\"to\":{\"RESULT_N\":19,\"RESULT_Y\":8},\"yes\":{\"RESULT_N\":1,\"RESULT_Y\":3}},\"BK\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"TN\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"VB\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"BS\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"OP\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESULT_Y\":0}},\"FS\":{\"to\":{\"RESULT_N\":0,\"RESULT_Y\":0},\"yes\":{\"RESULT_N\":0,\"RESUL"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"possess\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"turnover\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-22\",\"2025"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"members\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"winloss\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/admin/transform.php",
+            "status": 200,
+            "body": "{\"msg\":\"success\",\"code\":\"none\",\"count\":\"0|36\"}"
+          }
+        ]
+      },
+      "final_url": "http://3.25.180.205:8080/admin",
+      "top_state": {
+        "login_layer": "ad",
+        "username": "admin1",
+        "user_id": 52,
+        "layer_id": 52,
+        "pri_type": null,
+        "user_type": 1,
+        "user_enable": "Y",
+        "pay_type": 0,
+        "uid": "..."
+      },
+      "login_json": {
+        "code": "102",
+        "action": "login",
+        "status": "success",
+        "status_code": "4O000",
+        "user_id": 52,
+        "username": "admin1",
+        "uid": "f602920a5167b40a2f6026a657982fdb4af74cdd17dc4616e7e92bd0b156f4c4",
+        "layer_id": 52,
+        "layer_username": "admin1",
+        "pri_type": null,
+        "user_type": 1,
+        "enable": "Y",
+        "enable_pri": "Y",
+        "pay_type": 0,
+        "login_layer": "ad",
+        "retrieve_sw": "Y",
+        "telbot_sw": "Y"
+      },
+      "left_menu": [
+        {
+          "id": "le_dashboard",
+          "missing": true
+        },
+        {
+          "id": "acc_AD",
+          "missing": true
+        },
+        {
+          "id": "acc_D0",
+          "text": "分公司",
+          "visible": false
+        },
+        {
+          "id": "acc_CO",
+          "text": "股东",
+          "visible": false
+        },
+        {
+          "id": "acc_SU",
+          "text": "总代理",
+          "visible": false
+        },
+        {
+          "id": "acc_AG",
+          "text": "代理商",
+          "visible": false
+        },
+        {
+          "id": "acc_MEM",
+          "text": "会员",
+          "visible": false
+        },
+        {
+          "id": "acc_Sub",
+          "text": "子帐号",
+          "visible": false
+        },
+        {
+          "id": "wagerR",
+          "text": "注单报表",
+          "visible": false
+        },
+        {
+          "id": "oldRS",
+          "missing": true
+        },
+        {
+          "id": "overViewL",
+          "text": "总览",
+          "visible": false
+        },
+        {
+          "id": "re_L",
+          "text": "滚球",
+          "visible": false
+        },
+        {
+          "id": "today_L",
+          "text": "今日",
+          "visible": false
+        },
+        {
+          "id": "fu_L",
+          "text": "早盘",
+          "visible": false
+        },
+        {
+          "id": "started_L",
+          "missing": true
+        },
+        {
+          "id": "parly_L",
+          "text": "过关",
+          "visible": false
+        },
+        {
+          "id": "outright_L",
+          "text": "冠军",
+          "visible": false
+        },
+        {
+          "id": "results_L",
+          "text": "赛果",
+          "visible": false
+        },
+        {
+          "id": "bet_list",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_edit",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_abnormal",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_live_dangerous",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_search",
+          "missing": true
+        },
+        {
+          "id": "matchList",
+          "text": "赛程",
+          "visible": false
+        },
+        {
+          "id": "log_AD",
+          "missing": true
+        },
+        {
+          "id": "log_D0",
+          "text": "分公司日志",
+          "visible": false
+        },
+        {
+          "id": "log_CO",
+          "text": "股东日志",
+          "visible": false
+        },
+        {
+          "id": "log_SU",
+          "text": "总代理日志",
+          "visible": false
+        },
+        {
+          "id": "log_AG",
+          "text": "代理商日志",
+          "visible": false
+        },
+        {
+          "id": "log_MEM",
+          "text": "会员日志",
+          "visible": false
+        },
+        {
+          "id": "set_config",
+          "text": "系统设置",
+          "visible": false
+        },
+        {
+          "id": "set_curl",
+          "missing": true
+        },
+        {
+          "id": "set_data_manger",
+          "text": "数据管理",
+          "visible": false
+        }
+      ],
+      "top_menu": [
+        {
+          "id": "mu_hab",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "back",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "mu_announcement",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mu_profile",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "wmc",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "quick_search",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "problem_accounts",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "live_chat",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "new_url",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "page_name",
+          "text": "首页",
+          "visible": true
+        },
+        {
+          "id": "user_code",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mySetting",
+          "missing": true
+        },
+        {
+          "id": "my_activities",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "pswdRec",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "chgPswd",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "contact",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "troubleshooting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "feature",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "requirements",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "choose_lan",
+          "missing": true
+        },
+        {
+          "id": "logOut",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "on_d0",
+          "missing": true
+        },
+        {
+          "id": "on_co",
+          "missing": true
+        },
+        {
+          "id": "on_su",
+          "missing": true
+        },
+        {
+          "id": "on_ag",
+          "missing": true
+        },
+        {
+          "id": "on_member",
+          "missing": true
+        },
+        {
+          "id": "bm_problem_li",
+          "text": "问题帐号",
+          "visible": false
+        },
+        {
+          "id": "bm_announcement_li",
+          "text": "公告",
+          "visible": true
+        },
+        {
+          "id": "bm_quick_search",
+          "text": "快速搜索",
+          "visible": true
+        },
+        {
+          "id": "bm_live_chat",
+          "text": "在线客服",
+          "visible": true
+        },
+        {
+          "id": "bm_wmc",
+          "text": "注单监视视窗",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "case": {
+        "path": "/admin/",
+        "user": "Aa100000",
+        "pwd": "Aa11223344",
+        "safe": "",
+        "tab": null,
+        "captcha": true,
+        "label": "ads_sub_Aa100000",
+        "expect_layer": "ads"
+      },
+      "logs": [
+        "[error] Failed to load resource: the server responded with a status of 503 (Service Unavailable)"
+      ],
+      "errors": [
+        "main: Page.fill: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#username\")\n"
+      ],
+      "login_form": {
+        "_tab_count": 0,
+        "_tab_labels": []
+      }
+    },
+    {
+      "case": {
+        "path": "/d0/",
+        "user": "d010101",
+        "pwd": "Aa12345678",
+        "safe": "",
+        "tab": null,
+        "captcha": true,
+        "label": "d0_d010101",
+        "expect_layer": "d0"
+      },
+      "logs": [
+        "[log] 0|36"
+      ],
+      "errors": [],
+      "login_form": {
+        "username": {
+          "text": "",
+          "placeholder": "登入帐号",
+          "visible": true
+        },
+        "pwd": {
+          "text": "",
+          "placeholder": "密码",
+          "visible": true
+        },
+        "verifycode": {
+          "text": "",
+          "placeholder": "验证码",
+          "visible": true
+        },
+        "remember": {
+          "text": "on",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_A": {
+          "text": "报表管理系统",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginBtn": {
+          "text": "登入",
+          "placeholder": "",
+          "visible": true
+        },
+        "_tab_count": 1,
+        "_tab_labels": [
+          "报表管理系统"
+        ]
+      },
+      "login_resp": {
+        "calls": [
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"code\":\"102\",\"action\":\"login\",\"status\":\"success\",\"status_code\":\"4O000\",\"user_id\":11,\"username\":\"d010101\",\"uid\":\"7632970acf1e93c8b40e9036b78d90186f62478f823262958eb4236e5af300c9\",\"layer_id\":11,\"layer_username\":\"d010101\",\"pri_type\":null,\"user_type\":1,\"enable\":\"Y\",\"enable_pri\":\"Y\",\"pay_type\":0,\"login_layer\":\"d0\",\"retrieve_sw\":\"Y\",\"telbot_sw\":\"Y\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_msg(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_msg\";\r\n    var util;\r\n    var divBox = new Array(\"alert_ok\", \"alert_confirm\", \"status_pop\", \"possess_pop\", \"safe_pop\", \"loginid_pop\", \"AllAccount_pop\", \"account_type_pop\", \"credit_exceeded_pop\");\r\n    var _mc;\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        //util.echo(classname+\" load complete\");\r\n        obj_ids =  \",alert_ok,msg_ok,ok_btn,\";\r\n        obj_ids += \"alert_confirm,msg_confirm,no_btn,yes_btn,\";\r\n        obj_ids += \"status_pop,possess_pop,safe_pop,loginid_pop,AllAccount_pop,\";\r\n        obj_ids += \"account_type_pop,credit_exceeded_pop,\";\r\n        _mc = util.getObjAry(dom.getElementById(\"alert_show\"), obj_ids);\r\n\r\n        for (key in _mc){\r\n            if (key.search(\"_pop\") != -1){\r\n                var _mArr = util.getObjAry(_mc[key], \",pop_close,\");\r\n                util.addEvent(_mArr[\"pop_close\"], \"click\", _self.clickEvent, {});\r\n            }\r\n        }\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(vari"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html><head><meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <script>function left_menu(_win, _dom){\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n\n    var le_smallG;\n    var le_bigG;\n    var dashB;\n    var accountM;\n\n    var sacc_CO;\n    var sacc_SU;\n    var sacc_AG;\n    var sacc_MEM;\n    var sacc_Sub;\n\n\n    var acc_CO;\n    var acc_SU;\n    var acc_AG;\n    var acc_MEM;\n    var acc_Sub;\n\n    var bet_list;\n    var bet_abnormal;\n    var bet_live_dangerous;\n\n    var A_isExpend=false;\n    var reportS;\n    var R_isExpend=false;\n    var tit_reportS;\n    var wagerR;\n    var oldRS;\n    var totalB;\n    var T_isExpend=false;\n    var overView;\n\n    var Betlist_isExpend=false;\n    var betlists;\n    var Log_isExpend=false;\n    var logs;\n    var Match_isExpend=false;\n    var matchs;\n    var Setting_isExpend=false;\n    var settings;\n\n    _self.init=function(){\n        util.echo(\"left load complete\");\n\n        //縮小menu\n        le_smallG = dom.getElementById(\"le_smallG\");\n        le_bigG = dom.getElementById(\"le_bigG\");\n\n        sacc_CO = dom.getElementById(\"sacc_CO\");\n        sacc_SU = dom.getElementById(\"sacc_SU\");\n        sacc_AG = dom.getElementById(\"sacc_AG\");\n        sacc_MEM = dom.getElementById(\"sacc_MEM\");\n        sacc_Sub = dom.getElementById(\"sacc_Sub\");\n\n\n        util.addEvent(dom.getElementById(\"menu_home\"), \"click\", _self.expendMenu, {\"target\":\"home\",\"page\":\"dashboard_main\"});\n"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function bottom_menu(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var util;\r\n    var LS;\r\n    var Cookie;\r\n    var CookieKey;\r\n    var CookieImp;\r\n    var CookieGen;\r\n\r\n    var bm_problem_li;\r\n    var bm_announcement_li;\r\n    var bm_wmc;\r\n\r\n    _self.init=function(){\r\n        util.echo(\"bottome load complete\");\r\n\r\n        bm_problem_li = dom.getElementById(\"bm_problem_li\");\r\n        bm_announcement_li = dom.getElementById(\"bm_announcement_li\");\r\n        bm_live_chat = dom.getElementById(\"bm_live_chat\");\r\n        bm_quick_search = dom.getElementById(\"bm_quick_search\");\r\n        bm_wmc = dom.getElementById(\"bm_wmc\");\r\n\r\n        util.addEvent(bm_problem_li, \"click\", _self.changePage, { \"page\": \"problem_accounts\" });\r\n        util.addEvent(bm_announcement_li, \"click\", _self.changePage, { \"page\": \"announcement\" });\r\n        util.addEvent(bm_quick_search, \"click\", _self.changePage, { \"page\": \"quick_search\" });\r\n        util.addEvent(bm_live_chat, \"click\", _self.liveChatOpen);\r\n        util.addEvent(bm_wmc, \"click\", _self.wmcOpen);\r\n        _self.setLayerDisplay();\r\n\r\n        var src = document.createElement(\"script\");\r\n        //src.textContent = \"window.lp"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_announcement(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_announcement\";\r\n    var util;\r\n    var _mc = new Object();\r\n    var keepScrollTop = \"\";\r\n    var overScrollTop = \"\";\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        util.echo(classname+\" load complete\");\r\n        _mc[\"close_btn\"] = dom.getElementById(\"close_btn\");\r\n        _mc[\"ok_btn\"] = dom.getElementById(\"anno_ok_btn\");\r\n        _mc[\"anno_div\"] = dom.getElementById(\"anno_div\");\r\n        _mc[\"ul_show\"] = dom.getElementById(\"ul_show\");\r\n        _mc[\"anno_title\"] = dom.getElementById(\"anno_title\");\r\n        keepScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        overScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        util.addEvent(_mc[\"close_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"ok_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"anno_div\"], \"scroll\", _self.scrollEvent, _mc[\"anno_title\"]);\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(v"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <script>function top_menu(_win, _dom) {\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n    var LS_code;\n    var eventHandler = new Object();\n    var Cookie;\n    var CookieKey;\n    var CookieImp;\n    var CookieGen;\n\n    var mu_hab;\n    var mu_isOpen = false;\n    var back;\n    var user_code;\n    var mu_profile;\n    var mu_profile_in;\n    var keepStyle = {};\n    var rightPanel;\n    var RP_isShow = false;\n    var mySetting;\n    var logOut;\n    var pswdRec;\n    var chgPswd;\n    var contact;\n    var troubleshooting;\n    var new_url;\n    var live_chat;\n    var my_activities;\n    var quick_search;\n    var announcement;\n    var problem_accounts;\n    var requirements;\n    var wmc;\n    var choose_lan;\n    var topFrame;\n    var feature;\n    var Timer;\n    var timerHash = new Object();\n    var testTimerTurn = true;  //測試用 reloadData開關\n\n    var d0_layer = {\"co\":4,\"su\":3,\"ag\":2,\"mem\":1};\n    var co_layer = {\"su\":3,\"ag\":2,\"mem\":1};\n    var su_layer = {\"ag\":2,\"mem\":1};\n    var ag_layer = {\"mem\":1};\n\n    _self.init = function () {\n        util.echo(\"top load complete\");\n        mu_hab = dom.getElementById(\"mu_hab\");\n        top.mu_isOpen = \"close\";\n        back = dom.getElementById(\"back\");\n\n        //==== Right Panel ====\n        mu_profile = dom.getElementById(\"mu_profile\");\n        mu_profile_in = dom.getElementById(\"mu_profile_in\");\n        user_code = dom.getElementById(\"user_code\");\n       "
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"co\":{\"NAME\":\"\\u7ebf\\u4e0a\\u80a1\\u4e1c\",\"LAYER\":\"co\",\"COUNT\":1},\"su\":{\"NAME\":\"\\u7ebf\\u4e0a\\u603b\\u4ee3\",\"LAYER\":\"su\",\"COUNT\":1},\"ag\":{\"NAME\":\"\\u7ebf\\u4e0a\\u4ee3\\u7406\",\"LAYER\":\"ag\",\"COUNT\":0},\"mem\":{\"NAME\":\"\\u7ebf\\u4e0a\\u4f1a\\u5458\",\"LAYER\":\"mem\",\"COUNT\":0,\"HIDDEN\":\"Y\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function HttpRequest(){\r\n\t\tvar self=this;\r\n\t\tvar req;\r\n\t\tvar eventHandler=new Array();\r\n\t\tvar parentClass;\r\n\t\t\r\n\t\tself.init=function(){\r\n\t\t\t\tself.addEventListener(\"LoadComplete\",self.cmd_proc);\r\n\t\t\t\t//self.removeEventListener(\"LoadComplete\");\r\n\t\t\t\t//alert(\"onload\");\r\n\t\t\t\t}\r\n\t\tself.help=function(){\r\n\t\t\t\tvar str=\"\";\r\n\t\t\t\tstr+=\"EventName:LoadComplete Method:function(html)\\n\";\r\n\t\t\t\tstr+=\"Method:loadURL(url,post/get,pamam)\\n\";\r\n\t\t\t\treturn str;\r\n\t\t}\r\n\t\t\r\n\t\tself.setParentclass=function(parentclass){\r\n\t\t\t\tparentClass=parentclass;\r\n\t\t\t\t//util=parentClass.util;\r\n\t\t}\r\n\t\t\r\n\t\tself.getThis=function(varible){\r\n\t\t\t\treturn eval(varible);\r\n\t\t}\r\n\t\r\n\t\tself.test=function(){\r\n\t\t\t\talert(\"test\");\t\r\n\t\t}\r\n\r\n\t\t\r\n\t\tself.loadURL=function(url,method,params) {\r\n\t\t\t\treq = false;\r\n\t\t    // branch for native XMLHttpRequest object\r\n\t\t   \r\n\t\t    if(window.XMLHttpRequest && !(window.ActiveXObject)) {\r\n\t\t\t    \ttry{\r\n\t\t\t\t\t\t\t\treq = new XMLHttpRequest();\r\n\t\t\t      }catch(e){\r\n\t\t\t\t\t\t\t\treq = false;\r\n\t\t\t      }\r\n\t\t\t    // branch for IE/Windows ActiveX version\r\n\t\t    }else if(window.ActiveXObject){\r\n\t\t       \ttry{\r\n\t\t        \t\treq = new ActiveXObject(\"Msxml2.XMLHTTP\");\r\n\t\t      \t}catch(e){\r\n\t\t\t        \ttry{\r\n\t\t\t          \t\treq = new ActiveXObject(\"Micros"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"0.1\",\"profit\":\"0.45\",\"stock\":\"0.2\",\"date\":\"yes\",\"date_end\":\"2026-05-23\",\"date_start\":\"2026-05-23\",\"show_last\":{\"last_date_start\":\"2026-05-22\",\"last_date_end\":\"2026-05-22\",\"show_compare_result\":true,\"compare_result\":0.30000000000000004,\"class_result\":\"increase\",\"show_compare_stock\":true,\"compare_stock\":0,\"class_stock\":\"increase\",\"show_compare_profit\":true,\"compare_profit\":1.45,\"class_profit\":\"increase\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"amount_co\":0,\"amount_su\":0,\"amount_ag\":0,\"amount_mem\":\"0\",\"co_enable_N\":\"0\",\"co_enable_Y\":\"1\",\"co_pri_N\":\"0\",\"co_pri_Y\":\"0\",\"su_enable_N\":\"0\",\"su_enable_Y\":\"1\",\"su_pri_N\":\"0\",\"su_pri_Y\":\"0\",\"a_enable_N\":\"0\",\"a_enable_Y\":\"3\",\"a_pri_N\":\"0\",\"a_pri_Y\":\"0\",\"m_enable_N\":\"5\",\"m_enable_Y\":\"9\",\"m_pri_N\":\"0\",\"m_pri_Y\":\"0\",\"dashboard_chart\":\"Y\",\"this_period\":{\"show\":\"Y\",\"this_period\":\"2024\\/12\\/30 - 2025\\/01\\/26\",\"remaining_days\":484,\"completed_days\":510},\"lastdate\":\"2026-05-21\",\"logindate\":\"2026-05-24 22:34:38\",\"now_maxcredit\":999999999999,\"lv_maxcredit\":990000000000}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"possess\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"turnover\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-22\",\"2025"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"winloss\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"members\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/d0/transform.php",
+            "status": 200,
+            "body": "{\"msg\":\"success\",\"code\":\"none\",\"count\":\"0|36\"}"
+          }
+        ]
+      },
+      "final_url": "http://3.25.180.205:8080/d0",
+      "top_state": {
+        "login_layer": "d0",
+        "username": "d010101",
+        "user_id": 11,
+        "layer_id": 11,
+        "pri_type": null,
+        "user_type": 1,
+        "user_enable": "Y",
+        "pay_type": 0,
+        "uid": "..."
+      },
+      "login_json": {
+        "code": "102",
+        "action": "login",
+        "status": "success",
+        "status_code": "4O000",
+        "user_id": 11,
+        "username": "d010101",
+        "uid": "7632970acf1e93c8b40e9036b78d90186f62478f823262958eb4236e5af300c9",
+        "layer_id": 11,
+        "layer_username": "d010101",
+        "pri_type": null,
+        "user_type": 1,
+        "enable": "Y",
+        "enable_pri": "Y",
+        "pay_type": 0,
+        "login_layer": "d0",
+        "retrieve_sw": "Y",
+        "telbot_sw": "Y"
+      },
+      "left_menu": [
+        {
+          "id": "le_dashboard",
+          "missing": true
+        },
+        {
+          "id": "acc_AD",
+          "missing": true
+        },
+        {
+          "id": "acc_D0",
+          "missing": true
+        },
+        {
+          "id": "acc_CO",
+          "text": "股东",
+          "visible": false
+        },
+        {
+          "id": "acc_SU",
+          "text": "总代理",
+          "visible": false
+        },
+        {
+          "id": "acc_AG",
+          "text": "代理商",
+          "visible": false
+        },
+        {
+          "id": "acc_MEM",
+          "text": "会员",
+          "visible": false
+        },
+        {
+          "id": "acc_Sub",
+          "text": "子帐号",
+          "visible": false
+        },
+        {
+          "id": "wagerR",
+          "text": "注单报表",
+          "visible": false
+        },
+        {
+          "id": "oldRS",
+          "missing": true
+        },
+        {
+          "id": "overViewL",
+          "text": "总览",
+          "visible": false
+        },
+        {
+          "id": "re_L",
+          "text": "滚球",
+          "visible": false
+        },
+        {
+          "id": "today_L",
+          "text": "今日",
+          "visible": false
+        },
+        {
+          "id": "fu_L",
+          "text": "早盘",
+          "visible": false
+        },
+        {
+          "id": "started_L",
+          "missing": true
+        },
+        {
+          "id": "parly_L",
+          "text": "过关",
+          "visible": false
+        },
+        {
+          "id": "outright_L",
+          "text": "冠军",
+          "visible": false
+        },
+        {
+          "id": "results_L",
+          "text": "赛果",
+          "visible": false
+        },
+        {
+          "id": "bet_list",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_edit",
+          "missing": true
+        },
+        {
+          "id": "bet_abnormal",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_live_dangerous",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "bet_search",
+          "missing": true
+        },
+        {
+          "id": "matchList",
+          "missing": true
+        },
+        {
+          "id": "log_AD",
+          "missing": true
+        },
+        {
+          "id": "log_D0",
+          "missing": true
+        },
+        {
+          "id": "log_CO",
+          "missing": true
+        },
+        {
+          "id": "log_SU",
+          "missing": true
+        },
+        {
+          "id": "log_AG",
+          "missing": true
+        },
+        {
+          "id": "log_MEM",
+          "missing": true
+        },
+        {
+          "id": "set_config",
+          "missing": true
+        },
+        {
+          "id": "set_curl",
+          "missing": true
+        },
+        {
+          "id": "set_data_manger",
+          "missing": true
+        }
+      ],
+      "top_menu": [
+        {
+          "id": "mu_hab",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "back",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "mu_announcement",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mu_profile",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "wmc",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "quick_search",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "problem_accounts",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "live_chat",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "new_url",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "page_name",
+          "text": "首页",
+          "visible": true
+        },
+        {
+          "id": "user_code",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mySetting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "my_activities",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "pswdRec",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "chgPswd",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "contact",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "troubleshooting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "feature",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "requirements",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "choose_lan",
+          "missing": true
+        },
+        {
+          "id": "logOut",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "on_d0",
+          "missing": true
+        },
+        {
+          "id": "on_co",
+          "missing": true
+        },
+        {
+          "id": "on_su",
+          "missing": true
+        },
+        {
+          "id": "on_ag",
+          "missing": true
+        },
+        {
+          "id": "on_member",
+          "missing": true
+        },
+        {
+          "id": "bm_problem_li",
+          "text": "问题帐号",
+          "visible": false
+        },
+        {
+          "id": "bm_announcement_li",
+          "text": "公告",
+          "visible": true
+        },
+        {
+          "id": "bm_quick_search",
+          "text": "快速搜索",
+          "visible": true
+        },
+        {
+          "id": "bm_live_chat",
+          "text": "在线客服",
+          "visible": true
+        },
+        {
+          "id": "bm_wmc",
+          "text": "注单监视视窗",
+          "visible": true
+        }
+      ]
+    },
+    {
+      "case": {
+        "path": "/agents/",
+        "user": "d111111",
+        "pwd": "Aa12345678",
+        "safe": "Aa123123",
+        "tab": "A",
+        "captcha": false,
+        "label": "co_d111111",
+        "expect_layer": "co"
+      },
+      "logs": [
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "errors": [],
+      "login_form": {
+        "username": {
+          "text": "",
+          "placeholder": "登入帐号",
+          "visible": true
+        },
+        "pwd": {
+          "text": "",
+          "placeholder": "密码",
+          "visible": true
+        },
+        "pwd_safe": {
+          "text": "",
+          "placeholder": "安全代码",
+          "visible": true
+        },
+        "remember": {
+          "text": "on",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_A": {
+          "text": "登入 1",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_B": {
+          "text": "登入 2",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_C": {
+          "text": "登入 3",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginBtn": {
+          "text": "登入",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginoldBtn": {
+          "text": "返回旧网站",
+          "placeholder": "",
+          "visible": false
+        },
+        "lang_btn": {
+          "text": "简体",
+          "placeholder": "",
+          "visible": true
+        },
+        "_tab_count": 3,
+        "_tab_labels": [
+          "登入 1",
+          "登入 2",
+          "登入 3"
+        ]
+      },
+      "login_resp": {
+        "calls": [
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"code\":\"102\",\"action\":\"login\",\"status\":\"success\",\"status_code\":\"4O000\",\"user_id\":12,\"username\":\"d111111\",\"uid\":\"a6a73898c4e67f5ba343ad60e034ef34c1453058f85ccbf276079d4664529bfb\",\"layer_id\":12,\"layer_username\":\"d111111\",\"pri_type\":null,\"user_type\":1,\"enable\":\"Y\",\"enable_pri\":\"Y\",\"pay_type\":0,\"login_layer\":\"co\",\"retrieve_sw\":\"Y\",\"telbot_sw\":\"Y\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_msg(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_msg\";\r\n    var util;\r\n    var divBox = new Array(\"alert_ok\", \"alert_confirm\", \"status_pop\", \"possess_pop\", \"safe_pop\", \"loginid_pop\", \"AllAccount_pop\", \"account_type_pop\", \"credit_exceeded_pop\");\r\n    var _mc;\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        //util.echo(classname+\" load complete\");\r\n        obj_ids =  \",alert_ok,msg_ok,ok_btn,\";\r\n        obj_ids += \"alert_confirm,msg_confirm,no_btn,yes_btn,\";\r\n        obj_ids += \"status_pop,possess_pop,safe_pop,loginid_pop,AllAccount_pop,\";\r\n        obj_ids += \"account_type_pop,credit_exceeded_pop,\";\r\n        _mc = util.getObjAry(dom.getElementById(\"alert_show\"), obj_ids);\r\n\r\n        for (key in _mc){\r\n            if (key.search(\"_pop\") != -1){\r\n                var _mArr = util.getObjAry(_mc[key], \",pop_close,\");\r\n                util.addEvent(_mArr[\"pop_close\"], \"click\", _self.clickEvent, {});\r\n            }\r\n        }\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(vari"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n    <script>function left_menu(_win, _dom){\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n\n    var le_smallG;\n    var accountM;\n    var t_SU;\n    var t_AG;\n    var t_MEM;\n    var t_Sub;\n    var reportS;\n    var t_report;\n    // var oldRS;\n    var t_analysis;\n    var overView;\n    var t_wmc;\n    var layer;\n    var downlayer;\n    var menu_analysis;\n    var account_class;\n\n    _self.init=function(){\n        util.echo(\"left load complete\");\n\n        layer = top.login_layer;\n        if(layer == \"co\"){\n            downlayer = \"su\";\n        }else{\n            if(layer == \"su\"){\n                downlayer = \"ag\";\n                account_class = \"agent\";\n            }else if(layer == \"ag\"){\n                downlayer = \"mem\";\n                account_class = \"member\";\n            }\n            dom.getElementById(\"menu_account\").classList.add(account_class);\n        }\n\n        le_smallG = dom.getElementById(\"le_smallG\");\n        util.addEvent(dom.getElementById(\"menu_home\"), \"click\", _self.expendMenu, {\"target\":\"home\",\"page\":\"dashboard_main\",\"id\":\"home\"});\n        util.addEvent(dom.getElementById(\"menu_account\"), \"click\", _self.expendMenu, {\"target\":\"account\",\"page\": \"acc_\"+downlayer+\"_list\",\"id\":downlayer.toUpperCase()});\n        util.addEvent(dom.getElementById(\"menu_report\"), \"click\", _self.expendMenu, {\"target\":\"report"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\n<html>\n<head>\n    <script>function footer(_win, _dom){\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n    var choose_lanF;\n    var new_urlF;\n    var featureF;\n    var requirementsF;\n    var live_chatF;\n    var lang_listF;\n    var lang_selectF;\n    var PC_check;\n    var check = true;\n\n    _self.init = function() {\n        choose_lanF = dom.getElementById(\"choose_lanF\");\n        new_urlF = dom.getElementById(\"new_urlF\");\n        featureF = dom.getElementById(\"featureF\");\n        requirementsF = dom.getElementById(\"requirementsF\");\n        live_chatF = dom.getElementById(\"live_chatF\");\n        lang_listF = dom.getElementById(\"lang_listF\");\n        lang_selectF = dom.getElementById(\"lang_selectF\");\n\n        util.addEvent(choose_lanF, \"click\", _self.choose_lan);\n        util.addEvent(new_urlF, \"click\", _self.changePage, { \"page\": \"new_url\" });\n        util.addEvent(featureF, \"click\", _self.changePage, { \"page\": \"feature\" });\n        util.addEvent(requirementsF, \"click\", _self.changePage, { \"page\": \"requirements\" });\n        util.addEvent(live_chatF, \"click\", _self.liveChatOpen);\n        util.addEvent(choose_lanF, \"blur\", _self.onBlurEventHandler);\n        PC_check = _self.isPC();\n        if(PC_check){\n            _self.showLS(top.ls);\n        }else{\n            _self.showLS_Ph();\n        }\n    }\n\n    _self.setParentclass = function(_parentclass){\n        parentClass = _parentclass;\n        util = parentC"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_announcement(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_announcement\";\r\n    var util;\r\n    var _mc = new Object();\r\n    var keepScrollTop = \"\";\r\n    var overScrollTop = \"\";\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        util.echo(classname+\" load complete\");\r\n        _mc[\"close_btn\"] = dom.getElementById(\"close_btn\");\r\n        _mc[\"ok_btn\"] = dom.getElementById(\"anno_ok_btn\");\r\n        _mc[\"anno_div\"] = dom.getElementById(\"anno_div\");\r\n        _mc[\"ul_show\"] = dom.getElementById(\"ul_show\");\r\n        _mc[\"anno_title\"] = dom.getElementById(\"anno_title\");\r\n        keepScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        overScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        util.addEvent(_mc[\"close_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"ok_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"anno_div\"], \"scroll\", _self.scrollEvent, _mc[\"anno_title\"]);\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(v"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <script>function top_menu(_win, _dom) {\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n    var eventHandler = new Object();\n    var Cookie;\n    var CookieKey;\n    var CookieImp;\n    var CookieGen;\n\n    var mu_hab;\n    var mu_isOpen = false;\n    var back;\n    var user_code;\n    var mu_profile;\n    var mu_profile_in;\n    var keepStyle = {};\n    var rightPanel;\n    var RP_isShow = false;\n    var onlineMem;\n    var memCount;\n    var mySetting;\n    var logOut;\n    var pswdRec;\n    var chgPswd;\n    var contact;\n    var troubleshooting;\n    var new_url;\n    var feature;\n    var requirements;\n    var live_chat;\n    var my_activities;\n    var quick_search;\n    var announcement;\n    var problem_accounts;\n    var choose_lan;\n    var co_layer = {\"su\":3,\"ag\":2,\"mem\":1};\n    var su_layer = {\"ag\":2,\"mem\":1};\n    var ag_layer = {\"mem\":1};\n    var new_downline;\n    var top_layer;\n    var downlayer;\n    var user_mlimit = -1;\n    var magager_count = -1;\n    var lang_list;\n    var PC_check;\n    var check = true;\n    var lang_select;\n    var mu_chat;\n    var mu_ann;\n    var mu_profile_icon;\n\n    _self.init = function () {\n        util.echo(\"top load complete\");\n        mu_hab = dom.getElementById(\"mu_hab\");\n        top.mu_isOpen = \"close\";\n        back = dom.getElementById(\"back\");\n\n        //==== Right Panel ====\n        mu_profile = dom.getElementById(\"mu_profile\");\n        mu_profile_in = dom.get"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function HttpRequest(){\r\n\t\tvar self=this;\r\n\t\tvar req;\r\n\t\tvar eventHandler=new Array();\r\n\t\tvar parentClass;\r\n\t\t\r\n\t\tself.init=function(){\r\n\t\t\t\tself.addEventListener(\"LoadComplete\",self.cmd_proc);\r\n\t\t\t\t//self.removeEventListener(\"LoadComplete\");\r\n\t\t\t\t//alert(\"onload\");\r\n\t\t\t\t}\r\n\t\tself.help=function(){\r\n\t\t\t\tvar str=\"\";\r\n\t\t\t\tstr+=\"EventName:LoadComplete Method:function(html)\\n\";\r\n\t\t\t\tstr+=\"Method:loadURL(url,post/get,pamam)\\n\";\r\n\t\t\t\treturn str;\r\n\t\t}\r\n\t\t\r\n\t\tself.setParentclass=function(parentclass){\r\n\t\t\t\tparentClass=parentclass;\r\n\t\t\t\t//util=parentClass.util;\r\n\t\t}\r\n\t\t\r\n\t\tself.getThis=function(varible){\r\n\t\t\t\treturn eval(varible);\r\n\t\t}\r\n\t\r\n\t\tself.test=function(){\r\n\t\t\t\talert(\"test\");\t\r\n\t\t}\r\n\r\n\t\t\r\n\t\tself.loadURL=function(url,method,params) {\r\n\t\t\t\treq = false;\r\n\t\t    // branch for native XMLHttpRequest object\r\n\t\t   \r\n\t\t    if(window.XMLHttpRequest && !(window.ActiveXObject)) {\r\n\t\t\t    \ttry{\r\n\t\t\t\t\t\t\t\treq = new XMLHttpRequest();\r\n\t\t\t      }catch(e){\r\n\t\t\t\t\t\t\t\treq = false;\r\n\t\t\t      }\r\n\t\t\t    // branch for IE/Windows ActiveX version\r\n\t\t    }else if(window.ActiveXObject){\r\n\t\t       \ttry{\r\n\t\t        \t\treq = new ActiveXObject(\"Msxml2.XMLHTTP\");\r\n\t\t      \t}catch(e){\r\n\t\t\t        \ttry{\r\n\t\t\t          \t\treq = new ActiveXObject(\"Micros"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": ""
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"amount_su\":0,\"amount_ag\":0,\"amount_mem\":\"0\",\"su_enable_N\":\"0\",\"su_enable_Y\":\"1\",\"su_pri_N\":\"0\",\"su_pri_Y\":\"0\",\"a_enable_N\":\"0\",\"a_enable_Y\":\"3\",\"a_pri_N\":\"0\",\"a_pri_Y\":\"0\",\"m_enable_N\":\"5\",\"m_enable_Y\":\"9\",\"m_pri_N\":\"0\",\"m_pri_Y\":\"0\",\"dashboard_chart\":\"Y\",\"this_period\":{\"show\":\"Y\",\"this_period\":\"2024\\/12\\/30 - 2025\\/01\\/26\",\"remaining_days\":484,\"completed_days\":510},\"lastdate\":\"2026-05-21\",\"logindate\":\"2026-05-24 22:34:53\",\"now_maxcredit\":9999999999,\"lv_maxcredit\":9000000000}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"0.0\",\"profit\":\"0.45\",\"stock\":\"0.1\",\"date\":\"yes\",\"date_end\":\"2026-05-23\",\"date_start\":\"2026-05-23\",\"show_last\":{\"last_date_start\":\"2026-05-22\",\"last_date_end\":\"2026-05-22\",\"show_compare_result\":true,\"compare_result\":0.1,\"class_result\":\"increase\",\"show_compare_stock\":true,\"compare_stock\":0,\"class_stock\":\"increase\",\"show_compare_profit\":true,\"compare_profit\":1.45,\"class_profit\":\"increase\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"possess\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"members\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"winloss\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"turnover\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-22\",\"2025"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"msg\":\"success\",\"code\":\"none\",\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"0\",\"profit\":\"0\",\"stock\":\"0\",\"date\":\"tp\",\"date_end\":\"2025-01-26\",\"date_start\":\"2024-12-30\"}"
+          }
+        ]
+      },
+      "final_url": "http://3.25.180.205:8080/agents",
+      "top_state": {
+        "login_layer": "co",
+        "username": "d111111",
+        "user_id": 12,
+        "layer_id": 12,
+        "pri_type": null,
+        "user_type": 1,
+        "user_enable": "Y",
+        "pay_type": 0,
+        "uid": "..."
+      },
+      "login_json": {
+        "code": "102",
+        "action": "login",
+        "status": "success",
+        "status_code": "4O000",
+        "user_id": 12,
+        "username": "d111111",
+        "uid": "a6a73898c4e67f5ba343ad60e034ef34c1453058f85ccbf276079d4664529bfb",
+        "layer_id": 12,
+        "layer_username": "d111111",
+        "pri_type": null,
+        "user_type": 1,
+        "enable": "Y",
+        "enable_pri": "Y",
+        "pay_type": 0,
+        "login_layer": "co",
+        "retrieve_sw": "Y",
+        "telbot_sw": "Y"
+      },
+      "left_menu": [
+        {
+          "id": "le_dashboard",
+          "missing": true
+        },
+        {
+          "id": "acc_AD",
+          "missing": true
+        },
+        {
+          "id": "acc_D0",
+          "missing": true
+        },
+        {
+          "id": "acc_CO",
+          "missing": true
+        },
+        {
+          "id": "acc_SU",
+          "missing": true
+        },
+        {
+          "id": "acc_AG",
+          "missing": true
+        },
+        {
+          "id": "acc_MEM",
+          "missing": true
+        },
+        {
+          "id": "acc_Sub",
+          "missing": true
+        },
+        {
+          "id": "wagerR",
+          "missing": true
+        },
+        {
+          "id": "oldRS",
+          "missing": true
+        },
+        {
+          "id": "overViewL",
+          "missing": true
+        },
+        {
+          "id": "re_L",
+          "missing": true
+        },
+        {
+          "id": "today_L",
+          "missing": true
+        },
+        {
+          "id": "fu_L",
+          "missing": true
+        },
+        {
+          "id": "started_L",
+          "missing": true
+        },
+        {
+          "id": "parly_L",
+          "missing": true
+        },
+        {
+          "id": "outright_L",
+          "missing": true
+        },
+        {
+          "id": "results_L",
+          "missing": true
+        },
+        {
+          "id": "bet_list",
+          "missing": true
+        },
+        {
+          "id": "bet_edit",
+          "missing": true
+        },
+        {
+          "id": "bet_abnormal",
+          "missing": true
+        },
+        {
+          "id": "bet_live_dangerous",
+          "missing": true
+        },
+        {
+          "id": "bet_search",
+          "missing": true
+        },
+        {
+          "id": "matchList",
+          "missing": true
+        },
+        {
+          "id": "log_AD",
+          "missing": true
+        },
+        {
+          "id": "log_D0",
+          "missing": true
+        },
+        {
+          "id": "log_CO",
+          "missing": true
+        },
+        {
+          "id": "log_SU",
+          "missing": true
+        },
+        {
+          "id": "log_AG",
+          "missing": true
+        },
+        {
+          "id": "log_MEM",
+          "missing": true
+        },
+        {
+          "id": "set_config",
+          "missing": true
+        },
+        {
+          "id": "set_curl",
+          "missing": true
+        },
+        {
+          "id": "set_data_manger",
+          "missing": true
+        }
+      ],
+      "top_menu": [
+        {
+          "id": "mu_hab",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "back",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "mu_announcement",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "mu_profile",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "wmc",
+          "missing": true
+        },
+        {
+          "id": "quick_search",
+          "text": "搜帐号",
+          "visible": true
+        },
+        {
+          "id": "problem_accounts",
+          "text": "问题帐号",
+          "visible": false
+        },
+        {
+          "id": "live_chat",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "new_url",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "page_name",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "user_code",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mySetting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "my_activities",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "pswdRec",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "chgPswd",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "contact",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "troubleshooting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "feature",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "requirements",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "choose_lan",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "logOut",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "on_d0",
+          "missing": true
+        },
+        {
+          "id": "on_co",
+          "missing": true
+        },
+        {
+          "id": "on_su",
+          "missing": true
+        },
+        {
+          "id": "on_ag",
+          "missing": true
+        },
+        {
+          "id": "on_member",
+          "missing": true
+        },
+        {
+          "id": "bm_problem_li",
+          "missing": true
+        },
+        {
+          "id": "bm_announcement_li",
+          "missing": true
+        },
+        {
+          "id": "bm_quick_search",
+          "missing": true
+        },
+        {
+          "id": "bm_live_chat",
+          "missing": true
+        },
+        {
+          "id": "bm_wmc",
+          "missing": true
+        }
+      ]
+    },
+    {
+      "case": {
+        "path": "/agents/",
+        "user": "d222222",
+        "pwd": "Aa12345678",
+        "safe": "Aa123123",
+        "tab": "B",
+        "captcha": false,
+        "label": "su_d222222",
+        "expect_layer": "su"
+      },
+      "logs": [
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "errors": [],
+      "login_form": {
+        "username": {
+          "text": "",
+          "placeholder": "登入帐号",
+          "visible": true
+        },
+        "pwd": {
+          "text": "",
+          "placeholder": "密码",
+          "visible": true
+        },
+        "pwd_safe": {
+          "text": "",
+          "placeholder": "安全代码",
+          "visible": true
+        },
+        "remember": {
+          "text": "on",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_A": {
+          "text": "登入 1",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_B": {
+          "text": "登入 2",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_C": {
+          "text": "登入 3",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginBtn": {
+          "text": "登入",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginoldBtn": {
+          "text": "返回旧网站",
+          "placeholder": "",
+          "visible": false
+        },
+        "lang_btn": {
+          "text": "简体",
+          "placeholder": "",
+          "visible": true
+        },
+        "_tab_count": 3,
+        "_tab_labels": [
+          "登入 1",
+          "登入 2",
+          "登入 3"
+        ]
+      },
+      "login_resp": {
+        "calls": [
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"code\":\"102\",\"action\":\"login\",\"status\":\"success\",\"status_code\":\"4O000\",\"user_id\":13,\"username\":\"d222222\",\"uid\":\"d48d62c2bd73787cdfeea43b73cdc6cbd024f5966053ee9fcea2cba0e5228e68\",\"layer_id\":13,\"layer_username\":\"d222222\",\"pri_type\":null,\"user_type\":1,\"enable\":\"Y\",\"enable_pri\":\"Y\",\"pay_type\":0,\"login_layer\":\"su\",\"retrieve_sw\":\"Y\",\"telbot_sw\":\"Y\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n    <script>function left_menu(_win, _dom){\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n\n    var le_smallG;\n    var accountM;\n    var t_SU;\n    var t_AG;\n    var t_MEM;\n    var t_Sub;\n    var reportS;\n    var t_report;\n    // var oldRS;\n    var t_analysis;\n    var overView;\n    var t_wmc;\n    var layer;\n    var downlayer;\n    var menu_analysis;\n    var account_class;\n\n    _self.init=function(){\n        util.echo(\"left load complete\");\n\n        layer = top.login_layer;\n        if(layer == \"co\"){\n            downlayer = \"su\";\n        }else{\n            if(layer == \"su\"){\n                downlayer = \"ag\";\n                account_class = \"agent\";\n            }else if(layer == \"ag\"){\n                downlayer = \"mem\";\n                account_class = \"member\";\n            }\n            dom.getElementById(\"menu_account\").classList.add(account_class);\n        }\n\n        le_smallG = dom.getElementById(\"le_smallG\");\n        util.addEvent(dom.getElementById(\"menu_home\"), \"click\", _self.expendMenu, {\"target\":\"home\",\"page\":\"dashboard_main\",\"id\":\"home\"});\n        util.addEvent(dom.getElementById(\"menu_account\"), \"click\", _self.expendMenu, {\"target\":\"account\",\"page\": \"acc_\"+downlayer+\"_list\",\"id\":downlayer.toUpperCase()});\n        util.addEvent(dom.getElementById(\"menu_report\"), \"click\", _self.expendMenu, {\"target\":\"report"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\n<html>\n<head>\n    <script>function footer(_win, _dom){\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n    var choose_lanF;\n    var new_urlF;\n    var featureF;\n    var requirementsF;\n    var live_chatF;\n    var lang_listF;\n    var lang_selectF;\n    var PC_check;\n    var check = true;\n\n    _self.init = function() {\n        choose_lanF = dom.getElementById(\"choose_lanF\");\n        new_urlF = dom.getElementById(\"new_urlF\");\n        featureF = dom.getElementById(\"featureF\");\n        requirementsF = dom.getElementById(\"requirementsF\");\n        live_chatF = dom.getElementById(\"live_chatF\");\n        lang_listF = dom.getElementById(\"lang_listF\");\n        lang_selectF = dom.getElementById(\"lang_selectF\");\n\n        util.addEvent(choose_lanF, \"click\", _self.choose_lan);\n        util.addEvent(new_urlF, \"click\", _self.changePage, { \"page\": \"new_url\" });\n        util.addEvent(featureF, \"click\", _self.changePage, { \"page\": \"feature\" });\n        util.addEvent(requirementsF, \"click\", _self.changePage, { \"page\": \"requirements\" });\n        util.addEvent(live_chatF, \"click\", _self.liveChatOpen);\n        util.addEvent(choose_lanF, \"blur\", _self.onBlurEventHandler);\n        PC_check = _self.isPC();\n        if(PC_check){\n            _self.showLS(top.ls);\n        }else{\n            _self.showLS_Ph();\n        }\n    }\n\n    _self.setParentclass = function(_parentclass){\n        parentClass = _parentclass;\n        util = parentC"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_announcement(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_announcement\";\r\n    var util;\r\n    var _mc = new Object();\r\n    var keepScrollTop = \"\";\r\n    var overScrollTop = \"\";\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        util.echo(classname+\" load complete\");\r\n        _mc[\"close_btn\"] = dom.getElementById(\"close_btn\");\r\n        _mc[\"ok_btn\"] = dom.getElementById(\"anno_ok_btn\");\r\n        _mc[\"anno_div\"] = dom.getElementById(\"anno_div\");\r\n        _mc[\"ul_show\"] = dom.getElementById(\"ul_show\");\r\n        _mc[\"anno_title\"] = dom.getElementById(\"anno_title\");\r\n        keepScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        overScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        util.addEvent(_mc[\"close_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"ok_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"anno_div\"], \"scroll\", _self.scrollEvent, _mc[\"anno_title\"]);\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(v"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <script>function top_menu(_win, _dom) {\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n    var eventHandler = new Object();\n    var Cookie;\n    var CookieKey;\n    var CookieImp;\n    var CookieGen;\n\n    var mu_hab;\n    var mu_isOpen = false;\n    var back;\n    var user_code;\n    var mu_profile;\n    var mu_profile_in;\n    var keepStyle = {};\n    var rightPanel;\n    var RP_isShow = false;\n    var onlineMem;\n    var memCount;\n    var mySetting;\n    var logOut;\n    var pswdRec;\n    var chgPswd;\n    var contact;\n    var troubleshooting;\n    var new_url;\n    var feature;\n    var requirements;\n    var live_chat;\n    var my_activities;\n    var quick_search;\n    var announcement;\n    var problem_accounts;\n    var choose_lan;\n    var co_layer = {\"su\":3,\"ag\":2,\"mem\":1};\n    var su_layer = {\"ag\":2,\"mem\":1};\n    var ag_layer = {\"mem\":1};\n    var new_downline;\n    var top_layer;\n    var downlayer;\n    var user_mlimit = -1;\n    var magager_count = -1;\n    var lang_list;\n    var PC_check;\n    var check = true;\n    var lang_select;\n    var mu_chat;\n    var mu_ann;\n    var mu_profile_icon;\n\n    _self.init = function () {\n        util.echo(\"top load complete\");\n        mu_hab = dom.getElementById(\"mu_hab\");\n        top.mu_isOpen = \"close\";\n        back = dom.getElementById(\"back\");\n\n        //==== Right Panel ====\n        mu_profile = dom.getElementById(\"mu_profile\");\n        mu_profile_in = dom.get"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_msg(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_msg\";\r\n    var util;\r\n    var divBox = new Array(\"alert_ok\", \"alert_confirm\", \"status_pop\", \"possess_pop\", \"safe_pop\", \"loginid_pop\", \"AllAccount_pop\", \"account_type_pop\", \"credit_exceeded_pop\");\r\n    var _mc;\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        //util.echo(classname+\" load complete\");\r\n        obj_ids =  \",alert_ok,msg_ok,ok_btn,\";\r\n        obj_ids += \"alert_confirm,msg_confirm,no_btn,yes_btn,\";\r\n        obj_ids += \"status_pop,possess_pop,safe_pop,loginid_pop,AllAccount_pop,\";\r\n        obj_ids += \"account_type_pop,credit_exceeded_pop,\";\r\n        _mc = util.getObjAry(dom.getElementById(\"alert_show\"), obj_ids);\r\n\r\n        for (key in _mc){\r\n            if (key.search(\"_pop\") != -1){\r\n                var _mArr = util.getObjAry(_mc[key], \",pop_close,\");\r\n                util.addEvent(_mArr[\"pop_close\"], \"click\", _self.clickEvent, {});\r\n            }\r\n        }\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(vari"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function HttpRequest(){\r\n\t\tvar self=this;\r\n\t\tvar req;\r\n\t\tvar eventHandler=new Array();\r\n\t\tvar parentClass;\r\n\t\t\r\n\t\tself.init=function(){\r\n\t\t\t\tself.addEventListener(\"LoadComplete\",self.cmd_proc);\r\n\t\t\t\t//self.removeEventListener(\"LoadComplete\");\r\n\t\t\t\t//alert(\"onload\");\r\n\t\t\t\t}\r\n\t\tself.help=function(){\r\n\t\t\t\tvar str=\"\";\r\n\t\t\t\tstr+=\"EventName:LoadComplete Method:function(html)\\n\";\r\n\t\t\t\tstr+=\"Method:loadURL(url,post/get,pamam)\\n\";\r\n\t\t\t\treturn str;\r\n\t\t}\r\n\t\t\r\n\t\tself.setParentclass=function(parentclass){\r\n\t\t\t\tparentClass=parentclass;\r\n\t\t\t\t//util=parentClass.util;\r\n\t\t}\r\n\t\t\r\n\t\tself.getThis=function(varible){\r\n\t\t\t\treturn eval(varible);\r\n\t\t}\r\n\t\r\n\t\tself.test=function(){\r\n\t\t\t\talert(\"test\");\t\r\n\t\t}\r\n\r\n\t\t\r\n\t\tself.loadURL=function(url,method,params) {\r\n\t\t\t\treq = false;\r\n\t\t    // branch for native XMLHttpRequest object\r\n\t\t   \r\n\t\t    if(window.XMLHttpRequest && !(window.ActiveXObject)) {\r\n\t\t\t    \ttry{\r\n\t\t\t\t\t\t\t\treq = new XMLHttpRequest();\r\n\t\t\t      }catch(e){\r\n\t\t\t\t\t\t\t\treq = false;\r\n\t\t\t      }\r\n\t\t\t    // branch for IE/Windows ActiveX version\r\n\t\t    }else if(window.ActiveXObject){\r\n\t\t       \ttry{\r\n\t\t        \t\treq = new ActiveXObject(\"Msxml2.XMLHTTP\");\r\n\t\t      \t}catch(e){\r\n\t\t\t        \ttry{\r\n\t\t\t          \t\treq = new ActiveXObject(\"Micros"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"winloss\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"amount_ag\":0,\"amount_mem\":\"0\",\"a_enable_N\":\"0\",\"a_enable_Y\":\"3\",\"a_pri_N\":\"0\",\"a_pri_Y\":\"0\",\"m_enable_N\":\"5\",\"m_enable_Y\":\"9\",\"m_pri_N\":\"0\",\"m_pri_Y\":\"0\",\"dashboard_chart\":\"Y\",\"this_period\":{\"show\":\"Y\",\"this_period\":\"2024\\/12\\/30 - 2025\\/01\\/26\",\"remaining_days\":484,\"completed_days\":510},\"lastdate\":\"2026-05-21\",\"logindate\":\"2026-05-24 22:35:07\",\"now_maxcredit\":999999999,\"lv_maxcredit\":979666667}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"possess\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"0.3\",\"profit\":\"0.45\",\"stock\":\"0.7\",\"date\":\"yes\",\"date_end\":\"2026-05-23\",\"date_start\":\"2026-05-23\",\"show_last\":{\"last_date_start\":\"2026-05-22\",\"last_date_end\":\"2026-05-22\",\"show_compare_result\":true,\"compare_result\":1,\"class_result\":\"increase\",\"show_compare_stock\":true,\"compare_stock\":0,\"class_stock\":\"increase\",\"show_compare_profit\":true,\"compare_profit\":1.45,\"class_profit\":\"increase\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"members\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"turnover\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-22\",\"2025"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"msg\":\"success\",\"code\":\"none\",\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"0\",\"profit\":\"0\",\"stock\":\"0\",\"date\":\"tp\",\"date_end\":\"2025-01-26\",\"date_start\":\"2024-12-30\"}"
+          }
+        ]
+      },
+      "final_url": "http://3.25.180.205:8080/agents",
+      "top_state": {
+        "login_layer": "su",
+        "username": "d222222",
+        "user_id": 13,
+        "layer_id": 13,
+        "pri_type": null,
+        "user_type": 1,
+        "user_enable": "Y",
+        "pay_type": 0,
+        "uid": "..."
+      },
+      "login_json": {
+        "code": "102",
+        "action": "login",
+        "status": "success",
+        "status_code": "4O000",
+        "user_id": 13,
+        "username": "d222222",
+        "uid": "d48d62c2bd73787cdfeea43b73cdc6cbd024f5966053ee9fcea2cba0e5228e68",
+        "layer_id": 13,
+        "layer_username": "d222222",
+        "pri_type": null,
+        "user_type": 1,
+        "enable": "Y",
+        "enable_pri": "Y",
+        "pay_type": 0,
+        "login_layer": "su",
+        "retrieve_sw": "Y",
+        "telbot_sw": "Y"
+      },
+      "left_menu": [
+        {
+          "id": "le_dashboard",
+          "missing": true
+        },
+        {
+          "id": "acc_AD",
+          "missing": true
+        },
+        {
+          "id": "acc_D0",
+          "missing": true
+        },
+        {
+          "id": "acc_CO",
+          "missing": true
+        },
+        {
+          "id": "acc_SU",
+          "missing": true
+        },
+        {
+          "id": "acc_AG",
+          "missing": true
+        },
+        {
+          "id": "acc_MEM",
+          "missing": true
+        },
+        {
+          "id": "acc_Sub",
+          "missing": true
+        },
+        {
+          "id": "wagerR",
+          "missing": true
+        },
+        {
+          "id": "oldRS",
+          "missing": true
+        },
+        {
+          "id": "overViewL",
+          "missing": true
+        },
+        {
+          "id": "re_L",
+          "missing": true
+        },
+        {
+          "id": "today_L",
+          "missing": true
+        },
+        {
+          "id": "fu_L",
+          "missing": true
+        },
+        {
+          "id": "started_L",
+          "missing": true
+        },
+        {
+          "id": "parly_L",
+          "missing": true
+        },
+        {
+          "id": "outright_L",
+          "missing": true
+        },
+        {
+          "id": "results_L",
+          "missing": true
+        },
+        {
+          "id": "bet_list",
+          "missing": true
+        },
+        {
+          "id": "bet_edit",
+          "missing": true
+        },
+        {
+          "id": "bet_abnormal",
+          "missing": true
+        },
+        {
+          "id": "bet_live_dangerous",
+          "missing": true
+        },
+        {
+          "id": "bet_search",
+          "missing": true
+        },
+        {
+          "id": "matchList",
+          "missing": true
+        },
+        {
+          "id": "log_AD",
+          "missing": true
+        },
+        {
+          "id": "log_D0",
+          "missing": true
+        },
+        {
+          "id": "log_CO",
+          "missing": true
+        },
+        {
+          "id": "log_SU",
+          "missing": true
+        },
+        {
+          "id": "log_AG",
+          "missing": true
+        },
+        {
+          "id": "log_MEM",
+          "missing": true
+        },
+        {
+          "id": "set_config",
+          "missing": true
+        },
+        {
+          "id": "set_curl",
+          "missing": true
+        },
+        {
+          "id": "set_data_manger",
+          "missing": true
+        }
+      ],
+      "top_menu": [
+        {
+          "id": "mu_hab",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "back",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "mu_announcement",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mu_profile",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "wmc",
+          "missing": true
+        },
+        {
+          "id": "quick_search",
+          "text": "搜帐号",
+          "visible": true
+        },
+        {
+          "id": "problem_accounts",
+          "text": "问题帐号",
+          "visible": false
+        },
+        {
+          "id": "live_chat",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "new_url",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "page_name",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "user_code",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mySetting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "my_activities",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "pswdRec",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "chgPswd",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "contact",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "troubleshooting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "feature",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "requirements",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "choose_lan",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "logOut",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "on_d0",
+          "missing": true
+        },
+        {
+          "id": "on_co",
+          "missing": true
+        },
+        {
+          "id": "on_su",
+          "missing": true
+        },
+        {
+          "id": "on_ag",
+          "missing": true
+        },
+        {
+          "id": "on_member",
+          "missing": true
+        },
+        {
+          "id": "bm_problem_li",
+          "missing": true
+        },
+        {
+          "id": "bm_announcement_li",
+          "missing": true
+        },
+        {
+          "id": "bm_quick_search",
+          "missing": true
+        },
+        {
+          "id": "bm_live_chat",
+          "missing": true
+        },
+        {
+          "id": "bm_wmc",
+          "missing": true
+        }
+      ]
+    },
+    {
+      "case": {
+        "path": "/agents/",
+        "user": "sealin11",
+        "pwd": "Sealin1226",
+        "safe": "",
+        "tab": "C",
+        "captcha": false,
+        "label": "ag_sealin11",
+        "expect_layer": "ag"
+      },
+      "logs": [
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 503 (Service Unavailable)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "[error] Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "errors": [],
+      "login_form": {
+        "username": {
+          "text": "",
+          "placeholder": "登入帐号",
+          "visible": true
+        },
+        "pwd": {
+          "text": "",
+          "placeholder": "密码",
+          "visible": true
+        },
+        "pwd_safe": {
+          "text": "",
+          "placeholder": "安全代码",
+          "visible": true
+        },
+        "remember": {
+          "text": "on",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_A": {
+          "text": "登入 1",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_B": {
+          "text": "登入 2",
+          "placeholder": "",
+          "visible": true
+        },
+        "btn_C": {
+          "text": "登入 3",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginBtn": {
+          "text": "登入",
+          "placeholder": "",
+          "visible": true
+        },
+        "loginoldBtn": {
+          "text": "返回旧网站",
+          "placeholder": "",
+          "visible": false
+        },
+        "lang_btn": {
+          "text": "简体",
+          "placeholder": "",
+          "visible": true
+        },
+        "_tab_count": 3,
+        "_tab_labels": [
+          "登入 1",
+          "登入 2",
+          "登入 3"
+        ]
+      },
+      "login_resp": {
+        "calls": [
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"code\":\"102\",\"action\":\"login\",\"status\":\"success\",\"status_code\":\"4O000\",\"user_id\":35,\"username\":\"aa1aa10088\",\"uid\":\"5fd966169a58801137865b223e52b098113696665eebda684c1b0e7fec1f319e\",\"layer_id\":35,\"layer_username\":\"aa1aa10088\",\"pri_type\":null,\"user_type\":1,\"enable\":\"Y\",\"enable_pri\":\"Y\",\"pay_type\":1,\"login_layer\":\"ag\",\"retrieve_sw\":\"Y\",\"telbot_sw\":\"Y\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_msg(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_msg\";\r\n    var util;\r\n    var divBox = new Array(\"alert_ok\", \"alert_confirm\", \"status_pop\", \"possess_pop\", \"safe_pop\", \"loginid_pop\", \"AllAccount_pop\", \"account_type_pop\", \"credit_exceeded_pop\");\r\n    var _mc;\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        //util.echo(classname+\" load complete\");\r\n        obj_ids =  \",alert_ok,msg_ok,ok_btn,\";\r\n        obj_ids += \"alert_confirm,msg_confirm,no_btn,yes_btn,\";\r\n        obj_ids += \"status_pop,possess_pop,safe_pop,loginid_pop,AllAccount_pop,\";\r\n        obj_ids += \"account_type_pop,credit_exceeded_pop,\";\r\n        _mc = util.getObjAry(dom.getElementById(\"alert_show\"), obj_ids);\r\n\r\n        for (key in _mc){\r\n            if (key.search(\"_pop\") != -1){\r\n                var _mArr = util.getObjAry(_mc[key], \",pop_close,\");\r\n                util.addEvent(_mArr[\"pop_close\"], \"click\", _self.clickEvent, {});\r\n            }\r\n        }\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(vari"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n    <script>function left_menu(_win, _dom){\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n\n    var le_smallG;\n    var accountM;\n    var t_SU;\n    var t_AG;\n    var t_MEM;\n    var t_Sub;\n    var reportS;\n    var t_report;\n    // var oldRS;\n    var t_analysis;\n    var overView;\n    var t_wmc;\n    var layer;\n    var downlayer;\n    var menu_analysis;\n    var account_class;\n\n    _self.init=function(){\n        util.echo(\"left load complete\");\n\n        layer = top.login_layer;\n        if(layer == \"co\"){\n            downlayer = \"su\";\n        }else{\n            if(layer == \"su\"){\n                downlayer = \"ag\";\n                account_class = \"agent\";\n            }else if(layer == \"ag\"){\n                downlayer = \"mem\";\n                account_class = \"member\";\n            }\n            dom.getElementById(\"menu_account\").classList.add(account_class);\n        }\n\n        le_smallG = dom.getElementById(\"le_smallG\");\n        util.addEvent(dom.getElementById(\"menu_home\"), \"click\", _self.expendMenu, {\"target\":\"home\",\"page\":\"dashboard_main\",\"id\":\"home\"});\n        util.addEvent(dom.getElementById(\"menu_account\"), \"click\", _self.expendMenu, {\"target\":\"account\",\"page\": \"acc_\"+downlayer+\"_list\",\"id\":downlayer.toUpperCase()});\n        util.addEvent(dom.getElementById(\"menu_report\"), \"click\", _self.expendMenu, {\"target\":\"report"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\n<html>\n<head>\n    <script>function footer(_win, _dom){\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n    var choose_lanF;\n    var new_urlF;\n    var featureF;\n    var requirementsF;\n    var live_chatF;\n    var lang_listF;\n    var lang_selectF;\n    var PC_check;\n    var check = true;\n\n    _self.init = function() {\n        choose_lanF = dom.getElementById(\"choose_lanF\");\n        new_urlF = dom.getElementById(\"new_urlF\");\n        featureF = dom.getElementById(\"featureF\");\n        requirementsF = dom.getElementById(\"requirementsF\");\n        live_chatF = dom.getElementById(\"live_chatF\");\n        lang_listF = dom.getElementById(\"lang_listF\");\n        lang_selectF = dom.getElementById(\"lang_selectF\");\n\n        util.addEvent(choose_lanF, \"click\", _self.choose_lan);\n        util.addEvent(new_urlF, \"click\", _self.changePage, { \"page\": \"new_url\" });\n        util.addEvent(featureF, \"click\", _self.changePage, { \"page\": \"feature\" });\n        util.addEvent(requirementsF, \"click\", _self.changePage, { \"page\": \"requirements\" });\n        util.addEvent(live_chatF, \"click\", _self.liveChatOpen);\n        util.addEvent(choose_lanF, \"blur\", _self.onBlurEventHandler);\n        PC_check = _self.isPC();\n        if(PC_check){\n            _self.showLS(top.ls);\n        }else{\n            _self.showLS_Ph();\n        }\n    }\n\n    _self.setParentclass = function(_parentclass){\n        parentClass = _parentclass;\n        util = parentC"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <script>function top_menu(_win, _dom) {\n    var _self = this;\n    var win = _win;\n    var dom = _dom;\n    var parentClass;\n    var util;\n    var LS;\n    var eventHandler = new Object();\n    var Cookie;\n    var CookieKey;\n    var CookieImp;\n    var CookieGen;\n\n    var mu_hab;\n    var mu_isOpen = false;\n    var back;\n    var user_code;\n    var mu_profile;\n    var mu_profile_in;\n    var keepStyle = {};\n    var rightPanel;\n    var RP_isShow = false;\n    var onlineMem;\n    var memCount;\n    var mySetting;\n    var logOut;\n    var pswdRec;\n    var chgPswd;\n    var contact;\n    var troubleshooting;\n    var new_url;\n    var feature;\n    var requirements;\n    var live_chat;\n    var my_activities;\n    var quick_search;\n    var announcement;\n    var problem_accounts;\n    var choose_lan;\n    var co_layer = {\"su\":3,\"ag\":2,\"mem\":1};\n    var su_layer = {\"ag\":2,\"mem\":1};\n    var ag_layer = {\"mem\":1};\n    var new_downline;\n    var top_layer;\n    var downlayer;\n    var user_mlimit = -1;\n    var magager_count = -1;\n    var lang_list;\n    var PC_check;\n    var check = true;\n    var lang_select;\n    var mu_chat;\n    var mu_ann;\n    var mu_profile_icon;\n\n    _self.init = function () {\n        util.echo(\"top load complete\");\n        mu_hab = dom.getElementById(\"mu_hab\");\n        top.mu_isOpen = \"close\";\n        back = dom.getElementById(\"back\");\n\n        //==== Right Panel ====\n        mu_profile = dom.getElementById(\"mu_profile\");\n        mu_profile_in = dom.get"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function alert_announcement(_win, _dom){\r\n    var _self = this;\r\n    var win = _win;\r\n    var dom = _dom;\r\n    var parentClass;\r\n    var classname = \"alert_announcement\";\r\n    var util;\r\n    var _mc = new Object();\r\n    var keepScrollTop = \"\";\r\n    var overScrollTop = \"\";\r\n    var keepStyle = {};\r\n\r\n    _self.init=function(){\r\n        util.echo(classname+\" load complete\");\r\n        _mc[\"close_btn\"] = dom.getElementById(\"close_btn\");\r\n        _mc[\"ok_btn\"] = dom.getElementById(\"anno_ok_btn\");\r\n        _mc[\"anno_div\"] = dom.getElementById(\"anno_div\");\r\n        _mc[\"ul_show\"] = dom.getElementById(\"ul_show\");\r\n        _mc[\"anno_title\"] = dom.getElementById(\"anno_title\");\r\n        keepScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        overScrollTop = _mc[\"anno_title\"].offsetHeight;\r\n        util.addEvent(_mc[\"close_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"ok_btn\"], \"click\", _self.clickEvent, {\"type\":\"close\"});\r\n        util.addEvent(_mc[\"anno_div\"], \"scroll\", _self.scrollEvent, _mc[\"anno_title\"]);\r\n    }\r\n\r\n    _self.setParentclass=function(_parentclass){\r\n        parentClass = _parentclass;\r\n        util = parentClass.getThis(\"util\");\r\n    }\r\n\r\n    _self.getThis=function(v"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "<!DOCTYPE html>\r\n<html>\r\n<head>\r\n    <meta http-equiv=\"Content-type\" content=\"text/html; charset=UTF-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">\r\n    <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edge\">\r\n    <script>function HttpRequest(){\r\n\t\tvar self=this;\r\n\t\tvar req;\r\n\t\tvar eventHandler=new Array();\r\n\t\tvar parentClass;\r\n\t\t\r\n\t\tself.init=function(){\r\n\t\t\t\tself.addEventListener(\"LoadComplete\",self.cmd_proc);\r\n\t\t\t\t//self.removeEventListener(\"LoadComplete\");\r\n\t\t\t\t//alert(\"onload\");\r\n\t\t\t\t}\r\n\t\tself.help=function(){\r\n\t\t\t\tvar str=\"\";\r\n\t\t\t\tstr+=\"EventName:LoadComplete Method:function(html)\\n\";\r\n\t\t\t\tstr+=\"Method:loadURL(url,post/get,pamam)\\n\";\r\n\t\t\t\treturn str;\r\n\t\t}\r\n\t\t\r\n\t\tself.setParentclass=function(parentclass){\r\n\t\t\t\tparentClass=parentclass;\r\n\t\t\t\t//util=parentClass.util;\r\n\t\t}\r\n\t\t\r\n\t\tself.getThis=function(varible){\r\n\t\t\t\treturn eval(varible);\r\n\t\t}\r\n\t\r\n\t\tself.test=function(){\r\n\t\t\t\talert(\"test\");\t\r\n\t\t}\r\n\r\n\t\t\r\n\t\tself.loadURL=function(url,method,params) {\r\n\t\t\t\treq = false;\r\n\t\t    // branch for native XMLHttpRequest object\r\n\t\t   \r\n\t\t    if(window.XMLHttpRequest && !(window.ActiveXObject)) {\r\n\t\t\t    \ttry{\r\n\t\t\t\t\t\t\t\treq = new XMLHttpRequest();\r\n\t\t\t      }catch(e){\r\n\t\t\t\t\t\t\t\treq = false;\r\n\t\t\t      }\r\n\t\t\t    // branch for IE/Windows ActiveX version\r\n\t\t    }else if(window.ActiveXObject){\r\n\t\t       \ttry{\r\n\t\t        \t\treq = new ActiveXObject(\"Msxml2.XMLHTTP\");\r\n\t\t      \t}catch(e){\r\n\t\t\t        \ttry{\r\n\t\t\t          \t\treq = new ActiveXObject(\"Micros"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"0\",\"profit\":\"0\",\"stock\":\"0\",\"date\":\"yes\",\"date_end\":\"2026-05-23\",\"date_start\":\"2026-05-23\",\"show_last\":{\"last_date_start\":\"2026-05-22\",\"last_date_end\":\"2026-05-22\",\"show_compare_result\":true,\"compare_result\":0,\"class_result\":\"increase\",\"show_compare_stock\":true,\"compare_stock\":0,\"class_stock\":\"increase\",\"show_compare_profit\":true,\"compare_profit\":0,\"class_profit\":\"increase\"}}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"amount_mem\":\"0\",\"m_enable_N\":\"0\",\"m_enable_Y\":\"1\",\"m_pri_N\":\"0\",\"m_pri_Y\":\"0\",\"dashboard_chart\":\"Y\",\"this_period\":{\"show\":\"Y\",\"this_period\":\"2024\\/12\\/30 - 2025\\/01\\/26\",\"remaining_days\":484,\"completed_days\":510},\"lastdate\":\"2026-05-23\",\"logindate\":\"2026-05-24 22:35:21\",\"now_maxcredit\":500000,\"lv_maxcredit\":0}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"possess\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"turnover\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-22\",\"2025"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"members\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"data\":{\"code\":\"winloss\",\"date\":[\"12\\u670830\\u65e5 (\\u661f\\u671f\\u4e00)\",\"12\\u670831\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670801\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670802\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670803\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670804\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670805\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670806\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670807\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670808\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670809\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670810\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670811\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670812\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670813\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670814\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670815\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670816\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670817\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670818\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670819\\u65e5 (\\u661f\\u671f\\u65e5)\",\"01\\u670820\\u65e5 (\\u661f\\u671f\\u4e00)\",\"01\\u670821\\u65e5 (\\u661f\\u671f\\u4e8c)\",\"01\\u670822\\u65e5 (\\u661f\\u671f\\u4e09)\",\"01\\u670823\\u65e5 (\\u661f\\u671f\\u56db)\",\"01\\u670824\\u65e5 (\\u661f\\u671f\\u4e94)\",\"01\\u670825\\u65e5 (\\u661f\\u671f\\u516d)\",\"01\\u670826\\u65e5 (\\u661f\\u671f\\u65e5)\"],\"org_date\":[\"2024-12-30 00:00:00\",\"2024-12-31\",\"2025-01-01\",\"2025-01-02\",\"2025-01-03\",\"2025-01-04\",\"2025-01-05\",\"2025-01-06\",\"2025-01-07\",\"2025-01-08\",\"2025-01-09\",\"2025-01-10\",\"2025-01-11\",\"2025-01-12\",\"2025-01-13\",\"2025-01-14\",\"2025-01-15\",\"2025-01-16\",\"2025-01-17\",\"2025-01-18\",\"2025-01-19\",\"2025-01-20\",\"2025-01-21\",\"2025-01-2"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"msg\":\"success\",\"code\":\"none\",\"count\":\"0|36\"}"
+          },
+          {
+            "url": "http://3.25.180.205:8080/agents/transform.php",
+            "status": 200,
+            "body": "{\"status\":\"200\",\"result\":\"0\",\"profit\":\"0\",\"stock\":\"0\",\"date\":\"tp\",\"date_end\":\"2025-01-26\",\"date_start\":\"2024-12-30\"}"
+          }
+        ]
+      },
+      "final_url": "http://3.25.180.205:8080/agents",
+      "top_state": {
+        "login_layer": "ag",
+        "username": "aa1aa10088",
+        "user_id": 35,
+        "layer_id": 35,
+        "pri_type": null,
+        "user_type": 1,
+        "user_enable": "Y",
+        "pay_type": 1,
+        "uid": "..."
+      },
+      "login_json": {
+        "code": "102",
+        "action": "login",
+        "status": "success",
+        "status_code": "4O000",
+        "user_id": 35,
+        "username": "aa1aa10088",
+        "uid": "5fd966169a58801137865b223e52b098113696665eebda684c1b0e7fec1f319e",
+        "layer_id": 35,
+        "layer_username": "aa1aa10088",
+        "pri_type": null,
+        "user_type": 1,
+        "enable": "Y",
+        "enable_pri": "Y",
+        "pay_type": 1,
+        "login_layer": "ag",
+        "retrieve_sw": "Y",
+        "telbot_sw": "Y"
+      },
+      "left_menu": [
+        {
+          "id": "le_dashboard",
+          "missing": true
+        },
+        {
+          "id": "acc_AD",
+          "missing": true
+        },
+        {
+          "id": "acc_D0",
+          "missing": true
+        },
+        {
+          "id": "acc_CO",
+          "missing": true
+        },
+        {
+          "id": "acc_SU",
+          "missing": true
+        },
+        {
+          "id": "acc_AG",
+          "missing": true
+        },
+        {
+          "id": "acc_MEM",
+          "missing": true
+        },
+        {
+          "id": "acc_Sub",
+          "missing": true
+        },
+        {
+          "id": "wagerR",
+          "missing": true
+        },
+        {
+          "id": "oldRS",
+          "missing": true
+        },
+        {
+          "id": "overViewL",
+          "missing": true
+        },
+        {
+          "id": "re_L",
+          "missing": true
+        },
+        {
+          "id": "today_L",
+          "missing": true
+        },
+        {
+          "id": "fu_L",
+          "missing": true
+        },
+        {
+          "id": "started_L",
+          "missing": true
+        },
+        {
+          "id": "parly_L",
+          "missing": true
+        },
+        {
+          "id": "outright_L",
+          "missing": true
+        },
+        {
+          "id": "results_L",
+          "missing": true
+        },
+        {
+          "id": "bet_list",
+          "missing": true
+        },
+        {
+          "id": "bet_edit",
+          "missing": true
+        },
+        {
+          "id": "bet_abnormal",
+          "missing": true
+        },
+        {
+          "id": "bet_live_dangerous",
+          "missing": true
+        },
+        {
+          "id": "bet_search",
+          "missing": true
+        },
+        {
+          "id": "matchList",
+          "missing": true
+        },
+        {
+          "id": "log_AD",
+          "missing": true
+        },
+        {
+          "id": "log_D0",
+          "missing": true
+        },
+        {
+          "id": "log_CO",
+          "missing": true
+        },
+        {
+          "id": "log_SU",
+          "missing": true
+        },
+        {
+          "id": "log_AG",
+          "missing": true
+        },
+        {
+          "id": "log_MEM",
+          "missing": true
+        },
+        {
+          "id": "set_config",
+          "missing": true
+        },
+        {
+          "id": "set_curl",
+          "missing": true
+        },
+        {
+          "id": "set_data_manger",
+          "missing": true
+        }
+      ],
+      "top_menu": [
+        {
+          "id": "mu_hab",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "back",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "mu_announcement",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mu_profile",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "wmc",
+          "missing": true
+        },
+        {
+          "id": "quick_search",
+          "text": "搜帐号",
+          "visible": true
+        },
+        {
+          "id": "problem_accounts",
+          "text": "问题帐号",
+          "visible": false
+        },
+        {
+          "id": "live_chat",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "new_url",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "page_name",
+          "text": "",
+          "visible": false
+        },
+        {
+          "id": "user_code",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "mySetting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "my_activities",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "pswdRec",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "chgPswd",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "contact",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "troubleshooting",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "feature",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "requirements",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "choose_lan",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "logOut",
+          "text": "",
+          "visible": true
+        },
+        {
+          "id": "on_d0",
+          "missing": true
+        },
+        {
+          "id": "on_co",
+          "missing": true
+        },
+        {
+          "id": "on_su",
+          "missing": true
+        },
+        {
+          "id": "on_ag",
+          "missing": true
+        },
+        {
+          "id": "on_member",
+          "missing": true
+        },
+        {
+          "id": "bm_problem_li",
+          "missing": true
+        },
+        {
+          "id": "bm_announcement_li",
+          "missing": true
+        },
+        {
+          "id": "bm_quick_search",
+          "missing": true
+        },
+        {
+          "id": "bm_live_chat",
+          "missing": true
+        },
+        {
+          "id": "bm_wmc",
+          "missing": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "ads_abu777": {
+      "login_layer": "ads",
+      "user_type": 1,
+      "pri_type": null,
+      "left_visible": [
+        "bet_abnormal",
+        "bet_edit",
+        "bet_list",
+        "bet_live_dangerous"
+      ],
+      "top_visible": [
+        "bm_announcement_li",
+        "bm_live_chat",
+        "bm_quick_search",
+        "bm_wmc",
+        "chgPswd",
+        "contact",
+        "feature",
+        "live_chat",
+        "logOut",
+        "mu_announcement",
+        "mu_hab",
+        "mu_profile",
+        "my_activities",
+        "new_url",
+        "page_name",
+        "pswdRec",
+        "quick_search",
+        "requirements",
+        "troubleshooting",
+        "user_code",
+        "wmc"
+      ]
+    },
+    "ad_admin1": {
+      "login_layer": "ad",
+      "user_type": 1,
+      "pri_type": null,
+      "left_visible": [
+        "bet_abnormal",
+        "bet_edit",
+        "bet_list",
+        "bet_live_dangerous"
+      ],
+      "top_visible": [
+        "bm_announcement_li",
+        "bm_live_chat",
+        "bm_quick_search",
+        "bm_wmc",
+        "chgPswd",
+        "contact",
+        "feature",
+        "live_chat",
+        "logOut",
+        "mu_announcement",
+        "mu_hab",
+        "mu_profile",
+        "my_activities",
+        "new_url",
+        "page_name",
+        "pswdRec",
+        "quick_search",
+        "requirements",
+        "troubleshooting",
+        "user_code",
+        "wmc"
+      ]
+    },
+    "ads_sub_Aa100000": {
+      "login_layer": null,
+      "user_type": null,
+      "pri_type": null,
+      "left_visible": [],
+      "top_visible": []
+    },
+    "d0_d010101": {
+      "login_layer": "d0",
+      "user_type": 1,
+      "pri_type": null,
+      "left_visible": [
+        "bet_abnormal",
+        "bet_list",
+        "bet_live_dangerous"
+      ],
+      "top_visible": [
+        "bm_announcement_li",
+        "bm_live_chat",
+        "bm_quick_search",
+        "bm_wmc",
+        "chgPswd",
+        "contact",
+        "feature",
+        "live_chat",
+        "logOut",
+        "mu_announcement",
+        "mu_hab",
+        "mu_profile",
+        "mySetting",
+        "my_activities",
+        "new_url",
+        "page_name",
+        "pswdRec",
+        "quick_search",
+        "requirements",
+        "troubleshooting",
+        "user_code",
+        "wmc"
+      ]
+    },
+    "co_d111111": {
+      "login_layer": "co",
+      "user_type": 1,
+      "pri_type": null,
+      "left_visible": [],
+      "top_visible": [
+        "chgPswd",
+        "choose_lan",
+        "contact",
+        "feature",
+        "live_chat",
+        "logOut",
+        "mu_hab",
+        "mu_profile",
+        "mySetting",
+        "my_activities",
+        "new_url",
+        "pswdRec",
+        "quick_search",
+        "requirements",
+        "troubleshooting",
+        "user_code"
+      ]
+    },
+    "su_d222222": {
+      "login_layer": "su",
+      "user_type": 1,
+      "pri_type": null,
+      "left_visible": [],
+      "top_visible": [
+        "chgPswd",
+        "choose_lan",
+        "contact",
+        "feature",
+        "live_chat",
+        "logOut",
+        "mu_announcement",
+        "mu_hab",
+        "mu_profile",
+        "mySetting",
+        "my_activities",
+        "new_url",
+        "pswdRec",
+        "quick_search",
+        "requirements",
+        "troubleshooting",
+        "user_code"
+      ]
+    },
+    "ag_sealin11": {
+      "login_layer": "ag",
+      "user_type": 1,
+      "pri_type": null,
+      "left_visible": [],
+      "top_visible": [
+        "chgPswd",
+        "choose_lan",
+        "contact",
+        "feature",
+        "live_chat",
+        "logOut",
+        "mu_announcement",
+        "mu_hab",
+        "mu_profile",
+        "mySetting",
+        "my_activities",
+        "new_url",
+        "pswdRec",
+        "quick_search",
+        "requirements",
+        "troubleshooting",
+        "user_code"
+      ]
+    }
+  }
+}

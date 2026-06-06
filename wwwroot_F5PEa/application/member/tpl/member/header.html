@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>header</title>
+    <script id="headerJS">{JS}</script>
+    <link href="{CDNURL}/style/header.css" rel="stylesheet" type="text/css">
+</head>
+     <body>
+        <div class="header">
+            <div class="box_header">
+                <div id="home_page" class="btn_home">
+                    <svg>
+                        <use xlink:href="#icon_home"/>
+                    </svg>
+                </div>
+                <div id="div_showtype" class="box_scroll header_scroll">
+                    <div id="showtype_left" class="btn_slide_l">
+                        <svg>
+                            <use xlink:href="#icon_rightarr"/>
+                        </svg>
+                    </div>
+                    <div id="showtype_right" class="btn_slide_r">
+                        <svg>
+                            <use xlink:href="#icon_rightarr"/>
+                        </svg>
+                    </div>
+                    <div id="showtype_scroll" class="box_slide dragscroll_header">
+                        <label id="showtype_total">
+                            <div id="live_page" class="btn_header">*ART_header_inplay*</div>
+                            <div id="special_page" class="btn_header btn_special" style="display: none;">
+                                <span>
+                                <!--特殊賽事-->
+                                </span>
+                            </div>
+                            <div id="hot_page" class="btn_header btn_hot">
+                                <i>
+                                    <svg>
+                                        <use xlink:href="#icon_fire"/>
+                                    </svg>
+                                </i>
+                                *ART_header_hot*
+                            </div>
+                            <div id="today_page" class="btn_header">*ART_header_today*</div>
+                            <div id="soon_page" class="btn_header">*ART_header_soon*</div>
+                            <div id="early_page" class="btn_header">*ART_header_early*</div>
+                            <div id="outrights_page" class="btn_header">*ART_header_outrights*</div>
+                            <div id="parlay_page" class="btn_header">*ART_header_parlay*</div>
+                            <div id="upcoming_page" style="display: none;" class="btn_header">*ART_header_upcoming*</div>
+                        </label>
+                    </div>
+                </div>
+                <div class="nav_header">
+                    <!-- <div id="header_time" class="time_header"></div> -->
+                    <div id="header_tv" class="btn_header" style="display: none!important;">*ART_bottom_schedule*</div>
+                    <div id="header_myGame" class="btn_header btn_myGame">
+                        <tt id="header_myGame_dot" class="dot_green" style="display: none;"></tt>
+                        *ART_bottom_mygame*
+					<i id="header_myGame_num" class="text_num"></i>
+                        <i class="icon_star">
+                            <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M14.9,6.9l-2.4,2.9c-0.2,0.2-0.3,0.5-0.2,0.8l0.3,3.8c0,0.2-0.1,0.5-0.3,0.6c-0.2,0.1-0.4,0.1-0.6,0.1l-3.3-1.5c-0.3-0.1-0.5-0.1-0.8,0L4.3,15c-0.2,0.1-0.4,0.1-0.6-0.1c-0.2-0.1-0.3-0.4-0.3-0.6l0.3-3.8c0-0.3-0.1-0.5-0.2-0.8L1.1,6.9C0.9,6.7,0.9,6.5,1,6.3C1.1,6,1.2,5.9,1.4,5.8L5,5c0.3-0.1,0.5-0.2,0.6-0.5l1.9-3.3c0.2-0.4,0.8-0.4,1,0l1.9,3.3C10.5,4.8,10.7,4.9,11,5l3.6,0.8c0.2,0,0.4,0.2,0.4,0.4C15.1,6.5,15.1,6.7,14.9,6.9z"/>
+                            </svg>
+                        </i>
+                    </div>
+                    <div id="header_historydata" class="btn_header" style="display: none;">*ART_bottom_statement*</div>
+                    <div id="header_todaywagers" class="btn_header btn_todaywagers">
+                        *ART_bottom_mybets*
+					
+                        <!-- *ART_bottom_openbet* -->
+                        <tt id="pc_wager_count" class="num_betslip"></tt>
+                    </div>
+                    <div id="" class="money_header" style="display: ;">
+                        <span id="header_money" class="text_money">
+                            <tt id="header_currency" class="text_currency"></tt>
+                            <tt id="header_credit" class="text_credit"></tt>
+                        </span>
+                        <div id="myAcc_page" class="btn_acc">
+                            <i>
+                                <svg>
+                                    <use xlink:href="#icon_account"/>
+                                </svg>
+                            </i>
+                            <tt id="myAcc_new" class="dot_red"></tt>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

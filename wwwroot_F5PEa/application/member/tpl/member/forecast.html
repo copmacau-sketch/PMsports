@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>Win/Loss Forecast</title>
+    <script id="homeJS">{JS}</script>
+    <link href="{CDNURL}/style/popup.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+</head>
+    <body>
+        <div>
+            <!-- 了解更多彈跳視窗 -->
+            <div id="knowMore" class="popup_content" style="display: none;">
+                <div class="fore_more_title">*ART_fore_learnMore_a*</div>
+                <p>*ART_fore_learnMore_a_1*</p>
+                <div class="fore_more_title">*ART_fore_learnMore_b*</div>
+                <p>*ART_fore_learnMore_b_1*</p>
+                <tt>*ART_fore_learnMore_b_FT*</tt>
+                <div class="fore_more_list">
+                    <span>*ART_fore_learnMore_b_FT_1*</span>
+                    <span>*ART_fore_learnMore_b_FT_2*</span>
+                    <span>*ART_fore_learnMore_b_FT_3*</span>
+                    <span>*ART_fore_learnMore_b_FT_4*</span>
+                    <span>*ART_fore_learnMore_b_FT_5*</span>
+                    <span>*ART_fore_learnMore_b_FT_6*</span>
+                    <span>*ART_fore_learnMore_b_FT_7*</span>
+                    <span>*ART_fore_learnMore_b_FT_8*</span>
+                    <span>*ART_fore_learnMore_b_FT_9*</span>
+                    <span>*ART_fore_learnMore_b_FT_10*</span>
+                    <span>*ART_fore_learnMore_b_FT_11*</span>
+                    <span>*ART_fore_learnMore_b_FT_12*</span>
+                    <span>*ART_fore_learnMore_b_FT_13*</span>
+                    <span>*ART_fore_learnMore_b_FT_14*</span>
+                </div>
+                <tt>*ART_fore_learnMore_b_1st*</tt>
+                <div class="fore_more_list">
+                    <span>*ART_fore_learnMore_b_1st_1*</span>
+                    <span>*ART_fore_learnMore_b_1st_2*</span>
+                    <span>*ART_fore_learnMore_b_1st_3*</span>
+                    <span>*ART_fore_learnMore_b_1st_4*</span>
+                    <span>*ART_fore_learnMore_b_1st_5*</span>
+                    <span>*ART_fore_learnMore_b_1st_6*</span>
+                    <span>*ART_fore_learnMore_b_1st_7*</span>
+                    <span>*ART_fore_learnMore_b_1st_8*</span>
+                    <span>*ART_fore_learnMore_b_1st_9*</span>
+                </div>
+                <p>*ART_fore_learnMore_b_2*</p>
+            </div>
+            <!-- 橫向阻擋視窗 -->
+            <div id="landScape" class="fore_landscape" style="display: none;">*ART_fore_landscape*</div>
+            <!-- fore_popup裡 popup_content的內容-->
+            <!-- no data -->
+            <div id="fore_nodata_str" name="fore_nodata" class="no_event fore_no_event" style="display: none;">
+                <i></i>
+                <span id="fore_nodata_context">*ART_fore_nodata*</span>
+            </div>
+            <!-- 計分板 -->
+            <div id="fore_score" class="ft box_scored">
+                <div id="F_score_board" class="box_scoboard ft" style="display: none;">
+                    <div id="F_box_scostate" class="box_scostate">
+                        <!--tt class="text_time_go"><p>1H</p> 27:51</tt-->
+                        <tt id="F_re_time" class="text_time_go"></tt>
+                        <!---->
+                        <i id="F_midfield" class="icon_n" style="display:none"></i>
+                        <span id="F_clothes_h_600" class="icon_shirt" style="display:none">
+                            <svg>
+                                <use xlink:href="#icon_shirt"/>
+                            </svg>
+                        </span>
+                        <span id="F_clothes_c_600" class="icon_shirt" style="display:none">
+                            <svg>
+                                <use xlink:href="#icon_shirt"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <div id="F_box_sco_l" class="box_sco_l">
+                        <div class="box_scoteam team_h">
+                            <span id="F_pk_h" class="icon_serve"></span>
+                            <!-- 發球方 Add class="on" -->
+                            <span id="F_redcard_h" class="icon_redcard"></span>
+                            <!-- show red card Add class="on" -->
+                            <span id="F_score_h" class="text_point"></span>
+                            <!-- 最後入球 Add class="last_goal" -->
+                            <span id="F_clothes_h" class="icon_shirt" style="display:none">
+                                <svg>
+                                    <use xlink:href="#icon_shirt"/>
+                                </svg>
+                            </span>
+                            <span id="F_team_h" class="text_team"></span>
+                            <!-- 強隊 Add class="strong_team" -->
+                        </div>
+                        <span id="F_dash_show" class="box_sco_center">-</span>
+                        <div id="F_vs_show" class="box_sco_vs" style="display: none;">V</div>
+                        <div class="box_scoteam team_c">
+                            <span id="F_pk_c" class="icon_serve"></span>
+                            <span id="F_redcard_c" class="icon_redcard"></span>
+                            <span id="F_score_c" class="text_point"></span>
+                            <span id="F_clothes_c" class="icon_shirt" style="display:none">
+                                <svg>
+                                    <use xlink:href="#icon_shirt"/>
+                                </svg>
+                            </span>
+                            <span id="F_team_c" class="text_team"></span>
+                        </div>
+                    </div>
+                    <div id="F_ET_mode" class="box_et" style="display: none;">
+                        *ART_game_et_ft*<tt id="F_ET_mode_scH"></tt>
+                        -<tt id="F_ET_mode_scC"></tt>
+                    </div>
+                    <div id="F_pk_score" class="box_live_rps" style="display: none;">
+                        <i id="F_sc_1st_H">
+                            <!--rps_goal / rps_nogoal / rps_ing-->
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_2nd_H">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_3th_H">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_4th_H">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_5th_H">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <div class="text_round">
+                            <span id="F_now_goal"></span>
+                            <tt id="F_PK_Method"></tt>
+                        </div>
+                        <i id="F_sc_1st_C">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_2nd_C">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_3th_C">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_4th_C">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                        <i id="F_sc_5th_C">
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                            <div class="obj_rps_ani"></div>
+                        </i>
+                    </div>
+                </div>
+            </div>
+            <!-- 時節切換頁籤 -->
+            <div class="box_scroll fore_scroll">
+                <div class="">
+                    <label>
+                        <div id="tab_FT" class="btn_menu_forecast on">*ART_fore_fulltime*</div>
+                        <div id="tab_HT" class="btn_menu_forecast">*ART_fore_half1*</div>
+                        <div id="tab_ET" class="btn_menu_forecast" style="display: none;">*ART_fore_et*</div>
+                        <div id="tab_ETHT" class="btn_menu_forecast" style="display: none;">*ART_fore_ethalf1*</div>
+                    </label>
+                </div>
+                <i id="icon_knowMore" class="icon_information">
+                    <svg>
+                        <use xlink:href="#icon_i"></use>
+                    </svg>
+                </i>
+            </div>
+            <div class="fore_wrap">
+                <!-- 輸贏預測表格 -->
+                <div class="fore_form">
+                    <!--
+				<div class="fore_title">
+					<span>*ART_fore_title*</span>
+
+				</div>
+				-->
+                    <div class="fore_form_box">
+                        <div class="fore_teamH">
+                            <div class="fore_team_name">
+                                <span id="forecast_teamH"></span>
+                                <tt>*ART_fore_teamH*</tt>
+                            </div>
+                        </div>
+                        <div class="fore_teamC">
+                            <span id="forecast_teamC"></span>
+                            <tt>*ART_fore_teamC*</tt>
+                        </div>
+                        <div id="form_table" class="fore_table" style="--score_h: 6;--score_c: 6;">
+                            <div class="btn_position">
+                                <i id="btn_position" class="icon_position">
+                                    <svg>
+                                        <use xlink:href="#icon_position"></use>
+                                    </svg>
+                                </i>
+                            </div>
+                            <!-- team H -->
+                            <div id="form_h" class="fore_form_h">
+                                <!-- 目前比分 class="on"-->
+                                <div id="form_h_0">0</div>
+                                <div id="form_h_1">1</div>
+                                <div id="form_h_2">2</div>
+                                <div id="form_h_3">3</div>
+                                <div id="form_h_4">4</div>
+                                <div id="form_h_5">5</div>
+                            </div>
+                            <!-- team C -->
+                            <div id="form_c" class="fore_form_c">
+                                <!-- 目前比分 class="on"-->
+                                <div id="form_c_0">0</div>
+                                <div id="form_c_1">1</div>
+                                <div id="form_c_2">2</div>
+                                <div id="form_c_3">3</div>
+                                <div id="form_c_4">4</div>
+                                <div id="form_c_5">5</div>
+                            </div>
+                            <!-- result -->
+                            <div id="form_result" class="fore_form_result">
+                                <!-- class狀態 目前比分"on"/贏多"winMore"/贏少"winLess/輸多"lossMore"/輸少"lossLess"/過去比分"past" -->
+                                <div id="fore_0_0">0:0</div>
+                                <div id="fore_1_0">1:0</div>
+                                <div id="fore_2_0">2:0</div>
+                                <div id="fore_3_0">3:0</div>
+                                <div id="fore_4_0">4:0</div>
+                                <div id="fore_5_0">5:0</div>
+                                <div id="fore_0_1">0:1</div>
+                                <div id="fore_1_1">1:1</div>
+                                <div id="fore_2_1">2:1</div>
+                                <div id="fore_3_1">3:1</div>
+                                <div id="fore_4_1">4:1</div>
+                                <div id="fore_5_1">5:1</div>
+                                <div id="fore_0_2">0:2</div>
+                                <div id="fore_1_2">1:2</div>
+                                <div id="fore_2_2">2:2</div>
+                                <div id="fore_3_2">3:2</div>
+                                <div id="fore_4_2">4:2</div>
+                                <div id="fore_5_2">5:2</div>
+                                <div id="fore_0_3">0:3</div>
+                                <div id="fore_1_3">1:3</div>
+                                <div id="fore_2_3">2:3</div>
+                                <div id="fore_3_3">3:3</div>
+                                <div id="fore_4_3">4:3</div>
+                                <div id="fore_5_3">5:3</div>
+                                <div id="fore_0_4">0:4</div>
+                                <div id="fore_1_4">1:4</div>
+                                <div id="fore_2_4">2:4</div>
+                                <div id="fore_3_4">3:4</div>
+                                <div id="fore_4_4">4:4</div>
+                                <div id="fore_5_4">5:4</div>
+                                <div id="fore_0_5">0:5</div>
+                                <div id="fore_1_5">1:5</div>
+                                <div id="fore_2_5">2:5</div>
+                                <div id="fore_3_5">3:5</div>
+                                <div id="fore_4_5">4:5</div>
+                                <div id="fore_5_5">5:5</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fore_note" class="fore_note">*ART_fore_note*</div>
+                </div>
+                <!-- 現有投注 -->
+                <div id="fore_betlist" class="fore_betlist">
+                    <div class="fore_title">
+                        <span>*ART_fore_nowbet*</span>
+                        <tt id="nowTab"></tt>
+                    </div>
+                    <div id="fore_wagers" class="fore_wagers">
+                    <!-- 交易紀錄模組 -->
+                    </div>
+                    <div id="wagers_model" style="display: none;">
+                        <!-- 負數.word_lightred 正數.word_green 可點擊粗體.word_bold 總計白字.word_white -->
+                        <div id="info_box" class="ope_info_box">
+                            <div id="fore_normal_model" style="display:none;">
+                                <xmp>
+                                    <div id="div_*TID*" class="ope_info_normal">
+                                        <ul class="ope_info_txt *ANNOUCEMENT*">
+                                            <li class="ope_txt_team">
+                                                *GTYPE* *WTYPE* *W_MS* <tt class="word_lightgreen *ANNOUCEMENT*">*ORG_SCORE*</tt>
+                                                <tt>*SCORE*</tt>
+                                            </li>
+                                            <li class="ope_txt_odd">
+                                                *CHOICE_TEAM* <tt class="*CHOICE_CON_CLASS* *ANNOUCEMENT*">*CHOICE_CON*</tt>
+                                                <code>@</code>
+                                                <tt class="word_red *ANNOUCEMENT*">*IORATIO*</tt>
+                                            </li>
+                                            <li class="ope_txt_win">
+                                                <span>
+                                                    *ART_fore_bet*<tt class="word_black *ANNOUCEMENT*">*GOLD*</tt>
+                                                </span>
+                                                <span>
+                                                    *ART_fore_towin*<tt class="word_green *ANNOUCEMENT*">*WIN_GOLD*</tt>
+                                                </span>
+                                            </li>
+                                            <li class="ope_txt_time">
+                                                <span>*W_ID*</span>
+                                                <span>*ADDTIME* *ODDF_TYPE*</span>
+                                            </li>
+                                            <li style="*DG_CANCEL*">
+                                                <span class="word_green">*DG_STR*</span>
+                                            </li>
+                                            <!-- 已拒絕.word_red 已確認.word_green 確認中.word_yellow -->
+                                            <li class="load_inorder" style="*BALL_ACT*">
+                                                <span id="dg_*TID*" class="*BALL_ACT_CLASS*">
+                                                    <span class="load_ring"></span>
+                                                    *BALL_ACT_RET*
+										
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </xmp>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="fore_allsports" class="btn_showmore" style="display: none;">
+                        *ART_fore_more*
+					
+                        <i>
+                            <svg>
+                                <use xlink:href="#icon_arrdown"/>
+                            </svg>
+                        </i>
+                    </div>
+                </div>
+                <div class="fore_btn_wrap">
+                    <div id="allmarket" class="allmarket_btn" style="display: none;">*ART_fore_allmarket*</div>
+                    <div id="mybets" class="mybets_btn" style="display: none;">*ART_fore_mybets*</div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

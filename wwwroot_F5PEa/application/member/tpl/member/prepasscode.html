@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>nav menu</title>
+    <script id="bottomJS">{JS}</script>
+    <link href="{CDNURL}/style/other_page.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/share_tool.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/login.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div>
+    <div class="all_outside" ontouchstart="">
+
+        <!-- 四位密碼輸入 -->
+        <div class="oth_prepass_box">
+            <div class="oth_pass_hello">*ART_prepass_hello*<span id="user_name" class="oth_pass_hello" ></span></div>
+            <h1 class="oth_pass_title">*ART_prepass_enter*</h1>
+            <div id="oth_pass_err" class="oth_pass_err" style="display:none;">*ART_prepass_err*</div>
+
+
+
+            <!-- 輸入圈圈 -->
+            <!-- 輸入時在li加入class .active -->
+            <ul id="empty_bar" class="oth_pass_circle mb7">
+                <li id="empty_1" class="empty"></li>
+                <li id="empty_2" class="empty"></li>
+                <li id="empty_3" class="empty"></li>
+                <li id="empty_4" class="empty"></li>
+            </ul>
+            <!-- 輸入圈圈 end -->
+
+
+
+            <!-- 數字鍵盤 -->
+            <div id="panel" class="oth_pass_keyboard">
+                <span id="num_1">1</span>
+                <span id="num_2">2</span>
+                <span id="num_3">3</span>
+                <span id="num_4">4</span>
+                <span id="num_5">5</span>
+                <span id="num_6">6</span>
+                <span id="num_7">7</span>
+                <span id="num_8">8</span>
+                <span id="num_9">9</span>
+                <span id="num_0">0</span>
+            </div>
+            <!-- 數字鍵盤 end -->
+
+
+
+
+
+            <!-- 功能鍵 -->
+            <div class="oth_function">
+                <button id="back_login" type="button" class="btn_oth_fun">*ART_prepass_login*</button>
+                <button id="delpasscode" type="button" class="btn_oth_fun">*ART_prepass_delete*</button>
+            </div>
+            <!-- 功能鍵 end -->
+        </div>
+        <!-- 四位密碼輸入 end -->
+
+        <div id="div_run" class="box_img *ART_lang*">
+            <div class="img_festival"></div>
+            <div class="img_ip">
+                <a id="ip_run" href="http://125.252.69.39" target="_blank" class="btn_ip">
+                    <span id="run_ip">66.133.87.217</span>
+                </a>
+                <div id="ip_guide" class="btn_ipguide"></div>
+            </div>
+        </div>
+
+        <div class="box_browser">
+            <span>*ART_prepass_brower_title*</span>
+            <div class="wrap_browser">
+                <div id="browse_chr" class="btn_browser">
+                    <i class="icon_chrome"></i>
+                    <span>*ART_prepass_chrome*</span>
+                </div>
+                <div id="browse_saf" class="btn_browser">
+                    <i class="icon_safari"></i>
+                    <span>*ART_prepass_safari*</span>
+                </div>
+                <div id="browse_fox" class="btn_browser">
+                    <i class="icon_firefox"></i>
+                    <span>*ART_prepass_firefox*</span>
+                </div>
+            </div>
+            <p>*ART_prepass_brower_text_1*<a id="systemreq">*ART_prepass_brower_text_btn*</a>*ART_prepass_brower_text_2*</p>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

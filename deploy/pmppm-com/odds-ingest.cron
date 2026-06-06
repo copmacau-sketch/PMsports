@@ -1,0 +1,30 @@
+# Odds-API.io + api-football.io ingest cron
+# 部署位置: /etc/cron.d/odds-ingest    所有者: root, 权限: 644
+# 服务器: 3.25.180.205 (Ubuntu 24.04, www-data run-as)
+#
+# 安装:
+#   sudo cp odds-ingest.cron /etc/cron.d/odds-ingest
+#   sudo chmod 644 /etc/cron.d/odds-ingest
+#   sudo systemctl restart cron
+#
+# 日志:
+#   tail -f /var/log/odds-ingest.log
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+INGEST=/home/ubuntu/crown-gold/wwwroot_F5PEa/application/bdata/ingest_odds_api.php
+
+# 每 2 分钟跑全量 (事件 + 赔率 + 比分)
+# - 拉 Odds-API.io 每场 ~10ms x 80 场 = 1s，加上 api-football 比分 ~2s，total ~5-15s
+# - 写库 80 行 foot_match + 80 行 foot_match_xml，~200ms
+# - 2026-05-24 从 */5 改为 */2 — prematch 行情用户期望更接近实时刷新。
+#   配合前端 15s 轮询，prematch 赔率从上游到 UI 的延迟降到 ~2 分钟以内。
+*/2 * * * * www-data /usr/bin/php $INGEST >> /var/log/odds-ingest.log 2>&1
+
+# 每分钟刷一次实时比分 (只 UPDATE score_h/score_c/is_inball, 不拉赔率)
+# - 跳过 Odds-API 调用, 只 api-football /fixtures?live=all
+# - 仅 UPDATE 已存在的 gid 行
+* * * * * www-data /usr/bin/php $INGEST --live-only >> /var/log/odds-ingest.log 2>&1
+
+# 日志轮转: 每天 0 点保留 7 天历史
+0 0 * * * root /usr/sbin/logrotate -f /etc/logrotate.d/odds-ingest 2>/dev/null || true

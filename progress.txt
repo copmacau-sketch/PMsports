@@ -1,0 +1,327 @@
+SPA Game List Loading Fix — Progress Notes
+==============================================
+
+Date: 2026-05-21
+Target: http://3.25.180.205:8080 (Crown gold SPA)
+Test login: ceshi1 / Abc12345
+
+PROBLEM
+-------
+After clicking 早盘 (Early) tab, choosing 足球 (Football), and then clicking a
+specific league (e.g. 英超 / Premier League), the SPA displayed "目前没有任何赛事"
+(no matches available) even though `get_game_list` responded with 81 games.
+
+ROOT CAUSES (all in `wwwroot_F5PEa/application/member/tools/CatalogBridge.php`)
+------------------------------------------------------------------------------
+1. `<pgcount>` response did NOT include `<MAIN>` element.
+   `game_list.js` checks `pageCountHash["main"] == 0` and forces showData=false
+   when missing, which short-circuits the entire render path.
+
+2. Each game `<ec>` was missing `<lid>` (league id). The worker reads
+   `tmp_game["lid"]` and crashes on `totalLeg[...].split("_")[0]` when it
+   pushes `undefined` into the league array.
+
+3. `now_model` was hard-coded to "FT". The pre-game template
+   (`tpl/member/ft_early_game.html`) only ships `model_HT`, not `model_FT`,
+   so `getRatioLayer()` returned an empty layer and every game was skipped
+   via the `if (!tmpLayer) continue;` guard.
+
+4. `retimeset` used raw minute strings like "10". The worker's `transRETIME`
+   crashed on `tmpHash[1].replace(...)` when the format wasn't
+   `<Start|LIVE|MTIME|HT>` or `<half>^<minute>'`.
+
+5. Datetime used "MM/DD HH:mm" with slashes. `transDate` splits on "-" and
+   produced "05月undefined日".
+
+6. Odds field names didn't match what the worker reads:
+   - `*RATIO_RH*` / `*RATIO_RC*` strip the trailing H/C → worker reads
+     `ratio_r` (single field), not `ratio_rh` / `ratio_rc`.
+   - The `+`/`-` sign comes from `tmp_game["strong"]` (single field with
+     value "H", "C" or ""), not from `strong_reh` / `strong_rec`.
+   - 1X2 uses `ior_mh` / `ior_mc` / `ior_mn` (M = money line), not
+     `ior_rh` / `ior_rc` / `ior_rd`.
+   - Over/Under uses `ior_ouh` (under) / `ior_ouc` (over) with line
+     value in `ratio_ouo` / `ratio_ouu`.
+
+FIXES APPLIED
+-------------
+File: wwwroot_F5PEa/application/member/tools/CatalogBridge.php
+- getPageCount(): align lid assignment with getLeagueListAll() and emit
+  `<MAIN>` plus the existing RB/FT/FU/etc. counts.
+- getGameList():
+  - Build slug→lid map and emit `<lid>` for every game.
+  - Apply optional lid filter (league click).
+  - Set `now_model = "HT"` for pre-game matches, "FT" for live.
+  - Format retimeset as "1H^10'" / "MTIME" / "2H^65'" / "Start".
+  - Format datetime as "MM-DD HH:mm".
+  - Emit `<strong>` (single field), `<ratio_r>`, `<ratio_ouo>`,
+    `<ratio_ouu>`, `<ior_mh>`, `<ior_mc>`, `<ior_mn>` and keep legacy
+    aliases (`ratio_re`, `ior_reh`, `ior_rec`).
+
+File: wwwroot_F5PEa/application/member/js/game/game_list.js
+- Added debug logging during investigation and then removed it; no
+  permanent code change.
+
+VERIFIED
+--------
+Test: test_spa_full.py
+Result:
+- 英超 / Premier League list renders with 10 games.
+- For each game: team names (Brighton, Man Utd, …), datetime
+  "05月24日 23:00", handicap (-0.5 / +0.5), 1X2 (主 1.91 / 客 3.70 / 和 3.90)
+  are all populated.
+- No worker errors, no SPA `pageerror` events.
+- `div_nodata` is `display: none`.
+
+KNOWN LIMITATION
+----------------
+The 今日 (today) tab uses `ft_today_game.html`, whose `model_HT` block
+contains RB-prefix placeholders (`*RATIO_REH*`, `*IOR_REH*`, `*IOR_RMH*`,
+…). The worker iterates `GameRatio["r"]` for rtype="r" which only lists
+non-R placeholders, so the R-prefix cells in the today template stay as
+literal text for pre-game matches. The early tab is unaffected and is the
+recommended entry point for browsing pre-game odds.
+
+USEFUL TEST COMMANDS
+--------------------
+# Run the verified happy-path test
+python3 /Volumes/T7/Crown-gold/test_spa_full.py
+
+# Re-deploy CatalogBridge only
+scp -i /Volumes/T7/Crown-gold/Crowngold.pem \
+    /Volumes/T7/Crown-gold/wwwroot_F5PEa/application/member/tools/CatalogBridge.php \
+    ubuntu@3.25.180.205:/home/ubuntu/crown-gold/wwwroot_F5PEa/application/member/tools/CatalogBridge.php
+
+
+==============================================================================
+2026-05-30 — HT-after-halftime bookable market filter (parity FastAPI + PHP)
+==============================================================================
+
+PROBLEM
+-------
+After the first half ends, "上半场亚洲让球 / 上半场大小 / 半场胜负" remained
+displayed and bookable in the H5 sports detail view. Outcome is already locked
+at HT, so any bet placed in 2H is a guaranteed-win or guaranteed-loss exploit.
+
+FIX (defence in depth, both validator paths)
+-------------------------------------------
+1. crown-explorer/backend/app/routers/external.py
+   - Added _is_ht_market_name() / _is_first_half_over() / _filter_expired_ht_markets()
+   - Applied to all three return paths in list_markets():
+       a) full multi-line limitless book
+       b) /dev/shm WS snapshot
+       c) r_cn fallback
+   - HT detection signals (either suffices):
+       - row.score_home_ht / score_away_ht populated (Crown ingest writes HT score)
+       - now - commence_ts > 50 min (45 reg + 5 min stoppage)
+   - HT-only market name match: ends " HT", "Half Time Result",
+     "1st Half ..." / "First Half ..."
+
+2. wwwroot_F5PEa/application/member/api_v2.php
+   - Added isFirstHalfOver() / isHtMarketName() / filterExpiredHtMarkets()
+   - Applied in activeOddsContext() inplay branch (local fallback when
+     FastAPI is unreachable). The primary path fetchFastApiOddsContext()
+     already inherits the FastAPI filter for free.
+
+VERIFICATION (2026-05-30, prod 107.151.247.80)
+----------------------------------------------
+FastAPI:
+  - gid=70886064 (102 min, 1:2) → 5 mkts, HT-like: NONE        ✓
+  - gid=70886066 (102 min, 4:1) → 5 mkts, HT-like: NONE        ✓
+  - gid=68685998 (27  min, 0:0) → 8 mkts, HT-like: Spread HT,Totals HT  ✓ kept
+
+PHP (probe /tmp/probe_filter.php, bypassed freshness gate):
+  - gid=71535542 (97 min) → BEFORE 10 → AFTER 7, dropped:
+        Spread HT, Totals HT, Both Teams To Score HT                    ✓
+  - gid=67912100 (7  min) → BEFORE 10 → AFTER 10, dropped 0             ✓
+
+KNOWN UNRELATED
+---------------
+- /dev/shm/crown_limitless_mk/*.json caches for many in-play gids are
+  >TTL (240s) stale because the WS bridge doesn't push every gid. Those
+  matches return phase=closed from activeOddsContext (correct safe
+  behaviour); the HT filter is moot when there are no bookable markets.
+  Coverage gap is the next pending root cause.
+
+DEPLOYED FILES
+--------------
+- /opt/pmppm-com/api/backend/app/routers/external.py      (systemctl restart pmppm-com-api)
+- /home/ubuntu/crown-gold/wwwroot_F5PEa/application/member/api_v2.php   (systemctl reload php7.4-fpm)
+
+
+==============================================================================
+2026-05-30 — Live odds cache stuck at hours-old (cron mk 3 vs xmlUpd 40)
+==============================================================================
+
+SYMPTOM
+-------
+Active in-play matches were returning phase=closed from activeOddsContext()
+in the H5 detail page even though FastAPI status showed status=inplay.  Of
+~900 cached files in /dev/shm/crown_limitless_mk/, only 3% were <240s fresh
+(cron TTL).  The 2-min ingest_limitless.php cron logged a consistent
+"events=60 activeMarkets=13 ... mk 3 ; skipped 19" — only 3 cache files
+written per run despite 40 r_cn xml UPDATEs.
+
+ROOT CAUSE
+----------
+File-ownership war between two writers of the same directory:
+
+  - PHP cron (ingest_limitless.php) runs as **www-data**, writes mode 0644.
+  - FastAPI WS bridge (oddsapi_ws.py / pmppm-com-api.service) runs as **root**,
+    writes mode 0644.
+
+When the cron later tries to overwrite a file already owned by root with
+mode 0644, file_put_contents returns false silently (only the file owner
+can rewrite a 0644 file).  Over time the WS bridge accumulates root-owned
+files in the cache dir; the cron's effective coverage shrinks until only
+brand-new gids (created by the cron itself) get refreshed.  Snapshot:
+
+    Before remediation: 536 www-data + 367 root + 1 ?
+    After  chown -R:    902 www-data +   1 root
+
+  Cron output flipped immediately:
+    09:24:04 ... mk 3   skipped 19    (last hung run, 367 files unwriteable)
+    09:26:04 ... mk 37  skipped 19    (after one-shot chown — full success)
+
+FIX
+---
+1. crown-explorer/backend/app/oddsapi_ws.py
+   - Added _resolve_www_data_ids() + _chown_to_www_data() helpers.
+   - _write_limitless_mk() now chowns its output to www-data:www-data and
+     chmod 0664 after every successful tmp.replace(target).  This makes
+     subsequent cron writes succeed even though FastAPI still runs as root.
+   - Falls back to chmod 0666 if www-data uid lookup fails (still allows
+     cron to overwrite).  /dev/shm is local-only so the broader perm is
+     acceptable.
+
+2. One-shot prod remediation:
+       chown www-data:www-data /dev/shm/crown_limitless_mk/*.json
+       chmod 664              /dev/shm/crown_limitless_mk/*.json
+   No service downtime; existing root-owned files immediately became
+   overwriteable by the next cron tick.
+
+VERIFICATION
+------------
+- Cron mk count jumped from 3 → 37 on the very next run after chown.
+- Cache freshness <240s rose from 23/866 (3%) toward the expected
+  ~37 fresh files per cron run for events the upstream actively covers.
+- WS bridge still writes via _write_limitless_mk → permissions now stick
+  because chown happens on every write.
+
+KNOWN UPSTREAM LIMITATION (not addressed)
+----------------------------------------
+limitless.show /api/quote returns ~60 events with ~13 having active
+markets at any moment.  foot_match has ~67 in-play matches; 30+ of those
+will never get fresh limitless odds because the upstream simply doesn't
+cover them.  PHP correctly returns phase=closed for those — the safety
+guard is intentional and not a bug.  See activeOddsContext() comment.
+
+The /ws/quote firehose itself runs at ~0.23 frames/sec (1 frame every
+4-5s on average), with most frames being empty heartbeats.  Per-match
+push latency is therefore minutes, not sub-second.  The architecture
+falls back to the 2-min cron for steady-state coverage; WS only adds
+sub-second pushes for the handful of matches actively ticking.
+
+DEPLOYED FILES
+--------------
+- /opt/pmppm-com/api/backend/app/oddsapi_ws.py            (systemctl restart pmppm-com-api)
+- prod chown one-shot                                     (no file changed locally)
+
+
+==============================================================================
+2026-05-30 — Authoritative live ticker (api-sports.io elapsed/status plumb)
+==============================================================================
+
+PROBLEM
+-------
+The H5 live ticker (`formatLiveTicker` in sports/page.tsx) used a
+wall-clock heuristic on `commenceTs` to derive game minute and HT/2H
+state.  This meant:
+  * 45+' / "中场" / 90+' transitions fired on fixed wall-clock thresholds
+    (50 min, 67 min, 112 min) regardless of actual game state.
+  * A real "HT" reached at minute 47 still showed "45+'" until 50 min.
+  * Long stoppage time stretched the display past full-time before the
+    real broadcast did.
+  * api-sports.io ALREADY provides `fixture.status.elapsed` (authoritative
+    minute) and `.short` (period code: 1H/HT/2H/ET/FT/AET/PEN/...) but it
+    was being read in the cron only for is_live/isFinished decisions and
+    then thrown away.
+
+FIX
+---
+Plumb api-sports' authoritative game state through the entire stack:
+
+1. **Schema** (db_sports.foot_match):
+       ALTER TABLE foot_match
+         ADD COLUMN apisports_elapsed SMALLINT NULL AFTER inball_c_hr,
+         ADD COLUMN apisports_status  VARCHAR(8) NULL AFTER apisports_elapsed,
+         ADD COLUMN apisports_seen_at INT NULL AFTER apisports_status;
+
+2. **Cron writer** (`wwwroot_F5PEa/application/bdata/ingest_odds_api.php`):
+   - Read `$fix['fixture']['status']['elapsed']` alongside the existing
+     `['short']` extraction.
+   - Add `apisports_elapsed`, `apisports_status`, `apisports_seen_at` to
+     the upsert fields list (works in both full and `--live-only` mode;
+     the live-only field-strip list does NOT include the new columns).
+
+3. **FastAPI** (`crown-explorer/backend/app/routers/external.py`):
+   - `_MYSQL_EVENT_COLS` SELECT includes the 3 new columns.
+   - `_mysql_row_to_event()` surfaces them as `elapsed_minute`,
+     `status_short`, `apisports_seen_at` in the JSON event dict.
+   - Bonus: `_is_first_half_over()` now consults `status_short` first
+     (HT / 2H / ET / FT / AET / PEN ⇒ true) before falling through to
+     the inball_h_hr / wall-clock signals.  More accurate HT-market
+     stripping the moment api-sports flips "HT", instead of waiting on
+     the legacy 50-min wall-clock fallback.
+
+4. **PHP API** (`wwwroot_F5PEa/application/member/api_v2.php`):
+   - place-bet validation `$vRow` SELECT pulls `apisports_status` /
+     `apisports_elapsed` / `inball_h_hr` / `inball_c_hr`.
+   - `isFirstHalfOver()` mirrors FastAPI's three-tier signal
+     (apisports_status → inball_h_hr → wall-clock).
+
+5. **TypeScript types** (`frontend/src/lib/api.ts`):
+   - `OddsEvent` interface adds `elapsed_minute` / `status_short` /
+     `apisports_seen_at`.
+
+6. **Live ticker** (`frontend/src/app/sports/page.tsx`):
+   - `FootballMatch` type adds `elapsedMinute` / `statusShort` /
+     `apisportsSeenAt`.
+   - Mapping in event ⇒ FootballMatch projection.
+   - `formatLiveTicker(commenceTs, elapsedMinute, statusShort, seenAt)`:
+     prefer api-sports values when `seenAt` is within 5 min, else fall
+     back to wall-clock heuristic.  Period codes map cleanly:
+         HT  → "中场"
+         FT/AET/PEN → "已结束"
+         P → "点球"     BT/INT → "暂停"     PST → "延期"
+         1H elapsed≥45 → "滚球 45+N'"
+         2H elapsed≥90 → "滚球 90+N'"
+         ET elapsed≥120 → "加时 120+N'"
+
+VERIFICATION (2026-05-30 21:45 UTC+8)
+-------------------------------------
+- DB:    110 inplay rows, 12 carry apisports_elapsed (api-sports
+         coverage limit) — ranged 1H@36' / 2H@66'-81' / ET@113'.
+- API:   /api/external/events?status=inplay surfaces all 3 fields:
+            gid=71709430  ET  elapsed=113  Lexington SC vs Carolina Ascent
+            gid=67172594  1H  elapsed=36   El Paso Locomotive vs Lexington
+- Cron:  --live-only runs every minute; new columns refreshed each tick.
+- Build: Next.js 16.2.2 standalone built clean (TypeScript pass), bundle
+         contains `APISPORTS_TICKER_MAX_AGE_SEC` symbol.
+- Web:   pmppm-com-web on 127.0.0.1:3003 returns 200 on /sports.
+
+KNOWN LIMITATION (carried forward)
+----------------------------------
+api-sports.io coverage is patchy for small Latin-American / amateur
+leagues.  When `status_short` is null or `apisports_seen_at` is older
+than 5 min, the ticker silently falls back to the wall-clock heuristic
+(unchanged from before).  Top-tier UEFA / EPL / Brasileirão fixtures
+get the broadcast-truth path.
+
+DEPLOYED FILES
+--------------
+- /opt/pmppm-com/api/backend/app/routers/external.py     (restart api)
+- /home/ubuntu/crown-gold/wwwroot_F5PEa/application/bdata/ingest_odds_api.php   (cron pulls latest)
+- /home/ubuntu/crown-gold/wwwroot_F5PEa/application/member/api_v2.php           (php-fpm reload)
+- /opt/pmppm-com/web/                                    (rsync standalone, restart pmppm-com-web)
+- db_sports.foot_match: 3 columns ALTER TABLE ADD COLUMN (one-shot)

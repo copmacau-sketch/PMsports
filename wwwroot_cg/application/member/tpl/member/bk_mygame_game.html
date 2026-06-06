@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>BK 我的賽事盤面</title>
+	<script id="homeJS">{JS}</script>
+
+	<link href="{CDNURL}/style/bet_game.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+	<link href="{CDNURL}/style/flag.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="content_l">
+		<div class="box_league box_mygame bk *ART_lang*">
+
+			<!-- no data -->
+			<div id="div_nodata" name="div_nodata" class="no_event" style="display: none;"><i></i><span>*ART_game_nodata*</span></div>
+
+			<!-- mygame no data -->
+			<div id="div_nodata_mygame" name="div_nodata" class="box_mygame_nodata" style="display: none;">
+				<div class="title_mygame">
+					<i class="icon_mygame"><svg><use xlink:href="#icon_star"/></svg></i>
+				</div>
+				<span>*ART_game_mygame1*<tt>*ART_game_mygame2*</tt>*ART_game_mygame3*</span>
+				<div class="img_mygame"></div>
+			</div>
+
+			<!-- league content -->
+			<div id="div_show" class="box_outer bk_outer"></div>
+			<div id="div_model" class="box_outer bk_outer" style="display:none;">
+				<!-- league name -->
+				<div *ST* class="btn_title_le"><tt id="lea_name">*LEAGUE*</tt><i class="icon_flag *LEAGUE_FLAG*"></i></div>
+				<div id="game_*ECID*" class="box_lebet bet_type_8 *BLOCKSCROLL*" *DIS_GAME*>
+					<div class="box_lebet_top">
+						<div id="mainShow_*ECID*" class="box_lebet_l">*MAIN_SHOW*</div>
+						<div id="ratioShow_*ECID*" class="box_lebet_r">*RATIO_SHOW*</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- pagination -->
+			<div id="pageDiv" class="box_page" style="display: none;"></div>
+			<div id="page_model" class="box_page page_5" style="display: none;"><!-- class="page_5 / page_3 / page_2" -->
+				<!-- 反灰按鈕class="off" -->
+				<span id="pg_first" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr2"/></svg></span>
+				<span id="pg_prev" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr"/></svg></span>
+				*PAGES*
+				<span id="pg_next" class="btn_page_arr"><svg><use xlink:href="#icon_pagearr"/></svg></span>
+			</div>
+			<div id="pageBtn_model" style="display: none;">
+				<span id="pg_*PAGENUM*" class="btn_page">*PAGENUM*</span>
+			</div>
+
+			<!-- 滾球 league content Model -->
+			<xmp id="left_info" name="left_info" style="display:none;">
+				<div id="div_icon_info" class="box_state">
+					<tt class="text_time_go">
+						<i>*RETIMESET*</i>
+					</tt>
+					<i id="icon_info" class="icon_information" style="display:*INFO_SHOW*"><svg><use xlink:href="#icon_i"></use></svg></i>
+					<i id="icon_N" class="icon_n" style="display:*MIDFIELD_SHOW*"></i>
+					<i id="icon_rb" class="icon_inplay" style="display:none"></i>
+				</div>
+				<label id="more" class="btn_innmore live_lebet">
+					<div class="btn_inn_team">
+						<div class="box_team">
+							<span class="text_point *LASTESTSCORE_H*">*SCORE_H*</span><!-- 最後入球 Add class="last_goal" -->
+							<span class="text_team *STRONG_H*"><p>*TEAM_H*</p></span><!-- 強隊 Add class="strong_team" -->
+						</div>
+						<div class="box_team">
+							<span class="text_point *LASTESTSCORE_C*">*SCORE_C*</span>
+							<span class="text_team *STRONG_C*"><p>*TEAM_C*</p></span>
+						</div>
+					</div>
+					<div name="more" class="btn_game_more">
+						<i id="icon_tv_*ECID*" class="*TV_STYLE*" style="display:*DISPLAY_TV*"></i><!-- icon_tv /icon_mt_[球類代碼] -->
+						<span class="game_total">*MORE*</span>
+						<i class="icon_arrow"><svg><use xlink:href="#icon_morearr"/></svg></i>
+					</div>
+					<div class="box_star">
+						<i id="star_*ECID*" class="icon_star"><svg><use xlink:href="#icon_star"/></svg></i>
+					</div>
+				</label>
+			</xmp>
+
+			<!-- 單式 league content Model -->
+			<xmp id="left_info_R" name="left_info" style="display:none;">
+				<div id="div_icon_info" class="box_state">
+					<tt class="text_time">
+						<i>*DATETIME*</i>
+					</tt>
+					<i id="icon_info" class="icon_information" style="display:*INFO_SHOW*"><svg><use xlink:href="#icon_i"></use></svg></i>
+					<i id="icon_N" class="icon_n" style="display:*MIDFIELD_SHOW*"></i>
+					<i id="icon_rb" class="icon_inplay" style="display:*RB_SHOW*"></i>
+				</div>
+				<label id="more" class="btn_innmore">
+					<div class="btn_inn_team">
+						<div class="box_team">
+							<span class="text_team *STRONG_H*">*TEAM_H*</span><!-- 強隊 Add class="strong_team" -->
+						</div>
+						<div class="box_team">
+							<span class="text_team *STRONG_C*">*TEAM_C*</span>
+						</div>
+					</div>
+					<div name="more" class="btn_game_more">
+						<i id="icon_tv_*ECID*" class="*TV_STYLE*" style="display:*DISPLAY_TV*"></i><!-- icon_tv /icon_mt_[球類代碼] -->
+						<span class="game_total">*MORE*</span>
+						<i class="icon_arrow"><svg><use xlink:href="#icon_morearr"/></svg></i>
+					</div>
+					<div class="box_star">
+						<i id="star_*ECID*" class="icon_star"><svg><use xlink:href="#icon_star"/></svg></i>
+					</div>
+				</label>
+			</xmp>
+
+			<!-- 滾球節數 -->
+			<xmp id="model_QT" name="div_model" style="display:none;">
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_re*</div>
+					<div id="bet_*GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_REH*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*IOR_REH*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_REC*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*IOR_REC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rou*</div>
+					<div id="bet_*GID*_*ECID*_ROUC" class="btn_lebet_odd *CLOSE_ROUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUC*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUH" class="btn_lebet_odd *CLOSE_ROUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUH*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rouh*</div>
+					<div id="bet_*GID*_*ECID*_ROUHO" class="btn_lebet_odd *CLOSE_ROUHO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUHO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUHO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUHU" class="btn_lebet_odd *CLOSE_ROUHU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUHU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUHU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rouc*</div>
+					<div id="bet_*GID*_*ECID*_ROUCO" class="btn_lebet_odd *CLOSE_ROUCO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUCO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUCO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUCU" class="btn_lebet_odd *CLOSE_ROUCU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUCU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUCU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_re*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_HALF_REH*">
+						<span>
+							<tt class="text_ballhead">*HALF_RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_REH*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_HALF_REC*">
+						<span>
+							<tt class="text_ballhead">*HALF_RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_REC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_rou*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_ROUC" class="btn_lebet_odd *CLOSE_HALF_ROUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_ROUO*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_ROUC*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_ROUH" class="btn_lebet_odd *CLOSE_HALF_ROUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_ROUU*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_ROUH*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_re*<tt>*STR_MS*</tt></div>
+					<div id="bet_*MS_GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_MS_REH*">
+						<span>
+							<tt class="text_ballhead">*MS_RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*MS_IOR_REH*</span>
+					</div>
+					<div id="bet_*MS_GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_MS_REC*">
+						<span>
+							<tt class="text_ballhead">*MS_RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*MS_IOR_REC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_rou*<tt>*STR_MS*</tt></div>
+					<div id="bet_*MS_GID*_*ECID*_ROUC" class="btn_lebet_odd *CLOSE_MS_ROUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*MS_RATIO_ROUO*</tt>
+						</span>
+						<span class="text_odds">*MS_IOR_ROUC*</span>
+					</div>
+					<div id="bet_*MS_GID*_*ECID*_ROUH" class="btn_lebet_odd *CLOSE_MS_ROUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*MS_RATIO_ROUU*</tt>
+						</span>
+						<span class="text_odds">*MS_IOR_ROUH*</span>
+					</div>
+				</div>
+			</xmp>
+
+			<!-- 滾球半場 -->
+			<xmp id="model_HV" name="div_model" style="display:none;">
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_re*</div>
+					<div id="bet_*GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_REH*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*IOR_REH*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_REC*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*IOR_REC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rou*</div>
+					<div id="bet_*GID*_*ECID*_ROUC" class="btn_lebet_odd *CLOSE_ROUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUC*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUH" class="btn_lebet_odd *CLOSE_ROUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUH*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rouh*</div>
+					<div id="bet_*GID*_*ECID*_ROUHO" class="btn_lebet_odd *CLOSE_ROUHO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUHO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUHO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUHU" class="btn_lebet_odd *CLOSE_ROUHU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUHU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUHU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rouc*</div>
+					<div id="bet_*GID*_*ECID*_ROUCO" class="btn_lebet_odd *CLOSE_ROUCO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUCO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUCO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUCU" class="btn_lebet_odd *CLOSE_ROUCU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUCU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUCU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_re*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_HALF_REH*">
+						<span>
+							<tt class="text_ballhead">*HALF_RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_REH*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_HALF_REC*">
+						<span>
+							<tt class="text_ballhead">*HALF_RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_REC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_rou*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_ROUC" class="btn_lebet_odd *CLOSE_HALF_ROUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_ROUO*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_ROUC*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_ROUH" class="btn_lebet_odd *CLOSE_HALF_ROUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_ROUU*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_ROUH*</span>
+					</div>
+				</div>
+			</xmp>
+
+			<!-- 滾球加時 -->
+			<xmp id="model_OT" name="div_model" style="display:none;">
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_re*</div>
+					<div id="bet_*GID*_*ECID*_REH" class="btn_lebet_odd *CLOSE_REH*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REH*</tt>
+						</span>
+						<span class="text_odds">*IOR_REH*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_REC" class="btn_lebet_odd *CLOSE_REC*">
+						<span>
+							<tt class="text_ballhead">*RATIO_REC*</tt>
+						</span>
+						<span class="text_odds">*IOR_REC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rou*</div>
+					<div id="bet_*GID*_*ECID*_ROUC" class="btn_lebet_odd *CLOSE_ROUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUC*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUH" class="btn_lebet_odd *CLOSE_ROUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUH*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rouh*</div>
+					<div id="bet_*GID*_*ECID*_ROUHO" class="btn_lebet_odd *CLOSE_ROUHO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUHO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUHO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUHU" class="btn_lebet_odd *CLOSE_ROUHU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUHU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUHU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_rouc*</div>
+					<div id="bet_*GID*_*ECID*_ROUCO" class="btn_lebet_odd *CLOSE_ROUCO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_ROUCO*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUCO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_ROUCU" class="btn_lebet_odd *CLOSE_ROUCU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_ROUCU*</tt>
+						</span>
+						<span class="text_odds">*IOR_ROUCU*</span>
+					</div>
+				</div>
+			</xmp>
+
+			<!-- 單式全場 -->
+			<xmp id="model_FT" name="div_model" style="display:none;">
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_r*</div>
+					<div id="bet_*GID*_*ECID*_RH" class="btn_lebet_odd *CLOSE_RH*">
+						<span>
+							<tt class="text_ballhead">*RATIO_RH*</tt>
+						</span>
+						<span class="text_odds">*IOR_RH*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_RC" class="btn_lebet_odd *CLOSE_RC*">
+						<span>
+							<tt class="text_ballhead">*RATIO_RC*</tt>
+						</span>
+						<span class="text_odds">*IOR_RC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_ou*<tt></tt></div>
+					<div id="bet_*GID*_*ECID*_OUC" class="btn_lebet_odd *CLOSE_OUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_OUO*</tt>
+						</span>
+						<span class="text_odds">*IOR_OUC*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_OUH" class="btn_lebet_odd *CLOSE_OUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_OUU*</tt>
+						</span>
+						<span class="text_odds">*IOR_OUH*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_ouh*</div>
+					<div id="bet_*GID*_*ECID*_OUHO" class="btn_lebet_odd *CLOSE_OUHO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_OUHO*</tt>
+						</span>
+						<span class="text_odds">*IOR_OUHO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_OUHU" class="btn_lebet_odd *CLOSE_OUHU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_OUHU*</tt>
+						</span>
+						<span class="text_odds">*IOR_OUHU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd">
+					<div class="head_lebet">*ART_game_ouc*</div>
+					<div id="bet_*GID*_*ECID*_OUCO" class="btn_lebet_odd *CLOSE_OUCO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*RATIO_OUCO*</tt>
+						</span>
+						<span class="text_odds">*IOR_OUCO*</span>
+					</div>
+					<div id="bet_*GID*_*ECID*_OUCU" class="btn_lebet_odd *CLOSE_OUCU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*RATIO_OUCU*</tt>
+						</span>
+						<span class="text_odds">*IOR_OUCU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_r*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_RH" class="btn_lebet_odd *CLOSE_HALF_RH*">
+						<span>
+							<tt class="text_ballhead">*HALF_RATIO_RH*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_RH*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_RC" class="btn_lebet_odd *CLOSE_HALF_RC*">
+						<span>
+							<tt class="text_ballhead">*HALF_RATIO_RC*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_RC*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_ou*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_OUC" class="btn_lebet_odd *CLOSE_HALF_OUC*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_OUO*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_OUC*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_OUH" class="btn_lebet_odd *CLOSE_HALF_OUH*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_OUU*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_OUH*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_ouh*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_OUHO" class="btn_lebet_odd *CLOSE_HALF_OUHO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_OUHO*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_OUHO*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_OUHU" class="btn_lebet_odd *CLOSE_HALF_OUHU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_OUHU*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_OUHU*</span>
+					</div>
+				</div>
+				<div class="box_lebet_odd box_lebet_half">
+					<div class="head_lebet">*ART_game_ouc*<tt>*STR_HALF*</tt></div>
+					<div id="bet_*HALF_GID*_*ECID*_OUCO" class="btn_lebet_odd *CLOSE_HALF_OUCO*">
+						<span>
+							<tt class="text_ballou">*ART_game_over*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_OUCO*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_OUCO*</span>
+					</div>
+					<div id="bet_*HALF_GID*_*ECID*_OUCU" class="btn_lebet_odd *CLOSE_HALF_OUCU*">
+						<span>
+							<tt class="text_ballou">*ART_game_under*</tt>
+							<tt class="text_ballhead">*HALF_RATIO_OUCU*</tt>
+						</span>
+						<span class="text_odds">*HALF_IOR_OUCU*</span>
+					</div>
+				</div>
+			</xmp>
+
+		</div>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+

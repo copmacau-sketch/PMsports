@@ -1,0 +1,421 @@
+[
+  {
+    "case": {
+      "path": "/agents/",
+      "user": "d111111",
+      "pwd": "Aa12345678",
+      "safe": "Aa123123",
+      "tab": "A",
+      "label": "co_d111111"
+    },
+    "clicked": "#mu_hab",
+    "sidebar_items": [
+      {
+        "tag": "DIV",
+        "id": "",
+        "cls": "mu_main",
+        "text": "新总代\n搜帐号\n在线客服"
+      },
+      {
+        "tag": "LI",
+        "id": "new_downline",
+        "cls": "",
+        "text": "新总代"
+      },
+      {
+        "tag": "LI",
+        "id": "quick_search",
+        "cls": "",
+        "text": "搜帐号"
+      },
+      {
+        "tag": "LI",
+        "id": "mu_chat",
+        "cls": "",
+        "text": "在线客服"
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "cls": "le_menu",
+        "text": "菜单"
+      },
+      {
+        "tag": "LI",
+        "id": "t_home",
+        "cls": "le_home le_titleOn",
+        "text": "首页"
+      },
+      {
+        "tag": "LI",
+        "id": "t_report",
+        "cls": "le_report",
+        "text": "报表"
+      },
+      {
+        "tag": "LI",
+        "id": "accountM",
+        "cls": "le_account_list",
+        "text": "帐号管理\n总代理\n代理商\n会员\n子帐号"
+      },
+      {
+        "tag": "SPAN",
+        "id": "tit_account",
+        "cls": "le_account_title",
+        "text": "帐号管理"
+      },
+      {
+        "tag": "LI",
+        "id": "t_SU",
+        "cls": "le_su",
+        "text": "总代理"
+      },
+      {
+        "tag": "LI",
+        "id": "t_AG",
+        "cls": "le_ag",
+        "text": "代理商"
+      },
+      {
+        "tag": "LI",
+        "id": "t_MEM",
+        "cls": "le_mem",
+        "text": "会员"
+      },
+      {
+        "tag": "LI",
+        "id": "t_Sub",
+        "cls": "le_sub",
+        "text": "子帐号"
+      },
+      {
+        "tag": "LI",
+        "id": "t_analysis",
+        "cls": "le_analysis",
+        "text": "即时注单"
+      },
+      {
+        "tag": "LI",
+        "id": "t_wmc",
+        "cls": "le_wmc",
+        "text": "注单监视视窗"
+      }
+    ],
+    "all_text_unique": [
+      "新总代",
+      "搜帐号",
+      "在线客服",
+      "首页",
+      "报表",
+      "帐号管理\n总代理\n代理商\n会员\n子帐号",
+      "帐号管理",
+      "总代理",
+      "代理商",
+      "会员",
+      "子帐号",
+      "即时注单",
+      "注单监视视窗",
+      "绩效概况",
+      "昨天",
+      "上周",
+      "本期",
+      "获利率",
+      "赢 / 输",
+      "实货量\n0.10\n0%",
+      "实货量",
+      "帐号概况",
+      "信用额度",
+      "剩余额度",
+      "本期新会员数",
+      "本期剩余天数",
+      "本期完成天数",
+      "最后登入时间",
+      "密码最后更新时间",
+      "下线状态",
+      "占成收入",
+      "投注人数",
+      "语言：简体",
+      "特色",
+      "系统需求",
+      "联系方式",
+      "联系方式待更新"
+    ]
+  },
+  {
+    "case": {
+      "path": "/agents/",
+      "user": "d222222",
+      "pwd": "Aa12345678",
+      "safe": "Aa123123",
+      "tab": "B",
+      "label": "su_d222222"
+    },
+    "clicked": "#mu_hab",
+    "sidebar_items": [
+      {
+        "tag": "DIV",
+        "id": "",
+        "cls": "mu_main",
+        "text": "新代理\n搜帐号\n在线客服\n公告"
+      },
+      {
+        "tag": "LI",
+        "id": "new_downline",
+        "cls": "",
+        "text": "新代理"
+      },
+      {
+        "tag": "LI",
+        "id": "quick_search",
+        "cls": "",
+        "text": "搜帐号"
+      },
+      {
+        "tag": "LI",
+        "id": "mu_chat",
+        "cls": "",
+        "text": "在线客服"
+      },
+      {
+        "tag": "LI",
+        "id": "announcement",
+        "cls": "",
+        "text": "公告"
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "cls": "le_menu",
+        "text": "菜单"
+      },
+      {
+        "tag": "LI",
+        "id": "t_home",
+        "cls": "le_home le_titleOn",
+        "text": "首页"
+      },
+      {
+        "tag": "LI",
+        "id": "t_report",
+        "cls": "le_report",
+        "text": "报表"
+      },
+      {
+        "tag": "LI",
+        "id": "accountM",
+        "cls": "le_account_list",
+        "text": "帐号管理\n代理商\n会员\n子帐号"
+      },
+      {
+        "tag": "SPAN",
+        "id": "tit_account",
+        "cls": "le_account_title",
+        "text": "帐号管理"
+      },
+      {
+        "tag": "LI",
+        "id": "t_AG",
+        "cls": "le_ag",
+        "text": "代理商"
+      },
+      {
+        "tag": "LI",
+        "id": "t_MEM",
+        "cls": "le_mem",
+        "text": "会员"
+      },
+      {
+        "tag": "LI",
+        "id": "t_Sub",
+        "cls": "le_sub",
+        "text": "子帐号"
+      },
+      {
+        "tag": "LI",
+        "id": "t_analysis",
+        "cls": "le_analysis",
+        "text": "即时注单"
+      },
+      {
+        "tag": "LI",
+        "id": "t_wmc",
+        "cls": "le_wmc",
+        "text": "注单监视视窗"
+      }
+    ],
+    "all_text_unique": [
+      "新代理",
+      "搜帐号",
+      "在线客服",
+      "公告",
+      "首页",
+      "报表",
+      "帐号管理\n代理商\n会员\n子帐号",
+      "帐号管理",
+      "代理商",
+      "会员",
+      "子帐号",
+      "即时注单",
+      "注单监视视窗",
+      "绩效概况",
+      "昨天",
+      "上周",
+      "本期",
+      "获利率",
+      "赢 / 输",
+      "实货量\n0.70\n0%",
+      "实货量",
+      "帐号概况",
+      "信用额度",
+      "剩余额度",
+      "本期新会员数",
+      "本期剩余天数",
+      "本期完成天数",
+      "最后登入时间",
+      "密码最后更新时间",
+      "下线状态",
+      "占成收入",
+      "投注人数",
+      "语言：简体",
+      "特色",
+      "系统需求",
+      "联系方式",
+      "联系方式待更新"
+    ]
+  },
+  {
+    "case": {
+      "path": "/agents/",
+      "user": "sealin11",
+      "pwd": "Sealin1226",
+      "safe": "",
+      "tab": "C",
+      "label": "ag_sealin11"
+    },
+    "clicked": "#mu_hab",
+    "sidebar_items": [
+      {
+        "tag": "DIV",
+        "id": "",
+        "cls": "mu_main",
+        "text": "新会员\n搜帐号\n在线客服\n公告"
+      },
+      {
+        "tag": "LI",
+        "id": "new_downline",
+        "cls": "",
+        "text": "新会员"
+      },
+      {
+        "tag": "LI",
+        "id": "quick_search",
+        "cls": "",
+        "text": "搜帐号"
+      },
+      {
+        "tag": "LI",
+        "id": "mu_chat",
+        "cls": "",
+        "text": "在线客服"
+      },
+      {
+        "tag": "LI",
+        "id": "announcement",
+        "cls": "",
+        "text": "公告"
+      },
+      {
+        "tag": "SPAN",
+        "id": "",
+        "cls": "le_menu",
+        "text": "菜单"
+      },
+      {
+        "tag": "LI",
+        "id": "t_home",
+        "cls": "le_home le_titleOn",
+        "text": "首页"
+      },
+      {
+        "tag": "LI",
+        "id": "t_report",
+        "cls": "le_report",
+        "text": "报表"
+      },
+      {
+        "tag": "LI",
+        "id": "accountM",
+        "cls": "le_account_list",
+        "text": "帐号管理\n会员\n子帐号"
+      },
+      {
+        "tag": "SPAN",
+        "id": "tit_account",
+        "cls": "le_account_title",
+        "text": "帐号管理"
+      },
+      {
+        "tag": "LI",
+        "id": "t_MEM",
+        "cls": "le_mem",
+        "text": "会员"
+      },
+      {
+        "tag": "LI",
+        "id": "t_Sub",
+        "cls": "le_sub",
+        "text": "子帐号"
+      },
+      {
+        "tag": "LI",
+        "id": "t_analysis",
+        "cls": "le_analysis",
+        "text": "即时注单"
+      },
+      {
+        "tag": "LI",
+        "id": "t_wmc",
+        "cls": "le_wmc",
+        "text": "注单监视视窗"
+      }
+    ],
+    "all_text_unique": [
+      "新会员",
+      "搜帐号",
+      "在线客服",
+      "公告",
+      "首页",
+      "报表",
+      "帐号管理\n会员\n子帐号",
+      "帐号管理",
+      "会员",
+      "子帐号",
+      "即时注单",
+      "注单监视视窗",
+      "绩效概况",
+      "昨天",
+      "上周",
+      "本期",
+      "获利率",
+      "赢 / 输",
+      "实货量\n0.00\n0%",
+      "实货量",
+      "帐号概况",
+      "信用额度",
+      "剩余额度",
+      "本期新会员数",
+      "本期剩余天数",
+      "本期完成天数",
+      "最后登入时间",
+      "密码最后更新时间",
+      "下线状态",
+      "占成收入",
+      "投注人数",
+      "语言：简体",
+      "特色",
+      "系统需求",
+      "联系方式",
+      "联系方式待更新"
+    ]
+  }
+]

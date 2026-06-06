@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>right menu</title>
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>th=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover' />
+    <script id="homeJS">{JS}</script>
+
+    <link href="{CDNURL}/style/slide_r.css" rel="stylesheet" type="text/css">
+</head>
+
+ <body>
+        <div class="slide_r on">
+            <div id="right_mask" class="mask_acc"></div>
+            <div class="box_acc">
+                <div class="box_title_acc">
+                    <div id="acc_show_eye" class="btn_eye off">
+                        <i class="icon_eye"></i>
+                    </div>
+                    <div class="box_username">
+                        <span id="acc_username" class="text_user"></span>
+                        <span id="acc_money" class="text_money">
+                            <tt id="acc_currency" class="text_currency"></tt>
+                            <tt id="acc_credit" class="text_credit"></tt>
+                        </span>
+                    </div>
+                    <div id="myAcc_close" class="btn_close">
+                        <i class="icon_close">
+                            <svg>
+                                <use xlink:href="#icon_close"/>
+                            </svg>
+                        </i>
+                    </div>
+                </div>
+                <div id="right_box_content" class="box_content">
+                    <div id="rightM_history" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_history"/>
+                        </svg>
+                        <span>*ART_acc_history*</span>
+                    </div>
+                    <div id="right_creditlogs" class="btn_acc_menu" style="display: none;">
+                        <svg>
+                            <use xlink:href="#icon_creditlog"/>
+                        </svg>
+                        <span>*ART_acc_creditlog*</span>
+                    </div>
+                    <div id="right_message" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_message"/>
+                        </svg>
+                        <span>*ART_acc_messages*</span>
+                        <tt id="right_mess_new" class="dot_red"></tt>
+                    </div>
+                    <div class="title_sort">*ART_acc_set*</div>
+                    <div id="chg_language" class="btn_acc_menu">
+                        <i id="icon_zh-tw" class="icon_lang icon_hk" style="display:none;"></i>
+                        <i id="icon_zh-cn" class="icon_lang icon_cn" style="display:none;"></i>
+                        <i id="icon_en-us" class="icon_lang icon_en" style="display:none;"></i>
+                        <span>
+                            <tt>*ART_acc_language*</tt>
+                            <tt id="zh-cn" class="btn_acc_sub" style="display:none;">*ART_lan_cn*</tt>
+                            <tt id="zh-tw" class="btn_acc_sub" style="display:none;">*ART_lan_tw*</tt>
+                            <tt id="en-us" class="btn_acc_sub" style="display:none;">*ART_lan_en*</tt>
+                        </span>
+                        <select id="langx_dropdown" class="" tabindex="-1">
+                            <option value="langx_zh-cn">*ART_lan_cn*</option>
+                            <option value="langx_zh-tw">*ART_lan_tw*</option>
+                            <option value="langx_en-us">*ART_lan_en*</option>
+                        </select>
+                        <!-- 語系選擇 -->
+                        <div id="selec_language" class="box_popup_selec">
+                            <!-- Show add class="on"-->
+                            <div id="lang_focus" class="popup_lange">
+                                <label id="selec_zh-cn" class="btn_popup_selec">
+                                    <i class="icon_lang icon_cn"></i>
+                                    <input id="pc_langx_zh-cn" value="zh-cn" type="radio" name="selec_lang">
+                                    <tt>*ART_lan_cn*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="selec_zh-tw" class="btn_popup_selec">
+                                    <i class="icon_lang icon_hk"></i>
+                                    <input id="pc_langx_zh-tw" value="zh-tw" type="radio" name="selec_lang">
+                                    <tt>*ART_lan_tw*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="selec_en-us" class="btn_popup_selec">
+                                    <i class="icon_lang icon_en"></i>
+                                    <input id="pc_langx_en-us" value="en-us" type="radio" name="selec_lang">
+                                    <tt>*ART_lan_en*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="odds_type" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_market"/>
+                        </svg>
+                        <span>
+                            <tt>*ART_acc_market*</tt>
+                            <tt id="H" class="btn_acc_sub" style="display:none;">*ART_market_hk*</tt>
+                            <tt id="M" class="btn_acc_sub" style="display:none;">*ART_market_ml*</tt>
+                            <tt id="I" class="btn_acc_sub" style="display:none;">*ART_market_in*</tt>
+                            <tt id="E" class="btn_acc_sub" style="display:none;">*ART_market_eu*</tt>
+                        </span>
+                        <select id="odds_dropdown" class="" tabindex="-1">
+                        <!--
+						<option  id="H_ph" value="H_odds" style="display:none;">*ART_market_hk*</option>
+						<option  id="M_ph" value="M_odds" style="display:none;">*ART_market_ml*</option>
+						<option  id="I_ph" value="I_odds" style="display:none;">*ART_market_in*</option>
+						<option  id="E_ph" value="E_odds" style="display:none;">*ART_market_eu*</option>
+						-->
+                        </select>
+                        <!-- 盤口選擇 -->
+                        <div id="selec_oddstype" class="box_popup_selec">
+                            <!-- Show add class="on"-->
+                            <div id="parent_selec_odds" class="popup_oddtype">
+                                <label id="selec_H" class="btn_popup_selec" style="display:none;">
+                                    <input id="H_odds" value="HK" type="radio" name="selec_market">
+                                    <tt>*ART_market_hk*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="selec_M" class="btn_popup_selec" style="display:none;">
+                                    <input id="M_odds" value="Malay" type="radio" name="selec_market">
+                                    <tt>*ART_market_ml*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="selec_I" class="btn_popup_selec" style="display:none;">
+                                    <input id="I_odds" value="Indo" type="radio" name="selec_market">
+                                    <tt>*ART_market_in*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="selec_E" class="btn_popup_selec" style="display:none;">
+                                    <input id="E_odds" value="Euro" type="radio" name="selec_market">
+                                    <tt>*ART_market_eu*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="iorType_switch" class="btn_acc_menu acc_oddupdate">
+                        <svg>
+                            <use xlink:href="#icon_oddupdate"/>
+                        </svg>
+                        <span>
+                            <tt>*ART_acc_oddupdate*</tt>
+                            <tt class="btn_acc_sub">*ART_oddupdate_note*</tt>
+                        </span>
+                        <div class="switch_acc_menu">
+                            <input type="checkbox" id="iorType_set">
+                            <span>
+                                <i class="switch"></i>
+                            </span>
+                        </div>
+                        <label id="" for="iorType_set"></label>
+                    </div>
+                    <div id="chg_timetype" class="btn_acc_menu" style="display: ;">
+                        <svg>
+                            <use xlink:href="#icon_displaytime"/>
+                        </svg>
+                        <span>
+                            <tt>*ART_acc_time*</tt>
+                            <tt id="sysTime" class="btn_acc_sub" style="display:none;">*ART_time_sys*</tt>
+                            <tt id="devTime" class="btn_acc_sub" style="display:none;">*ART_time_dev*</tt>
+                        </span>
+                        <select id="timetype_dropdown" class="" tabindex="-1">
+                            <option value="time_sysTime">*ART_time_sys*</option>
+                            <option value="time_devTime">*ART_time_dev*</option>
+                        </select>
+                        <!-- 時間顯示選擇 -->
+                        <div id="selec_timetype" class="box_popup_selec">
+                            <!-- Show add class="on"-->
+                            <div id="timetype_focus" class="popup_oddtype">
+                                <label id="selec_sysTime" class="btn_popup_selec">
+                                    <input id="pc_sysTime" value="sysTime" type="radio" name="selec_timetype">
+                                    <tt>*ART_time_sys*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label id="selec_devTime" class="btn_popup_selec">
+                                    <input id="pc_devTime" value="devTime" type="radio" name="selec_timetype">
+                                    <tt>*ART_time_dev*</tt>
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="right_help_change_pwd" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_pwdchg"/>
+                        </svg>
+                        <span>*ART_acc_changepwd*</span>
+                    </div>
+                    <div id="right_help_4pwd_login" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_pwdquick"></use>
+                        </svg>
+                        <span>
+                            <tt>*ART_acc_passcode*</tt>
+                            <tt id="4pwd_active" class="btn_acc_sub">*ART_acc_active*</tt>
+                        </span>
+                    </div>
+                    <div id="right_set_mail" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_pwdre"/>
+                        </svg>
+                        <span>*ART_acc_pwdrecovery*</span>
+                    </div>
+                    <div id="right_account_set" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_setting"/>
+                        </svg>
+                        <span>*ART_acc_setting*</span>
+                    </div>
+                    <div class="title_sort">*ART_acc_support*</div>
+                    <div id="right_tv" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_tv"/>
+                        </svg>
+                        <span>*ART_acc_tv*</span>
+                    </div>
+                    <div id="right_help_faq" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_faq"/>
+                        </svg>
+                        <span>*ART_acc_faq*</span>
+                    </div>
+                    <div id="right_features_new" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_new"/>
+                        </svg>
+                        <span>*ART_acc_feature*</span>
+                        <tt class="dot_green"></tt>
+                    </div>
+                    <div id="right_help_odds" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_odd"/>
+                        </svg>
+                        <span>*ART_acc_odds*</span>
+                    </div>
+                    <div id="right_rules_general" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_rule"/>
+                        </svg>
+                        <span>*ART_acc_rule*</span>
+                    </div>
+                    <div id="right_help_sys" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_system"/>
+                        </svg>
+                        <span>*ART_acc_system*</span>
+                    </div>
+                    <div id="right_help_term" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_terms"/>
+                        </svg>
+                        <span>*ART_acc_term*</span>
+                    </div>
+                    <!--
+				<div class="btn_acc_menu" style="display: none;">
+					<svg><use xlink:href="#icon_qa" /></svg>
+					<span>*ART_acc_fix*</span>
+				</div>
+				-->
+                    <div id="right_contactus" class="btn_acc_menu">
+                        <svg>
+                            <use xlink:href="#icon_contact"/>
+                        </svg>
+                        <span>*ART_acc_contact*</span>
+                    </div>
+                    <div id="rightM_result" class="btn_acc_menu btn_acc_result" style="display: none;">
+                        <svg>
+                            <use xlink:href="#icon_result"/>
+                        </svg>
+                        <span>*ART_acc_result*</span>
+                    </div>
+                    <div id="right_app" class="btn_acc_menu btn_acc_app" style="display: none;">
+                        <svg>
+                            <use xlink:href="#icon_appdownload"/>
+                        </svg>
+                        <span>*ART_acc_app*</span>
+                    </div>
+                    <div id="right_logout" class="box_logout">
+                        <div class="btn_logout">*ART_acc_logout*</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

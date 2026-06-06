@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-lang="cn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="theme-color" content="#503f32">
+<title>登入 / Login</title>
+<style>
+  /* ============ Reset ============ */
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0;height:100%;}
+  body{
+    font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+    background:#f5f5f5;color:#000;
+    -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    -webkit-tap-highlight-color:transparent;
+  }
+  input,button{font-family:inherit;outline:none}
+  button{border:none;cursor:pointer;background:none}
+  a{color:inherit;text-decoration:none}
+  svg{display:block}
+
+  /* ============ Layout ============ */
+  .login{min-height:100dvh;background:#f5f5f5;padding-bottom:16px;display:flex;flex-direction:column;align-items:center}
+  .bg_login{width:100%;display:flex;flex-direction:column;align-items:center}
+
+  /* ============ Language Bar ============ */
+  .box_language{
+    width:100%;height:56px;line-height:56px;text-align:center;font-size:14px;
+    background:#503f32;color:rgba(255,255,255,.72);
+  }
+  .btn_language{
+    display:inline-block;width:33.33%;max-width:107px;height:100%;
+    cursor:pointer;transition:color .3s ease;color:rgba(255,255,255,.72);
+    user-select:none;
+  }
+  .btn_language.on{color:#debb69}
+
+  /* ============ Login Card ============ */
+  .box_login{
+    width:100%;max-width:320px;margin:16px auto;padding:24px 16px 16px;
+    text-align:center;background:#fff;border-radius:2px;
+  }
+  .lab_input{
+    position:relative;display:block;width:100%;height:48px;margin-bottom:16px;text-align:left;
+  }
+  .lab_input>input{
+    display:block;width:100%;height:100%;margin:0;padding:0 40px 0 16px;
+    font-size:16px;border-radius:4px;border:1px solid rgba(0,0,0,.32);
+    color:#000;background:#fff;transition:border .25s ease;
+  }
+  .text_input{position:absolute;inset:0;pointer-events:none}
+  .text_input::after{
+    content:attr(data-tooltip);
+    position:absolute;top:0;left:14px;display:flex;height:100%;align-items:center;
+    padding:0 4px;font-size:16px;color:rgba(0,0,0,.32);
+    background:transparent;transition:all .25s ease,background .1s .1s;
+  }
+  .lab_input.on>input,.lab_input>input:focus{border:2px solid #19805c}
+  .lab_input.on .text_input::after,
+  .lab_input>input:focus ~ .text_input::after,
+  .lab_input>input:not(:placeholder-shown) ~ .text_input::after{
+    top:-8px;height:16px;font-size:12px;color:#19805c;background:#fff;
+  }
+  .lab_input.error>input{border:2px solid #e76565 !important}
+  .lab_input.error .text_input::after{color:#e76565 !important}
+
+  .btn_clear{
+    position:absolute;top:8px;right:8px;width:32px;height:32px;padding:8px;
+    border-radius:50%;display:none;align-items:center;justify-content:center;
+    cursor:pointer;
+  }
+  .lab_input.on .btn_clear{display:flex}
+  .btn_clear svg{width:16px;height:16px;fill:rgba(0,0,0,.4)}
+
+  .text_error{
+    display:none;width:100%;line-height:16px;margin-bottom:16px;
+    text-align:center;font-size:12px;color:#ce3636;
+  }
+  .text_error.show{display:block}
+
+  .btn_login{
+    width:100%;height:48px;line-height:48px;margin-bottom:16px;padding:0 16px;
+    border-radius:4px;text-align:center;font-size:14px;font-weight:700;
+    color:#fff;background:#19805c;transition:background .25s ease;
+  }
+  .btn_login:hover{background:#156c4d}
+  .btn_login:active{background:#11553e}
+
+  .box_remember{
+    width:100%;height:32px;line-height:32px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .check_remember{display:inline-flex;align-items:center;cursor:pointer;user-select:none}
+  .check_remember input{position:absolute;opacity:0;width:0;height:0}
+  .checkmark{
+    display:inline-block;width:18px;height:18px;border-radius:50%;
+    border:1px solid rgba(0,0,0,.64);background:#fff;position:relative;
+    transition:all .2s ease;
+  }
+  .check_remember input:checked ~ .checkmark{border-color:#19805c;background:#19805c}
+  .check_remember input:checked ~ .checkmark::after{
+    content:"";position:absolute;left:5px;top:1px;width:5px;height:10px;
+    border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg);
+  }
+  .check_remember tt{margin-left:8px;font:400 14px/1 inherit;color:rgba(0,0,0,.64)}
+  .btn_forgot{font-size:14px;color:#0066CC;cursor:pointer}
+  .btn_forgot:hover{text-decoration:underline}
+
+  /* ============ IP Card ============ */
+  .box_ip{
+    width:100%;max-width:320px;margin:0 auto 16px;padding:16px;background:#fff;
+    display:flex;align-items:center;gap:8px;
+  }
+  .box_ip .ip_text{flex:1 1 auto;font-size:14px;color:#000;line-height:1.5}
+  .box_ip .ip_text b{display:block;font-weight:700;margin-bottom:6px}
+  .box_ip .ip_text a{display:inline-block;margin-top:6px;font-size:20px;font-weight:700;color:#0499C8}
+  .box_ip .ip_text a:hover{text-decoration:underline}
+  .box_ip .ip_illu{flex:0 0 120px;height:96px}
+  .box_ip .ip_illu svg{width:100%;height:100%}
+
+  /* ============ Browser Card ============ */
+  .box_browser{
+    width:100%;max-width:320px;margin:0 auto;padding:16px;background:#fff;
+    font-size:14px;color:#000;
+  }
+  .box_browser>span{display:block;font-weight:700;margin-bottom:8px}
+  .wrap_browser{display:flex;justify-content:center;gap:16px;margin:16px 0}
+  .btn_browser{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    width:64px;height:84px;font-size:12px;color:#000;border-radius:8px;cursor:pointer;
+  }
+  .btn_browser i{
+    width:56px;height:56px;border-radius:50%;background:no-repeat center/cover;margin-bottom:4px;
+  }
+  .icon_chrome{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23ffffff' stroke='%23dadce0' stroke-width='1'/><circle cx='32' cy='32' r='12' fill='%234285F4'/><circle cx='32' cy='32' r='8' fill='%23ffffff'/><path d='M32 4a28 28 0 0 1 24.25 14H32a14 14 0 0 0-12.12 7L7.75 18A28 28 0 0 1 32 4z' fill='%23EA4335'/><path d='M5 32a28 28 0 0 1 2.75-12.13l12.13 7A14 14 0 0 0 27.4 45.6l-6 12.06A28 28 0 0 1 5 32z' fill='%23FBBC05'/><path d='M56.25 18A28 28 0 0 1 32 60l6-12a14 14 0 0 0 6.13-18L56.25 18z' fill='%2334A853'/></svg>")}
+  .icon_safari{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23eef1f4' stroke='%23bfc6cc' stroke-width='1'/><circle cx='32' cy='32' r='24' fill='%23ffffff'/><path d='M32 12 L34 30 L40 30 Z' fill='%23E0E5EA'/><path d='M32 52 L30 34 L24 34 Z' fill='%23E0E5EA'/><path d='M40 32 L26 38 L40 26 Z' fill='%23ff5d57'/><circle cx='32' cy='32' r='2.5' fill='%2300549b'/></svg>")}
+  .icon_firefox{background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%23ddd' /><path d='M32 6c14 0 26 12 26 26 0 13-10 24-23 26 8-3 14-11 14-21 0-9-7-16-16-16-7 0-12 4-14 10-2-3-3-6-3-10 0-9 7-15 16-15z' fill='%23ff7139'/><path d='M14 36c0-9 7-16 16-16 6 0 11 3 13 8-2-1-4-1-6-1-9 0-16 7-16 16 0 4 2 8 4 11-7-3-11-10-11-18z' fill='%23ffae42'/></svg>")}
+  .box_browser p{margin:0;line-height:1.6;font-size:13px;color:rgba(0,0,0,.72)}
+  .box_browser a.systemreq{color:#ce3636;cursor:pointer}
+  .box_browser a.systemreq:hover{text-decoration:underline}
+
+  /* ============ Footer marker ============ */
+  .legal{margin:16px auto 0;font-size:12px;color:rgba(0,0,0,.4);text-align:center}
+
+  /* ============ Tablet/Desktop tweak ============ */
+  @media (min-width:600px){
+    .box_login,.box_ip,.box_browser{box-shadow:0 1px 3px rgba(0,0,0,.06)}
+  }
+
+  /* ============ Mobile (≤480) ============ */
+  @media (max-width:480px){
+    .box_language{height:48px;line-height:48px;font-size:13px}
+    .btn_language{max-width:none;width:33.33%}
+    .box_login,.box_ip,.box_browser{
+      max-width:none;width:calc(100% - 24px);margin-left:12px;margin-right:12px;
+    }
+    .box_login{padding:20px 14px 14px;margin-top:12px}
+    .lab_input>input{font-size:15px}
+    .box_ip{flex-direction:column;align-items:flex-start;text-align:left;gap:12px;padding:14px}
+    .box_ip .ip_illu{flex:0 0 auto;width:96px;height:72px;align-self:center}
+    .box_ip .ip_text a{font-size:18px;word-break:break-all}
+    .wrap_browser{gap:12px;flex-wrap:wrap}
+    .legal{padding:0 12px}
+  }
+</style>
+</head>
+<body>
+<!-- Inline SVG sprite -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="icon_close" viewBox="0 0 16 16">
+    <path d="M8 6.6 13 1.6l1.4 1.4L9.4 8l5 5L13 14.4l-5-5-5 5L1.6 13l5-5-5-5L3 1.6z"/>
+  </symbol>
+  <symbol id="icon_ip" viewBox="0 0 200 160">
+    <!-- background sky -->
+    <rect width="200" height="160" fill="none"/>
+    <!-- clouds -->
+    <ellipse cx="40" cy="38" rx="18" ry="6" fill="#e6eef7"/>
+    <ellipse cx="160" cy="30" rx="22" ry="7" fill="#e6eef7"/>
+    <!-- ground -->
+    <path d="M0 130 Q100 110 200 130 L200 160 L0 160 Z" fill="#f0e4d2"/>
+    <!-- phone -->
+    <rect x="80" y="60" width="48" height="80" rx="6" fill="#3a78d4"/>
+    <rect x="84" y="68" width="40" height="60" rx="2" fill="#fff"/>
+    <!-- warning sign on phone -->
+    <polygon points="104,80 116,100 92,100" fill="#ffb84d" stroke="#a25c00" stroke-width="1.5"/>
+    <rect x="103" y="86" width="2" height="8" fill="#3b2300"/>
+    <circle cx="104" cy="97" r="1.3" fill="#3b2300"/>
+    <!-- left worker -->
+    <circle cx="44" cy="86" r="6" fill="#f3c79b"/>
+    <rect x="40" y="80" width="8" height="4" rx="1" fill="#c95b1a"/>
+    <path d="M30 110 Q38 100 50 100 L60 110 L60 132 L30 132 Z" fill="#3a78d4"/>
+    <rect x="30" y="124" width="30" height="8" fill="#28508c"/>
+    <!-- right worker -->
+    <circle cx="160" cy="84" r="6" fill="#f3c79b"/>
+    <rect x="156" y="78" width="8" height="4" rx="1" fill="#c95b1a"/>
+    <path d="M148 108 Q160 98 172 108 L172 132 L148 132 Z" fill="#3a78d4"/>
+    <rect x="148" y="124" width="24" height="8" fill="#28508c"/>
+    <!-- traffic cones -->
+    <polygon points="62,138 70,138 68,124 64,124" fill="#ff7a3a"/>
+    <rect x="62" y="138" width="10" height="3" fill="#ce4f17"/>
+    <polygon points="138,138 146,138 144,126 140,126" fill="#ff7a3a"/>
+    <rect x="138" y="138" width="10" height="3" fill="#ce4f17"/>
+  </symbol>
+</svg>
+
+<div ontouchstart="" class="login">
+  <div class="bg_login">
+
+    <!-- Language switcher -->
+    <div class="box_language" role="tablist" aria-label="Language">
+      <span id="lang_cn" class="btn_language on" role="tab">简体版</span>
+      <span id="lang_tw" class="btn_language" role="tab">繁體版</span>
+      <span id="lang_en" class="btn_language" role="tab">ENGLISH</span>
+    </div>
+
+    <!-- Login form -->
+    <form class="box_login" id="login_form" autocomplete="on" novalidate>
+      <label id="usr_lab" class="lab_input">
+        <input id="usr" class="userid" name="username" type="text" placeholder=" " autocomplete="username" autocapitalize="off" autocorrect="off" spellcheck="false" required>
+        <span class="text_input" data-tooltip="登入帐号"></span>
+        <i id="usr_dele" class="btn_clear" aria-label="clear"><svg><use xlink:href="#icon_close"/></svg></i>
+      </label>
+
+      <label id="pwd_lab" class="lab_input">
+        <input id="pwd" class="pwd" name="password" type="password" placeholder=" " autocomplete="current-password" required>
+        <span class="text_input" data-tooltip="密码"></span>
+        <i id="pwd_dele" class="btn_clear" aria-label="clear"><svg><use xlink:href="#icon_close"/></svg></i>
+      </label>
+
+      <span id="text_error" class="text_error">请输入您的登入帐号</span>
+
+      <button id="btn_login" type="submit" class="btn_login">登入</button>
+
+      <div class="box_remember">
+        <label class="check_remember">
+          <input id="remember" type="checkbox">
+          <span class="checkmark"></span>
+          <tt>记住我的帐号</tt>
+        </label>
+        <span id="btn_forgot" class="btn_forgot">忘记密码?</span>
+      </div>
+    </form>
+
+    <!-- IP card removed 2026-05-26: see wwwroot_F5PEa/application/member/index.html
+         for rationale. Use a CDN-fronted backup domain, never a raw IP. -->
+    <!--
+    <div class="box_ip" id="ip_card">
+      <div class="ip_text">
+        <b>当浏览顺畅度不够理想的时候，请使用备用入口：</b>
+        <a id="ip_run" href="https://backup.example.com" target="_blank" rel="noopener noreferrer">backup.example.com</a>
+      </div>
+      <div class="ip_illu" aria-hidden="true">
+        <svg><use xlink:href="#icon_ip"/></svg>
+      </div>
+    </div>
+    -->
+
+    <!-- Browser recommend -->
+    <div class="box_browser">
+      <span id="brw_title">我们推荐使用以下浏览器以获得最佳使用体验:</span>
+      <div class="wrap_browser">
+        <div id="browse_chr" class="btn_browser">
+          <i class="icon_chrome" aria-hidden="true"></i>
+          <span>Chrome</span>
+        </div>
+        <div id="browse_saf" class="btn_browser">
+          <i class="icon_safari" aria-hidden="true"></i>
+          <span>Safari</span>
+        </div>
+        <div id="browse_fox" class="btn_browser">
+          <i class="icon_firefox" aria-hidden="true"></i>
+          <span id="brw_fox_label">火狐</span>
+        </div>
+      </div>
+      <p id="brw_desc">如果您在使用本网站遇到任何问题，请查看我们列出的浏览器和系统的<a class="systemreq" id="systemreq">最低需求</a>。</p>
+    </div>
+
+    <div class="legal">© Crown · Login Only Demo</div>
+  </div>
+</div>
+
+<script>
+(function(){
+  /* ============ i18n strings ============ */
+  var I18N = {
+    cn:{
+      title:"登入 / Login",
+      id:"登入帐号", pwd:"密码", btn:"登入",
+      remember:"记住我的帐号", forgot:"忘记密码?",
+      err_id:"请输入您的登入帐号", err_pwd:"请输入您的密码",
+      ip_b:"当浏览顺畅度不够理想的时候，请访问本站IP地址：",
+      brw_title:"我们推荐使用以下浏览器以获得最佳使用体验:",
+      brw_fox:"火狐",
+      brw_desc_pre:"如果您在使用本网站遇到任何问题，请查看我们列出的浏览器和系统的",
+      brw_desc_btn:"最低需求", brw_desc_post:"。"
+    },
+    tw:{
+      title:"登入 / Login",
+      id:"登入帳號", pwd:"密碼", btn:"登入",
+      remember:"記住我的帳號", forgot:"忘記密碼?",
+      err_id:"請輸入您的登入帳號", err_pwd:"請輸入您的密碼",
+      ip_b:"當瀏覽順暢度不夠理想的時候，請訪問本站IP地址：",
+      brw_title:"我們推薦使用以下瀏覽器以獲得最佳使用體驗:",
+      brw_fox:"火狐",
+      brw_desc_pre:"如果您在使用本網站遇到任何問題，請查看我們列出的瀏覽器和系統的",
+      brw_desc_btn:"最低需求", brw_desc_post:"。"
+    },
+    en:{
+      title:"Login",
+      id:"User ID", pwd:"Password", btn:"Login",
+      remember:"Remember my ID", forgot:"Forgot Password?",
+      err_id:"Please enter your User ID", err_pwd:"Please enter your password",
+      ip_b:"If browsing is slow, please use this site IP address:",
+      brw_title:"We recommend using the following browsers for the best experience:",
+      brw_fox:"Firefox",
+      brw_desc_pre:"If you encounter any problems, please check our listed browser and system ",
+      brw_desc_btn:"minimum requirements", brw_desc_post:"."
+    }
+  };
+
+  function $(id){return document.getElementById(id)}
+
+  function applyLang(code){
+    var t = I18N[code]; if(!t) return;
+    document.documentElement.setAttribute("data-lang", code);
+    document.title = t.title;
+    document.querySelector('#usr_lab .text_input').setAttribute('data-tooltip', t.id);
+    document.querySelector('#pwd_lab .text_input').setAttribute('data-tooltip', t.pwd);
+    $('btn_login').textContent = t.btn;
+    document.querySelector('.check_remember tt').textContent = t.remember;
+    $('btn_forgot').textContent = t.forgot;
+    document.querySelector('#ip_card .ip_text b').textContent = t.ip_b;
+    $('brw_title').textContent = t.brw_title;
+    $('brw_fox_label').textContent = t.brw_fox;
+    $('brw_desc').innerHTML = t.brw_desc_pre + '<a class="systemreq" id="systemreq">'+t.brw_desc_btn+'</a>' + t.brw_desc_post;
+    // re-bind systemreq because innerHTML replaced it
+    var s = $('systemreq'); if(s) s.addEventListener('click', onSystemReq);
+    // tab state
+    ['cn','tw','en'].forEach(function(c){
+      var el = $('lang_'+c); if(el) el.classList.toggle('on', c===code);
+    });
+    try{ localStorage.setItem('lang', code); }catch(e){}
+  }
+
+  function onSystemReq(){ alert((I18N[currentLang()]||I18N.cn).brw_desc_btn); }
+  function currentLang(){ return document.documentElement.getAttribute('data-lang') || 'cn'; }
+
+  /* ============ Input behavior ============ */
+  function bindInput(labId, inputId, clearId){
+    var lab = $(labId), inp = $(inputId), clr = $(clearId);
+    function refresh(){
+      lab.classList.toggle('on', !!inp.value);
+      lab.classList.remove('error');
+    }
+    inp.addEventListener('input', refresh);
+    inp.addEventListener('focus', function(){ lab.classList.add('on') });
+    inp.addEventListener('blur', function(){ if(!inp.value) lab.classList.remove('on') });
+    clr.addEventListener('click', function(e){
+      e.preventDefault(); inp.value=''; refresh(); inp.focus();
+    });
+  }
+  bindInput('usr_lab','usr','usr_dele');
+  bindInput('pwd_lab','pwd','pwd_dele');
+
+  /* ============ API config ============ */
+  // API_BASE 留空 => 同源；联调时和 PHP 跑同一个 host:port
+  var API_BASE = (window.API_BASE != null) ? window.API_BASE : '';
+  var langMap = { cn:'zh-cn', tw:'zh-tw', en:'en-us' };
+
+  function parseXmlSafe(text){
+    try{
+      var doc = new DOMParser().parseFromString(text, 'text/xml');
+      if(doc.getElementsByTagName('parsererror').length) return null;
+      var out = {};
+      var root = doc.documentElement;
+      if(!root) return null;
+      for(var i=0;i<root.children.length;i++){
+        var el = root.children[i];
+        out[el.tagName] = el.textContent;
+      }
+      return out;
+    }catch(e){ return null; }
+  }
+
+  // ─── Login via /api/auth/login (modern API, sets $_SESSION['uid']) ──
+  //
+  // Originally this page posted to /transform.php?p=chk_login and parsed
+  // an XML <status>200</status> response. That code path still works for
+  // the legacy /odds.html flow, but the new H5 SPA reads session state
+  // from api_v2.php's $_SESSION['uid'], which transform.php does NOT
+  // populate. To make a single login work for both this page AND the
+  // /h5/sports.html SPA, we now POST JSON to /api/auth/login (api_v2.php)
+  // — it sets the session keys the SPA needs and returns the same
+  // must_change / change_reason flags as the in-app login drawer.
+  function loginRequest(username, password){
+    return fetch(API_BASE + '/api/auth/login', {
+      method:'POST',
+      credentials:'include',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ username: username, password: password })
+    }).then(function(r){
+      // Both 200 and 401 return JSON; resolve in both cases so the submit
+      // handler can branch on `ok` vs `detail`.
+      return r.json().catch(function(){ return { ok:false, detail:'网络异常，请重试' }; });
+    });
+  }
+
+  /* ============ Submit ============ */
+  $('login_form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var t = I18N[currentLang()];
+    var usr = $('usr'), pwd = $('pwd'), err = $('text_error');
+    err.classList.remove('show');
+    $('usr_lab').classList.remove('error');
+    $('pwd_lab').classList.remove('error');
+    if(!usr.value){
+      $('usr_lab').classList.add('error'); err.textContent = t.err_id; err.classList.add('show'); usr.focus(); return;
+    }
+    if(!pwd.value){
+      $('pwd_lab').classList.add('error'); err.textContent = t.err_pwd; err.classList.add('show'); pwd.focus(); return;
+    }
+    var btn = $('btn_login'); btn.disabled = true; btn.textContent = '...';
+    loginRequest(usr.value, pwd.value).then(function(data){
+      var ok = !!(data && data.ok);
+      if(ok){
+        try{
+          if($('remember').checked){
+            localStorage.setItem('remember_id', usr.value);
+          }else{
+            localStorage.removeItem('remember_id');
+          }
+        }catch(_){}
+        // 登录成功 → 进入 H5 SPA。session 已经在后端建立，
+        // SPA 会在挂载时通过 /api/me 或既有 session 自动识别登录态。
+        // first-login / 30-day password reminder 由 SPA 的 MustChangeDrawer 处理。
+        location.href = (API_BASE || '') + '/h5/sports.html';
+        return;
+      }
+      // 失败：展示文案。api_v2.php 返回 { ok:false, detail:"..." }；
+      // 401 是凭证错误，400 是参数错误。
+      err.textContent = (data && data.detail) || t.err_id;
+      err.classList.add('show');
+      $('usr_lab').classList.add('error');
+      $('pwd_lab').classList.add('error');
+    }).catch(function(e){
+      err.textContent = '网络错误：' + (e && e.message ? e.message : e);
+      err.classList.add('show');
+    }).then(function(){
+      btn.disabled = false; btn.textContent = t.btn;
+    });
+  });
+
+  // 还原"记住我"
+  try{
+    var rid = localStorage.getItem('remember_id');
+    if(rid){ $('usr').value = rid; $('usr_lab').classList.add('on'); $('remember').checked = true; }
+  }catch(_){}
+
+  /* ============ Forgot / system req ============ */
+  $('btn_forgot').addEventListener('click', function(){
+    alert((I18N[currentLang()]||I18N.cn).forgot);
+  });
+  $('systemreq').addEventListener('click', onSystemReq);
+
+  /* ============ Language tabs ============ */
+  ['cn','tw','en'].forEach(function(c){
+    $('lang_'+c).addEventListener('click', function(){ applyLang(c) });
+  });
+
+  /* ============ Init ============ */
+  var saved = 'cn';
+  try{ saved = localStorage.getItem('lang') || 'cn'; }catch(e){}
+  applyLang(saved);
+})();
+</script>
+</body>
+</html>

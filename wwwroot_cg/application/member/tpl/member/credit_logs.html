@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script>{JS}</script>
+
+    <link href="{CDNURL}/style/order.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/share_tool.css" rel="stylesheet" type="text/css">
+    <title></title>
+</head>
+
+<body>
+<div>
+    <div class="all_outside">
+
+        <!-- 選擇按鈕 -->
+        <ul class="tool_category big">
+            <li id="title_todaywagers">*ART_creditlogs_titlebtn01*</li>
+            <li id="title_history">*ART_creditlogs_titlebtn02*</li>
+            <li class="active">*ART_creditlogs_titlebtn03*</li>
+        </ul>
+        <!-- 選擇按鈕 end -->
+
+
+
+        <!-- title -->
+        <div class="tool_title48">
+            <button id="backpage" class="btn_tool_back minimouse_hover">
+                <i>
+                    <svg><use xlink:href="#icon_backbtn" /></svg>
+                </i>
+            </button>
+            <span class="tool_title_txt">*ART_creditlogs_title*</span>
+        </div>
+        <!-- title end -->
+
+
+
+        <!-- 下拉選單 -->
+        <div class="tool_selectbox quota_selectbox full">
+
+            <!-- 大螢幕 打開選單在class="tool_select"後加上class .active 球類當前選項加上 .on -->
+            <div id="pc_date_sel_div" class="tool_select full pc_select">
+                <span id="dateTxt">*ART_creditlogs_select01*</span>
+                <ul id="pc_date_sel" class="use_animate">
+                    <li id="d_07">*ART_creditlogs_select01*</li>
+                    <li id="d_14">*ART_creditlogs_select02*</li>
+                    <li id="d_21">*ART_creditlogs_select03*</li>
+                    <li id="d_28">*ART_creditlogs_select04*</li>
+                </ul>
+            </div>
+
+
+            <!-- 小螢幕 -->
+            <div class="tool_select full ph_select">
+                <select id="date_sel">
+                    <option value="7">*ART_creditlogs_select01*</option>
+                    <option value="14">*ART_creditlogs_select02*</option>
+                    <option value="21">*ART_creditlogs_select03*</option>
+                    <option value="28">*ART_creditlogs_select04*</option>
+                </select>
+            </div>
+        </div>
+        <!-- 下拉選單 end -->
+
+        <div id="div_show" name="div_show"></div>
+        <!-- 資料 -->
+        <!-- 負數.word_red 正數.word_green 可點擊粗體.word_bold -->
+        <div id="template_model2" name="template_model2" style="display:none;">
+            <div class="his_info_box word12">
+                <table cellpadding="0" cellspacing="0" class="his_info_tb">
+                    <tr class="dark_head credit_color *ART_creditlogs_lag*">
+                        <th>*ART_creditlogs_date*</th>
+                        <th>*ART_creditlogs_Balance*</th>
+                        <th class="pc_td">*ART_creditlogs_Deposit*</th>
+                        <th class="pc_td">*ART_creditlogs_Withdrawal*</th>
+                        <th class="ph_td">
+                            *ART_creditlogs_D*<tt>*ART_creditlogs_W*</tt>
+                        </th>
+                        <th>*ART_creditlogs_NewBalance*</th>
+                    </tr>
+                    <!-- START DYNAMIC BLOCK: tr -->
+                    <tr>
+                        <td>
+                            *DATE_NAME*
+                            <br>
+                            *TIME_NAME*
+                        </td>
+                        <td>
+                            <tt>*BALANCE*</tt>
+                        </td>
+                        <td class="word_bold pc_td">
+                            <tt>*DEPOSIT*</tt>
+                        </td>
+                        <td class="word_bold pc_td">
+                            *WITHDRAW*
+                        </td>
+                        <td class="word_bold ph_td">
+                            <tt>*GOLD*</tt>
+                        </td>
+                        <td>
+                            <tt>*NEWBALANCE*</tt>
+                        </td>
+                    </tr>
+                    <!-- END DYNAMIC BLOCK: tr -->
+                </table>
+            </div>
+        </div>
+        <!-- 資料 end -->
+
+
+
+        <!-- 無資料 -->
+        <div id="no_creditlogs" class="ord_no_event" style="display: none;">
+            <i></i>
+            <span>*ART_creditlogs_nodata*</span>
+        </div>
+        <!-- 無資料 end -->
+
+
+
+        <!-- 顯示更多 -->
+        <div id="allsports" class="btn_showmore" style="display: none;">
+            *ART_creditlogs_more*
+            <i><svg><use xlink:href="#icon_arrdown" /></svg></i>
+        </div>
+        <!-- 顯示更多 end -->
+
+
+        <!-- 回到頂部 -->
+        <div id="tool_backtop" class="tool_backtop" style="display: none;">
+            <button id="backtop" type="button" class="btn_gray_full">*ART_creditlogs_backtop*</button>
+        </div>
+        <!-- 回到頂部 end -->
+
+
+    </div>
+</div>
+</body>
+
+</html>

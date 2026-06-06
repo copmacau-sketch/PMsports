@@ -1,0 +1,23 @@
+{
+  "name": "pmpm-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Read-only / dry-run audit client for pmpm.uk (BSC prediction market AMM)",
+  "scripts": {
+    "cli": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^12.1.0",
+    "viem": "^2.21.40"
+  },
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

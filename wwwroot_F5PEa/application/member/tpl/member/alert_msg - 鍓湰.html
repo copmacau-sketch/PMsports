@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>popup</title>
+	<script id="homeJS">{JS}</script>
+	<link href="{CDNURL}/style/popup.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="popup">
+	<div id="msg_popup" class="msg_popup">
+		<!-- 兩個按鈕 yes/no -->
+		<div id="alert_confirm" class="popup_bottom pc_left">
+			<div class="popup_content">
+				<span id="msg_confirm"><!-- 文字 --></span>
+			</div>
+			<div class="box_help_btn">
+				<div id="no_btn" class="btn_cancel">*ART_msg_btn_no*</div>
+				<div id="yes_btn" class="btn_submit">*ART_msg_btn_yes*</div>
+			</div>
+
+			<!-- 不顯示 -->
+			<div id="popup_checkbox" class="popup_checkbox">
+				<label class="lab_radio">
+					<input id="confirm_chk" type="checkbox">
+					<span class="checkmark"></span>
+					<tt>*ART_msg_noshow*</tt>
+				</label>
+			</div>
+		</div>
+
+		<!-- 兩個按鈕 yes/no / PC中間 -->
+		<div id="C_alert_confirm" class="popup_bottom pc_center">
+			<div class="popup_content">
+				<span id="C_msg_confirm"><!-- 文字 --></span>
+			</div>
+			<div class="box_help_btn">
+				<div id="C_no_btn" class="btn_cancel">*ART_msg_btn_no*</div>
+				<div id="C_yes_btn" class="btn_submit">*ART_msg_btn_yes*</div>
+			</div>
+
+			<!-- 不顯示 -->
+			<div id="C_popup_checkbox" class="popup_checkbox">
+				<label class="lab_radio">
+					<input id="C_confirm_chk" type="checkbox">
+					<span class="checkmark"></span>
+					<tt>*ART_msg_noshow*</tt>
+				</label>
+			</div>
+		</div>
+
+		<!-- 一個按鈕 -->
+		<div id="alert_ok" class="popup_bottom pc_left">
+			<div class="popup_content">
+				<span id="msg_ok"><!-- 文字 --></span>
+			</div>
+			<div class="box_help_btn">
+				<div id="ok_btn" class="btn_submit">*ART_msg_btn_ok*</div>
+			</div>
+		</div>
+
+		<!-- 一個按鈕 / PC中間 -->
+		<div id="C_alert_ok" class="popup_bottom pc_center">
+			<div class="popup_content">
+				<span id="C_msg_ok"><!-- 文字 --></span>
+			</div>
+			<div class="box_help_btn">
+				<div id="C_ok_btn" class="btn_submit">*ART_msg_btn_ok*</div>
+			</div>
+		</div>
+
+		<!-- 一個按鈕 / PC中間 -->
+		<div id="C_alert_ok1" class="popup_bottom pc_center">
+			<div class="popup_content">
+				<span id="C_msg_ok1"><!-- 文字 --></span>
+			</div>
+			<div class="box_help_btn">
+				<div id="C_ok_btn1" class="btn_submit">*ART_msg_btn_ok*</div>
+			</div>
+		</div>
+
+		<!-- 無按鈕模組(盤面用) -->
+		<div id="info_pop" class="popup_game pc_left">
+			<div class="popup_title">
+				<span id="info_title"><!-- title --></span>
+				<div id="info_close" class="btn_close"><i class="icon_close"><svg><use xlink:href="#icon_close" /></svg></i></div>
+			</div>
+			<div class="popup_content">
+				<span id="info_msg"><!-- 文字 --></span>
+			</div>
+		</div>
+
+		<!-- 無按鈕模組(盤面用) / PC右側 -->
+		<div id="R_info_pop" class="popup_game pc_right">
+			<div class="popup_title">
+				<span id="R_info_title"><!-- title --></span>
+				<div id="R_info_close" class="btn_close"><i class="icon_close"><svg><use xlink:href="#icon_close" /></svg></i></div>
+			</div>
+			<div class="popup_content">
+				<span id="R_info_msg"><!-- 文字 --></span>
+			</div>
+		</div>
+
+		<!-- 踢人畫面 -->
+		<div id="alert_kick" class="popup_center">
+			<div>
+				<div class="popup_title">
+					<span>*ART_title_kick*</span>
+				</div>
+				<div class="popup_content">
+						<span>
+							You have been logged out from this session. Please log in again.<br>
+							You have been logged out for one of the following reasons:<br>
+							<br>
+							1. Your session has timed-out<br>
+							2. You are logged in on another session.<br>
+							<br>
+							Please log in again.<br>
+							If you have questions or need assistance, please contact your upline or customer service.<br>
+							<br>
+							您已被强制登出。请重新登入。<br>
+							以下为可能的原因：<br>
+							<br>
+							1.  放置过久而被系统登出。<br>
+							2. 您在其他浏览器登入同一个帐号。<br>
+							<br>
+							请重新登入。<br>
+							若有任何疑问请联系您的上线或是客服中心。
+						</span>
+				</div>
+				<div class="popup_btnbox">
+					<div id="kick_ok_btn" class="btn_submit">*ART_msg_btn_ok*</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="close_alert_msg" class="mask_popup"></div>
+		<div id="L_close_alert_msg" class="mask_popup_left"></div>
+		<div id="R_close_alert_msg" class="mask_popup_right"></div>
+	</div>
+
+	<div id="msg_toast" class="msg_toast">
+		<!-- 登入後-吐司訊息模組 -->
+		<div id="message_pop" class="popup_toast"><!-- open add class="on"-->
+			<div class="box_toast">
+				<span id="message_title"><!-- 文字 --></span>
+				<div id="message_ok" class="btn_toast">*ART_toast_btn_ok*</div>
+			</div>
+		</div>
+
+		<!-- 登入後-吐司訊息模組-無按鈕 -->
+		<div id="message_pop_nobtn" class="popup_toast no_btn">
+			<!-- open add class="on"-->
+			<!-- league page and submit button showing add class="high_set" -->
+			<div class="box_toast">
+				<span id="message_title_nobtn"><!-- 文字 --></span>
+			</div>
+		</div>
+
+		<!-- 登入前-吐司訊息模組 -->
+		<div id="message_pop_bef" class="popup_toast log_bef"><!-- open add class="on"-->
+			<div class="box_toast">
+				<span id="message_title_bef"><!-- 文字 --></span>
+				<div id="message_ok_bef" class="btn_toast">*ART_toast_btn_ok*</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

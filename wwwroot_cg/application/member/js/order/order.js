@@ -1,0 +1,2422 @@
+function order(_win, _dom) {
+                var betError_sw = false;
+                var _self = this;
+                var win = _win;
+                var dom = _dom;
+                var parentClass;
+                var LS, LS_code, LS_game;
+                var classname = "order.js";
+                var util = new win.Util(win,dom);
+                var util_game = new win.Util_game(win,dom);
+                var CookieManager = new win.CookieManager;
+                var betFrame;
+                var totalBetsFrame;
+                var timerHash;
+                var config_set;
+                var gameDateStr;
+                var _mc = new Object;
+                var num_show = false;
+                var set_show = true;
+                var errorCode = "";
+                var errorAry = new Array;
+                var _limit = new Object;
+                _limit["noLimit"] = new Object;
+                _limit["noLimit"]["min"] = "0";
+                _limit["noLimit"]["max"] = "999999999";
+                var tmpDiv = new Object;
+                var _mid = top["userData"].mid;
+                var maxBet = "";
+                var minBet = "";
+                var isFirst = true;
+                var firstErr = true;
+                var keyboardObj;
+                var eventHandler = new Object;
+                var isFromBet = false;
+                var isGameLocked = false;
+                var isLockANDopenLimit = false;
+                var ignoreCollapseBtn = new Array("num_0","num_1","num_2","num_3","num_4","num_5","num_6","num_7","num_8","num_9","num_x","num_no","add_1","add_2","add_3","bet_gold_tt","bet_gold","bet_gold_tt_pc","bet_gold_pc");
+                var isSetLastGold = false;
+                var noEffect = new Array("div_showlimit","set_max");
+                var reveseBtn = new Array("bet_gold_tt","bet_gold");
+                var reverseSw = false;
+                var keepScore = "";
+                var startTouchY = 0;
+                var fixY = 15;
+                var needChg = false;
+                var keyboard_sw = true;
+                var lockBetNum = new Object;
+                var systemErrAry = new Array("connectFail","0X001","0X002","0X003","0X004","0X005","0X006","0X007","0X008","1X037");
+                _self.paramHash = new Object;
+                _self.totalParamHash = new Object;
+                var myhash = {};
+                var is_PC = "";
+                var fastCheck = "";
+                var fastCheck_complete = "";
+                _self.init = function() {
+                    myhash["util"] = util;
+                    myhash["util_game"] = util_game;
+                    myhash["CookieManager"] = CookieManager;
+                    myhash["_limit"] = _limit;
+                    myhash["lockBetNum"] = lockBetNum;
+                    _mc["div_mask"] = dom.getElementById("div_mask");
+                    _mc["bet_show"] = dom.getElementById("bet_show");
+                    _mc["bet_model"] = dom.getElementById("bet_model");
+                    util_game.init();
+                    _self.addEventListener("delBetslip", _self.indexDeleteBetslip);
+                    _self.addEventListener("setBetSelectCount", _self.indexSetBetSelectCount);
+                    _self.addEventListener("setBetSelectIor", _self.indexsetBetSelectIor);
+                    _self.addEventListener("_calcWinGold", _self._calcWinGold);
+                    _self.addEventListener("setLoadingBetVisible", _self.setLoadingBetVisible);
+                    _self.addEventListener("showAddTotal", _self.showAddTotal);
+                    _self.addEventListener("createOVTimer", _self.createOVTimer);
+                    _self.addEventListener("clearOVTimer", _self.clearOVTimer);
+                    _self.addEventListener("enabledBet", _self.enabledBet);
+                    _self.addEventListener("closeBet", _self.closeBet);
+                    _self.addEventListener("doPrint", _self.doPrint);
+                    _self.addEventListener("fastPrint", _self.fastPrint);
+                    _self.addEventListener("bettingMask", _self.bettingMask);
+                    _self.addEventListener("showDelayLoading", _self.showDelayLoading);
+                    _self.addEventListener("fastCalcEvent", _self.fastCalcEvent);
+                    _self.addEventListener("orderView", _self.orderView);
+                    _self.addEventListener("hiddenALL", _self.hiddenALL);
+                    _self.addEventListener("setSingleErrorCode", _self.setSingleErrorCode);
+                    _self.addEventListener("setIsFromBet", _self.setIsFromBet);
+                    _self.addEventListener("setSingleErrorMsg", _self.setSingleErrorMsg);
+                    _self.addEventListener("showSingleErrorMsg", _self.showSingleErrorMsg);
+                    _self.addEventListener("reBet", _self.reBet);
+                    _self.addEventListener("getParlay", _self.getParlay);
+                    _self.addEventListener("showOrderMsg", _self.showOrderMsg);
+                    _self.addEventListener("showInfoLoading", _self.showInfoLoading);
+                    _self.addEventListener("initOrderBet", _self.initOrderBet);
+                    _self.addEventListener("setBottomon", _self.setBottomtest);
+                    _self.addEventListener("showAlertMsg", _self.showAlertMsg);
+                    _self.addEventListener("lockScroll", _self.lockScroll);
+                    _self.addEventListener("reloadCredit", _self.reloadCredit);
+                    _self.addEventListener("keyboard_set", _self.keyboard_set);
+                    _self.addEventListener("closeKeyboard", _self.closeKeyboard);
+                    _self.addEventListener("updatelockBetNum", _self.updatelockBetNum);
+                    _self.addEventListener("clearOrderbets", _self.clearOrderbets);
+                    _self.addEventListener("showUnStableMsg", _self.showUnStableMsg);
+                    _self.addEventListener("setLastGold", _self.setLastGold);
+                    _self.addEventListener("showFantasyInfo", _self.showFantasyInfo);
+                    _self.addEventListener("setTargetPostition", _self.setTargetPostition);
+                    parentClass.dispatchEvent("checkCount", {})
+                }
+                ;
+                _self.setParentclass = function(_parentclass) {
+                    parentClass = _parentclass;
+                    LS = parentClass.getThis("LS");
+                    LS_code = parentClass.getThis("LS_code");
+                    LS_game = parentClass.getThis("LS_game");
+                    timerHash = parentClass.getThis("timerHash");
+                    config_set = parentClass.getThis("config_set");
+                    myhash["LS"] = LS;
+                    myhash["LS_code"] = LS_code;
+                    myhash["LS_game"] = LS_game;
+                    myhash["timerHash"] = timerHash;
+                    myhash["config_set"] = config_set
+                }
+                ;
+                _self.addEventListener = function(eventname, eventFunction) {
+                    eventHandler[eventname] = eventFunction
+                }
+                ;
+                _self.dispatchEvent = function(eventname, param) {
+                    if (eventHandler[eventname])
+                        eventHandler[eventname](param)
+                }
+                ;
+                _self.getThis = function(varible) {
+                    if (!myhash[varible]) {
+                        var msg = "no myhash[" + varible + "]";
+                        util.writeLog(classname, msg)
+                    }
+                    return myhash[varible]
+                }
+                ;
+                _self.indexDeleteBetslip = function(_ECID) {
+                    util_game.delBetslip(util, _ECID);
+                    var _size = util.countSize(top["bet_select"]);
+                    parentClass.dispatchEvent("setBetSelectCount", _size)
+                }
+                ;
+                _self.indexSetBetSelectCount = function(_count) {
+                    parentClass.dispatchEvent("setBetSelectCount", _count)
+                }
+                ;
+                _self.indexsetBetSelectIor = function(_ior) {
+                    parentClass.dispatchEvent("setBetSelectIor", _ior)
+                }
+                ;
+                _self.clearANDinit = function() {
+                    _self.showDelayLoading(false);
+                    dom.getElementById("betBtn_txt").innerHTML = LS.get("bet_txt");
+                    dom.getElementById("bet_gold2_tt").style.display = "";
+                    _self.showOrderMsg(false);
+                    _self.setSingleErrorCode("")
+                }
+                ;
+                _self.initOrderBet = function() {
+                    needChg = false;
+                    _self.showDelayLoading(false);
+                    dom.getElementById("betBtn_txt").innerHTML = LS.get("bet_txt");
+                    dom.getElementById("bet_gold2_tt").style.display = ""
+                }
+                ;
+                _self.showOrder = function(xmlnode, gameObj, parentParam, isRepeat, isSameEcid) {
+                    var ior_repeat = isRepeat ? true : false;
+                    var clickSameGame = isSameEcid == true ? true : false;
+                    if (top.choice_showtype == "parlay")
+                        if (top.betMode == "fast") {
+                            var _fastSize = util.countSize(top["fastBetHash"]);
+                            if (!ior_repeat) {
+                                if (_fastSize != 0)
+                                    _self.addTotal(null, {
+                                        "xmlnode": top["fastBetXML"],
+                                        "gameObj": top["fastBetGameObj"],
+                                        "betData": top["fastBetHash"]
+                                    }, clickSameGame);
+                                _self.addTotal(null, {
+                                    "xmlnode": xmlnode,
+                                    "gameObj": gameObj,
+                                    "betData": parentParam
+                                }, clickSameGame);
+                                if (getView().viewportwidth >= 1024)
+                                    _self.miniMode(clickSameGame ? true : false)
+                            }
+                            if (clickSameGame == true)
+                                if (top["isSameGame"].indexOf(parentParam.ecid) == -1 && parentParam.ecid != null)
+                                    top["isSameGame"].push(parentParam.ecid)
+                        } else {
+                            _mc["div_mask"].style.display = "";
+                            if (totalBetsFrame == null) {
+                                totalBetsFrame = new win.Total_order(win,dom);
+                                totalBetsFrame.setParentclass(this);
+                                totalBetsFrame.init()
+                            }
+                            totalBetsFrame.setTotalData(top["totalBetXML"], top["totalBetGameObj"], top["totalBetHash"], false, clickSameGame);
+                            if (getView().viewportwidth < 1024)
+                                parentClass.dispatchEvent("addbodylock", {})
+                        }
+                    else {
+                        parentClass.dispatchEvent("hideAlertMsg", {
+                            "use": "bet_nopop"
+                        });
+                        if (top.betMode == "fast") {
+                            if (clickSameGame == true)
+                                if (top["isSameGame"].indexOf(parentParam.ecid) == -1 && parentParam.ecid != null)
+                                    top["isSameGame"].push(parentParam.ecid);
+                            var _size = util.countSize(top["bet_select"]);
+                            var _totalSize = util.countSize(top["totalBetHash"]);
+                            var nowTotalSize = _size * 1 - _totalSize * 1;
+                            if (nowTotalSize == 2) {
+                                top.betMode = "total";
+                                _self.addTotal(null, {
+                                    "xmlnode": top["fastBetXML"],
+                                    "gameObj": top["fastBetGameObj"],
+                                    "betData": top["fastBetHash"]
+                                }, isSameEcid);
+                                _self.addTotal(null, {
+                                    "xmlnode": xmlnode,
+                                    "gameObj": gameObj,
+                                    "betData": parentParam
+                                }, isSameEcid);
+                                if (getView().viewportwidth >= 1024)
+                                    parentClass.dispatchEvent("showBetSlip", {
+                                        "isShow": true,
+                                        "isSameEcid": isSameEcid
+                                    });
+                                top["fastBetXML"] = xmlnode;
+                                top["fastBetGameObj"] = gameObj;
+                                top["fastBetHash"] = parentParam;
+                                return
+                            } else if (nowTotalSize == 1 && _size >= 1 && top["isAddTotal"] || _totalSize != 0) {
+                                if (!ior_repeat) {
+                                    _self.addTotal(null, {
+                                        "xmlnode": xmlnode,
+                                        "gameObj": gameObj,
+                                        "betData": parentParam
+                                    }, isSameEcid);
+                                    if (getView().viewportwidth >= 1024)
+                                        _self.miniMode(isSameEcid ? true : false)
+                                }
+                                top["fastBetXML"] = xmlnode;
+                                top["fastBetGameObj"] = gameObj;
+                                top["fastBetHash"] = parentParam;
+                                return
+                            }
+                            top["fastBetXML"] = xmlnode;
+                            top["fastBetGameObj"] = gameObj;
+                            top["fastBetHash"] = parentParam;
+                            top["betHash"] = new Object;
+                            _self.setFastData(xmlnode, gameObj, parentParam);
+                            _mc["div_mask"].style.display = "none"
+                        } else {
+                            _mc["div_mask"].style.display = "";
+                            if (totalBetsFrame == null) {
+                                totalBetsFrame = new win.Total_order(win,dom);
+                                totalBetsFrame.setParentclass(this);
+                                totalBetsFrame.init()
+                            }
+                            totalBetsFrame.setTotalData(top["totalBetXML"], top["totalBetGameObj"], top["totalBetHash"], false, clickSameGame);
+                            if (getView().viewportwidth < 1024)
+                                parentClass.dispatchEvent("addbodylock", {})
+                        }
+                    }
+                }
+                ;
+                _self.miniMode = function(isSameEcid) {
+                    if (!top.bet_mini && top.openBets) {
+                        top.betMode = "total";
+                        parentClass.dispatchEvent("showBetSlip", {
+                            "isShow": true,
+                            "isSameEcid": isSameEcid
+                        })
+                    } else {
+                        var _betSize = util.countSize(top["bet_select"]);
+                        _self.countMiniBet(_betSize)
+                    }
+                }
+                ;
+                _self.addBounce = function() {
+                    util.addClass(_mc["bet_show"], "_bounce");
+                    setTimeout(_self.removeClass, 100)
+                }
+                ;
+                _self.removeClass = function() {
+                    if (_mc["bet_show"].classList.contains("_bounce"))
+                        util.removeClass(_mc["bet_show"], "_bounce")
+                }
+                ;
+                _self.countMiniBet = function(_betSize) {
+                    if (totalBetsFrame == null) {
+                        totalBetsFrame = new win.Total_order(win,dom);
+                        totalBetsFrame.setBetCount(_betSize)
+                    } else
+                        totalBetsFrame.setBetCount(_betSize)
+                }
+                ;
+                _self.clearTotalOrder = function() {
+                    if (totalBetsFrame == null) {
+                        totalBetsFrame = new win.Total_order(win,dom);
+                        totalBetsFrame.removeALL()
+                    } else
+                        totalBetsFrame.removeALL()
+                }
+                ;
+                _self.addTotal = function(mouseEvent, paramHash, isSameEcid) {
+                    var action = paramHash.from;
+                    top["isAddTotal"] = true;
+                    var tmpObj = paramHash.betData;
+                    var rightMsg_sw = paramHash.rightMsg_sw == true ? true : false;
+                    if (paramHash.xmlnode)
+                        top["totalBetXML"][tmpObj["gtype"].toUpperCase() + "_" + tmpObj["ecid"]] = paramHash.xmlnode;
+                    top["totalBetGameObj"][tmpObj["gtype"].toUpperCase() + "_" + tmpObj["ecid"]] = paramHash.gameObj;
+                    top["totalBetHash"][tmpObj["gtype"].toUpperCase() + "_" + tmpObj["ecid"]] = paramHash.betData;
+                    var _count = util.countSize(top["bet_select"]);
+                    parentClass.dispatchEvent("setBetSelectCount", _count);
+                    if (top["openBets"] && getView().viewportwidth < 1024 || top.bet_mini && !rightMsg_sw)
+                        _self.closeBet(false, "addTotal");
+                    else {
+                        if (action != "add_total_bet" && action != "goToNoGame" && top.choice_showtype == "parlay" && util.countSize(top["totalBetHash"]) >= 1) {
+                            top["fastBetHash"] = new Object;
+                            return
+                        }
+                        if (top.betMode == "fast") {
+                            top.betMode = "total";
+                            if (top.choice_showtype == "parlay" && getView().viewportwidth < 1024)
+                                return;
+                            if (rightMsg_sw)
+                                parentClass.dispatchEvent("showBetSlip", {
+                                    "isShow": true,
+                                    "rightMsg_sw": false,
+                                    "isSameEcid": isSameEcid,
+                                    "minimize": true
+                                });
+                            else
+                                parentClass.dispatchEvent("showBetSlip", {
+                                    "isShow": true,
+                                    "isSameEcid": isSameEcid
+                                })
+                        }
+                    }
+                    _self.getParlay()
+                }
+                ;
+                _self.getParlay = function() {
+                    var ret = _self.checkNeedsParlay(top["totalBetHash"]);
+                    if (ret) {
+                        var betStr = "";
+                        if (util.countSize(top["bet_select"]) == util.countSize(top["totalBetHash"])) {
+                            var isRP3 = false;
+                            var _gtype = "";
+                            for (var x in top.bet_viewdata) {
+                                var _wtype = util_game.switchTypeToParlay(top.totalBetHash[top.bet_viewdata[x]]["wtype"], top.totalBetHash[top.bet_viewdata[x]]["wtype"]);
+                                var _rtype = util_game.switchTypeToParlay(top.totalBetHash[top.bet_viewdata[x]]["wtype"], top.totalBetHash[top.bet_viewdata[x]]["rtype"]);
+                                if (top.totalBetHash[top.bet_viewdata[x]]["is_rb"] == "N") {
+                                    var tmp_wtype = util_game.transWtypeRB2R(top.totalBetHash[top.bet_viewdata[x]]["wtype"], top.totalBetHash[top.bet_viewdata[x]]["is_rb"]);
+                                    var tmp_rtype = util_game.transRtypeRB2R(top.totalBetHash[top.bet_viewdata[x]]["rtype"], top.totalBetHash[top.bet_viewdata[x]]["is_rb"]);
+                                    _wtype = util_game.switchTypeToParlay(tmp_wtype, tmp_wtype);
+                                    _rtype = util_game.switchTypeToParlay(tmp_wtype, tmp_rtype)
+                                }
+                                _gtype = top.totalBetHash[top.bet_viewdata[x]]["gtype"];
+                                if (!isRP3)
+                                    isRP3 = util_game.isRBWtype(_wtype);
+                                betStr += top.totalBetHash[top.bet_viewdata[x]]["ecid"] + "!";
+                                betStr += _gtype + "!";
+                                betStr += top.totalBetHash[top.bet_viewdata[x]]["gid"] + "!";
+                                betStr += _wtype + "!";
+                                betStr += _rtype + "!";
+                                betStr += top.totalBetHash[top.bet_viewdata[x]]["chose_team"] + "^"
+                            }
+                            if (betStr.substr(-1, 1) == "^")
+                                betStr = betStr.substr(0, betStr.length - 1);
+                            var goPage = "Total_order_view";
+                            var urlParams = "";
+                            urlParams += "odd_f_type=" + top["userData"].odd_f_type;
+                            urlParams += "&betStr=" + betStr;
+                            urlParams += "&gtype=" + _gtype;
+                            urlParams += "&wtype=" + (isRP3 ? "RP3" : "P3");
+                            urlParams += "&code=getParlay";
+                            urlParams += "&needsP3=" + (ret ? "Y" : "N");
+                            urlParams = "p=" + goPage + "&" + top.param + "&" + urlParams;
+                            var getHTML = new HttpRequest;
+                            getHTML.addEventListener("onError", _self.onError);
+                            getHTML.addEventListener("LoadComplete", _self.getParlayComplete);
+                            getHTML.loadURL(top.m2_url, "POST", urlParams)
+                        }
+                    } else
+                        parentClass.dispatchEvent("setBetSelectIor", LS.get("betslip_txt"))
+                }
+                ;
+                _self.getParlayComplete = function(xml) {
+                    _self.paramHash["errorMsg"] = util.showConnectMsg(xml);
+                    if (util.alertConnectMsg(_self.paramHash["errorMsg"]))
+                        return;
+                    var xmdObj = new Object;
+                    var xmlnode = util.parseXml(xml);
+                    xmdObj["parlay"] = xmlnode.Node(xmlnode.Root[0], "parlay", false)[0];
+                    xmdObj["parlayCode"] = xmlnode.Node(xmdObj["parlay"], "code");
+                    var _betSize = util.countSize(top["bet_select"]);
+                    if (_betSize > 1)
+                        if (xmdObj["parlayCode"].innerHTML == "541" || xmdObj["parlayCode"].innerHTML == "590") {
+                            xmdObj["game"] = xmlnode.Node(xmdObj["parlay"], "game", false);
+                            var tmpIor;
+                            for (var i = 0; i < xmdObj["game"].length; i++)
+                                if (i == 0)
+                                    tmpIor = xmlnode.Node(xmdObj["game"][i], "ioratio").innerHTML;
+                                else {
+                                    var nowIor = xmlnode.Node(xmdObj["game"][i], "ioratio").innerHTML;
+                                    tmpIor = util.mulFloat(tmpIor * 1, nowIor * 1)
+                                }
+                            tmpIor = util.ignoreDots(tmpIor, 2);
+                            parentClass.dispatchEvent("setBetSelectIor", tmpIor)
+                        } else
+                            parentClass.dispatchEvent("setBetSelectIor", LS.get("betslip_txt"));
+                    else if (_betSize == 1)
+                        parentClass.dispatchEvent("setBetSelectIor", LS.get("betslip_txt"))
+                }
+                ;
+                _self.checkNeedsParlay = function(totalHash) {
+                    var _gtype = "";
+                    if (util.countSize(totalHash) == 1)
+                        return false;
+                    for (var key in totalHash) {
+                        var tmpHash = totalHash[key];
+                        if (_gtype == "")
+                            _gtype = tmpHash["bet_now"] != null ? tmpHash["bet_now"] : tmpHash["gtype"].toUpperCase();
+                        else {
+                            if (_gtype != tmpHash["gtype"].toUpperCase())
+                                return false;
+                            _gtype = tmpHash["bet_now"] != null ? tmpHash["bet_now"] : tmpHash["gtype"].toUpperCase()
+                        }
+                        if (_gtype != "FT" && (tmpHash["showtype"] == "live" || tmpHash["is_rb"] == "Y"))
+                            return false;
+                        if (_gtype == "FS" || tmpHash["bet_now"] == "SFS")
+                            return false
+                    }
+                    return true
+                }
+                ;
+                _self.setFastData = function(xmlnode, gameObj, parentParam) {
+                    top.isSystemError = false;
+                    isFirst = true;
+                    isFromBet = false;
+                    firstErr = true;
+                    var dataHash = new Object;
+                    _self.paramHash = new Object;
+                    _self.paramHash = util.mergeHash(_self.paramHash, parentParam);
+                    var tmp_game = gameObj;
+                    var _betKey = _self.paramHash["gtype"].toUpperCase() + "_" + _self.paramHash["ecid"];
+                    var FTmenutype = "";
+                    var wtypeStr = _self.paramHash["wtype"] ? util_game.switchWtypeStr(_self.paramHash["wtype"].toUpperCase()) : "";
+                    if (_self.paramHash["bet_now"] != null && _self.paramHash["bet_now"].indexOf("FS") != -1) {
+                        _self.paramHash["keepwtype"] = "FS";
+                        dataHash["showtype"] = parentParam["showtype"].toLowerCase() != "ft" ? LS.get("showtype_" + parentParam["showtype"]) : "";
+                        if (_self.paramHash["mode"] == "group")
+                            dataHash["league"] = _self.paramHash["betLeagueName"] + " " + _self.paramHash["rtype_name"];
+                        else
+                            dataHash["league"] = util.getKeyValue(xmlnode, tmp_game, "league") + " " + (_self.paramHash["bet_now"] != "SFS" ? util.getKeyValue(xmlnode, tmp_game, "teamsname") : "");
+                        dataHash["rtype"] = _self.paramHash["rtype"];
+                        dataHash["rtype_name"] = _self.paramHash["rtype_name"];
+                        dataHash["ioratio"] = util.showTxt(util_game.getOrderIoratio(_self.paramHash["ioratio"], null, "FS"));
+                        var getMenuHash = new Object;
+                        getMenuHash.gid = _self.paramHash["gid"];
+                        getMenuHash.gtype = _self.paramHash["gtype"];
+                        getMenuHash.showtype = _self.paramHash["showtype"];
+                        getMenuHash.wtype = _self.paramHash["keepwtype"];
+                        getMenuHash.rtype = _self.paramHash["rtype"];
+                        getMenuHash.ms = "";
+                        getMenuHash.team_h = "";
+                        getMenuHash.team_c = "";
+                        getMenuHash.imp = "";
+                        getMenuHash.ptype = "";
+                        FTmenutype = util_game.getWtypeName(LS_game, getMenuHash.gid, getMenuHash.showtype, getMenuHash.gtype, getMenuHash.wtype, getMenuHash.rtype, getMenuHash.ms, getMenuHash.team_h, getMenuHash.team_c, getMenuHash.imp, getMenuHash.ptype)
+                    } else {
+                        _self.paramHash["show_rtype"] = _self.paramHash["rtype"];
+                        _self.paramHash["keepchose_team"] = _self.paramHash["chose_team"];
+                        _self.paramHash["keepwtype"] = _self.paramHash["wtype"].toUpperCase();
+                        var _rtype = _self.paramHash["show_rtype"].toLowerCase();
+                        var chose_team;
+                        if (LS_game.get(_rtype) == "") {
+                            var Ftype = "_F_RF_DC_RDC_";
+                            var isRGA = util_game.checkWtypeIsRGA_TN(_self.paramHash["wtype"].toUpperCase());
+                            var isRGOU = util_game.checkWtypeIsRGOU_TN(_self.paramHash["wtype"].toUpperCase());
+                            if (Ftype.indexOf("_" + _self.paramHash["wtype"].toUpperCase() + "_") >= 0) {
+                                f1 = _self.paramHash["rtype"].toUpperCase().replace(_self.paramHash["wtype"].toUpperCase(), "").substr(0, 1);
+                                f2 = _self.paramHash["rtype"].toUpperCase().replace(_self.paramHash["wtype"].toUpperCase(), "").substr(1, 1);
+                                chose_team = "";
+                                if (f1 == "N")
+                                    chose_team += LS_game.get("mn");
+                                else
+                                    chose_team += util.getKeyValue(xmlnode, tmp_game, "team_" + f1.toLowerCase());
+                                chose_team += " / ";
+                                if (f2 == "N")
+                                    chose_team += LS_game.get("mn");
+                                else
+                                    chose_team += util.getKeyValue(xmlnode, tmp_game, "team_" + f2.toLowerCase())
+                            } else if (isRGA || isRGOU)
+                                chose_team = LS_game.get(_self.paramHash["chose_team"]);
+                            else
+                                chose_team = util.getKeyValue(xmlnode, tmp_game, "team_" + _self.paramHash["keepchose_team"].toLowerCase())
+                        } else {
+                            var team_h = util.getKeyValue(xmlnode, tmp_game, "team_h");
+                            var team_c = util.getKeyValue(xmlnode, tmp_game, "team_c");
+                            chose_team = LS_game.get(_rtype);
+                            chose_team = chose_team.replace(/\*TEAM_H\*/g, team_h);
+                            chose_team = chose_team.replace(/\*TEAM_C\*/g, team_c)
+                        }
+                        var tmpRtype = "";
+                        if (_self.paramHash["gtype"].toUpperCase() == "FT") {
+                            var is_rb = _self.paramHash["is_rb"];
+                            if (_self.paramHash["remain_rtype"] != null)
+                                tmpRtype = _self.paramHash["remain_rtype"];
+                            else if (util_game.checkWtypeIsRG(_self.paramHash["wtype"])) {
+                                var _rtype = _self.paramHash["show_rtype"];
+                                tmpRtype = _rtype.replace(/^[A-J]/, "")
+                            } else
+                                tmpRtype = util_game.transRtypeR2RB(_self.paramHash["show_rtype"], is_rb)
+                        } else
+                            tmpRtype = _self.paramHash["show_rtype"];
+                        _self.paramHash["ioratio"] = util.getKeyValue(xmlnode, tmp_game, "IOR_" + tmpRtype.toUpperCase(), wtypeStr);
+                        dataHash["score_h"] = util.getKeyValue(xmlnode, tmp_game, "SCORE_H") * 1;
+                        dataHash["score_c"] = util.getKeyValue(xmlnode, tmp_game, "SCORE_C") * 1;
+                        try {
+                            _self.paramHash["keepwtype"] = _self.paramHash["wtype"].toUpperCase();
+                            _self.paramHash["subtypestr"] = "";
+                            if (_self.paramHash["gtype"] == "FT") {
+                                _self.paramHash["subtypestr"] = LS_game.get("showRtype");
+                                if (util_game.checkWtypeIsHalf_menutype(_self.paramHash["keepwtype"]))
+                                    _self.paramHash["subtypestr"] = LS_game.get("showRtype_h")
+                            } else {
+                                var ms = util.getKeyValue(xmlnode, tmp_game, "MS");
+                                if (ms != null) {
+                                    ms = ms.split("_")[1];
+                                    var ms_str = LS_game.get(_self.paramHash["gtype"] + "_game_" + ms + "_set");
+                                    if (ms_str != "") {
+                                        if (ms_str == _self.paramHash["gtype"] + "_game_" + ms + "_set")
+                                            ms_str = "";
+                                        _self.paramHash["subtypestr"] = ms_str
+                                    }
+                                }
+                            }
+                            var showRtype = "";
+                            if (_self.paramHash["keepwtype"] == "T") {
+                                var _ary = new Array("EOO","EOE","HEOO","HEOE","EOH","EOC","HEOH","HEOC");
+                                if (util.in_array(_self.paramHash["show_rtype"], _ary)) {
+                                    showRtype = "eo";
+                                    _self.paramHash["keepwtype"] = showRtype.toUpperCase()
+                                } else
+                                    showRtype = _self.paramHash["keepwtype"]
+                            } else
+                                showRtype = _self.paramHash["keepwtype"];
+                            var _ary = new Array("ouh","ouc","houh","houc","rouh","rouc","hruh","hruc");
+                            var tmp_team = "";
+                            var tmp_wtype = showRtype.toLowerCase();
+                            _self.paramHash["showPlayType"] = LS_game.get(util_game.chgShowName_M("showRtype_" + showRtype.toLowerCase(), _self.paramHash["gtype"])) + tmp_team;
+                            if (util.in_array(tmp_wtype, _ary) && _self.paramHash["gtype"] == "FT") {
+                                var t = tmp_wtype.substr(tmp_wtype.length - 1, 1);
+                                tmp_team = util.getKeyValue(xmlnode, tmp_game, "team_" + t.toUpperCase());
+                                _self.paramHash["showPlayType"] = _self.paramHash["showPlayType"].replace("*TEAM_" + t.toUpperCase() + "*", tmp_team)
+                            }
+                            if (_self.paramHash["gtype"] == "TN" && util_game.checkWtypeIsR(_self.paramHash["keepwtype"]))
+                                _self.paramHash["showPlayType"] = LS_game.get("showRtype_" + showRtype.toLowerCase() + "_p");
+                            if ((_self.paramHash["gtype"] == "VB" || _self.paramHash["gtype"] == "BK") && util_game.checkWtypeIsR(_self.paramHash["keepwtype"]))
+                                _self.paramHash["showPlayType"] = LS_game.get("showRtype_" + showRtype.toLowerCase() + "_s")
+                        } catch (e) {
+                            dataHash["league"] = util.getKeyValue(xmlnode, tmp_game, "league");
+                            _self.paramHash["showPlayType"] = "";
+                            _self.paramHash["subtypestr"] = ""
+                        }
+                        _self.paramHash["showPlayType"] = _self.paramHash["showPlayType"].replace(/\*TEAM_H\*/g, dataHash["team_h"]);
+                        _self.paramHash["showPlayType"] = _self.paramHash["showPlayType"].replace(/\*TEAM_C\*/g, dataHash["team_c"]);
+                        dataHash["con"] = "";
+                        var strong = util.showTxt(util.getKeyValue(xmlnode, tmp_game, "strong"));
+                        var _betCon = "";
+                        if (util_game.checkWtypeIsOU(_self.paramHash["keepwtype"]) || _self.paramHash["keepwtype"] == "W3") {
+                            var _abs = "";
+                            var isFromOutside = _self.paramHash["isFromOutside"] != null ? "Y" : "N";
+                            var rb_rtype = _self.paramHash["show_rtype"];
+                            var tmpCon = util.getKeyValue(xmlnode, tmp_game, util_game.switchConRtype(rb_rtype, isFromOutside));
+                            if (_self.paramHash["MSorPOINT"] != "" && _self.paramHash["MSorPOINT"])
+                                tmpCon = util.getKeyValue(xmlnode, tmp_game, _self.paramHash["MSorPOINT"] + "_" + util_game.switchConRtype(rb_rtype, isFromOutside));
+                            _betCon = _abs + tmpCon.replace(/U/, "").replace(/O/, "")
+                        }
+                        dataHash["chose_con"] = _betCon;
+                        _self.paramHash["ordercon_c"] = "";
+                        _self.paramHash["ordercon"] = "";
+                        if (util_game.checkWtypeIsR(_self.paramHash["keepwtype"])) {
+                            var str = _self.paramHash["keepwtype"].toUpperCase().indexOf("H") == -1 ? "strong" : "hstrong";
+                            var _abs = "";
+                            if (_self.paramHash["MSorPOINT"] && _self.paramHash["MSorPOINT"] != "")
+                                var tmp_con = util.getKeyValue(xmlnode, tmp_game, _self.paramHash["MSorPOINT"] + "_" + util_game.switchConRtype(_self.paramHash["show_rtype"]));
+                            else
+                                var tmp_con = util.getKeyValue(xmlnode, tmp_game, util_game.switchConRtype(_self.paramHash["show_rtype"]));
+                            if (!tmp_con)
+                                tmp_con = "";
+                            strong = util.getKeyValue(xmlnode, tmp_game, str);
+                            if (_self.paramHash["keepwtype"] != "W3" && tmp_con != "0" && tmp_con != "")
+                                if (strong == _self.paramHash["chose_team"])
+                                    _abs = "-";
+                                else
+                                    _abs = "+";
+                            if (strong == "H") {
+                                _self.paramHash["ordercon"] = _abs + tmp_con;
+                                _self.paramHash["ordercon_c"] = ""
+                            } else {
+                                _self.paramHash["ordercon"] = "";
+                                _self.paramHash["ordercon_c"] = _abs + tmp_con
+                            }
+                        }
+                        dataHash["league"] = util.getKeyValue(xmlnode, tmp_game, "LEAGUE");
+                        try {
+                            var bet_wtype = util_game.chgTwtype(_self.paramHash["wtype"], _self.paramHash["rtype"]);
+                            var float_ior = util.ignoreDots(_self.paramHash["ioratio"], 2);
+                            dataHash["ioratio"] = util.showTxt(util_game.getOrderIoratio(float_ior, null, bet_wtype))
+                        } catch (e) {
+                            dataHash["ioratio"] = "0.00"
+                        }
+                        var imp = _self.paramHash["imp"];
+                        var ptype = _self.paramHash["ptype"];
+                        var team_h = util.getKeyValue(xmlnode, tmp_game, "TEAM_H");
+                        var team_c = util.getKeyValue(xmlnode, tmp_game, "TEAM_C");
+                        if (imp == "Y") {
+                            team_h = team_h.replace(ptype, "");
+                            team_c = team_c.replace(ptype, "");
+                            chose_team = chose_team.replace(ptype, "")
+                        }
+                        if (_self.paramHash["subtypestr"] != "") {
+                            var tmpSession = " - (" + _self.paramHash["subtypestr"] + ")";
+                            team_h = team_h.replace(tmpSession, "");
+                            team_c = team_c.replace(tmpSession, "");
+                            chose_team = chose_team.replace(tmpSession, "")
+                        }
+                        if (_self.paramHash["session"] != null && _self.paramHash["session"] != "") {
+                            var tmpSession = " - (" + _self.paramHash["session"] + ")";
+                            team_h = team_h.replace(tmpSession, "");
+                            team_c = team_c.replace(tmpSession, "");
+                            chose_team = chose_team.replace(tmpSession, "")
+                        }
+                        dataHash["team_h"] = team_h;
+                        dataHash["team_c"] = team_c;
+                        dataHash["chose_team"] = chose_team;
+                        dataHash["isFantasy"] = _self.paramHash["isFantasy"];
+                        dataHash["fantasyObj"] = _self.paramHash["fantasyObj"];
+                        var tmpMS = "";
+                        if (_self.paramHash["MSorPOINT"] && _self.paramHash["MSorPOINT"] != "" && _self.paramHash["gtype"] != "BS")
+                            tmpMS = _self.paramHash["gid"] + "_" + util_game.getNowMS(xmlnode, tmp_game, _self.paramHash["MSorPOINT"], _self.paramHash["gtype"], util);
+                        var getMenuHash = new Object;
+                        getMenuHash.gid = _self.paramHash["gid"];
+                        getMenuHash.gtype = _self.paramHash["gtype"];
+                        getMenuHash.showtype = _self.paramHash["showtype"];
+                        getMenuHash.wtype = _self.paramHash["keepwtype"];
+                        getMenuHash.rtype = _self.paramHash["rtype"];
+                        getMenuHash.ms = tmpMS;
+                        getMenuHash.team_h = dataHash["team_h"];
+                        getMenuHash.team_c = dataHash["team_c"];
+                        getMenuHash.imp = _self.paramHash["imp"];
+                        getMenuHash.ptype = _self.paramHash["ptype"];
+                        FTmenutype = util_game.getWtypeName(LS_game, getMenuHash.gid, getMenuHash.showtype, getMenuHash.gtype, getMenuHash.wtype, getMenuHash.rtype, getMenuHash.ms, getMenuHash.team_h, getMenuHash.team_c, getMenuHash.imp, getMenuHash.ptype, _self.paramHash)
+                    }
+                    _limit[_betKey] = new Object;
+                    _limit[_betKey]["max"] = "";
+                    _limit[_betKey]["min"] = "";
+                    myhash["_limit"] = _limit;
+                    dataHash["betKey"] = _betKey;
+                    dataHash["min_bet"] = "";
+                    dataHash["max_bet"] = "";
+                    dataHash["maxcredit"] = top["userData"].maxcredit;
+                    dataHash["menutype"] = FTmenutype;
+                    _self.setFastModelData(dataHash);
+                    _self.setBetNumVisible(false)
+                }
+                ;
+                _self.setFastModelData = function(dataHash) {
+                    var tmpDiv, choiceModel, tmpBetList;
+                    choiceModel = dom.getElementById("fast_bet");
+                    tmpBetList = choiceModel.cloneNode(true);
+                    var finalBet = _mc["bet_model"].cloneNode(true);
+                    finalBet.innerHTML = finalBet.innerHTML.replace(new RegExp("\\*BET_LIST\\*","gi"), tmpBetList.innerHTML);
+                    tmpDiv = finalBet.innerHTML;
+                    _mc["bet_show"].innerHTML = tmpDiv;
+                    util.addClass(_mc["bet_show"], "qk");
+                    util.removeClass(_mc["bet_show"], "receipt");
+                    _self.setFastClickEvent(dataHash);
+                    _self.showAddTotal(true);
+                    _self.showInfoLoading(true);
+                    _self.clearANDinit();
+                    if (dataHash["isFantasy"] == "Y") {
+                        _mc["div_icon_info_bet"].style.display = "";
+                        util.addEvent(_mc["div_icon_info_bet_i"], "click", _self.AlertFantasyInfo, dataHash["fantasyObj"])
+                    } else
+                        _mc["div_icon_info_bet"].style.display = "none";
+                    _mc["bet_league"].innerHTML = util_game.showTxt(dataHash["league"]);
+                    _mc["bet_menutype"].innerHTML = util_game.showTxt(dataHash["menutype"]);
+                    _mc["bet_ior"].className = util_game.checkIorClass(dataHash["ioratio"]);
+                    _mc["bet_ior"].innerHTML = util_game.showTxt(dataHash["ioratio"]);
+                    if (dataHash["rtype"] && dataHash["rtype"].indexOf("FS") != -1) {
+                        _mc["bet_chose_con"].style.display = "none";
+                        _mc["bet_chose_team"].innerHTML = util_game.showTxt(dataHash["rtype_name"]);
+                        _mc["bet_teamData"].style.display = "none"
+                    } else {
+                        _mc["bet_team_h"].innerHTML = util_game.showTxt(dataHash["team_h"]).replace("[Mid]", "").replace("[\u4e2d]", "");
+                        _mc["bet_team_c"].innerHTML = util_game.showTxt(dataHash["team_c"]).replace("[Mid]", "").replace("[\u4e2d]", "");
+                        _mc["bet_con"].innerHTML = util_game.showTxt(_self.paramHash["ordercon"]);
+                        _mc["bet_con_c"].innerHTML = util_game.showTxt(_self.paramHash["ordercon_c"]);
+                        var tmp_team = "";
+                        var get_team = util_game.getTeamWM(_self.paramHash["show_rtype"]);
+                        if (get_team != null)
+                            tmp_team = util.showTxt(dataHash["team_" + get_team]) + " - ";
+                        _mc["bet_chose_team"].innerHTML = tmp_team + util.showTxt(dataHash["chose_team"]).replace("[Mid]", "").replace("[\u4e2d]", "");
+                        _mc["bet_chose_con"].innerHTML = util.showTxt(dataHash["chose_con"])
+                    }
+                    dom.getElementById("bet_gold2_tt").setAttribute("data-currency", top["userData"].currency);
+                    _self.initOrderBet();
+                    _self.orderView();
+                    _self.createOVTimer();
+                    _self.clearFastGold()
+                }
+                ;
+                _self.setFastClickEvent = function(hash) {
+                    if (top.mobile != "Y") {
+                        dom.getElementById("bet_gold_bg").style.display = "none";
+                        dom.getElementById("bet_gold_bg_pc").style.display = "";
+                        is_PC = "_pc"
+                    }
+                    _mc["bet_loading"] = dom.getElementById("bet_loading");
+                    _mc["delay_loading"] = dom.getElementById("delay_loading");
+                    _mc["div_set"] = dom.getElementById("div_set");
+                    _mc["div_calc"] = dom.getElementById("div_calc");
+                    _mc["order_bet"] = dom.getElementById("order_bet");
+                    _mc["set_btn"] = dom.getElementById("set_btn");
+                    _mc["bet_gold"] = dom.getElementById("bet_gold" + is_PC);
+                    _mc["bet_gold_bg"] = dom.getElementById("bet_gold_bg" + is_PC);
+                    _mc["bet_gold_tt"] = dom.getElementById("bet_gold_tt" + is_PC);
+                    _mc["bet_gold2_tt"] = dom.getElementById("bet_gold2_tt");
+                    _mc["last_betCredit"] = dom.getElementById("last_betCredit");
+                    _mc["add_total_bet"] = dom.getElementById("add_total_bet");
+                    _mc["bet_better_odds"] = dom.getElementById("bet_better_odds");
+                    _mc["close_set"] = dom.getElementById("close_set");
+                    _mc["bet_menutype"] = dom.getElementById("bet_menutype");
+                    _mc["bet_credit"] = dom.getElementById("bet_credit");
+                    _mc["bet_score"] = dom.getElementById("bet_score");
+                    _mc["bet_league"] = dom.getElementById("bet_league");
+                    _mc["bet_team_h"] = dom.getElementById("bet_team_h");
+                    _mc["bet_team_c"] = dom.getElementById("bet_team_c");
+                    _mc["bet_con"] = dom.getElementById("bet_con");
+                    _mc["bet_con_c"] = dom.getElementById("bet_con_c");
+                    _mc["bet_chose_team"] = dom.getElementById("bet_chose_team");
+                    _mc["bet_chose_con"] = dom.getElementById("bet_chose_con");
+                    _mc["bet_ior"] = dom.getElementById("bet_ior");
+                    _mc["div_showlimit"] = dom.getElementById("div_showlimit");
+                    _mc["div_limit"] = dom.getElementById("div_limit");
+                    _mc["max_limit"] = dom.getElementById("max_limit");
+                    _mc["set_max"] = dom.getElementById("set_max");
+                    _mc["div_wingold"] = dom.getElementById("div_wingold");
+                    _mc["bet_wingold"] = dom.getElementById("bet_wingold");
+                    _mc["err_msg"] = dom.getElementById("err_msg");
+                    _mc["betBtn_show"] = dom.getElementById("betBtn_show");
+                    _mc["betBtn_txt"] = dom.getElementById("betBtn_txt");
+                    _mc["div_betInfo"] = dom.getElementById("div_betInfo");
+                    _mc["betInfo_bg"] = dom.getElementById("betInfo_bg");
+                    _mc["div_lastBetCredit"] = dom.getElementById("div_lastBetCredit");
+                    _mc["currency_code"] = dom.getElementsByName("currency_code");
+                    _mc["bet_teamData"] = dom.getElementById("bet_teamData");
+                    _mc["rotate_removeALL"] = dom.getElementById("rotate_removeALL");
+                    _mc["div_icon_info_bet"] = dom.getElementById("div_icon_info_bet");
+                    _mc["div_icon_info_bet_i"] = dom.getElementById("div_icon_info_bet_i");
+                    _mc["bet_gold_pc"] = dom.getElementById("bet_gold_pc");
+                    _mc["bet_gold_bg_pc"] = dom.getElementById("bet_gold_bg_pc");
+                    _self.checkFastOrderBtn();
+                    var _min = "5";
+                    var _max = "200000";
+                    var obj = {
+                        "win": win,
+                        "dom": dom,
+                        "targetObj": _mc["bet_gold"],
+                        "targetObj_tt": _mc["bet_gold_tt"],
+                        "mid": _mid,
+                        "screen": _mc["div_calc"],
+                        "limitCount": 3,
+                        "currency": top["userData"].currency,
+                        "minbet": _min,
+                        "maxbet": _max
+                    };
+                    keyboardObj = new win.self_keyboard(win,dom,obj);
+                    keyboardObj.setParentclass(this);
+                    keyboardObj.init();
+                    var objids = ",order_close,";
+                    var ary = util.getObjAry(_mc["bet_show"], objids);
+                    util.addEvent(ary["order_close"], "click", _self.clickClose, {
+                        "needsClear": true
+                    });
+                    util.addEvent(_mc["set_btn"], "click", _self.showSet, _mc["set_btn"]);
+                    util.addEvent(_mc["div_showlimit"], "click", _self.showSpecDiv, {
+                        "showTarget": "limit",
+                        "clickObj": _mc["div_showlimit"],
+                        "isShow": true
+                    });
+                    util.addEvent(_mc["set_max"], "click", _self.setMax, {
+                        "isTotalBet": false,
+                        "targetObj": _mc["bet_gold"],
+                        "targetObj_tt": _mc["bet_gold_tt"],
+                        "betKey": hash["betKey"]
+                    });
+                    util.addEvent(_mc["order_bet"], "click", _self.betHandler, _mc["order_bet"]);
+                    util.addEvent(_mc["close_set"], "click", _self.showSet, _mc["close_set"]);
+                    util.addEvent(_mc["div_betInfo"], "click", _self.betClick, _mc["div_betInfo"]);
+                    util.addEvent(_mc["bet_gold_pc"], "input", _self.pcGoldHandler);
+                    util.addEvent(_mc["add_total_bet"], "click", _self.addTotal, {
+                        "xmlnode": top["fastBetXML"],
+                        "gameObj": top["fastBetGameObj"],
+                        "betData": top["fastBetHash"],
+                        "from": "add_total_bet"
+                    });
+                    util.addEvent(_mc["last_betCredit"], "change", _self.saveLastBetSW, _mc["last_betCredit"]);
+                    util.addEvent(_mc["bet_better_odds"], "change", _self.saveBetterOdds, _mc["bet_better_odds"]);
+                    util.addEvent(_mc["rotate_removeALL"], "click", _self.clickClose, {
+                        "needsClear": true
+                    });
+                    util.addEvent(_mc["bet_gold_bg_pc"], "click", _self.focusInput, _mc["bet_gold_pc"]);
+                    _self.lockScroll()
+                }
+                ;
+                _self.lockScroll = function() {
+                    var _div = dom.getElementById("div_betInfo");
+                    try {
+                        util.addEvent(_div, "touchstart", _self.touchstartEvent);
+                        util.addEvent(_div, "touchmove", _self.preventScroll)
+                    } catch (e) {
+                        console.log(e)
+                    }
+                }
+                ;
+                _self.focusInput = function(e, obj) {
+                    if (obj)
+                        obj.focus()
+                }
+                ;
+                _self.pcGoldHandler = function() {
+                    var last_gold_length = _mc["bet_gold_pc"].value.length;
+                    var tmp_gold = _mc["bet_gold_pc"].value.replace(/[^\d]|^[0]/g, "");
+                    if (tmp_gold * 1 == 0)
+                        _mc["bet_gold_pc"].value = "";
+                    else if (tmp_gold * 1 > maxBet * 1)
+                        _mc["bet_gold_pc"].value = util.showTxt(util.formatThousand(maxBet * 1));
+                    else {
+                        var obj = new Object;
+                        obj.goldObj = _mc["bet_gold_pc"];
+                        obj.tmp_gold = tmp_gold;
+                        obj.last_gold_length = last_gold_length;
+                        obj.End = _mc["bet_gold_pc"].selectionEnd;
+                        _self.setTargetPostition(obj)
+                    }
+                    _self._calcWinGold({
+                        "target": _mc["bet_gold_pc"]
+                    });
+                    util.SaveGoldProc(tmp_gold * 1)
+                }
+                ;
+                _self.setTargetPostition = function(obj) {
+                    var goldObj = obj.goldObj;
+                    var tmp_gold = obj.tmp_gold;
+                    var last_gold_length = obj.last_gold_length;
+                    var End = obj.End;
+                    var target_position = 0;
+                    if (tmp_gold * 1 > 0)
+                        goldObj.value = util.showTxt(util.formatThousand(tmp_gold * 1));
+                    else
+                        goldObj.value = "";
+                    var final_gold_length = goldObj.value.length;
+                    target_position = End + (final_gold_length - last_gold_length);
+                    target_position = target_position > 0 ? target_position : 0;
+                    goldObj.setSelectionRange(target_position, target_position)
+                }
+                ;
+                _self.touchstartEvent = function(e) {
+                    startTouchY = e.touches[0].clientY;
+                    if (e.touches.length > 1)
+                        e.preventDefault()
+                }
+                ;
+                _self.preventScroll = function(e) {
+                    var nowTouchY = e.touches[0].clientY;
+                    if (startTouchY < nowTouchY - fixY || startTouchY > nowTouchY + fixY) {
+                        e.stopPropagation();
+                        e.preventDefault()
+                    }
+                }
+                ;
+                _self.fastCalcEvent = function(sw) {
+                    if (sw) {
+                        isGameLocked = false;
+                        _self.setLocked("remove", "betInfo_bg");
+                        var _gold = top.mobile != "Y" ? _mc["bet_gold"].value : _mc["bet_gold"].innerHTML;
+                        if (_gold != "") {
+                            var clickObj = tmpDiv["last"] != null ? tmpDiv["last"] : top["openLimit"]["fast"] ? _mc["div_limit"] : _mc["div_showlimit"];
+                            _self.showSpecDiv(null, {
+                                "showTarget": "wingold",
+                                "clickObj": clickObj,
+                                "isShow": true
+                            })
+                        } else if (top["openLimit"]["fast"])
+                            _self.showSpecDiv(null, {
+                                "showTarget": "limit",
+                                "clickObj": _mc["div_showlimit"],
+                                "isShow": true
+                            });
+                        else if (isLockANDopenLimit)
+                            _self.showSpecDiv(null, {
+                                "showTarget": "showlimit",
+                                "clickObj": null,
+                                "isShow": true
+                            });
+                        else if (_gold == "" && !top["isErrCleanGold"])
+                            _self.showSpecDiv(null, {
+                                "showTarget": "showlimit",
+                                "clickObj": tmpDiv["now"],
+                                "isShow": true
+                            });
+                        util.addEvent(_mc["bet_gold"], "click", _self.setBetNum, _mc["bet_gold"]);
+                        util.addEvent(_mc["bet_gold_tt"], "click", _self.setBetNum, _mc["bet_gold_tt"])
+                    } else {
+                        isGameLocked = true;
+                        _self.hiddenALL();
+                        top["locked_slip"]["fast"] = true;
+                        _self.setLocked("set", "betInfo_bg");
+                        util.removeEvent(_mc["bet_gold"], "click");
+                        util.removeEvent(_mc["bet_gold_tt"], "click");
+                        if (top["openLimit"]["fast"])
+                            isLockANDopenLimit = true
+                    }
+                }
+                ;
+                _self.checkFastOrderBtn = function() {
+                    var _gold = top.mobile != "Y" ? _mc["bet_gold"].value : _mc["bet_gold"].innerHTML;
+                    var allowBet = _self.checkFastLimitMin(_gold);
+                    var clickObj = tmpDiv["last"] != null ? tmpDiv["last"] : top["openLimit"]["fast"] ? _mc["div_limit"] : _mc["div_showlimit"];
+                    if (_gold != "")
+                        _self.showSpecDiv(null, {
+                            "showTarget": "wingold",
+                            "clickObj": clickObj,
+                            "isShow": true
+                        });
+                    else if (top["openLimit"]["fast"])
+                        _self.showSpecDiv(null, {
+                            "showTarget": "limit",
+                            "clickObj": _mc["div_showlimit"],
+                            "isShow": true
+                        });
+                    else if (isLockANDopenLimit)
+                        _self.showSpecDiv(null, {
+                            "showTarget": "showlimit",
+                            "clickObj": null,
+                            "isShow": true
+                        });
+                    else if (_gold == "" && !top["isErrCleanGold"])
+                        _self.showSpecDiv(null, {
+                            "showTarget": "showlimit",
+                            "clickObj": tmpDiv["now"],
+                            "isShow": true
+                        });
+                    if (!util_game.isRemoveClose(errorCode) && !needChg)
+                        _self.enabledBet(allowBet, fastCheck_complete)
+                }
+                ;
+                _self.orderView = function() {
+                    top["isOrderView"] = true;
+                    if (_self.paramHash["keepwtype"] != "FS")
+                        _self.paramHash = util_game.switchBetRtype(_self.paramHash);
+                    var goPage = "";
+                    var finishFun;
+                    var urlParams = "";
+                    urlParams += "odd_f_type=" + top["userData"].odd_f_type;
+                    urlParams += "&gid=" + _self.paramHash["gid"];
+                    urlParams += "&gtype=" + _self.paramHash["gtype"];
+                    if (_self.paramHash["keepwtype"] == "FS") {
+                        goPage = "FS_order_view";
+                        urlParams += "&wtype=" + _self.paramHash["keepwtype"];
+                        urlParams += "&rtype=" + _self.paramHash["rtype"];
+                        finishFun = _self.orderViewFSComplete
+                    } else {
+                        goPage = _self.paramHash["gtype"] == "FT" ? "FT_order_view" : "Other_order_view";
+                        urlParams += "&wtype=" + _self.paramHash["wtype"];
+                        urlParams += "&chose_team=" + _self.paramHash["chose_team"];
+                        fastCheck = _self.paramHash["wtype"] + _self.paramHash["chose_team"];
+                        finishFun = _self.orderViewComplete
+                    }
+                    urlParams = "p=" + goPage + "&" + top.param + "&" + urlParams;
+                    var getHTML = new HttpRequest;
+                    getHTML.addEventListener("onError", _self.onError);
+                    getHTML.addEventListener("LoadComplete", finishFun);
+                    getHTML.loadURL(top.m2_url, "POST", urlParams)
+                }
+                ;
+                _self.orderViewComplete = function(xml) {
+                    _self.paramHash["errorMsg"] = util.showConnectMsg(xml);
+                    if (util.alertConnectMsg(_self.paramHash["errorMsg"]))
+                        return;
+                    for (var _key in top["dgStatus_hash"])
+                        if (timerHash["dgTimer_" + _key] != null) {
+                            top["dgStatus_hash"][_key] = "isToast";
+                            timerHash["dgTimer_" + _key]._status = "isToast"
+                        }
+                    var xmdObj = new Object;
+                    xmlnode = util.parseXml(xml);
+                    xmdObj["code"] = xmlnode.Node(xmlnode.Root[0], "code");
+                    _self.setBetNumOpen(true);
+                    xmdObj["systime"] = xmlnode.Node(xmlnode.Root[0], "systime");
+                    xmdObj["dates"] = xmlnode.Node(xmlnode.Root[0], "dates").innerHTML;
+                    xmdObj["errorCode"] = xmlnode.Node(xmlnode.Root[0], "code");
+                    xmdObj["errormsg"] = xmlnode.Node(xmlnode.Root[0], "errormsg");
+                    for (var i = 0; i < systemErrAry.length; i++) {
+                        var cnf = errorAry.indexOf(systemErrAry[i]);
+                        if (cnf != -1)
+                            errorAry.splice(cnf, 1)
+                    }
+                    if (xmdObj["errorCode"].innerHTML == "connectFail" || util_game.isSystemError(xmdObj["errormsg"].innerHTML)) {
+                        _self.updateEvent("noLimit");
+                        _self.closeKeyboard(true);
+                        top.isSystemError = true;
+                        if (!util.in_array(xmdObj["errorCode"].innerHTML, errorAry) && xmdObj["errorCode"].innerHTML == "connectFail")
+                            errorAry.push(xmdObj["errorCode"].innerHTML);
+                        if (!util.in_array(xmdObj["errormsg"].innerHTML, errorAry) && xmdObj["errorCode"].innerHTML != "connectFail")
+                            errorAry.push(xmdObj["errormsg"].innerHTML);
+                        _self.showOrderMsg(true);
+                        _self.enabledBet(false);
+                        _self.showInfoLoading(false);
+                        _self.setLastBetGold();
+                        _mc["bet_ior"].className = "word_red";
+                        _mc["bet_ior"].innerHTML = "-";
+                        _mc["bet_wingold"].className = "word_bold";
+                        _mc["bet_wingold"].innerHTML = "- -";
+                        _mc["bet_score"].style.display = "none";
+                        _self.paramHash["ioratio"] = "-";
+                        if (util_game.checkWtypeIsR(_self.paramHash["keepwtype"])) {
+                            _mc["bet_con"].innerHTML = "";
+                            _mc["bet_con_c"].innerHTML = "";
+                            _mc["bet_con"].style.display = "none";
+                            _mc["bet_con_c"].style.display = "none"
+                        }
+                        _self.setBetNumOpen(false);
+                        return
+                    } else {
+                        if (xmdObj["code"].innerHTML == "501") {
+                            _mc["bet_wingold"].className = "word_green";
+                            if (top["locked_slip"]["fast"] != null)
+                                delete top["locked_slip"]["fast"];
+                            top.isSystemError = false;
+                            _self.fastCalcEvent(true);
+                            _self.closeKeyboard(false);
+                            _self.setLoadingBetVisible(false);
+                            var dataHash = util.convertNodeToHash(xmlnode.Root[0]);
+                            _self.paramHash = util.mergeHash(_self.paramHash, dataHash);
+                            _self.paramHash["orderviewTS"] = util.showTxt(xmlnode.Node(xmlnode.Root[0], "ts").innerHTML);
+                            var imp = _self.paramHash["imp"];
+                            var ptype = _self.paramHash["ptype"];
+                            var team_h = util.showTxt(xmlnode.Node(xmlnode.Root[0], "team_name_h").innerHTML);
+                            var team_c = util.showTxt(xmlnode.Node(xmlnode.Root[0], "team_name_c").innerHTML);
+                            var peid = util.showTxt(xmlnode.Node(xmlnode.Root[0], "peid").innerHTML);
+                            var period = util.showTxt(xmlnode.Node(xmlnode.Root[0], "period").innerHTML);
+                            var competitionext = util.showTxt(xmlnode.Node(xmlnode.Root[0], "competitionext").innerHTML);
+                            var gamenum = util.showTxt(xmlnode.Node(xmlnode.Root[0], "gamenum").innerHTML);
+                            var pid = util.showTxt(xmlnode.Node(xmlnode.Root[0], "pid").innerHTML);
+                            if (imp == "Y") {
+                                team_h = team_h.replace(ptype, "");
+                                team_c = team_c.replace(ptype, "")
+                            }
+                            _mc["bet_team_h"].innerHTML = util_game.showTxt(team_h);
+                            _mc["bet_team_c"].innerHTML = util_game.showTxt(team_c);
+                            _mc["bet_league"].innerHTML = util.showTxt(xmlnode.Node(xmlnode.Root[0], "league_name").innerHTML);
+                            var bet_wtype = util_game.chgTwtype(_self.paramHash["wtype"], _self.paramHash["rtype"]);
+                            var isChangeIor = util_game.isChgIor(errorCode) ? true : false;
+                            var tmpIor = util.showTxt(util_game.getOrderIoratio(_self.paramHash["ioratio"], null, bet_wtype));
+                            var baseIorClass = util_game.checkIorClass(tmpIor);
+                            _mc["bet_ior"].className = baseIorClass;
+                            _mc["bet_ior"].innerHTML = util_game.showTxt(tmpIor);
+                            if (tmpIor * 1 == 0 || tmpIor == "-") {
+                                _mc["bet_wingold"].className = "word_bold";
+                                _mc["bet_wingold"].innerHTML = "- -";
+                                _self.setBetNumOpen(false)
+                            }
+                            var _limitKey = _self.paramHash["gtype"].toUpperCase() + "_" + _self.paramHash["ecid"];
+                            _limit[_limitKey] = new Object;
+                            _limit[_limitKey]["max"] = _self.paramHash["gold_gmax"];
+                            _limit[_limitKey]["min"] = _self.paramHash["gold_gmin"];
+                            myhash["_limit"] = _limit;
+                            _mc["max_limit"].innerHTML = util.showTxt(util.formatThousand(_self.paramHash["gold_gmax"]));
+                            var strong = util.showTxt(xmlnode.Node(xmlnode.Root[0], "strong").innerHTML);
+                            var ratio = xmlnode.Node(xmlnode.Root[0], "spread").innerHTML;
+                            var isChangeConcede = util_game.isChgConcede(errorCode) ? true : false;
+                            var conObj = util_game.getConcedeStr(_self.paramHash["keepwtype"], strong, ratio);
+                            if (util_game.checkWtypeIsR(_self.paramHash["keepwtype"])) {
+                                var color = "word_yellow";
+                                if (_self.paramHash["keepwtype"] == "W3")
+                                    color = "word_red";
+                                _mc["bet_con"].innerHTML = "";
+                                _mc["bet_con_c"].innerHTML = "";
+                                _mc["bet_con"].style.display = "none";
+                                _mc["bet_con_c"].style.display = "none";
+                                _mc["bet_chose_con"].className = color
+                            } else {
+                                _mc["bet_con"].className = "word_red";
+                                _mc["bet_con_c"].className = "word_red";
+                                _mc["bet_con"].innerHTML = util_game.showTxt(conObj["bet_finish_con"]);
+                                _mc["bet_con_c"].innerHTML = util_game.showTxt(conObj["bet_finish_con_c"])
+                            }
+                            if ((isChangeConcede || isChangeIor) && firstErr) {
+                                util.addClass(_mc["betInfo_bg"], "highlight");
+                                firstErr = false
+                            } else
+                                util.removeClass(_mc["betInfo_bg"], "highlight");
+                            gameDateStr = util_game.chkGameDate(xmdObj["systime"].innerHTML, xmdObj["dates"]);
+                            top["orderinfo"]["date"] = gameDateStr;
+                            _self.paramHash["ordercon"] = util.showTxt(_mc["bet_con"].innerHTML);
+                            _self.paramHash["ordercon_c"] = util.showTxt(_mc["bet_con_c"].innerHTML);
+                            var ratioR = util_game.transRatioStr(period, xmlnode.Node(xmlnode.Root[0], "spread").innerHTML);
+                            if (!util_game.checkWtypeIsOU(_self.paramHash["keepwtype"]) && _self.paramHash["keepwtype"] != "W3")
+                                if (util_game.checkWtypeIsR(_self.paramHash["keepwtype"])) {
+                                    var _abs = "";
+                                    var chose = _self.paramHash["chose_team"];
+                                    if (chose == "N")
+                                        chose = "H";
+                                    if (ratioR != 0)
+                                        if (strong == chose)
+                                            _abs = "-";
+                                        else
+                                            _abs = "+";
+                                    _mc["bet_chose_con"].innerHTML = _abs + util.showTxt(ratioR);
+                                    _mc["bet_chose_con"].style.display = ""
+                                } else {
+                                    _mc["bet_chose_con"].innerHTML = "";
+                                    _mc["bet_chose_con"].style.display = "none"
+                                }
+                            else {
+                                var _abs = "";
+                                if (_self.paramHash["keepwtype"] == "W3") {
+                                    var chose = _self.paramHash["chose_team"];
+                                    if (chose == "N")
+                                        chose = "H";
+                                    if (strong == chose)
+                                        _abs = "-";
+                                    else
+                                        _abs = "+"
+                                }
+                                _mc["bet_chose_con"].innerHTML = _abs + util.showTxt(ratioR);
+                                _mc["bet_chose_con"].style.display = ""
+                            }
+                            var chose_team;
+                            var _rtype = _self.paramHash["show_rtype"].toLowerCase();
+                            if (_self.paramHash["gtype"].toUpperCase() == "BS" && util_game.checkWtypeIsWM(_self.paramHash["keepwtype"]))
+                                chose_team = LS_game.get(_rtype + "_" + _self.paramHash["gtype"].toLowerCase());
+                            else if (LS_game.get(_rtype) == "") {
+                                var Ftype = "_F_RF_DC_RDC_";
+                                if (Ftype.indexOf("_" + _self.paramHash["wtype"].toUpperCase() + "_") >= 0) {
+                                    f1 = _self.paramHash["rtype"].toUpperCase().replace(_self.paramHash["wtype"].toUpperCase(), "").substr(0, 1);
+                                    f2 = _self.paramHash["rtype"].toUpperCase().replace(_self.paramHash["wtype"].toUpperCase(), "").substr(1, 1);
+                                    chose_team = "";
+                                    if (f1 == "N")
+                                        chose_team += LS_game.get("mn");
+                                    else {
+                                        chose_team += xmlnode.Node(xmlnode.Root[0], "team_name_" + f1.toLowerCase()).innerHTML;
+                                        if (imp == "Y")
+                                            chose_team = chose_team.replace(ptype, "")
+                                    }
+                                    chose_team += " / ";
+                                    if (f2 == "N")
+                                        chose_team += LS_game.get("mn");
+                                    else {
+                                        chose_team += xmlnode.Node(xmlnode.Root[0], "team_name_" + f2.toLowerCase()).innerHTML;
+                                        if (imp == "Y")
+                                            chose_team = chose_team.replace(ptype, "")
+                                    }
+                                } else {
+                                    chose_team = xmlnode.Node(xmlnode.Root[0], "team_name_" + _self.paramHash["keepchose_team"].toLowerCase()).innerHTML;
+                                    if (imp == "Y")
+                                        chose_team = chose_team.replace(ptype, "")
+                                }
+                            } else {
+                                var team_h = xmlnode.Node(xmlnode.Root[0], "team_name_h").innerHTML;
+                                var team_c = xmlnode.Node(xmlnode.Root[0], "team_name_c").innerHTML;
+                                chose_team = LS_game.get(_rtype);
+                                chose_team = chose_team.replace(/\*TEAM_H\*/g, team_h);
+                                chose_team = chose_team.replace(/\*TEAM_C\*/g, team_c)
+                            }
+                            if (imp == "Y") {
+                                var tmp_ptype = ptype.replace(/\(/g, "\(").replace(/\)/g, "\)");
+                                var re = new RegExp(tmp_ptype,"g");
+                                chose_team = chose_team.replace(re, "")
+                            }
+                            var tmp_team = "";
+                            var get_team = util_game.getTeamWM(_self.paramHash["show_rtype"]);
+                            if (get_team != null)
+                                tmp_team = util.showTxt(_mc["bet_team_" + get_team].innerHTML) + " - ";
+                            if (chose_team != null) {
+                                chose_team = chose_team.replace(/\*TEAM_H\*/g, _mc["bet_team_h"].innerHTML);
+                                chose_team = chose_team.replace(/\*TEAM_C\*/g, _mc["bet_team_c"].innerHTML);
+                                _mc["bet_chose_team"].innerHTML = tmp_team + util.showTxt(chose_team).replace("[Mid]", "").replace("[\u4e2d]", "")
+                            }
+                            _self.paramHash["bet_chose_team"] = _mc["bet_chose_team"].innerHTML;
+                            _self.paramHash["bet_chose_con"] = _mc["bet_chose_con"].innerHTML;
+                            var tmp_score = util.showTxt(xmlnode.Node(xmlnode.Root[0], "score").innerHTML);
+                            tmp_score = "(" + tmp_score.replace(":", " - ") + ")";
+                            if (_self.paramHash["gtype"] == "FT") {
+                                _mc["bet_score"].innerHTML = util_game.needToShowScore(_self.paramHash["keepwtype"]) ? tmp_score : "";
+                                _mc["bet_score"].style.display = util_game.needToShowScore(_self.paramHash["keepwtype"]) ? "" : "none";
+                                if (util_game.needToShowScore(_self.paramHash["keepwtype"]) && keepScore == "")
+                                    keepScore = tmp_score;
+                                _mc["bet_score"].className = "word_yellow"
+                            } else {
+                                _mc["bet_score"].innerHTML = "";
+                                _mc["bet_score"].style.display = "none"
+                            }
+                            var periodHash = {
+                                "period": period,
+                                "gameType": competitionext,
+                                "nowGame": "G" + gamenum
+                            };
+                            var getMenuHash = new Object;
+                            getMenuHash.gid = _self.paramHash["gid"];
+                            getMenuHash.gtype = _self.paramHash["gtype"];
+                            getMenuHash.showtype = _self.paramHash["showtype"];
+                            getMenuHash.wtype = _self.paramHash["keepwtype"];
+                            getMenuHash.rtype = _self.paramHash["rtype"];
+                            getMenuHash.ms = _self.paramHash["ms"];
+                            getMenuHash.team_h = team_h;
+                            getMenuHash.team_c = team_c;
+                            getMenuHash.imp = _self.paramHash["imp"];
+                            getMenuHash.ptype = _self.paramHash["ptype"];
+                            FTmenutype = util_game.getWtypeName(LS_game, getMenuHash.gid, getMenuHash.showtype, getMenuHash.gtype, getMenuHash.wtype, getMenuHash.rtype, getMenuHash.ms, getMenuHash.team_h, getMenuHash.team_c, getMenuHash.imp, getMenuHash.ptype, periodHash);
+                            _mc["bet_menutype"].innerHTML = FTmenutype;
+                            echo("[orderview] errorCode = ", errorCode);
+                            var _gold = top.mobile != "Y" ? _mc["bet_gold"].value.replace(/,/g, "") : _mc["bet_gold"].innerHTML.replace(/,/g, "");
+                            fastCheck_complete = dataHash["fast_check"];
+                            if ((util_game.isChgIor(errorCode) || util_game.isChgConcede(errorCode) || util_game.isOverSingleCredit(errorCode)) && isFromBet) {
+                                if (util_game.needToShowScore(_self.paramHash["keepwtype"]) && keepScore != "" && keepScore != tmp_score)
+                                    _mc["bet_score"].className = "word_oddbg";
+                                _self.showAcceptChg(true);
+                                _self.showOrderMsg(true);
+                                needChg = true
+                            } else if (errorCode == "" || util_game.isRemoveClose(errorCode)) {
+                                if (util_game.isRemoveClose(errorCode)) {
+                                    _self.setSingleErrorCode("");
+                                    _self.showSingleErrorMsg(false)
+                                }
+                                var allowBet = _self.checkFastLimitMin(_gold);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet, fastCheck_complete)
+                            } else if (util_game.isSystemError(errorCode)) {
+                                if (util.in_array(errorCode, errorAry)) {
+                                    var ind = errorAry.indexOf(errorCode);
+                                    if (ind != -1)
+                                        errorAry.splice(ind, 1)
+                                }
+                                if (errorAry.length == 0)
+                                    _self.showOrderMsg(false);
+                                _self.setSingleErrorCode("");
+                                _self.showSingleErrorMsg(false);
+                                var allowBet = _self.checkFastLimitMin(_gold);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet, fastCheck_complete)
+                            } else if (errorCode != "") {
+                                var allowBet = _self.checkFastLimitMin(_gold);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet, fastCheck_complete)
+                            }
+                            if (errorAry.length == 0)
+                                _self.showOrderMsg(false);
+                            if (_self.paramHash["gtype"] == "FT" && util_game.needToShowScore(_self.paramHash["keepwtype"]))
+                                keepScore = tmp_score;
+                            _self.updateEvent(_limitKey);
+                            if (_gold != "" && _gold * 1 != 0)
+                                _self._calcWinGold({
+                                    "target": _mc["bet_gold"]
+                                })
+                        } else {
+                            if (util_game.checkWtypeIsR(_self.paramHash["keepwtype"])) {
+                                _mc["bet_con"].style.display = "none";
+                                _mc["bet_con_c"].style.display = "none";
+                                if (_self.paramHash["keepwtype"] != "W3") {
+                                    var tmp_con = "conError";
+                                    if (_self.paramHash["bet_chose_con"] && _self.paramHash["bet_chose_con"] != "")
+                                        tmp_con = _self.paramHash["bet_chose_con"];
+                                    else if (_self.paramHash["ordercon"] != "")
+                                        tmp_con = _self.paramHash["ordercon"];
+                                    else
+                                        tmp_con = _self.paramHash["ordercon_c"];
+                                    _mc["bet_chose_con"].className = "word_yellow";
+                                    _mc["bet_chose_con"].innerHTML = util_game.showTxt(tmp_con)
+                                }
+                                _mc["bet_con"].innerHTML = ""
+                            }
+                            _self.setLoadingBetVisible(false);
+                            xmdObj["errorCode"] = xmlnode.Node(xmlnode.Root[0], "code");
+                            xmdObj["errormsg"] = xmlnode.Node(xmlnode.Root[0], "errormsg");
+                            _self.setSingleErrorCode(xmdObj["errormsg"].innerHTML);
+                            _self.setSingleErrorMsg(xmdObj["errormsg"].innerHTML);
+                            if (util_game.isSystemError(xmdObj["errormsg"].innerHTML)) {
+                                _self.updateEvent("noLimit");
+                                top.isSystemError = true;
+                                if (!util.in_array(xmdObj["errormsg"].innerHTML, errorAry))
+                                    errorAry.push(xmdObj["errormsg"].innerHTML);
+                                _self.showOrderMsg(true);
+                                _self.enabledBet(false);
+                                _self.showInfoLoading(false);
+                                _self.setLastBetGold();
+                                _mc["bet_ior"].className = "word_red";
+                                _mc["bet_ior"].innerHTML = "-";
+                                _mc["bet_wingold"].className = "word_bold";
+                                _mc["bet_wingold"].innerHTML = "- -";
+                                _mc["bet_score"].style.display = "none";
+                                _self.paramHash["ioratio"] = "-";
+                                _self.setBetNumOpen(false)
+                            }
+                            if (util_game.isRemoveClose(xmdObj["errormsg"].innerHTML)) {
+                                _self.setBetNumVisible(false);
+                                _self.fastCalcEvent(false);
+                                _self.enabledBet(false);
+                                _mc["bet_ior"].className = "word_red";
+                                _mc["bet_ior"].innerHTML = "-";
+                                _mc["bet_wingold"].className = "word_bold";
+                                _mc["bet_wingold"].innerHTML = "- -";
+                                _mc["bet_score"].style.display = "none";
+                                _self.paramHash["ioratio"] = "-";
+                                _self.setBetNumOpen(false)
+                            }
+                            if (xmdObj["errormsg"].innerHTML == "1X003") {
+                                _mc["bet_ior"].className = "word_red";
+                                _mc["bet_ior"].innerHTML = "-";
+                                _self.paramHash["ioratio"] = "-";
+                                _self.setBetNumOpen(false)
+                            }
+                            if (!util_game.onlyOrderLevel(xmdObj["errormsg"].innerHTML))
+                                _self.showSingleErrorMsg(true);
+                            if (top.isSystemError && !util_game.onlyOrderLevel(xmdObj["errormsg"].innerHTML)) {
+                                _self.showOrderMsg(false);
+                                top.isSystemError = false
+                            }
+                            if (isFromBet && !util_game.isRemoveClose(xmdObj["errormsg"].innerHTML)) {
+                                if (!util.in_array(xmdObj["errormsg"].innerHTML, errorAry))
+                                    errorAry.push(xmdObj["errormsg"].innerHTML);
+                                _self.showOrderMsg(true);
+                                _self.setLoadingBetVisible(false);
+                                var _gold = top.mobile != "Y" ? _mc["bet_gold"].value : _mc["bet_gold"].innerHTML;
+                                var allowBet = _self.checkFastLimitMin(_gold);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet)
+                            }
+                        }
+                        _self.showInfoLoading(false);
+                        _self.setLastBetGold()
+                    }
+                }
+                ;
+                _self.orderViewFSComplete = function(xml) {
+                    _self.paramHash["errorMsg"] = util.showConnectMsg(xml);
+                    if (util.alertConnectMsg(_self.paramHash["errorMsg"]))
+                        return;
+                    var xmdObj = new Object;
+                    xmlnode = util.parseXml(xml);
+                    xmdObj["code"] = xmlnode.Node(xmlnode.Root[0], "code");
+                    _self.setBetNumOpen(true);
+                    xmdObj["errorCode"] = xmlnode.Node(xmlnode.Root[0], "code");
+                    xmdObj["errormsg"] = xmlnode.Node(xmlnode.Root[0], "errormsg");
+                    var allName = xmlnode.Node(xmlnode.Root[0], "score");
+                    if (allName.innerHTML != null)
+                        _mc["bet_chose_team"].innerHTML = util.showTxt(allName.innerHTML);
+                    if (xmdObj["errorCode"].innerHTML == "connectFail" || util_game.isSystemError(xmdObj["errormsg"].innerHTML)) {
+                        _self.updateEvent("noLimit");
+                        _self.closeKeyboard(true);
+                        top.isSystemError = true;
+                        if (!util.in_array(xmdObj["errorCode"].innerHTML, errorAry) && xmdObj["errorCode"].innerHTML == "connectFail")
+                            errorAry.push(xmdObj["errorCode"].innerHTML);
+                        if (!util.in_array(xmdObj["errormsg"].innerHTML, errorAry) && xmdObj["errorCode"].innerHTML != "connectFail")
+                            errorAry.push(xmdObj["errormsg"].innerHTML);
+                        _self.showOrderMsg(true);
+                        _self.enabledBet(false);
+                        _self.showInfoLoading(false);
+                        _self.setLastBetGold();
+                        _mc["bet_ior"].className = "word_red";
+                        _mc["bet_ior"].innerHTML = "-";
+                        _mc["bet_wingold"].className = "word_bold";
+                        _mc["bet_wingold"].innerHTML = "- -";
+                        _mc["bet_score"].style.display = "none";
+                        _self.paramHash["ioratio"] = "-";
+                        _self.setBetNumOpen(false);
+                        return
+                    } else {
+                        for (var i = 0; i < systemErrAry.length; i++) {
+                            var cnf = errorAry.indexOf(systemErrAry[i]);
+                            if (cnf != -1)
+                                errorAry.splice(cnf, 1)
+                        }
+                        if (xmdObj["code"].innerHTML == "531") {
+                            _mc["bet_wingold"].className = "word_green";
+                            if (top["locked_slip"]["fast"] != null)
+                                delete top["locked_slip"]["fast"];
+                            top.isSystemError = false;
+                            _self.fastCalcEvent(true);
+                            _self.closeKeyboard(false);
+                            _self.setLoadingBetVisible(false);
+                            var dataHash = util.convertNodeToHash(xmlnode.Root[0]);
+                            _self.paramHash = util.mergeHash(_self.paramHash, dataHash);
+                            _self.paramHash["orderviewTS"] = util.showTxt(xmlnode.Node(xmlnode.Root[0], "ts").innerHTML);
+                            var isChangeIor = util_game.isChgIor(errorCode) ? true : false;
+                            var tmpIor = util.showTxt(util_game.getOrderIoratio(_self.paramHash["ioratio"], null, "FS"));
+                            var baseIorClass = util_game.checkIorClass(tmpIor);
+                            _mc["bet_ior"].className = isChangeIor && firstErr ? "word_oddbg" : baseIorClass;
+                            _mc["bet_ior"].innerHTML = util_game.showTxt(tmpIor);
+                            if (isChangeIor)
+                                firstErr = false;
+                            var rtypename = "";
+                            var _subTitle = xmlnode.Node(xmlnode.Root[0], "team_name_h").innerHTML;
+                            var _subPlayType = xmlnode.Node(xmlnode.Root[0], "team_name_c").innerHTML;
+                            if (_self.paramHash["bet_now"] == "FS")
+                                rtypename = util.showTxt(_subTitle);
+                            else if (_self.paramHash["bet_now"] == "SFS")
+                                rtypename = util.showTxt(_subTitle) + " " + util.showTxt(_subPlayType);
+                            _mc["bet_league"].innerHTML = util.showTxt(xmlnode.Node(xmlnode.Root[0], "league_name").innerHTML) + " " + rtypename;
+                            var _limitKey = _self.paramHash["gtype"].toUpperCase() + "_" + _self.paramHash["ecid"];
+                            _limit[_limitKey] = new Object;
+                            _limit[_limitKey]["max"] = _self.paramHash["gold_gmax"];
+                            _limit[_limitKey]["min"] = _self.paramHash["gold_gmin"];
+                            myhash["_limit"] = _limit;
+                            _mc["max_limit"].innerHTML = util.showTxt(util.formatThousand(_self.paramHash["gold_gmax"]));
+                            echo("[orderviewFS] errorCode = ", errorCode);
+                            var _gold = top.mobile != "Y" ? _mc["bet_gold"].value.replace(/,/g, "") : _mc["bet_gold"].innerHTML.replace(/,/g, "");
+                            if (util_game.isChgIor(errorCode) || util_game.isOverSingleCredit(errorCode)) {
+                                _self.showAcceptChg(true);
+                                _self.showOrderMsg(true);
+                                needChg = true
+                            } else if (errorCode == "" || errorCode == "1X001") {
+                                var allowBet = _self.checkFastLimitMin(_gold);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet);
+                                if (errorCode == "1X001") {
+                                    _self.setSingleErrorCode("");
+                                    _self.showSingleErrorMsg(false)
+                                }
+                            } else if (errorCode != "") {
+                                var allowBet = _self.checkFastLimitMin(_gold);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet)
+                            }
+                            if (errorAry.length == 0)
+                                _self.showOrderMsg(false);
+                            _self.updateEvent(_limitKey);
+                            if (_gold != "" && _gold * 1 != 0)
+                                _self._calcWinGold({
+                                    "target": _mc["bet_gold"]
+                                })
+                        } else {
+                            _self.setLoadingBetVisible(false);
+                            xmdObj["errorCode"] = xmlnode.Node(xmlnode.Root[0], "code");
+                            xmdObj["errormsg"] = xmlnode.Node(xmlnode.Root[0], "errormsg");
+                            _self.setSingleErrorCode(xmdObj["errormsg"].innerHTML);
+                            _self.setSingleErrorMsg(xmdObj["errormsg"].innerHTML);
+                            if (xmdObj["errormsg"].innerHTML == "1X001") {
+                                _self.setBetNumVisible(false);
+                                _self.fastCalcEvent(false);
+                                _self.enabledBet(false);
+                                _mc["bet_ior"].className = "word_red";
+                                _mc["bet_ior"].innerHTML = "-";
+                                _mc["bet_wingold"].className = "word_bold";
+                                _mc["bet_wingold"].innerHTML = "- -";
+                                _mc["bet_score"].style.display = "none";
+                                _self.paramHash["ioratio"] = "-";
+                                _self.setBetNumOpen(false)
+                            }
+                            if (!util_game.onlyOrderLevel(xmdObj["errormsg"].innerHTML))
+                                _self.showSingleErrorMsg(true);
+                            if (top.isSystemError && !util_game.onlyOrderLevel(xmdObj["errormsg"].innerHTML)) {
+                                _self.showOrderMsg(false);
+                                top.isSystemError = false
+                            }
+                            if (xmdObj["errormsg"].innerHTML == "1X013" || xmdObj["errormsg"].innerHTML == "1X011") {
+                                _mc["bet_ior"].className = "word_red";
+                                _mc["bet_ior"].innerHTML = "-";
+                                _mc["bet_wingold"].className = "word_bold";
+                                _mc["bet_wingold"].innerHTML = "- -";
+                                _self.paramHash["ioratio"] = "-";
+                                _self.updateEvent("noLimit");
+                                _self.initOrderBet();
+                                var gold_bet = top.mobile != "Y" ? _mc["bet_gold"].value : _mc["bet_gold"].innerHTML;
+                                var allowBet = _self.checkFastLimitMin(gold_bet);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet);
+                                _self.setBetNumOpen(false)
+                            }
+                            if (isFromBet) {
+                                if (!util.in_array(xmdObj["errormsg"].innerHTML, errorAry))
+                                    errorAry.push(xmdObj["errormsg"].innerHTML);
+                                _self.showOrderMsg(true);
+                                var _gold = top.mobile != "Y" ? _mc["bet_gold"].value : _mc["bet_gold"].innerHTML;
+                                var allowBet = _self.checkFastLimitMin(_gold);
+                                if (!isFirst)
+                                    _self.enabledBet(allowBet)
+                            }
+                        }
+                        _self.showInfoLoading(false);
+                        _self.setLastBetGold()
+                    }
+                }
+                ;
+                _self.setLastBetSW = function() {
+                    if (typeof CookieManager.get("lastBetCredit_sw_" + _mid) == "undefined") {
+                        _mc["last_betCredit"].checked = false;
+                        return
+                    } else if (CookieManager.get("lastBetCredit_sw_" + _mid) == "Y")
+                        _mc["last_betCredit"].checked = true;
+                    else
+                        _mc["last_betCredit"].checked = false
+                }
+                ;
+                _self.saveLastBetSW = function(e, targetObj) {
+                    var isSaved = targetObj.checked;
+                    var bet_gold = top.mobile != "Y" ? _mc["bet_gold"].value : _mc["bet_gold"].innerHTML;
+                    if (isSaved) {
+                        _self.setLastGold(true);
+                        CookieManager.set("lastBetCredit_sw_" + _mid, "Y");
+                        CookieManager.set("lastBetCredit_" + _mid, bet_gold)
+                    } else {
+                        _self.setLastGold(false);
+                        CookieManager.del("lastBetCredit_sw_" + _mid);
+                        CookieManager.del("lastBetCredit_" + _mid)
+                    }
+                }
+                ;
+                _self.setLastGold = function(sw) {
+                    if (!sw)
+                        isSetLastGold = false;
+                    else
+                        isSetLastGold = true
+                }
+                ;
+                _self.setLastBetGold = function() {
+                    var lastBetCredit = CookieManager.get("lastBetCredit_" + _mid);
+                    var lastBetCredit_sw = CookieManager.get("lastBetCredit_sw_" + _mid);
+                    if (typeof lastBetCredit != "undefined" && lastBetCredit * 1 != 0 && !isFromBet && lastBetCredit_sw == "Y") {
+                        _self.setLastGold(true);
+                        if (isFirst)
+                            isFirst = false;
+                        if (maxBet != "" && lastBetCredit.replace(/,/g, "") * 1 > maxBet * 1)
+                            lastBetCredit = maxBet;
+                        if (top.mobile != "Y")
+                            dom.getElementById("bet_gold" + is_PC).value = util.showTxt(util.formatThousand(lastBetCredit));
+                        else
+                            dom.getElementById("bet_gold" + is_PC).innerHTML = util.showTxt(util.formatThousand(lastBetCredit));
+                        dom.getElementById("bet_gold_tt" + is_PC).style.display = "none";
+                        dom.getElementById("bet_gold2_tt").innerHTML = util.showTxt(util.formatThousand(util.util_formatNumber(lastBetCredit)));
+                        _self._calcWinGold({
+                            "target": dom.getElementById("bet_gold" + is_PC)
+                        });
+                        tmpGold = lastBetCredit;
+                        _self.checkFastOrderBtn()
+                    }
+                }
+                ;
+                _self.clearFastGold = function() {
+                    if (top.mobile != "Y")
+                        _mc["bet_gold"].value = "";
+                    else
+                        _mc["bet_gold"].innerHTML = "";
+                    _mc["bet_gold_tt"].style.display = "";
+                    _mc["bet_wingold"].innerHTML = "0.00";
+                    _mc["bet_gold2_tt"].innerHTML = "0.00";
+                    tmpGold = "";
+                    _self._calcWinGold({
+                        "target": _mc["bet_gold"]
+                    })
+                }
+                ;
+                _self.betHandler = function(mouseEvent) {
+                    errorAry = new Array;
+                    _self.showOrderMsg(false);
+                    _self.setBetNumVisible(false);
+                    _self.setLoadingBetVisible(true);
+                    var gold = top.mobile != "Y" ? _mc["bet_gold"].value.replace(/,/g, "") : _mc["bet_gold"].innerHTML.replace(/,/g, "");
+                    var gold_gmax = _self.paramHash["gold_gmax"] * 1;
+                    var mem_sc = _self.paramHash["mem_sc"] * 1;
+                    var mem_so = _self.paramHash["mem_so"] * 1;
+                    var restsinglecredit = _self.paramHash["restsinglecredit"] * 1;
+                    var gold_res = restsinglecredit * 1 + gold * 1;
+                    var ret = util_game.checkFormat(gold);
+                    var org = "";
+                    var errorValue = "";
+                    var currency = _self.paramHash["currency"];
+                    if (errorCode == "betError878787")
+                        errorCode = "";
+                    if (ret != "") {
+                        _self.setSingleErrorMsg(ret, errorValue, org);
+                        _self.showSingleErrorMsg(true);
+                        errorCode = ret;
+                        if (!util.in_array(ret, errorAry))
+                            errorAry.push(ret);
+                        _self.showOrderMsg(true);
+                        _self.orderView();
+                        return
+                    }
+                    if (top.betting == true)
+                        return;
+                    top.betting = true;
+                    _self.paramHash["golds"] = top.mobile != "Y" ? _mc["bet_gold"].value.replace(/,/g, "") : _mc["bet_gold"].innerHTML.replace(/,/g, "");
+                    _self.paramHash["autoOdd"] = top["memSet"]["betterOdds"] == false ? "N" : "Y";
+                    _self.paramHash["gameDateStr"] = gameDateStr;
+                    if (_self.paramHash["keepwtype"] == "FS")
+                        betFrame = new win.FS_bet(win,dom);
+                    else {
+                        _self.paramHash = util_game.switchBetRtype(_self.paramHash);
+                        if (_self.paramHash["gtype"] == "FT")
+                            betFrame = new win.FT_bet(win,dom);
+                        else
+                            betFrame = new win.Other_bet(win,dom)
+                    }
+                    betFrame.setParentclass(_self);
+                    betFrame.init();
+                    betFrame.bet(_self.paramHash);
+                    _self.clearOVTimer();
+                    util.removeEvent(_mc["order_bet"], "click");
+                    reverseSw = false;
+                    top["isOrderView"] = false
+                }
+                ;
+                _self.checkFastLimitMin = function(_gold) {
+                    _gold = _gold.replace(/,/g, "");
+                    var ret = util_game.checkFormat(_gold);
+                    var gold_gmin = _self.paramHash["gold_gmin"] * 1;
+                    var currency = _self.paramHash["currency"];
+                    var errorValue = "";
+                    var org = "";
+                    if (ret == "")
+                        if (_gold != "" && _gold * 1 < gold_gmin * 1) {
+                            ret = "1X022";
+                            _self.setSingleErrorCode("");
+                            needChg = false;
+                            errorValue = LS.get(currency) + " " + gold_gmin + "."
+                        }
+                    if (ret != "" && !isFirst || ret != "" && isSetLastGold) {
+                        _self.setSingleErrorMsg(ret, errorValue, org);
+                        _self.showSingleErrorMsg(true);
+                        return false
+                    } else if (isFirst && ret != "") {
+                        _self.setSingleErrorMsg("");
+                        _self.showSingleErrorMsg(false);
+                        return false
+                    } else {
+                        if (errorCode == "" || util_game.onlyOrderLevel(errorCode)) {
+                            _self.setSingleErrorMsg("");
+                            _self.showSingleErrorMsg(false)
+                        }
+                        if (_gold == "")
+                            return false;
+                        return true
+                    }
+                }
+                ;
+                _self._calcWinGold = function(_param) {
+                    var betGoldObj = _param["target"];
+                    var betGoldStr = top.mobile != "Y" ? betGoldObj.value.replace(/,/g, "") : betGoldObj.innerHTML.replace(/,/g, "");
+                    var wingold = "";
+                    var wingoldClass = "word_green";
+                    if (betGoldStr != "") {
+                        wingold = util.showTxt(util.formatThousand(util_game.calcWindGold(betGoldStr, _self.paramHash["ioratio"], _self.paramHash["keepwtype"])));
+                        if (_self.paramHash["ioratio"] * 1 == 0 || _self.paramHash["ioratio"] == "-") {
+                            wingold = "- -";
+                            wingoldClass = "word_bold"
+                        }
+                    } else
+                        wingold = "0.00";
+                    _mc["bet_gold2_tt"].innerHTML = util.showTxt(util.formatThousand(util.util_formatNumber(betGoldStr)));
+                    _mc["bet_wingold"].innerHTML = util_game.showTxt(wingold);
+                    _mc["bet_wingold"].className = wingoldClass;
+                    _self.checkFastOrderBtn()
+                }
+                ;
+                _self.showAcceptChg = function(isShow) {
+                    _self.showDelayLoading(false);
+                    var betBtn_txt = dom.getElementById("betBtn_txt");
+                    var bet_gold2_tt = dom.getElementById("bet_gold2_tt");
+                    var order_bet = dom.getElementById("order_bet");
+                    if (isShow) {
+                        betBtn_txt.innerHTML = LS.get("accept_change_txt");
+                        bet_gold2_tt.style.display = "none";
+                        util.removeEvent(order_bet, "click");
+                        util.addEvent(order_bet, "click", _self.acceptChg, {})
+                    } else {
+                        betBtn_txt.innerHTML = LS.get("bet_txt");
+                        bet_gold2_tt.style.display = ""
+                    }
+                }
+                ;
+                _self.acceptChg = function() {
+                    if (errorCode == "1X001") {
+                        top["isErrCleanGold"] = true;
+                        _self.clearFastGold();
+                        _self.enabledBet(false)
+                    }
+                    util.removeClass(_mc["betInfo_bg"], "highlight");
+                    if (util_game.isOverSingleCredit(errorCode)) {
+                        var max_gold = _self.paramHash["gold_gmax"];
+                        if (top.mobile != "Y")
+                            _mc["bet_gold"].value = util.showTxt(util.formatThousand(max_gold));
+                        else
+                            _mc["bet_gold"].innerHTML = util.showTxt(util.formatThousand(max_gold));
+                        _mc["bet_gold2_tt"].innerHTML = util.showTxt(util.formatThousand(util.util_formatNumber(max_gold)))
+                    }
+                    errorAry = new Array;
+                    _self.setSingleErrorCode("");
+                    if (errorCode != "1X001")
+                        _self.showSingleErrorMsg(false);
+                    firstErr = true;
+                    isFromBet = false;
+                    needChg = false;
+                    _self.showAcceptChg(false);
+                    _self.orderView();
+                    _self.clearOVTimer();
+                    _self.createOVTimer();
+                    _self.showOrderMsg(false)
+                }
+                ;
+                _self.fastPrint = function(e, printpage) {
+                    _self.doPrint(printpage)
+                }
+                ;
+                _self.doPrint = function(printpage) {
+                    var iframe_print = document.getElementById("doPrint");
+                    var doc = null;
+                    var setCss = false;
+                    if (iframe_print == null) {
+                        iframe_print = document.createElement("iframe");
+                        iframe_print.id = "doPrint";
+                        iframe_print.style.display = "none";
+                        document.body.appendChild(iframe_print)
+                    }
+                    doc = iframe_print.contentWindow.document;
+                    doc.write("<div>" + printpage.innerHTML + "</div>");
+                    setCss = _self.setCss(doc, function() {
+                        iframe_print.contentWindow.focus();
+                        iframe_print.contentWindow.print()
+                    });
+                    if (setCss)
+                        doc.close()
+                }
+                ;
+                _self.setCss = function(doc, retFun) {
+                    var head = doc.getElementsByTagName("head")[0];
+                    var link = document.createElement("link");
+                    var path = "../../style/print.css";
+                    link.href = path;
+                    link.rel = "stylesheet";
+                    link.type = "text/css";
+                    link.onload = retFun;
+                    head.appendChild(link);
+                    return true
+                }
+                ;
+                _self.print = function(div) {
+                    div.contentWindow.focus();
+                    div.contentWindow.print();
+                    document.body.removeChild(div);
+                    return false
+                }
+                ;
+                _self.showAddTotal = function(isShow) {
+                    dom.getElementById("add_total_bet").style.display = isShow ? "" : "none"
+                }
+                ;
+                _self.clickClose = function(mouseEvent, _par) {
+                    if (!top.openBets && getView().viewportwidth >= 1024) {
+                        top.betMode = "total";
+                        parentClass.dispatchEvent("showBetSlip", {
+                            "isShow": true
+                        });
+                        return
+                    }
+                    if (top.betMode == "fast")
+                        parentClass.dispatchEvent("setBetSelectCount", "0");
+                    else {
+                        var p3Ior_Obj = dom.getElementById("parlay_ior");
+                        if (p3Ior_Obj != null) {
+                            var p3_ior = p3Ior_Obj.innerHTML;
+                            if (p3_ior == "-" || p3_ior == "")
+                                parentClass.dispatchEvent("setBetSelectIor", LS.get("betslip_txt"));
+                            else
+                                parentClass.dispatchEvent("setBetSelectIor", p3_ior)
+                        }
+                        top["LastBet_select"] = util.clone(top["bet_select"]);
+                        var bet_goldObj = dom.getElementsByName("bet_gold");
+                        var ind = 0;
+                        var ecid = "";
+                        for (var key in top["bet_select"]) {
+                            ecid = key.split("_")[1];
+                            if (bet_goldObj[ind] && bet_goldObj[ind].innerHTML != "" && dom.getElementById("bet_gold_" + ecid + is_PC).innerHTML != "")
+                                top["keepGold"][top["bet_select"][key]] = bet_goldObj[ind].innerHTML;
+                            ind++
+                        }
+                    }
+                    if (top.bet_mini)
+                        parentClass.dispatchEvent("showBetSlip", {
+                            "isShow": true
+                        });
+                    else
+                        _self.closeBet(_par.needsClear)
+                }
+                ;
+                _self.initOpenLimit = function() {
+                    for (var i in top["openLimit"])
+                        top["openLimit"][i] = false
+                }
+                ;
+                _self.closeBet = function(needsClear, act) {
+                    _self.initOpenLimit();
+                    tmpDiv = new Object;
+                    _self.clearOVTimer();
+                    if (top.betMode != "fast" && act != "addTotal")
+                        parentClass.dispatchEvent("removebodylock", {});
+                    if (needsClear)
+                        _self.clearOrderbets();
+                    parentClass.dispatchEvent("showBetSlip", {
+                        "isShow": false
+                    });
+                    return true
+                }
+                ;
+                _self.clearBets = function() {
+                    _self.initOpenLimit();
+                    tmpDiv = new Object;
+                    _self.clearOVTimer();
+                    if (top.betMode != "fast")
+                        parentClass.dispatchEvent("removebodylock", {});
+                    _self.clearOrderbets()
+                }
+                ;
+                _self.clearOrderbets = function() {
+                    if (top["bet_select_more"] != null)
+                        for (var key in top["bet_select_more"]) {
+                            var tmpObj_more = dom.getElementById(top["bet_select_more"][key]);
+                            if (tmpObj_more != null)
+                                util.removeClass(tmpObj_more, "on");
+                            if (tmpObj_more != null)
+                                util.removeClass(tmpObj_more, "odd_chg")
+                        }
+                    for (var key in top["bet_select"]) {
+                        var tmp = top["bet_select"][key].split("_");
+                        var needsTransWtype = new Array("RG","RPX","RSH","RSC","RNC","RNB");
+                        var chose_team = tmp[3].substr(tmp[3].length - 1, 1);
+                        for (var b = 0; b < needsTransWtype.length; b++)
+                            if (tmp[3].match(needsTransWtype[b]))
+                                if (top.bet_className != "game_more")
+                                    tmp[3] = util_game.transNextRtype(tmp[3], chose_team);
+                        if (tmp[3].match("RF")) {
+                            var tmpWtype = tmp[3].substr(0, tmp[3].length - 1);
+                            if (top["transWtype"] && top["transWtype"][key] && top["transWtype"][key][tmpWtype])
+                                if (tmpWtype == top["transWtype"][key][tmpWtype])
+                                    tmp[3] = chose_team == "H" ? "RFH" : "RFC"
+                        }
+                        if (tmp[3].match(/^(RGA)[A-E][0-5][0-9](Y|N)$/g)) {
+                            var tmpWtype = tmp[3].substr(0, tmp[3].length - 1);
+                            if (top["transWtype"] && top["transWtype"][key] && top["transWtype"][key][tmpWtype])
+                                if (tmpWtype == top["transWtype"][key][tmpWtype])
+                                    tmp[3] = chose_team == "Y" ? "RGAY" : "RGAN"
+                        }
+                        if (tmp[3].match(/^(RPTW)[A-E][0-5][0-9](H|C)$/g)) {
+                            var tmpWtype = tmp[3].substr(0, tmp[3].length - 1);
+                            if (top["transWtype"] && top["transWtype"][key] && top["transWtype"][key][tmpWtype])
+                                if (tmpWtype == top["transWtype"][key][tmpWtype])
+                                    tmp[3] = chose_team == "H" ? "RPTWH" : "RPTWC"
+                        }
+                        if (tmp[3].match(/^(RWXP)[A-E][0-1](0|5)(H|C)$/g)) {
+                            var tmpWtype = tmp[3].substr(0, tmp[3].length - 1);
+                            if (top["transWtype"] && top["transWtype"][key] && top["transWtype"][key][tmpWtype])
+                                if (tmpWtype == top["transWtype"][key][tmpWtype])
+                                    tmp[3] = chose_team == "H" ? "RWXPH" : "RWXPC"
+                        }
+                        var targetName = tmp[0] + "_" + tmp[1] + "_" + tmp[2] + "_" + tmp[3];
+                        var tmpObj = dom.getElementById(targetName);
+                        var OBTobj = dom.getElementById("OBT_" + targetName);
+                        var cupObj = dom.getElementById("cup_" + targetName);
+                        var groupObj = dom.getElementById("group_" + targetName);
+                        if (OBTobj != null) {
+                            util.removeClass(OBTobj, "on");
+                            util.removeClass(OBTobj, "odd_chg")
+                        }
+                        if (tmpObj != null) {
+                            util.removeClass(tmpObj, "on");
+                            util.removeClass(tmpObj, "odd_chg")
+                        }
+                        if (cupObj != null) {
+                            util.removeClass(cupObj, "on");
+                            util.removeClass(cupObj, "odd_chg")
+                        }
+                        if (groupObj != null) {
+                            util.removeClass(groupObj, "on");
+                            util.removeClass(groupObj, "odd_chg")
+                        }
+                    }
+                    top["bet_select"] = new Object;
+                    top["bet_select_more"] = new Object;
+                    top["bet_viewdata"] = new Object;
+                    top["bet_ECID"] = new Object;
+                    top["fastBetXML"] = new Object;
+                    top["fastBetGameObj"] = new Object;
+                    top["fastBetHash"] = new Object;
+                    top["totalBetXML"] = new Object;
+                    top["totalBetGameObj"] = new Object;
+                    top["totalBetHash"] = new Object;
+                    top["ptypeHash"] = new Object;
+                    top["bet_ior"] = new Array;
+                    top["totalFinishHash"] = new Object;
+                    top["isDelayed"] = false;
+                    top["isAddTotal"] = false;
+                    if (top.betMode == "fast") {
+                        errorAry = new Array;
+                        errorCode = "";
+                        isFromBet = false;
+                        needChg = false
+                    }
+                    parentClass.dispatchEvent("setBetSelectCount", "0");
+                    parentClass.dispatchEvent("setBetSelectIor", LS.get("betslip_txt"))
+                }
+                ;
+                _self.reBet = function() {
+                    top["keepGold"] = new Object;
+                    if (top.betMode == "fast")
+                        _self.setFastData(top["fastBetXML"], top["fastBetGameObj"], top["fastBetHash"]);
+                    else {
+                        totalBetsFrame.setTotalData(top["totalBetXML"], top["totalBetGameObj"], top["totalBetHash"], false);
+                        var _count = util.countSize(top["bet_select"]);
+                        parentClass.dispatchEvent("setBetSelectCount", _count)
+                    }
+                    util_game.initSelect(util)
+                }
+                ;
+                _self.enabledBet = function(sw, fast_chose_team) {
+                    var choseCheck = !fast_chose_team || fast_chose_team && fast_chose_team == fastCheck;
+                    var order_bet = dom.getElementById("order_bet");
+                    var loading_show = dom.getElementById("info_loading").style.display == "";
+                    util.removeEvent(order_bet, "click");
+                    if (sw && !top.isSystemError && !loading_show && choseCheck) {
+                        _self.initOrderBet();
+                        order_bet.removeAttribute("disabled");
+                        var betEvents = top.betMode == "fast" ? _self.betHandler : totalBetsFrame.betHandler;
+                        util.addEvent(order_bet, "click", betEvents, order_bet)
+                    } else {
+                        order_bet.setAttribute("disabled", "true");
+                        _self.showAcceptChg(false)
+                    }
+                }
+                ;
+                _self.betClick = function(mouseEvent, targetObj) {
+                    util.addEvent(dom.body, "keyup", _self.keyboard_set);
+                    var targetID = mouseEvent.target.id;
+                    if (util.in_array(targetID, noEffect))
+                        return;
+                    if (!util.in_array(targetID, ignoreCollapseBtn) || top.betting || isGameLocked) {
+                        _self.setBetNumVisible(false);
+                        reverseSw = false
+                    }
+                }
+                ;
+                _self.closeKeyboard = function(status) {
+                    if (status)
+                        keyboard_sw = false;
+                    else
+                        keyboard_sw = true
+                }
+                ;
+                _self.keyboard_set = function(e, openkeyboard) {
+                    var total_order_kb = false;
+                    var keypanel = dom.getElementById("div_calc");
+                    if (openkeyboard)
+                        total_order_kb = true;
+                    var keyborad_status = keypanel && keypanel.style.display == "" ? true : false;
+                    var useful = (total_order_kb || num_show) && keyborad_status && top.mobile != "Y" && keyboard_sw ? true : false;
+                    _self.keyboardEvent(e, useful)
+                }
+                ;
+                _self.keyboardEvent = function(e, useful) {
+                    var num;
+                    var base = 48;
+                    num = e.key;
+                    if (useful)
+                        if (num == "Enter")
+                            dom.getElementById("order_bet").click()
+                }
+                ;
+                _self.setLocked = function(_code, _name) {
+                    if (_code == "set") {
+                        util.addClass(_mc[_name], "locked");
+                        util.addClass(_mc["bet_gold_bg"], "noenter")
+                    } else {
+                        util.removeClass(_mc[_name], "locked");
+                        util.removeClass(_mc["bet_gold_bg"], "noenter")
+                    }
+                }
+                ;
+                _self.showSet = function(mouseEvent, targetObj) {
+                    _self.setSetVisible(set_show);
+                    _self.setBetterOdds();
+                    if (set_show)
+                        parentClass.dispatchEvent("removebodylock", {});
+                    else
+                        parentClass.dispatchEvent("addbodylock");
+                    parentClass.dispatchEvent("setNowBodyLockStatus", !set_show)
+                }
+                ;
+                _self.setSetVisible = function(isShow) {
+                    var div_set = dom.getElementById("div_set");
+                    if (isShow)
+                        util.addClass(div_set, "on");
+                    else
+                        util.removeClass(div_set, "on");
+                    set_show = !isShow
+                }
+                ;
+                _self.setBetterOdds = function() {
+                    var bet_better_odds = dom.getElementById("bet_better_odds");
+                    if (typeof top["memSet"]["betterOdds"] == "undefined") {
+                        bet_better_odds.checked = true;
+                        return
+                    } else if (top["memSet"]["betterOdds"])
+                        bet_better_odds.checked = true;
+                    else
+                        bet_better_odds.checked = false
+                }
+                ;
+                _self.saveBetterOdds = function(e, targetObj) {
+                    top["memSet"]["betterOdds"] = targetObj.checked;
+                    var urlParams = "";
+                    urlParams += "action=send";
+                    urlParams += "&val=" + JSON.stringify(top["memSet"]);
+                    urlParams = "p=memSet&" + top.param + "&" + urlParams;
+                    var getHTML = new HttpRequest;
+                    getHTML.addEventListener("onError", _self.onError);
+                    getHTML.addEventListener("LoadComplete", _self.saveBetterOddsFinish);
+                    getHTML.loadURL(top.m2_url, "POST", urlParams)
+                }
+                ;
+                _self.setMax = function(mouseEvent, _hash) {
+                    var closeShoppingCar = top["total_bet_sw"] == "N" && top.betMode == "total" && _hash.betKey != "p3";
+                    var lockNum = top.betMode == "fast" && lockBetNum["fast"] || _hash["isTotalBet"] && lockBetNum[_hash["ECID"]];
+                    if (closeShoppingCar || top.isSystemError || _limit[_hash.betKey]["max"] == "" || lockNum)
+                        return;
+                    var limitName = "div_limit";
+                    if (_hash["isTotalBet"]) {
+                        limitName += "_" + _hash["ECID"];
+                        _limit = _hash["limitObj"];
+                        myhash["_limit"] = _limit
+                    }
+                    var bet_gold = _hash["targetObj"];
+                    var bet_gold_tt = _hash["targetObj_tt"];
+                    var div_limit = dom.getElementById(limitName);
+                    var bet_gold2_tt = dom.getElementById("bet_gold2_tt");
+                    var tmpMaxgold = Math.floor(_limit[_hash.betKey]["max"] * 1);
+                    if (top.mobile != "Y")
+                        bet_gold.value = util.showTxt(util.formatThousand(tmpMaxgold));
+                    else
+                        bet_gold.innerHTML = util.showTxt(util.formatThousand(tmpMaxgold));
+                    bet_gold_tt.style.display = "none";
+                    bet_gold2_tt.innerHTML = util.showTxt(util.formatThousand(util.util_formatNumber(tmpMaxgold)));
+                    var newHash = new Object;
+                    newHash.clickObj = div_limit;
+                    newHash.showTarget = "wingold";
+                    newHash.isShow = true;
+                    if (isSetLastGold)
+                        if (top.mobile != "Y")
+                            CookieManager.set("lastBetCredit_" + _mid, bet_gold.value.replace(/,/g, ""));
+                        else
+                            CookieManager.set("lastBetCredit_" + _mid, bet_gold.innerHTML.replace(/,/g, ""));
+                    if (_hash["isTotalBet"])
+                        newHash.ECID = _hash["ECID"];
+                    _self.showSpecDiv(mouseEvent, newHash);
+                    if (_hash["isTotalBet"]) {
+                        var wingoldObj = dom.getElementById("bet_wingold_" + _hash["ECID"]);
+                        totalBetsFrame._calcWinGold({
+                            "target": bet_gold,
+                            "bet_wingold": wingoldObj,
+                            "betKey": _hash.betKey,
+                            "ECID": _hash["ECID"]
+                        })
+                    } else
+                        _self._calcWinGold({
+                            "target": bet_gold
+                        });
+                    if (isFirst)
+                        isFirst = false
+                }
+                ;
+                _self.updatelockBetNum = function(hash) {
+                    Object.assign(lockBetNum, hash)
+                }
+                ;
+                _self.hiddenALL = function(_ecid) {
+                    var all_ary = new Array("showlimit","limit","wingold");
+                    for (var i = 0; i < all_ary.length; i++) {
+                        var tarName = all_ary[i];
+                        _self.showSpecDiv(null, {
+                            "hiddenALL": true,
+                            "showTarget": tarName,
+                            "isShow": false,
+                            "ECID": _ecid
+                        })
+                    }
+                }
+                ;
+                _self.initSpecDiv = function(_ECID) {
+                    var _len = dom.getElementsByName("div_showlimit").length;
+                    for (var i = 0; i < _len; i++) {
+                        var showlimit = dom.getElementsByName("div_showlimit")[i];
+                        var limit = dom.getElementsByName("div_limit")[i];
+                        var wingold = dom.getElementsByName("div_wingold")[i];
+                        var tmpECID = showlimit.getAttribute("id").split("_")[2];
+                        var isOpened = _self.getOpenLimt();
+                        if (tmpECID == isOpened)
+                            continue;
+                        if (tmpECID == null)
+                            tmpECID = "fast";
+                        if (_ECID != tmpECID && tmpECID != "fast" && top["locked_slip"][tmpECID] == null && (top["total_bet_sw"] == "Y" || top["total_bet_sw"] == "N" && tmpECID == "p3")) {
+                            if (wingold.style.display != "")
+                                showlimit.style.display = ""
+                        } else {
+                            showlimit.style.display = "none";
+                            if (!top["locked_slip"][tmpECID])
+                                wingold.style.display = "none"
+                        }
+                        limit.style.display = "none"
+                    }
+                }
+                ;
+                _self.getOpenLimt = function() {
+                    for (var _ecid in top["openLimit"])
+                        if (top["openLimit"][_ecid])
+                            return _ecid
+                }
+                ;
+                _self.showSpecDiv = function(mouseEvent, hash) {
+                    if (mouseEvent != null)
+                        _self.initOpenLimit();
+                    if (hash.hiddenALL == null)
+                        _self.initSpecDiv(hash.ECID);
+                    var ECID = hash.ECID;
+                    var tarName = hash.showTarget;
+                    var isShow = hash.isShow;
+                    var obj = hash.clickObj;
+                    var bet_gold = dom.getElementById("bet_gold" + is_PC);
+                    if (ECID != null) {
+                        tarName = tarName + "_" + ECID;
+                        bet_gold = dom.getElementById("bet_gold_" + ECID + is_PC)
+                    }
+                    var bet_gold_str = top.mobile != "Y" ? bet_gold.value : bet_gold.innerHTML;
+                    var tarDiv = dom.getElementById("div_" + tarName);
+                    if (obj != null)
+                        obj.style.display = isShow ? "none" : "";
+                    if (hash.hiddenALL != null && bet_gold_str != "" && tarName.indexOf("wingold") != -1)
+                        tarDiv.style.display = "";
+                    else
+                        tarDiv.style.display = isShow ? "" : "none";
+                    if (ECID != null)
+                        top["openLimit"][ECID] = tarDiv.getAttribute("id").indexOf("div_limit") != -1 && isShow;
+                    else
+                        top["openLimit"]["fast"] = tarDiv.getAttribute("id").indexOf("div_limit") != -1 && isShow;
+                    if (bet_gold_str != "") {
+                        tmpDiv["now"] = tarDiv;
+                        tmpDiv["last"] = obj
+                    } else
+                        tmpDiv = new Object
+                }
+                ;
+                _self.showLockedBG = function(tarObj, isShow) {
+                    if (isShow)
+                        util.addClass(tarObj, "bg_locked");
+                    else
+                        util.removeClass(tarObj, "bg_locked")
+                }
+                ;
+                _self.showInfoLoading = function(isShow) {
+                    var info_loading = dom.getElementById("info_loading");
+                    info_loading.style.display = isShow ? "" : "none"
+                }
+                ;
+                _self.setLoadingBetVisible = function(isShow) {
+                    var bet_loading = dom.getElementById("bet_loading");
+                    var betBtn_show = dom.getElementById("betBtn_show");
+                    var setBtn = dom.getElementById("set_btn");
+                    var addTotalBtn = dom.getElementById("add_total_bet");
+                    if (setBtn != null)
+                        if (isShow)
+                            setBtn.setAttribute("disabled", "true");
+                        else
+                            setBtn.removeAttribute("disabled");
+                    if (addTotalBtn != null)
+                        if (isShow)
+                            addTotalBtn.setAttribute("disabled", "true");
+                        else
+                            addTotalBtn.removeAttribute("disabled");
+                    betBtn_show.style.display = isShow ? "none" : "";
+                    bet_loading.style.display = isShow ? "" : "none";
+                    _self.bettingMask(isShow)
+                }
+                ;
+                _self.showDelayLoading = function(isShow) {
+                    var delay_loading = dom.getElementById("delay_loading");
+                    var betBtn_show = dom.getElementById("betBtn_show");
+                    var bet_loading = dom.getElementById("bet_loading");
+                    if (isShow) {
+                        if (delay_loading != null)
+                            delay_loading.style.display = "";
+                        if (betBtn_show != null)
+                            betBtn_show.style.display = "none";
+                        if (bet_loading != null)
+                            bet_loading.style.display = "none"
+                    } else {
+                        if (delay_loading != null)
+                            delay_loading.style.display = "none";
+                        if (betBtn_show != null)
+                            betBtn_show.style.display = "";
+                        if (bet_loading != null)
+                            bet_loading.style.display = "none"
+                    }
+                }
+                ;
+                _self.createOVTimer = function() {
+                    var ret = _self.clearOVTimer();
+                    if (ret) {
+                        if (timerHash["ovTimer"] != null)
+                            return;
+                        timerHash["ovTimer"] = new Timer(config_set.get("CONFIG_ORDER_VIEW"));
+                        timerHash["ovTimer"].setParentclass(_self);
+                        timerHash["ovTimer"].init();
+                        timerHash["ovTimer"].addEventListener("TimerEvent.TIMER", _self.ovTimerRun);
+                        timerHash["ovTimer"].addEventListener("TimerEvent.TIMER_COMPLETE", _self.ovTimerFinish);
+                        timerHash["ovTimer"].startTimer()
+                    }
+                }
+                ;
+                _self.ovTimerRun = function(count) {
+                    if (top.betMode == "fast")
+                        _self.orderView();
+                    else
+                        totalBetsFrame.orderTotalView()
+                }
+                ;
+                _self.ovTimerFinish = function(count) {}
+                ;
+                _self.clearOVTimer = function() {
+                    if (timerHash != null)
+                        if (timerHash["ovTimer"] != null) {
+                            timerHash["ovTimer"].clearObj();
+                            timerHash["ovTimer"].is_clear = true;
+                            timerHash["ovTimer"] = null
+                        }
+                    return true
+                }
+                ;
+                _self.bettingMask = function(isShow) {
+                    var lock_betting = dom.getElementById("lock_betting");
+                    lock_betting.style.display = isShow ? "" : "none"
+                }
+                ;
+                _self.setSingleErrorCode = function(error) {
+                    errorCode = error;
+                    if (error != "" && !util.in_array(error, errorAry))
+                        errorAry.push(error)
+                }
+                ;
+                _self.setSingleErrorMsg = function(errorMsg, errorValue, org) {
+                    if (errorValue + "" == "undefined")
+                        _mc["err_msg"].innerHTML = util.showTxt(LS_code.get(errorMsg));
+                    else if (org + "" == "undefined")
+                        _mc["err_msg"].innerHTML = util.showTxt(LS_code.get(errorMsg)) + errorValue;
+                    else
+                        _mc["err_msg"].innerHTML = util.showTxt(LS_code.get(errorMsg)) + errorValue + util.showTxt(LS_code.get(org))
+                }
+                ;
+                _self.showSingleErrorMsg = function(isShow) {
+                    _mc["err_msg"].style.display = isShow ? "" : "none"
+                }
+                ;
+                _self.showUnStableMsg = function() {
+                    _self.setLoadingBetVisible(false);
+                    _self.setSingleErrorCode("betError878787");
+                    _self.showOrderMsg(true);
+                    _self.enabledBet(true);
+                    _self.setLastBetGold();
+                    _self.clearOVTimer();
+                    _self.createOVTimer();
+                    _self.orderView();
+                    top["betting"] = false
+                }
+                ;
+                _self.showOrderMsg = function(isShow) {
+                    var orderMsg_div = dom.getElementById("orderMsg_div");
+                    var orderMsg = dom.getElementById("orderMsg");
+                    var remove_close = dom.getElementById("remove_bet");
+                    if (betError_sw)
+                        orderMsg_div.style.display = "";
+                    else
+                        orderMsg_div.style.display = isShow ? "" : "none";
+                    if (isShow) {
+                        var sorted = util_game.sortBetError(errorAry);
+                        orderMsg.innerHTML = "";
+                        for (var i in sorted) {
+                            if (!isFromBet && sorted[i] == "order_failed")
+                                continue;
+                            if (sorted[i] == "remove_closed") {
+                                if (top.betMode != "fast")
+                                    remove_close.style.display = "";
+                                continue
+                            }
+                            var obj = dom.createElement("li");
+                            obj.innerHTML = util_game.showTxt(LS_code.get(sorted[i]));
+                            if (sorted[i] == "betError000")
+                                betError_sw = true;
+                            orderMsg.appendChild(obj)
+                        }
+                    } else {
+                        if (betError_sw)
+                            return;
+                        orderMsg.innerHTML = "";
+                        remove_close.style.display = "none"
+                    }
+                }
+                ;
+                _self.showAlertMsg = function(obj) {
+                    parentClass.dispatchEvent("showAlertMsg", obj)
+                }
+                ;
+                _self.setIsFromBet = function(sw) {
+                    isFromBet = sw
+                }
+                ;
+                _self.setReverseSw = function(sw) {
+                    reverseSw = sw
+                }
+                ;
+                _self.setBetNumVisible = function(isShow) {
+                    _self.setLastBetSW();
+                    if (isShow) {
+                        if (isFirst)
+                            isFirst = false;
+                        _mc["div_calc"].style.display = "";
+                        _mc["div_lastBetCredit"].style.display = "";
+                        _mc["set_btn"].style.display = "none";
+                        num_show = true;
+                        _self.showAddTotal(false);
+                        util.addClass(_mc["bet_gold"], "on")
+                    } else {
+                        _mc["div_calc"].style.display = "none";
+                        _mc["div_lastBetCredit"].style.display = "none";
+                        _mc["set_btn"].style.display = "";
+                        num_show = false;
+                        _self.showAddTotal(true);
+                        util.removeClass(_mc["bet_gold"], "on")
+                    }
+                }
+                ;
+                _self.setBetNum = function(mouseEvent) {
+                    top["isErrCleanGold"] = false;
+                    if (_mc["div_calc"].style.display == "none")
+                        _self.setBetNumVisible(true)
+                }
+                ;
+                _self.updateEvent = function(_key) {
+                    if (_limit[_key] != null) {
+                        if (top.isSystemError)
+                            _key = "noLimit";
+                        minBet = _limit[_key]["min"].replace(/,/g, "");
+                        maxBet = _limit[_key]["max"].replace(/,/g, "");
+                        keyboardObj.updateLimit({
+                            "minbet": minBet,
+                            "maxbet": maxBet
+                        })
+                    }
+                }
+                ;
+                _self.changeEvent = function(currency) {
+                    var tmp_currency = currency;
+                    keyboardObj.updateCurrency({
+                        "currency": tmp_currency
+                    });
+                    _self.updateEvent()
+                }
+                ;
+                _self.changeTarget = function(hash) {
+                    keyboardObj.changeTarget(hash)
+                }
+                ;
+                _self.initTyping = function() {
+                    var allObj = dom.getElementsByName("bet_gold");
+                    for (var i = 0; i < allObj.length; i++) {
+                        var tmpBetGold = allObj[i];
+                        util.removeClass(tmpBetGold, "on")
+                    }
+                }
+                ;
+                _self.setBetNumOpen = function(sw) {
+                    var _calc = dom.getElementById("div_calc");
+                    lockBetNum["fast"] = !sw;
+                    myhash["lockBetNum"] = lockBetNum;
+                    if (sw) {
+                        if (_calc.classList.contains("nobet"))
+                            _calc.classList.remove("nobet")
+                    } else if (!_calc.classList.contains("nobet"))
+                        _calc.classList.add("nobet")
+                }
+                ;
+                _self.setBottomtest = function() {
+                    parentClass.dispatchEvent("setBottomon", {})
+                }
+                ;
+                _self.reloadCredit = function(cash) {
+                    parentClass.dispatchEvent("betfinsih_update", cash)
+                }
+                ;
+                _self.AlertFantasyInfo = function(e, hash) {
+                    _self.showFantasyInfo(hash)
+                }
+                ;
+                _self.showFantasyInfo = function(hash) {
+                    parentClass.dispatchEvent("bet_showFantasyInfo", hash)
+                }
+            }
+            ;

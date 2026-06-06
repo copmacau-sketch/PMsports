@@ -1,0 +1,47 @@
+# Crown-Gold / pmppm-com — H5 SPA + Next.js root CSP snippet.
+#
+# Why this exists / why it's weaker than cg-csp-login.conf:
+#   The login page (cg-csp-login.conf) is a 480-line hand-rolled HTML with
+#   exactly one inline <style> + one inline <script>, no eval, no dynamic
+#   resource fetching from third-party origins, and no user-content
+#   rendering. That made `default-src 'none'` + tight allowlists feasible.
+#
+#   The Next.js SPA (/h5/sports.html and the pmppm.com root) emits the
+#   React Server Components hydration payload via many inline <script>
+#   tags like:
+#       <script>self.__next_f.push([1, "....."])</script>
+#   These are produced by Next.js's static export and rebuilt on every
+#   `npm run build` with chunk-content-dependent hashes. We can't use
+#   hash-based script-src (5+ hashes per page, change every build) and
+#   we can't use nonces (static export = no per-request backend to inject
+#   them; nginx sub_filter would have to rewrite every <script> tag).
+#
+#   So the pragmatic CSP for the SPA: 'unsafe-inline' for script and
+#   style (kills CSP's primary XSS defence), but every OTHER directive
+#   is locked down. In particular:
+#     - object-src 'none'        kills Flash/legacy plugin XSS
+#     - base-uri 'self'          stops <base href=evil.com>
+#     - form-action 'self'       stops cred POST to evil.com
+#     - frame-ancestors 'none'   kills clickjacking
+#     - connect-src 'self' wss:* allows fetch + WebSocket to same-origin
+#                                (we deliberately allow wss:* schemewide
+#                                because /api/external/ws is sibling-of-
+#                                Cloudflare and edge IP may vary)
+#     - upgrade-insecure-requests  forces any stray http:// to https
+#
+# Third-party origins we allow:
+#   - https://media.api-sports.io
+#       Source of league / team / country crest PNGs.  The backend stores
+#       only the relative path (e.g. "football/leagues/169.png") and the
+#       list view renders `<img src="https://media.api-sports.io/...">`
+#       directly.  Without this on img-src the list shows broken-image
+#       icons for every league header.
+#   - https://static.cloudflareinsights.com
+#       Cloudflare Web Analytics beacon (auto-injected by CF when the
+#       zone has Web Analytics enabled).  Needed on script-src to load
+#       beacon.min.js and on connect-src for its sendBeacon POST.
+#       Without these two we get a steady stream of CSP-violation noise
+#       in every visitor's console even though no real feature breaks.
+#
+# Install path on server: /etc/nginx/snippets/cg-csp-spa.conf
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://media.api-sports.io; font-src 'self' data:; connect-src 'self' https://pmppm.com wss://pmppm.com wss: https://static.cloudflareinsights.com; worker-src 'self' blob:; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests" always;

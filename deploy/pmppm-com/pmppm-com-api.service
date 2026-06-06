@@ -1,0 +1,37 @@
+[Unit]
+Description=PmPm v4 FastAPI backend (crown-explorer / oddsapi)
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/pmppm-com/api/backend
+# Use the dedicated venv created by deploy-setup.sh so we don't fight the
+# system python's PEP-668 lock.
+Environment=PATH=/opt/pmppm-com/venv/bin:/usr/bin:/bin
+Environment=ODDSAPI_DB_PATH=/opt/pmppm-com/data/oddsapi.sqlite
+# Crown SQLite is intentionally NOT shipped to this server (sensitive
+# forensic data). The Crown routers will return empty / 500 — only the
+# /api/external/* and /health endpoints are intended to be hit publicly.
+Environment=CROWN_DB_PATH=/opt/pmppm-com/data/_unused-crown.sqlite
+# Loads ODDS_API_KEY (and optional APISPORTS_KEY for rest-side ingest).
+# Without ODDS_API_KEY the WS bridge stays disabled and /api/external/ws
+# returns ``ws_bridge_disabled`` immediately on connect — see oddsapi_ws.
+EnvironmentFile=-/etc/default/pmppm-com.env
+# `info` so we see the WS bridge connect / reconnect logs in journal.
+ExecStart=/opt/pmppm-com/venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8787 --log-level info
+Restart=always
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/pmppm-com/data /opt/pmppm-com/api
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>footer</title>
+	<script id="footerJS">
+		function footer(_win, _dom, _post) {
+	var _self = this;
+	var win = _win;
+	var dom = _dom;
+	var postHash = _post;
+	var parentClass;
+	var util = new win.Util(win, dom);
+	var _mc = new Object;
+	var langx_ary = new Array("zh-cn", "zh-tw", "en-us");
+	var chg_lang_sw = "Y";
+	var classname = "footer";
+	var LS;
+	var myhash = {};
+	_self.paramHash = new Object;
+	_self.init = function() {
+		_mc["footer_langx_dropdown"] = dom.getElementById("footer_langx_dropdown");
+		_mc["footer_selec_language"] = dom.getElementById("footer_selec_language");
+		_mc["footer_relating_title"] = dom.getElementById("footer_relating_title");
+		_mc["footer_relating_box"] = dom.getElementById("footer_relating_box");
+		dom.getElementById("footer_icon_" + top.langx)
+			.style.display = "";
+		dom.getElementById("footer_" + top.langx)
+			.style.display = "";
+		util.addEvent(_mc["footer_relating_box"], "click", _self.showInfo, {
+			"id": "relating_title",
+			"content": "relating_content"
+		});
+		_mc["footer_relating_title"].innerHTML = LS.get("relating_title");
+		_mc["footer_relating_box"].style.display = "";
+		if (top.mobile != "Y") {
+			util.addEvent(dom.getElementById("footer_chg_language"), "click", _self.chgLanguage);
+			for (var ls = 0; ls < langx_ary.length; ls++) util.addEvent(dom.getElementById("footer_selec_" + langx_ary[ls]), "click", _self.choice, langx_ary[ls])
+		} else {
+			util.addEvent(_mc["footer_langx_dropdown"], "change", _self.chgLangxHandler);
+			util.addEvent(_mc["footer_langx_dropdown"], "blur", _self.rightMenuSelectBlur);
+			_mc["footer_langx_dropdown"].value = "langx_" + top.userData.langx
+		}
+		if (win._history.length > 0) {
+			var his_obj = _self.getNowPageObj();
+			if (his_obj.page == "league_index" && his_obj.state.showtype == "today") dom.getElementById("today_notice")
+				.style.display =
+				"";
+			else dom.getElementById("today_notice")
+				.style.display = "none"
+		}
+		util.addEvent(dom.getElementById("footer_features_new"), "click", _self.chgPage, {
+			"page": "features"
+		});
+		util.addEvent(dom.getElementById("footer_rules_general"), "click", _self.chgPage, {
+			"page": "rules_general"
+		});
+		util.addEvent(dom.getElementById("footer_help_sys"), "click", _self.chgPage, {
+			"page": "help_sys"
+		});
+		util.addEvent(dom.getElementById("footer_help_term"), "click", _self.chgPage, {
+			"page": "help_term"
+		})
+	};
+	_self.setParentclass = function(_parentclass) {
+		parentClass =
+			_parentclass;
+		LS = parentClass.getThis("LS");
+		myhash["LS"] = LS
+	};
+	_self.chgPage = function(e, param) {
+		util.removeClass(_mc["footer_selec_language"], "on");
+		if (param.page == "rules_general" || param.page == "features") param.noCache = "Y";
+		parentClass.dispatchEvent("hideAlertMsg", {
+			"use": "noPopMainClear"
+		});
+		param.retFun = _self.changePageComplete;
+		parentClass.dispatchEvent("bodyGoToPage", param)
+	};
+	_self.chgLanguage = function() {
+		for (var i = 0; i < langx_ary.length; i++) util.removeClass(dom.getElementById("footer_selec_" + langx_ary[i]), "on");
+		util.addClass(dom.getElementById("footer_selec_" + top["userData"].langx), "on");
+		if (chg_lang_sw == "Y") util.addClass(_mc["footer_selec_language"], "on");
+		else chg_lang_sw = "Y";
+		_self.langxOddSelected("footer_selec_language", "footer_lang_focus")
+	};
+	_self.chgLangxHandler = function() {
+		var myselect = dom.getElementById("footer_langx_dropdown");
+		var index = myselect.selectedIndex;
+		var tmp_langx;
+		tmp_langx = myselect.options[index].value.split("_");
+		_self.choice("", tmp_langx[1])
+	};
+	_self.choice = function(e, param) {
+		if (top["userData"].langx ==
+			param) {
+			_mc["footer_selec_language"].classList.remove("on");
+			chg_lang_sw = "N"
+		} else {
+			for (var i = 0; i < langx_ary.length; i++) {
+				dom.getElementById("footer_" + langx_ary[i])
+					.style.display = "none";
+				dom.getElementById("footer_icon_" + langx_ary[i])
+					.style.display = "none"
+			}
+			dom.getElementById("footer_icon_" + param)
+				.style.display = "";
+			dom.getElementById("footer_" + param)
+				.style.display = "";
+			_mc["footer_selec_language"].className = "box_popup_selec";
+			_history.length = 0;
+			top["userData"].langx = param;
+			parentClass.dispatchEvent("clearAllOpenWindow");
+			if (top["userData"].newalertMsg == "Y") {
+				delete top["userData"].newalertMsg;
+				top["userData"].four_pwd = "new"
+			}
+			util.topGoToUrl(location, top["userData"])
+		}
+	};
+	_self.rightMenuSelectBlur = function() {
+		parentClass.dispatchEvent("scrollsetTop")
+	};
+	_self.langxOddSelected = function(classId, focusId) {
+		dom.getElementById(focusId)
+			.tabIndex = 1;
+		setTimeout(_self.langxOddFocus, 300, focusId);
+		util.addEvent(dom.getElementById(focusId), "blur", _self.langxOddBlur, {
+			"id": classId
+		})
+	};
+	_self.langxOddBlur = function(e, param) {
+		dom.getElementById(param.id)
+			.classList.remove("on")
+	};
+	_self.langxOddFocus = function(focus_id) {
+		dom.getElementById(focus_id)
+			.focus()
+	};
+	_self.showInfo = function(e, param) {
+		if (e.target.id.indexOf("icon_info") != -1 || e.target.id.indexOf("relating") != -1) {
+			var _par = new Object;
+			_par["_id"] = "info_pop";
+			_par["title"] = "<li>" + LS.get(param.id) + "</li>";
+			_par["msg"] = LS.get(param.content);
+			parentClass.dispatchEvent("showAlertMsg", _par)
+		}
+	};
+	_self.getNowPageObj = function() {
+		var tmpObj = new Object;
+		if (win._history.length != 0) tmpObj = win._history[win._history.length - 1];
+		return tmpObj
+	}
+};
+
+		var footer_artjson = {
+	"ART_title_relate": "相关信息",
+	"ART_game_gmt4": "今日赛事显示时区为GMT-4",
+
+	"ART_footer_language": "语言",
+	"ART_lan_tw": "繁體",
+	"ART_lan_cn": "简体",
+	"ART_lan_en": "English",
+
+	"ART_footer_feature": "新功能",
+	"ART_footer_rule": "体育玩法规则",
+	"ART_footer_system": "系统需求",
+	"ART_footer_term": "规则与条款",
+	"ART_footer_phone": "电话号码",
+	"ART_footer_email": "电子邮件",
+	"ART_footer_copyright": "版权声明 (C) 2023 版权所有",
+}
+	</script>
+	<link href="https://64.188.38.122/style/main.css" rel="stylesheet" type="text/css">
+
+
+	<link href="../../style/reset.css" rel="stylesheet" type="text/css">
+	<link href="../../style/frame.css" rel="stylesheet" type="text/css">
+	<link href="../../style/main.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+	<div id="footer" class="footer">
+		<div id="footer_relating_box" class="box_relating" style="display: none;">
+			<div id="footer_relating_title" class="title_relating"><div>*ART_title_relate*</div></div>
+		</div>
+
+		<div id="today_notice" class="notice_text" style="display: none;">
+			<span><i></i><tt>*ART_game_gmt4*</tt></span>
+		</div>
+
+		<div class="content_footer">
+			<div class="box_footer">
+				<div id="footer_chg_language" class="btn_footer">
+					<i id="footer_icon_zh-tw" class="icon_lang icon_hk" style="display:none;"></i>
+					<i id="footer_icon_zh-cn" class="icon_lang icon_cn" style="display:none;"></i>
+					<i id="footer_icon_en-us" class="icon_lang icon_en" style="display:none;"></i>
+					<span>
+						<tt>*ART_footer_language*</tt>
+						<tt id="footer_zh-cn" class="btn_acc_sub" style="display:none;">*ART_lan_cn*</tt>
+						<tt id="footer_zh-tw" class="btn_acc_sub" style="display:none;">*ART_lan_tw*</tt>
+						<tt id="footer_en-us" class="btn_acc_sub" style="display:none;">*ART_lan_en*</tt>
+					</span>
+					<select id="footer_langx_dropdown" class="" tabindex="-1">
+						<option value="langx_zh-cn">*ART_lan_cn*</option>
+						<option value="langx_zh-tw">*ART_lan_tw*</option>
+						<option value="langx_en-us">*ART_lan_en*</option>
+					</select>
+
+					<!-- 語系選擇 -->
+					<div id="footer_selec_language" class="box_popup_selec"><!-- Show add class="on"-->
+						<div id="footer_lang_focus" class="popup_lange">
+							<label id="footer_selec_zh-cn" class="btn_popup_selec on"><tt>*ART_lan_cn*</tt></label>
+							<label id="footer_selec_zh-tw" class="btn_popup_selec"><tt>*ART_lan_tw*</tt></label>
+							<label id="footer_selec_en-us" class="btn_popup_selec"><tt>*ART_lan_en*</tt></label>
+						</div>
+					</div>
+				</div>
+
+				<div id="footer_features_new" class="btn_footer">
+					<i><svg><use xlink:href="#icon_new" /></svg></i>
+					<span>*ART_footer_feature*</span>
+				</div>
+				<div id="footer_rules_general" class="btn_footer">
+					<i><svg><use xlink:href="#icon_rule" /></svg></i>
+					<span>*ART_footer_rule*</span>
+				</div>
+				<div id="footer_help_sys" class="btn_footer">
+					<i><svg><use xlink:href="#icon_system" /></svg></i>
+					<span>*ART_footer_system*</span>
+				</div>
+				<div id="footer_help_term" class="btn_footer">
+					<i><svg><use xlink:href="#icon_terms" /></svg></i>
+					<span>*ART_footer_term*</span>
+				</div>
+			</div>
+			<div class="box_footer">
+				<div class="contantus_footer">
+					<span>*ART_footer_phone*</span>
+					<p>
+						<a id="tel01" href="tel:+85258089063">+852 5808 9063</a>
+						<a id="tel03" href="tel:+639151950193">+63  915  195  0193</a>
+					</p>
+					<p>
+						<a id="tel02" href="tel:+85258088664">+852 5808 8664</a>
+						<a id="tel04" href="tel:+639151955533">+63  915  195  5533</a>
+					</p>
+				</div>
+			</div>
+			<div class="box_footer">
+				<div class="contantus_footer">
+					<span>*ART_footer_email*</span>
+					<p><a id="" href="mailto:cs1@ra2288.com">cs1@ra2288.com</a></p>
+					<p><a id="email" href="mailto:royal888crown@hotmail.com">royal888crown@hotmail.com</a></p>
+				</div>
+			</div>
+		</div>
+
+		<div class="box_copyright">
+			*ART_footer_copyright*
+		</div>
+	</div>
+</body>
+</html>

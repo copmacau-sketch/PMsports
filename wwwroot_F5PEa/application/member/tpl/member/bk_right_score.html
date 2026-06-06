@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>右面板</title>
+	<script id="homeJS">{JS}</script>
+	
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div class="content_r">
+		<!-- BK Score board in-play-->
+		<div id="R_div_matches" class="box_scoboard bk" style="display: none;"><!-- 半場樣式 新增class="half"-->
+			<div id="R_box_scostate" class="box_scostate">
+				<tt id="R_se_now" class="text_time_go"></tt>
+				<tt id="R_t_count" class="text_time_go"></tt>
+				<i id="R_midfield" class="icon_n" style="display: none;"></i>
+			</div>
+			<div id="R_box_sco_bk" class="box_sco_bk">
+				<span id="R_sc_Q1" class="sco_bk bk_q">*ART_scrbk_q1*</span>
+				<span id="R_sc_Q2" class="sco_bk bk_q">*ART_scrbk_q2*</span>
+				<span id="R_sc_Q3" class="sco_bk bk_q">*ART_scrbk_q3*</span>
+				<span id="R_sc_Q4" class="sco_bk bk_q">*ART_scrbk_q4*</span>
+				<span id="R_sc_OT" class="sco_bk bk_ot">*ART_scrbk_ot*</span>
+				<span id="R_sc_H1" class="sco_bk bk_h1">*ART_scrbk_h1*</span>
+				<span id="R_sc_H2" class="sco_bk bk_h2">*ART_scrbk_h2*</span>
+			</div>
+			<div id="R_box_sco_l" class="box_sco_l">
+				<div class="box_scoteam team_h">
+					<span id="R_sc_FT_H" class="text_point"></span>
+					<span id="R_team_h" class="text_team"></span>
+
+					<div class="box_sco_bk">
+						<span id="R_sc_Q1_H" class="sco_bk bk_q"></span>
+						<span id="R_sc_Q2_H" class="sco_bk bk_q"></span>
+						<span id="R_sc_Q3_H" class="sco_bk bk_q"></span>
+						<span id="R_sc_Q4_H" class="sco_bk bk_q"></span>
+						<span id="R_sc_OT_H" class="sco_bk bk_ot"></span>
+						<span id="R_sc_H1_H" class="sco_bk bk_h1"></span>
+						<span id="R_sc_H2_H" class="sco_bk bk_h2"></span>
+					</div>
+				</div>
+
+				<div class="box_scoteam team_c">
+					<span id="R_sc_FT_A" class="text_point"></span>
+					<span id="R_team_c" class="text_team"></span>
+					<div class="box_sco_bk">
+						<span id="R_sc_Q1_A" class="sco_bk bk_q"></span>
+						<span id="R_sc_Q2_A" class="sco_bk bk_q"></span>
+						<span id="R_sc_Q3_A" class="sco_bk bk_q"></span>
+						<span id="R_sc_Q4_A" class="sco_bk bk_q"></span>
+						<span id="R_sc_OT_A" class="sco_bk bk_ot"></span>
+						<span id="R_sc_H1_A" class="sco_bk bk_h1"></span>
+						<span id="R_sc_H2_A" class="sco_bk bk_h2"></span>
+					</div>
+				</div>
+
+			</div>
+			<div id="R_box_sco_point" class="box_sco_point">
+				<div id="R_320_sc_Q1" class="point_bk_s bk_q">*ART_scrbk_sq1* <tt id="R_320_sc_Q1_H"></tt>-<tt id="R_320_sc_Q1_A"></tt></div>
+				<div id="R_320_sc_Q2" class="point_bk_s bk_q">*ART_scrbk_sq2* <tt id="R_320_sc_Q2_H"></tt>-<tt id="R_320_sc_Q2_A"></tt></div>
+				<div id="R_320_sc_Q3" class="point_bk_s bk_q">*ART_scrbk_sq3* <tt id="R_320_sc_Q3_H"></tt>-<tt id="R_320_sc_Q3_A"></tt></div>
+				<div id="R_320_sc_Q4" class="point_bk_s bk_q">*ART_scrbk_sq4* <tt id="R_320_sc_Q4_H"></tt>-<tt id="R_320_sc_Q4_A"></tt></div>
+				<div id="R_320_sc_H1" class="point_bk_s">*ART_scrbk_sh1* <tt id="R_320_sc_H1_H"></tt>-<tt id="R_320_sc_H1_A"></tt></div>
+				<div id="R_320_sc_H2" class="point_bk_s">*ART_scrbk_sh2* <tt id="R_320_sc_H2_H"></tt>-<tt id="R_320_sc_H2_A"></tt></div>
+				<div id="R_320_sc_OT" class="point_bk_s">*ART_scrbk_sot* <tt id="R_320_sc_OT_H"></tt>-<tt id="R_320_sc_OT_A"></tt></div>
+			</div>
+		</div>
+
+		<!-- scored borad / today / early / parlay -->
+		<div id="div_matches" class="box_scoboard_r bk" style="display: none;">
+			<div class="box_scostate">
+				<tt id="game_time" class="text_time"></tt>
+				<i id="midfield" class="icon_n" style="display:none"></i>
+			</div>
+			<div class="box_sco_l">
+				<div class="box_scoteam team_h">
+					<span id="team_h" class="text_team"></span>
+				</div>
+				<div class="box_sco_vs">V</div>
+				<div class="box_scoteam team_c">
+					<span id="team_c" class="text_team"></span>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>{JS}</script>
+
+    <link href="{CDNURL}/style/other_page.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/share_tool.css" rel="stylesheet" type="text/css">
+    <title></title>
+
+</head>
+<body>
+<div>
+    <div class="all_outside">
+
+        <!-- 標題列 -->
+        <div class="tool_title_extend">
+            <div>
+                <button id="toback" class="btn_tool_back minimouse_hover">
+                    <i><svg><use xlink:href="#icon_backbtn"/></svg></i>
+                </button>
+                <span class="tool_title_txt">*ART_accset_detailset*</span>
+            </div>
+
+
+
+            <!-- 當前選項加上class .active -->
+            <div class="tool_category scrollmask">
+                <!-- pc左右按鈕 -->
+                <div id="account_left" class="btn_to_l">
+                    <svg><use xlink:href="#icon_rightarr"></use></svg>
+                </div>
+                <div id="account_right" class="btn_to_r">
+                    <svg><use xlink:href="#icon_rightarr"></use></svg>
+                </div>
+                <!-- pc左右按鈕 end -->
+                <div id="account_scroll" class="box_slide">
+                    <ul id="account_total">
+                        <li id="title_FT" class="active">*ART_accset_soccer*</li>
+                        <li id="title_BK">*ART_accset_basketball*</li>
+                        <li id="title_OP">*ART_accset_othersports*</li>
+                        <li id="title_FS">*ART_accset_outright01*</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- 標題列 end -->
+
+        <div id="div_show" class="oth_set_box"></div>
+
+
+        <!-- 訊息內容 -->
+        <div class="oth_set_box">
+            <!-- 足球 -->
+            <div id="div_FT" style="display:none;">
+                <table cellspacing="0" cellpadding="0" class="oth_set_tb">
+                    <tr>
+                        <th width="45%">*ART_accset_type*</th>
+                        <th width="27.5%">*ART_accset_singlemax*</th>
+                        <th width="27.5%">*ART_accset_betmax*</th>
+                    </tr>
+                    <!-- START DYNAMIC BLOCK: tr -->
+                    <tr>
+                        <td>*ART_accset_hdouoe*</td>
+                        <td>*RMAX*</td>
+                        <td>*RMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_rehdouoe*</td>
+                        <td>*REMAX*</td>
+                        <td>*REMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_1x2*</td>
+                        <td>*MMAX*</td>
+                        <td>*MMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_other*</td>
+                        <td>*DTMAX*</td>
+                        <td>*DTMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_reother*</td>
+                        <td>*RDTMAX*</td>
+                        <td>*RDTMIN*</td>
+                    </tr>
+                    <!-- END DYNAMIC BLOCK: tr -->
+                </table>
+            </div>
+            <!-- 足球 end -->
+
+
+
+
+
+            <!-- 籃球 美式足球 -->
+            <div id="div_BK" style="display:none;">
+                <table cellspacing="0" cellpadding="0" class="oth_set_tb">
+                    <tr>
+                        <th width="45%">*ART_accset_type*</th>
+                        <th width="27.5%">*ART_accset_singlemax*</th>
+                        <th width="27.5%">*ART_accset_betmax*</th>
+                    </tr>
+                    <!-- START DYNAMIC BLOCK: tr -->
+                    <tr>
+                        <td>*ART_accset_hdouoe*</td>
+                        <td>*RMAX*</td>
+                        <td>*RMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_rehdouoe*</td>
+                        <td>*REMAX*</td>
+                        <td>*REMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_1x2bk*</td>
+                        <td>*MMAX*</td>
+                        <td>*MMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_other*</td>
+                        <td>*DTMAX*</td>
+                        <td>*DTMIN*</td>
+                    </tr>
+                    <!-- END DYNAMIC BLOCK: tr -->
+                </table>
+            </div>
+            <!-- 籃球 美式足球 end -->
+
+
+
+
+
+            <!-- 其他 -->
+            <div id="div_OP" style="display:none;">
+                <table cellspacing="0" cellpadding="0" class="oth_set_tb">
+                    <tr>
+                        <th width="45%">*ART_accset_type*</th>
+                        <th width="27.5%">*ART_accset_singlemax*</th>
+                        <th width="27.5%">*ART_accset_betmax*</th>
+                    </tr>
+                    <!-- START DYNAMIC BLOCK: tr -->
+                    <tr>
+                        <td>*ART_accset_hdouoe*</td>
+                        <td>*RMAX*</td>
+                        <td>*RMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_rehdouoe*</td>
+                        <td>*REMAX*</td>
+                        <td>*REMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_1x2*</td>
+                        <td>*MMAX*</td>
+                        <td>*MMIN*</td>
+                    </tr>
+                    <tr>
+                        <td>*ART_accset_other*</td>
+                        <td>*DTMAX*</td>
+                        <td>*DTMIN*</td>
+                    </tr>
+                    <!-- END DYNAMIC BLOCK: tr -->
+                </table>
+            </div>
+            <!-- 其他 end -->
+
+
+
+
+
+            <!-- 冠軍 -->
+            <div id="div_FS" style="display:none;">
+                <table cellspacing="0" cellpadding="0" class="oth_set_tb">
+                    <tr>
+                        <th width="45%">*ART_accset_type*</th>
+                        <th width="27.5%">*ART_accset_singlemax*</th>
+                        <th width="27.5%">*ART_accset_betmax*</th>
+                    </tr>
+                    <!-- START DYNAMIC BLOCK: tr -->
+                    <tr>
+                        <td>*ART_accset_outright02*</td>
+                        <td>*SPMAX*</td>
+                        <td>*SPMIN*</td>
+                    </tr>
+                    <!-- END DYNAMIC BLOCK: tr -->
+                </table>
+            </div>
+            <!-- 冠軍 end -->
+        </div>
+        <!-- 訊息內容 end -->
+
+
+
+
+
+
+    </div>
+</div>
+</body>
+</html>

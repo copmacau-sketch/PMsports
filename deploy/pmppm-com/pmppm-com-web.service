@@ -1,0 +1,29 @@
+[Unit]
+Description=PmPm v4 H5 prototype (Next.js standalone)
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/pmppm-com/web
+# `next build --output=standalone` produces a self-contained server.js
+# that hosts everything (no runtime `next start` / npm needed).
+ExecStart=/usr/bin/node /opt/pmppm-com/web/server.js
+Environment=NODE_ENV=production
+Environment=PORT=3003
+Environment=HOSTNAME=127.0.0.1
+Restart=always
+RestartSec=2
+StandardOutput=journal
+StandardError=journal
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ReadWritePaths=/opt/pmppm-com/web
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

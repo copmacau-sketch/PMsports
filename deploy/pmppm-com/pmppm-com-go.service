@@ -1,0 +1,33 @@
+[Unit]
+Description=PmPm v4 Go backend (信用账户 / 代理 — isolated from pmpm.uk)
+After=network.target
+Requires=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/pmppm-com/go-backend
+# Same env vars as the pmpm.uk Go backend uses. The KEK file is shared
+# (it just decrypts the mother wallet kept by the operator; pmppm.com
+# inherits the same one for now since we're not running on-chain ops
+# from this instance — only credit-account / agent endpoints).
+Environment=DB_PATH=/opt/pmppm-com/go-backend/users.db
+Environment=API_SPORTS_KEY=967679e7c3c625a64081afc93b7fb1bf
+# Resolver / signer keys intentionally NOT set on this isolated instance
+# (we're using it only for credit-account / agent flows, not for the
+# auto-redeem worker or hybrid pricing signer). Their absence triggers
+# the binary's `[AutoRedeem] disabled` / `[HybridPricing] DEV signer`
+# branches, which are harmless when only /api/auth + /api/credit are
+# hit by the PmPm v4 H5 frontend.
+ExecStart=/opt/pmppm-com/go-backend/pmppm-backend
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+# Hardening (don't let the binary mutate anything outside its own data dir)
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

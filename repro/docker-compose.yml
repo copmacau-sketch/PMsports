@@ -1,0 +1,51 @@
+name: crown-gold-repro
+
+services:
+  mysql:
+    build:
+      context: ..
+      dockerfile: repro/mysql/Dockerfile
+    image: crown-gold-mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 49f0863e9070
+      MYSQL_ROOT_HOST: '%'
+    command:
+      - --default-authentication-plugin=mysql_native_password
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-name-resolve
+      - --sql-mode=NO_ENGINE_SUBSTITUTION
+      - --default-storage-engine=MyISAM
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysqldata:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-uroot", "-p49f0863e9070"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+
+  php:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    image: crown-gold-php:7.4
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:80"
+    volumes:
+      # 整套源码挂进容器，保持原始目录层级（include/config.php 用 dirname×4 取 ROOT_PATH）
+      - ../wwwroot_F5PEa:/var/www
+      # DB 配置改成连接 docker 里的 mysql 服务（覆盖 vendor/mysql/config.php）
+      - ./conf/mysql.config.php:/var/www/vendor/mysql/config.php:ro
+      # 用我们的登录页覆盖原 SPA 入口（首页只剩登录）
+      - ./index.html:/var/www/application/member/index.html:ro
+
+volumes:
+  mysqldata:
+    name: crown-gold-mysqldata

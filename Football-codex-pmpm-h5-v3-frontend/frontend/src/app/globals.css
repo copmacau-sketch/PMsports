@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+/* Crown Gold — light theme with warm brown / gold accents.
+   Replicates the original wwwroot_F5PEa SPA visual language. */
+
+:root {
+  /* Brand */
+  --cg-brown:       #503f32;
+  --cg-brown-dark:  #3C2F26;
+  --cg-brown-deep:  #352a21;
+  --cg-gold:        #debb69;
+  --cg-gold-deep:   #a78025;
+  --cg-gold-muted:  #9b8d79;
+  /* Actions */
+  --cg-green:       #19805c;
+  --cg-green-light: #3DB893;
+  --cg-green-credit:#42D49A;
+  --cg-red:         #ce3636;
+  --cg-red-light:   #e76565;
+  /* Surfaces */
+  --cg-bg:          #EDEEEC;
+  --cg-bg-light:    #f5f5f5;
+  --cg-card:        #ffffff;
+  --cg-card-alt:    #FAFAF9;
+  /* Text */
+  --cg-text:        #000000;
+  --cg-text-72:     rgba(0,0,0,0.72);
+  --cg-text-64:     rgba(0,0,0,0.64);
+  --cg-text-56:     rgba(0,0,0,0.56);
+  --cg-text-24:     rgba(0,0,0,0.24);
+  /* Misc */
+  --cg-link:        #0066CC;
+  --cg-border:      rgba(0,0,0,0.08);
+  --cg-separator:   #d8d8d8;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--cg-bg);
+  color: var(--cg-text);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  font-family: Arial, "PingFang SC", "Helvetica Neue", ui-sans-serif,
+    system-ui, -apple-system, "Noto Sans CJK SC", "Microsoft YaHei", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Hide scrollbars on horizontally-scrollable rows */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scroll on touch devices */
+[data-sports-shell="true"] {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Live odds flash — when an in-play odds value changes we briefly tint the
+   cell green (price went up) or red (price went down), fading back to
+   transparent over 1s. The wrapper element gets `cg-flash-up` /
+   `cg-flash-down`; the wrapping component is responsible for removing it
+   after ~1s so the next change retriggers the animation. */
+@keyframes cgFlashUp {
+  0%   { background-color: #c8f2cf; }
+  100% { background-color: transparent; }
+}
+@keyframes cgFlashDown {
+  0%   { background-color: #ffd0d0; }
+  100% { background-color: transparent; }
+}
+.cg-flash-up   { animation: cgFlashUp   1s ease-out 1; }
+.cg-flash-down { animation: cgFlashDown 1s ease-out 1; }
+
+/* Slide-in for newly-prepended timeline items (text commentary). */
+@keyframes cgSlideIn {
+  0%   { opacity: 0; transform: translateY(-6px); background-color: rgba(222,187,105,.18); }
+  100% { opacity: 1; transform: translateY(0);   background-color: transparent; }
+}
+.cg-slide-in { animation: cgSlideIn 600ms ease-out 1; }

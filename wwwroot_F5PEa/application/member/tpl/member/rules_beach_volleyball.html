@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>體育規則 - 沙灘排球</title>
+    <script id="homeJS">{JS}</script>
+
+    <link href="{CDNURL}/style/rules.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content_l">
+    <div class="box_rules">
+        <div class="title_rules">
+            <div id="back_btn" name="back_btn" class="btn_back"><i class="icon_back"><svg><use xlink:href="#icon_back"/></svg></i></div>
+            <span>*ART_ru_title*</span>
+        </div>
+        <div class="select_rules">
+            <span>*ART_ru_select*</span>
+            <label class="box_select">
+                <i class="icon_arr"><svg><use xlink:href="#icon_toparr"/></svg></i>
+                <select name="sportsdropdown" class="sportsdropdown" id="sportsdropdown">
+                    <option value="general">*ART_ru_general*</option>
+                    <option value="outright">*ART_ru_outright*</option>
+                    <option value="multiples">*ART_ru_multiples*</option>
+                    <option value="soccer">*ART_ru_soccer*</option>
+                    <option value="basketball">*ART_ru_basketball*</option>
+                    <option value="tennis">*ART_ru_tennis*</option>
+                    <option value="volleyball">*ART_ru_volleyball*</option>
+                    <option value="badminton">*ART_ru_badminton*</option>
+                    <option value="table_tennis">*ART_ru_table_tennis*</option>
+                    <option value="baseball">*ART_ru_baseball*</option>
+                    <option value="snooker">*ART_ru_snooker*</option>
+                    <option value="usa_football">*ART_ru_usa_football*</option>
+                    <option value="archery">*ART_ru_archery*</option>
+                    <option value="athletic">*ART_ru_athletic*</option>
+                    <option value="aussie">*ART_ru_aussie*</option>
+                    <option value="beach_soccer">*ART_ru_beach_soccer*</option>
+                    <option value="beach_volleyball" selected="selected">*ART_ru_beach_volleyball*</option>
+                    <option value="boxing">*ART_ru_boxing*</option>
+                    <option value="cricket">*ART_ru_cricket*</option>
+                    <option value="cycling">*ART_ru_cycling*</option>
+                    <option value="darts">*ART_ru_darts*</option>
+                    <option value="e_sports">*ART_ru_e_sports*</option>
+                    <option value="field_hockey">*ART_ru_field_hockey*</option>
+                    <option value="financial_bets">*ART_ru_financial_bets*</option>
+                    <option value="futsal">*ART_ru_futsal*</option>
+                    <option value="golf">*ART_ru_golf*</option>
+                    <option value="gymnastics">*ART_ru_gymnastics*</option>
+                    <option value="handball">*ART_ru_handball*</option>
+                    <option value="ice_hockey">*ART_ru_ice_hockey*</option>
+                    <option value="judo">*ART_ru_judo*</option>
+                    <option value="lacrosse">*ART_ru_lacrosse*</option>
+                    <option value="medal_betting">*ART_ru_medal_betting*</option>
+                    <option value="motor_sports">*ART_ru_motor_sports*</option>
+                    <option value="olympics">*ART_ru_olympics*</option>
+                    <option value="rowing">*ART_ru_rowing*</option>
+                    <option value="rugby_league">*ART_ru_rugby_league*</option>
+                    <option value="softball">*ART_ru_softball*</option>
+                    <option value="tamp">*ART_ru_tamp*</option>
+                    <option value="water_polo">*ART_ru_water_polo*</option>
+                    <option value="weightlifting">*ART_ru_weightlifting*</option>
+                    <option value="wintersports">*ART_ru_wintersports*</option>
+                </select>
+
+                <div id="pc_sportselect" class="dropdown_select">*ART_ru_beach_volleyball*</div>
+                <ul id="pc_sportsdropdown" name="sportsdropdown" class="dropdown_pc">
+                    <li id="pc_general" class="on">*ART_ru_general*</li>
+                    <li id="pc_outright">*ART_ru_outright*</li>
+                    <li id="pc_multiples">*ART_ru_multiples*</li>
+                    <li id="pc_soccer">*ART_ru_soccer*</li>
+                    <li id="pc_basketball">*ART_ru_basketball*</li>
+                    <li id="pc_tennis">*ART_ru_tennis*</li>
+                    <li id="pc_volleyball">*ART_ru_volleyball*</li>
+                    <li id="pc_badminton">*ART_ru_badminton*</li>
+                    <li id="pc_table_tennis">*ART_ru_table_tennis*</li>
+                    <li id="pc_baseball">*ART_ru_baseball*</li>
+                    <li id="pc_snooker">*ART_ru_snooker*</li>
+                    <li id="pc_usa_football">*ART_ru_usa_football*</li>
+                    <li id="pc_archery">*ART_ru_archery*</li>
+                    <li id="pc_athletic">*ART_ru_athletic*</li>
+                    <li id="pc_aussie">*ART_ru_aussie*</li>
+                    <li id="pc_beach_soccer">*ART_ru_beach_soccer*</li>
+                    <li id="pc_beach_volleyball" class="on">*ART_ru_beach_volleyball*</li>
+                    <li id="pc_boxing">*ART_ru_boxing*</li>
+                    <li id="pc_cricket">*ART_ru_cricket*</li>
+                    <li id="pc_cycling">*ART_ru_cycling*</li>
+                    <li id="pc_darts">*ART_ru_darts*</li>
+                    <li id="pc_e_sports">*ART_ru_e_sports*</li>
+                    <li id="pc_field_hockey">*ART_ru_field_hockey*</li>
+                    <li id="pc_financial_bets">*ART_ru_financial_bets*</li>
+                    <li id="pc_futsal">*ART_ru_futsal*</li>
+                    <li id="pc_golf">*ART_ru_golf*</li>
+                    <li id="pc_gymnastics">*ART_ru_gymnastics*</li>
+                    <li id="pc_handball">*ART_ru_handball*</li>
+                    <li id="pc_ice_hockey">*ART_ru_ice_hockey*</li>
+                    <li id="pc_judo">*ART_ru_judo*</li>
+                    <li id="pc_lacrosse">*ART_ru_lacrosse*</li>
+                    <li id="pc_medal_betting">*ART_ru_medal_betting*</li>
+                    <li id="pc_motor_sports">*ART_ru_motor_sports*</li>
+                    <li id="pc_olympics">*ART_ru_olympics*</li>
+                    <li id="pc_rowing">*ART_ru_rowing*</li>
+                    <li id="pc_rugby_league">*ART_ru_rugby_league*</li>
+                    <li id="pc_softball">*ART_ru_softball*</li>
+                    <li id="pc_tamp">*ART_ru_tamp*</li>
+                    <li id="pc_water_polo">*ART_ru_water_polo*</li>
+                    <li id="pc_weightlifting">*ART_ru_weightlifting*</li>
+                    <li id="pc_wintersports">*ART_ru_wintersports*</li>
+                </ul>
+            </label>
+        </div>
+        <div id="rule_box" class="content_rules">
+            <h1>*ART_ru_h1_beach_volleyball*</h1>
+            <span class="rules_date">*ART_ru_lastdate* <tt>*ART_ru_date*</tt></span>
+            <h2>*ART_ru_rule*</h2>
+            <ul>
+                <li>*ART_ru_beach_vb_a_1*</li>
+                <li>*ART_ru_beach_vb_a_2*</li>
+                <li>*ART_ru_beach_vb_a_3*</li>
+                <li>*ART_ru_beach_vb_a_4*</li>
+                <li>*ART_ru_beach_vb_a_5*</li>
+            </ul>
+
+            <h2>*ART_ru_bettype*</h2>
+            <ul class="list_none">
+                <li>
+                    <h3>*ART_ru_beach_vb_b*</h3>
+                    <ul>
+                        <li>*ART_ru_beach_vb_b_1*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_beach_vb_c*</h3>
+                    <ul>
+                        <li>*ART_ru_beach_vb_c_1*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_beach_vb_d*</h3>
+                    <ul>
+                        <li>*ART_ru_beach_vb_d_1*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_beach_vb_e*</h3>
+                    <ul>
+                        <li>*ART_ru_beach_vb_e_1*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_beach_vb_f*</h3>
+                    <ul>
+                        <li>*ART_ru_beach_vb_f_1*</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

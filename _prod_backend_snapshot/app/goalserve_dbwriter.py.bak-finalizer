@@ -1,0 +1,382 @@
+"""Write Goalserve events into Crown's money pipeline (foot_match + r_cn).
+
+This is the keystone of the "replace limitless with Goalserve" cutover. By
+landing every Goalserve event (keyed by its Goalserve id as ``gid``) into
+``db_sports.foot_match`` + ``foot_match_xml.r_cn`` + a ``foot_league`` row, the
+ENTIRE existing stack works unchanged:
+
+* **Display** — both ``/sports`` (FastAPI ``/events``) and ``/h5`` (PHP
+  ``api_v2.php``) read events from ``foot_match`` and markets from ``r_cn``.
+* **Place-bet** — ``api_v2.php`` validates odds via
+  ``fetchFastApiOddsContext($gid)`` → FastAPI ``/events/{gid}/markets`` (which
+  reads the same ``r_cn``), and requires the gid to exist in ``foot_match``
+  (else it hits the outright bypass and skips validation).
+* **Settlement** — handled separately (see ``settle_bets.php`` Goalserve
+  branch) off the scores we write here.
+
+r_cn format (mirrors ``OddsApiToCrownXml.php`` / ``rcn_parser.py``):
+``base64(gzdeflate(xml))`` where xml is Crown's flat ``<ior_*>`` tag soup. We
+build it straight from the ``main_odds`` dict the pollers already project, so
+there is exactly one odds projection shared by display + betting.
+
+SAFETY: ``GS_DB_WRITE`` gates ALL writes (default OFF). With it off this module
+is import-safe and ``upsert_event`` is a no-op that still returns the row it
+*would* have written (used by the dry-run test + the pollers' optional hook).
+
+lid scheme: Goalserve leagues get ``lid = GS_LID_BASE + goalserve_league_id``
+(default base 800000) and a lazily-upserted ``foot_league`` row (enabled=1) so
+the lid whitelist (``enabled_lids_sql`` / ``cgLidFilterSql``) lets them through.
+"""
+from __future__ import annotations
+
+import base64
+import logging
+import os
+import time
+import zlib
+
+log = logging.getLogger("goalserve_dbwriter")
+
+GS_DB_WRITE = os.environ.get("GS_DB_WRITE", "0").strip().lower() in ("1", "true", "yes")
+GS_LID_BASE = int(os.environ.get("GS_LID_BASE", "800000"))
+GS_MAXGOLD = int(os.environ.get("GS_MAXGOLD", "100000"))
+
+import re as _re
+
+# Esports (simulated FIFA / eFootball) leagues — Goalserve names them
+# "Esoccer Battle - 8 mins play", "Esoccer H2H GG League - 8 mins play",
+# "Esoccer GT Leagues – 12 mins play", etc.  These are NOT real football and
+# are hidden from the product.  Match is case-insensitive on the league name.
+_ESPORTS_RE = _re.compile(
+    r"(e-?soccer|e-?football|esports?|cyber|\bgt leagues\b|mins?\s+play)",
+    _re.IGNORECASE,
+)
+
+
+def is_esports_league(name: "str | None") -> bool:
+    """True when the league name looks like an esports / simulated-football
+    competition that should be hidden everywhere."""
+    return bool(name and _ESPORTS_RE.search(name))
+
+
+def _n(v) -> float:
+    try:
+        f = float(v)
+        return f if f > 0 else 0.0
+    except (TypeError, ValueError):
+        return 0.0
+
+
+def _add(parts: list, tag: str, val) -> None:
+    parts.append(f"<{tag}>{val}</{tag}>")
+
+
+def build_rcn(main_odds: "dict | None") -> str:
+    """Encode a ``main_odds`` projection into Crown's base64(gzdeflate(xml))
+    r_cn payload. Returns "" when there are no priceable markets.
+
+    Tag map is the inverse of ``rcn_parser.parse_rcn_markets`` so the round
+    trip is loss-free for the markets Crown surfaces.
+    """
+    mo = main_odds or {}
+    parts: list[str] = ["<game>"]
+
+    # Spread sign: re_line is signed home-perspective. Crown stores ABSOLUTE
+    # ratio_re + a single <strong> (H = home gives handicap → negative home
+    # line). Derive strong from the full-time spread; HT spread shares it.
+    re_h = _n(mo.get("re_h"))
+    re_line = mo.get("re_line")
+    strong = ""
+    if re_h > 0 and re_line is not None:
+        strong = "H" if float(re_line) < 0 else "C"
+    if strong:
+        _add(parts, "strong", strong)
+
+    # ML
+    if _n(mo.get("m_h")) > 0:
+        _add(parts, "ior_MH", _n(mo.get("m_h")))
+        _add(parts, "ior_MC", _n(mo.get("m_c")))
+        _add(parts, "ior_MN", _n(mo.get("m_n")))
+    # Spread
+    if re_h > 0:
+        _add(parts, "ratio_re", abs(float(re_line or 0)))
+        _add(parts, "ior_REH", re_h)
+        _add(parts, "ior_REC", _n(mo.get("re_c")))
+    # Totals
+    if _n(mo.get("ou_over")) > 0:
+        _add(parts, "ratio_o", _n(mo.get("ou_line")) or 2.5)
+        _add(parts, "ior_OUH", _n(mo.get("ou_over")))
+        _add(parts, "ior_OUC", _n(mo.get("ou_under")))
+    # Half Time Result — `_main_odds_from_ws_snap` emits ht_h/ht_n/ht_c
+    if _n(mo.get("ht_h")) > 0:
+        _add(parts, "ior_HMH", _n(mo.get("ht_h")))
+        _add(parts, "ior_HMC", _n(mo.get("ht_c")))
+        _add(parts, "ior_HMN", _n(mo.get("ht_n")))
+    # Spread HT
+    if _n(mo.get("reh_h")) > 0:
+        rehl = mo.get("reh_line")
+        # If FT strong unknown, derive from HT line so the sign is still right.
+        if not strong and rehl is not None:
+            _add(parts, "strong", "H" if float(rehl) < 0 else "C")
+        _add(parts, "hratio", abs(float(rehl or 0)))
+        _add(parts, "ior_HRH", _n(mo.get("reh_h")))
+        _add(parts, "ior_HRC", _n(mo.get("reh_c")))
+    # Totals HT — `_main_odds_from_ws_snap` emits ouh_over/ouh_under/ouh_line
+    if _n(mo.get("ouh_over")) > 0:
+        _add(parts, "ratio_ho", _n(mo.get("ouh_line")) or 1.25)
+        _add(parts, "ior_HOUH", _n(mo.get("ouh_over")))
+        _add(parts, "ior_HOUC", _n(mo.get("ouh_under")))
+    # Draw No Bet
+    if _n(mo.get("dnb_h")) > 0:
+        _add(parts, "ior_BHH", _n(mo.get("dnb_h")))
+        _add(parts, "ior_BHC", _n(mo.get("dnb_c")))
+    # Both Teams To Score
+    if _n(mo.get("btts_yes")) > 0:
+        _add(parts, "ior_TSY", _n(mo.get("btts_yes")))
+        _add(parts, "ior_TSN", _n(mo.get("btts_no")))
+    # Both Teams To Score HT
+    if _n(mo.get("btts_ht_yes")) > 0:
+        _add(parts, "ior_HTSY", _n(mo.get("btts_ht_yes")))
+        _add(parts, "ior_HTSN", _n(mo.get("btts_ht_no")))
+    # Double Chance
+    if _n(mo.get("dc_1x")) > 0:
+        _add(parts, "ior_DCHN", _n(mo.get("dc_1x")))
+        _add(parts, "ior_DCHC", _n(mo.get("dc_12")))
+        _add(parts, "ior_DCCN", _n(mo.get("dc_x2")))
+    # Corners Totals
+    if _n(mo.get("corners_over")) > 0:
+        _add(parts, "ratio_aouo", _n(mo.get("corners_line")) or 9.5)
+        _add(parts, "ior_AOUO", _n(mo.get("corners_over")))
+        _add(parts, "ior_AOUU", _n(mo.get("corners_under")))
+    # Correct Score (波胆) — <PD> block of <ior_HhCc>price tags, the inverse
+    # of rcn_parser / PHP's PD parser.  Labels arrive as "H-A".
+    cs = mo.get("cs")
+    if isinstance(cs, list):
+        cs_tags: list[str] = []
+        for row in cs:
+            if not isinstance(row, dict):
+                continue
+            m = _re.match(r"^(\d+)-(\d+)$", str(row.get("label") or ""))
+            price = _n(row.get("price"))
+            if m and price > 0:
+                cs_tags.append(f"<ior_H{m.group(1)}C{m.group(2)}>{price}</ior_H{m.group(1)}C{m.group(2)}>")
+        if cs_tags:
+            parts.append("<PD>" + "".join(cs_tags) + "</PD>")
+
+    parts.append("</game>")
+    # nothing but the wrapper → no markets
+    if len(parts) <= 2:
+        return ""
+    xml = "".join(parts)
+    co = zlib.compressobj(9, zlib.DEFLATED, -15)
+    raw = co.compress(xml.encode("utf-8")) + co.flush()
+    return base64.b64encode(raw).decode("ascii")
+
+
+def lid_for(snap: dict) -> int:
+    raw = str(snap.get("league_slug") or "").strip()
+    try:
+        return GS_LID_BASE + int(raw)
+    except ValueError:
+        # non-numeric slug → stable hash into a high band
+        return GS_LID_BASE + 500000 + (abs(hash(raw)) % 100000)
+
+
+def foot_match_values(snap: dict) -> dict:
+    """Build the column→value map for a foot_match upsert."""
+    lid = lid_for(snap)
+    ts = int(snap.get("commence_ts") or 0)
+    status_txt = (snap.get("status") or "").lower()
+    is_inplay = status_txt in ("inplay", "live")
+    is_finished = bool(snap.get("is_finished"))
+    home = snap.get("home") or ""
+    away = snap.get("away") or ""
+    league = snap.get("league_name") or ""
+    sh = snap.get("score_home")
+    sc = snap.get("score_away")
+    has_score = sh is not None and sc is not None
+    strong = ""
+    rcn = build_rcn(snap.get("main_odds"))
+    # recover strong written into r_cn for the row's `strong` column
+    mo = snap.get("main_odds") or {}
+    if _n(mo.get("re_h")) > 0 and mo.get("re_line") is not None:
+        strong = "H" if float(mo["re_line"]) < 0 else "C"
+    lt = time.gmtime(ts) if ts else time.gmtime()
+    out = {
+        "gid": int(snap["id"]),
+        "lid": lid,
+        "datetime": ts,
+        "league": league[:100],
+        "league_en": league[:100],
+        "team_h": home[:100],
+        "team_c": away[:100],
+        "team_h_en": home[:100],
+        "team_c_en": away[:100],
+        "m_date": time.strftime("%Y-%m-%d", lt),
+        "m_time": time.strftime("%H:%M", lt),
+        "status": 1 if is_inplay else 0,
+        "is_inball": 1 if is_finished else 0,
+        "is_score": 1 if has_score else 0,
+        "score_h": int(sh) if has_score else None,
+        "score_c": int(sc) if has_score else None,
+        "inball_h": int(sh) if has_score else None,
+        "inball_c": int(sc) if has_score else None,
+        "strong": strong,
+        "maxgold": GS_MAXGOLD,
+        "display": 1,
+        "fopen": 1,
+        "cancel": 0,
+        "_r_cn": rcn,
+    }
+    # Live stats — corners / cards / fouls / shots.  These mirror the
+    # ``apisports_*`` columns Crown's stats cron normally populates, so
+    # both FastAPI (list_events) and the H5 frontend pick them up
+    # unchanged.  We only set them when the snapshot actually carries
+    # the stat (so we don't clobber an apisports-supplied value with
+    # NULL for the same gid).
+    stat_map = (
+        ("yc_home",      "apisports_yc_h"),
+        ("yc_away",      "apisports_yc_c"),
+        ("rc_home",      "apisports_rc_h"),
+        ("rc_away",      "apisports_rc_c"),
+        ("corners_home", "apisports_corners_h"),
+        ("corners_away", "apisports_corners_c"),
+        ("fouls_home",   "apisports_fouls_h"),
+        ("fouls_away",   "apisports_fouls_c"),
+        ("shots_home",   "apisports_shots_h"),
+        ("shots_away",   "apisports_shots_c"),
+    )
+    any_stat = False
+    for src, dst in stat_map:
+        v = snap.get(src)
+        if v is None:
+            continue
+        try:
+            out[dst] = int(v)
+            any_stat = True
+        except (TypeError, ValueError):
+            pass
+    if any_stat:
+        # Bypasses the FastAPI staleness gate (`_APISPORTS_STATS_MAX_AGE_SEC`).
+        out["apisports_stats_seen_at"] = snap.get("apisports_stats_seen_at") or int(time.time())
+    # Elapsed minute + status period + HT score — full game-state parity
+    # with the api-sports `--live-only` cron, so once api-sports is retired
+    # the live ticker, HT-market expiry and HT-correct-score settlement all
+    # work off Goalserve alone.  `_mysql_row_to_event` reads these columns.
+    now_ts = int(time.time())
+    if snap.get("elapsed_minute") is not None:
+        try:
+            out["apisports_elapsed"] = int(snap["elapsed_minute"])
+            out["apisports_seen_at"] = now_ts
+        except (TypeError, ValueError):
+            pass
+    if snap.get("status_short"):
+        out["apisports_status"] = str(snap["status_short"])[:8]
+        out["apisports_seen_at"] = now_ts
+    sh_ht = snap.get("score_home_ht")
+    sa_ht = snap.get("score_away_ht")
+    if sh_ht is not None and sa_ht is not None:
+        try:
+            out["apisports_score_ht_h"] = int(sh_ht)
+            out["apisports_score_ht_c"] = int(sa_ht)
+        except (TypeError, ValueError):
+            pass
+    return out
+
+
+def foot_league_values(snap: dict) -> dict:
+    lid = lid_for(snap)
+    raw = str(snap.get("league_slug") or "").strip()
+    name = snap.get("league_name") or f"Goalserve {raw}"
+    # Esports leagues are tracked but DISABLED so the enabled-lid whitelist
+    # (enabled_lids_sql / cgLidFilterSql) hides every match under them in both
+    # FastAPI (/events) and PHP (api_v2.php).
+    enabled = 0 if is_esports_league(name) else 1
+    return {
+        "lid": lid,
+        "slug": f"gs-{raw}" if raw else f"gs-lid-{lid}",
+        "name_en": name[:100],
+        "name_cn": "",
+        "region": "other",
+        "country": "other",
+        "flag": "",
+        "priority": 80,
+        "enabled": enabled,
+    }
+
+
+def upsert_event(snap: dict, *, dry_run: "bool | None" = None) -> dict:
+    """Upsert one Goalserve event into foot_match + foot_match_xml + foot_league.
+
+    Returns ``{"fm": <foot_match values>, "fl": <foot_league values>,
+    "wrote": bool}``.  When writes are disabled (``GS_DB_WRITE`` off or
+    ``dry_run=True``) nothing touches the DB.
+    """
+    fm = foot_match_values(snap)
+    fl = foot_league_values(snap)
+    do_write = GS_DB_WRITE if dry_run is None else (not dry_run)
+    if not do_write:
+        return {"fm": fm, "fl": fl, "wrote": False}
+
+    from . import mysqldb
+    rcn = fm.pop("_r_cn", "")
+    # foot_league upsert — always done so esports leagues get flipped to
+    # enabled=0 (which hides their matches via the lid whitelist).
+    fl_cols = list(fl.keys())
+    fl_ph = ",".join(["%s"] * len(fl_cols))
+    fl_upd = ",".join(f"{c}=VALUES({c})" for c in fl_cols if c != "lid")
+    mysqldb.execute(
+        f"INSERT INTO foot_league ({','.join(fl_cols)}) VALUES ({fl_ph}) "
+        f"ON DUPLICATE KEY UPDATE {fl_upd}",
+        tuple(fl[c] for c in fl_cols),
+    )
+    # Esports: skip the foot_match / r_cn writes entirely.  The disabled
+    # league row above already hides any pre-existing matches.
+    if int(fl.get("enabled", 1)) == 0:
+        fm["_r_cn"] = rcn
+        return {"fm": fm, "fl": fl, "wrote": False, "skipped": "esports"}
+    # foot_match upsert
+    fm_cols = list(fm.keys())
+    fm_ph = ",".join(["%s"] * len(fm_cols))
+    fm_upd = ",".join(f"`{c}`=VALUES(`{c}`)" for c in fm_cols if c != "gid")
+    mysqldb.execute(
+        f"INSERT INTO foot_match ({','.join('`'+c+'`' for c in fm_cols)}) "
+        f"VALUES ({fm_ph}) ON DUPLICATE KEY UPDATE {fm_upd}",
+        tuple(fm[c] for c in fm_cols),
+    )
+    # r_cn upsert
+    if rcn:
+        mysqldb.execute(
+            "INSERT INTO foot_match_xml (gid, m_date, r_cn, is_r, r_up_time, r_display) "
+            "VALUES (%s,%s,%s,1,%s,1) "
+            "ON DUPLICATE KEY UPDATE r_cn=VALUES(r_cn), is_r=1, "
+            "r_up_time=VALUES(r_up_time), r_display=1",
+            (fm["gid"], fm["m_date"], rcn, int(time.time())),
+        )
+    fm["_r_cn"] = rcn
+    return {"fm": fm, "fl": fl, "wrote": True}
+
+
+def _selftest() -> None:
+    """Round-trip a sample main_odds through build_rcn → parse_rcn_markets."""
+    from .rcn_parser import parse_rcn_markets
+    sample = {
+        "m_h": 5.75, "m_n": 4.75, "m_c": 1.48,
+        "re_h": 3.45, "re_c": 1.30, "re_line": -0.25,
+        "ou_over": 1.91, "ou_under": 1.91, "ou_line": 2.5,
+        "btts_yes": 2.05, "btts_no": 1.70,
+        "reh_h": 2.30, "reh_c": 1.60, "reh_line": -0.25,
+        "dc_1x": 2.62, "dc_12": 1.18, "dc_x2": 1.12,
+        "dnb_h": 4.0, "dnb_c": 1.22,
+    }
+    rcn = build_rcn(sample)
+    print("r_cn length:", len(rcn))
+    markets = parse_rcn_markets(rcn)
+    for m in markets:
+        print(f"  {m['market_name']:24} {m['odds'][0] if m['odds'] else m['odds']}")
+    print(f"\n{len(markets)} markets round-tripped")
+
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    _selftest()

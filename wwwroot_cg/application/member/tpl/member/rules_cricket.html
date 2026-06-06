@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>體育規則 - 板球</title>
+    <script id="homeJS">{JS}</script>
+
+    <link href="{CDNURL}/style/rules.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="content_l">
+    <div class="box_rules">
+        <div class="title_rules">
+            <div id="back_btn" name="back_btn" class="btn_back"><i class="icon_back"><svg><use xlink:href="#icon_back"/></svg></i></div>
+            <span>*ART_ru_title*</span>
+        </div>
+        <div class="select_rules">
+            <span>*ART_ru_select*</span>
+            <label class="box_select">
+                <i class="icon_arr"><svg><use xlink:href="#icon_toparr"/></svg></i>
+                <select name="sportsdropdown" class="sportsdropdown" id="sportsdropdown">
+                    <option value="general">*ART_ru_general*</option>
+                    <option value="outright">*ART_ru_outright*</option>
+                    <option value="multiples">*ART_ru_multiples*</option>
+                    <option value="soccer">*ART_ru_soccer*</option>
+                    <option value="basketball">*ART_ru_basketball*</option>
+                    <option value="tennis">*ART_ru_tennis*</option>
+                    <option value="volleyball">*ART_ru_volleyball*</option>
+                    <option value="badminton">*ART_ru_badminton*</option>
+                    <option value="table_tennis">*ART_ru_table_tennis*</option>
+                    <option value="baseball">*ART_ru_baseball*</option>
+                    <option value="snooker">*ART_ru_snooker*</option>
+                    <option value="usa_football">*ART_ru_usa_football*</option>
+                    <option value="archery">*ART_ru_archery*</option>
+                    <option value="athletic">*ART_ru_athletic*</option>
+                    <option value="aussie">*ART_ru_aussie*</option>
+                    <option value="beach_soccer">*ART_ru_beach_soccer*</option>
+                    <option value="beach_volleyball">*ART_ru_beach_volleyball*</option>
+                    <option value="boxing">*ART_ru_boxing*</option>
+                    <option value="cricket" selected="selected">*ART_ru_cricket*</option>
+                    <option value="cycling">*ART_ru_cycling*</option>
+                    <option value="darts">*ART_ru_darts*</option>
+                    <option value="e_sports">*ART_ru_e_sports*</option>
+                    <option value="field_hockey">*ART_ru_field_hockey*</option>
+                    <option value="financial_bets">*ART_ru_financial_bets*</option>
+                    <option value="futsal">*ART_ru_futsal*</option>
+                    <option value="golf">*ART_ru_golf*</option>
+                    <option value="gymnastics">*ART_ru_gymnastics*</option>
+                    <option value="handball">*ART_ru_handball*</option>
+                    <option value="ice_hockey">*ART_ru_ice_hockey*</option>
+                    <option value="judo">*ART_ru_judo*</option>
+                    <option value="lacrosse">*ART_ru_lacrosse*</option>
+                    <option value="medal_betting">*ART_ru_medal_betting*</option>
+                    <option value="motor_sports">*ART_ru_motor_sports*</option>
+                    <option value="olympics">*ART_ru_olympics*</option>
+                    <option value="rowing">*ART_ru_rowing*</option>
+                    <option value="rugby_league">*ART_ru_rugby_league*</option>
+                    <option value="softball">*ART_ru_softball*</option>
+                    <option value="tamp">*ART_ru_tamp*</option>
+                    <option value="water_polo">*ART_ru_water_polo*</option>
+                    <option value="weightlifting">*ART_ru_weightlifting*</option>
+                    <option value="wintersports">*ART_ru_wintersports*</option>
+                </select>
+
+                <div id="pc_sportselect" class="dropdown_select">*ART_ru_cricket*</div>
+                <ul id="pc_sportsdropdown" name="sportsdropdown" class="dropdown_pc">
+                    <li id="pc_general">*ART_ru_general*</li>
+                    <li id="pc_outright">*ART_ru_outright*</li>
+                    <li id="pc_multiples">*ART_ru_multiples*</li>
+                    <li id="pc_soccer">*ART_ru_soccer*</li>
+                    <li id="pc_basketball">*ART_ru_basketball*</li>
+                    <li id="pc_tennis">*ART_ru_tennis*</li>
+                    <li id="pc_volleyball">*ART_ru_volleyball*</li>
+                    <li id="pc_badminton">*ART_ru_badminton*</li>
+                    <li id="pc_table_tennis">*ART_ru_table_tennis*</li>
+                    <li id="pc_baseball">*ART_ru_baseball*</li>
+                    <li id="pc_snooker">*ART_ru_snooker*</li>
+                    <li id="pc_usa_football">*ART_ru_usa_football*</li>
+                    <li id="pc_archery">*ART_ru_archery*</li>
+                    <li id="pc_athletic">*ART_ru_athletic*</li>
+                    <li id="pc_aussie">*ART_ru_aussie*</li>
+                    <li id="pc_beach_soccer">*ART_ru_beach_soccer*</li>
+                    <li id="pc_beach_volleyball">*ART_ru_beach_volleyball*</li>
+                    <li id="pc_boxing">*ART_ru_boxing*</li>
+                    <li id="pc_cricket" class="on">*ART_ru_cricket*</li>
+                    <li id="pc_cycling">*ART_ru_cycling*</li>
+                    <li id="pc_darts">*ART_ru_darts*</li>
+                    <li id="pc_e_sports">*ART_ru_e_sports*</li>
+                    <li id="pc_field_hockey">*ART_ru_field_hockey*</li>
+                    <li id="pc_financial_bets">*ART_ru_financial_bets*</li>
+                    <li id="pc_futsal">*ART_ru_futsal*</li>
+                    <li id="pc_golf">*ART_ru_golf*</li>
+                    <li id="pc_gymnastics">*ART_ru_gymnastics*</li>
+                    <li id="pc_handball">*ART_ru_handball*</li>
+                    <li id="pc_ice_hockey">*ART_ru_ice_hockey*</li>
+                    <li id="pc_judo">*ART_ru_judo*</li>
+                    <li id="pc_lacrosse">*ART_ru_lacrosse*</li>
+                    <li id="pc_medal_betting">*ART_ru_medal_betting*</li>
+                    <li id="pc_motor_sports">*ART_ru_motor_sports*</li>
+                    <li id="pc_olympics">*ART_ru_olympics*</li>
+                    <li id="pc_rowing">*ART_ru_rowing*</li>
+                    <li id="pc_rugby_league">*ART_ru_rugby_league*</li>
+                    <li id="pc_softball">*ART_ru_softball*</li>
+                    <li id="pc_tamp">*ART_ru_tamp*</li>
+                    <li id="pc_water_polo">*ART_ru_water_polo*</li>
+                    <li id="pc_weightlifting">*ART_ru_weightlifting*</li>
+                    <li id="pc_wintersports">*ART_ru_wintersports*</li>
+                </ul>
+            </label>
+        </div>
+        <div id="rule_box" class="content_rules">
+            <h1>*ART_ru_h1_cricket*</h1>
+            <span class="rules_date">*ART_ru_lastdate* <tt>*ART_ru_boxing_date*</tt></span>
+            <h2>*ART_ru_rule*</h2>
+            <ul>
+                <li>*ART_ru_cricket_b_1*</li>
+                <li>*ART_ru_cricket_b_2*</li>
+            </ul>
+
+            <h2>*ART_ru_cricket_c*</h2>
+            <ul>
+                <li>*ART_ru_cricket_c_1*
+                    <br>
+                    <br>
+                    *ART_ru_cricket_c_1-1*
+                    <br>
+                    <ol>
+                        <li>*ART_ru_cricket_c_1_1*</li>
+                        <li>*ART_ru_cricket_c_1_2*</li>
+                    </ol>
+                </li>
+
+                <li>*ART_ru_cricket_c_2*</li>
+                <li>*ART_ru_cricket_c_3*</li>
+                <li>*ART_ru_cricket_c_4*</li>
+            </ul>
+
+            <h2>*ART_ru_cricket_d*</h2>
+            <ul>
+                <li>*ART_ru_cricket_d_1*</li>
+                <li>*ART_ru_cricket_d_2*</li>
+                <li>*ART_ru_cricket_d_3*</li>
+                <li>*ART_ru_cricket_d_4*</li>
+            </ul>
+
+            <h2>*ART_ru_bettype*</h2>
+            <ul class="list_none">
+                <li>
+                    <h3>*ART_ru_cricket_e*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_e_1*</li>
+                        <li>*ART_ru_cricket_e_2*</li>
+                        <li>*ART_ru_cricket_e_3*</li>
+                        <li>*ART_ru_cricket_e_4*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_f*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_f_1*</li>
+                        <li>*ART_ru_cricket_f_2*</li>
+                        <li>*ART_ru_cricket_f_3*</li>
+                    </ul>
+                </li>
+                <!--
+                <li>
+                    <h3>*ART_ru_cricket_g*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_g_1*</li>
+                        <li>*ART_ru_cricket_g_2*</li>
+                    </ul>
+                </li>
+                -->
+                <li>
+                    <h3>*ART_ru_cricket_h*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_h_1*</li>
+                        <li>*ART_ru_cricket_h_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_i*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_i_1*</li>
+                        <li>*ART_ru_cricket_i_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_j*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_j_1*</li>
+                        <li>*ART_ru_cricket_j_2*</li>
+                        <li>*ART_ru_cricket_j_3*</li>
+                        <li>*ART_ru_cricket_j_4*</li>
+                        <li>*ART_ru_cricket_j_5*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_k*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_k_1*</li>
+                        <li>*ART_ru_cricket_k_2*</li>
+                        <li>*ART_ru_cricket_k_3*</li>
+                        <li>*ART_ru_cricket_k_4*</li>
+                        <li>*ART_ru_cricket_k_5*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_l*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_l_1*</li>
+                        <li>*ART_ru_cricket_l_2*</li>
+                        <li>*ART_ru_cricket_l_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_m*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_m_1*</li>
+                        <li>*ART_ru_cricket_m_2*</li>
+                        <li>*ART_ru_cricket_m_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_n*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_n_1*</li>
+                        <li>*ART_ru_cricket_n_2*</li>
+                        <li>*ART_ru_cricket_n_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_o*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_o_1*</li>
+                        <li>*ART_ru_cricket_o_2*</li>
+                        <li>*ART_ru_cricket_o_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_p*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_p_1*</li>
+                        <li>*ART_ru_cricket_p_2*</li>
+                        <li>*ART_ru_cricket_p_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_q*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_q_1*</li>
+                        <li>*ART_ru_cricket_q_2*</li>
+                        <li>*ART_ru_cricket_q_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_r*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_r_1*</li>
+                        <li>*ART_ru_cricket_r_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_s*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_s_1*</li>
+                        <li>*ART_ru_cricket_s_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_t*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_t_1*</li>
+                        <li>*ART_ru_cricket_t_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_u*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_u_1*</li>
+                        <li>*ART_ru_cricket_u_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_v*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_v_1*</li>
+                        <li>*ART_ru_cricket_v_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_w*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_w_1*</li>
+                        <li>*ART_ru_cricket_w_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_x*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_x_1*</li>
+                        <li>*ART_ru_cricket_x_2*</li>
+                        <li>*ART_ru_cricket_x_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_y*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_y_1*</li>
+                        <li>*ART_ru_cricket_y_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_z*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_z_1*</li>
+                        <li>*ART_ru_cricket_z_2*</li>
+                        <li>*ART_ru_cricket_z_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_aa*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_aa_1*</li>
+                        <li>*ART_ru_cricket_aa_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ab*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ab_1*</li>
+                        <li>*ART_ru_cricket_ab_2*</li>
+                        <li>*ART_ru_cricket_ab_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ac*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ac_1*</li>
+                        <li>*ART_ru_cricket_ac_2*</li>
+                        <li>*ART_ru_cricket_ac_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ad*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ad_1*</li>
+                        <li>*ART_ru_cricket_ad_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ae*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ae_1*</li>
+                        <li>*ART_ru_cricket_ae_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_af*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_af_1*</li>
+                        <li>*ART_ru_cricket_af_2*</li>
+                        <li>*ART_ru_cricket_af_3*</li>
+                        <li>*ART_ru_cricket_af_4*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ag*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ag_1*</li>
+                        <li>*ART_ru_cricket_ag_2*</li>
+                        <li>*ART_ru_cricket_ag_3*</li>
+                        <li>*ART_ru_cricket_ag_4*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ah*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ah_1*</li>
+                        <li>*ART_ru_cricket_ah_2*</li>
+                        <li>*ART_ru_cricket_ah_3*</li>
+                        <li>*ART_ru_cricket_ah_4*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ai*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ai_1*</li>
+                        <li>*ART_ru_cricket_ai_2*</li>
+                        <li>*ART_ru_cricket_ai_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_aj*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_aj_1*</li>
+                        <li>*ART_ru_cricket_aj_2*</li>
+                        <li>*ART_ru_cricket_aj_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ak*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ak_1*</li>
+                        <li>*ART_ru_cricket_ak_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_al*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_al_1*</li>
+                        <li>*ART_ru_cricket_al_2*</li>
+                        <li>*ART_ru_cricket_al_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_am*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_am_1*</li>
+                        <li>*ART_ru_cricket_am_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_an*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_an_1*</li>
+                        <li>*ART_ru_cricket_an_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ao*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ao_1*</li>
+                        <li>*ART_ru_cricket_ao_2*</li>
+                        <li>*ART_ru_cricket_ao_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ap*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ap_1*</li>
+                        <li>*ART_ru_cricket_ap_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_aq*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_aq_1*</li>
+                        <li>*ART_ru_cricket_aq_2*</li>
+                        <li>*ART_ru_cricket_aq_3*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_ar*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_ar_1*</li>
+                        <li>*ART_ru_cricket_ar_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_as*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_as_1*</li>
+                        <li>*ART_ru_cricket_as_2*</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_at*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_at_1*</li>
+                        <li>*ART_ru_cricket_at_2*
+                            <ul class="list_none">
+                                <li class="text_line">*ART_ru_cricket_at_2_1*</li>
+                                <li>*ART_ru_cricket_at_2_2*</li>
+                                <li class="text_line">*ART_ru_cricket_at_2_3*</li>
+                                <li>*ART_ru_cricket_at_2_4*</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <h3>*ART_ru_cricket_au*</h3>
+                    <ul>
+                        <li>*ART_ru_cricket_au_1*</li>
+                        <li>*ART_ru_cricket_au_2*</li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

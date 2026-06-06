@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>es右面板</title>
+	<script id="homeJS">{JS}</script>
+	
+	<link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+</head>
+ <body>
+        <div class="content_r">
+            <!-- ES Score board -->
+            <div id="R_div_matches" class="box_scoboard es" style="display: none;">
+                <!-- 帶入class="color[H/C]_編號" -->
+                <!-- class帶入遊戲代碼 & 計分版模式MOBA/FPS/BASIC -->
+                <div class="top">
+                    <div class="text_team team_h">
+                        <i>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 19L0 0H16.5L20 17.5L4 19Z" fill-opacity="0.56"/>
+                                <path d="M19.3333 3H3L7.66667 24H24L19.3333 3Z"/>
+                            </svg>
+                        </i>
+                        <div>
+                            <span id="R_team_h"></span>
+                        </div>
+                    </div>
+                    <div id="R_box_scostate" class="box_score">
+                        <!-- 無次比分,狀態 class="box_score_2row"-->
+                        <div class="text_time">
+                            <div class="box_time">
+                                <tt id="R_gameType" class="txt_gametype"></tt>
+                                <i id="R_midfield" class="icon_n" style="display:none"></i>
+                                <p id="R_nowGame" class="txt_nowgame"></p>
+                            </div>
+                        </div>
+                        <div class="main_point">
+                            <span id="R_matchScoreH" class="team_h"></span>
+                            <span id="R_matchScoreC" class="team_c"></span>
+                            <p id="R_icon_v" class="icon_v" style="display: none;">V</p>
+                        </div>
+                        <div id="R_subScore" class="sec_point">
+                            <span id="R_subScoreH" class="team_h"></span>
+                            <i></i>
+                            <span id="R_subScoreC" class="team_c"></span>
+                        </div>
+                        <div id="R_nowStatus" class="text_state" style="display: none;">Drafting</div>
+                    </div>
+                    <div class="text_team team_c">
+                        <i>
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 19L24 0H7.5L4 17.5L20 19Z" fill-opacity="0.56"/>
+                                <path d="M4.66667 3H21L16.3333 24H0L4.66667 3Z"/>
+                            </svg>
+                        </i>
+                        <div>
+                            <span id="R_team_c"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="R_div_rate" class="bottom"></div>
+                <!-- 資料分析 -->
+                <div id="R_statistics_content" class="es_content">
+                    <!-- class大小寫勿更動 class="ES_MOBA-1 / ES_FPS-1 / ES_BASIC" -->
+                    <!-- Loading -->
+                    <div id="R_statistics_loading" class="loading">
+                        <i class="icon_load"></i>
+                    </div>
+                    <span id="R_es_mode" class="es_title" data-MOBA-tw="擊殺" data-MOBA-cn="击杀" data-MOBA-en="Kills" data-FPS-tw="回合分數" data-FPS-cn="回合分数" data-FPS-en="Round Scores"></span>
+                    <div id="R_start_game" class="es_starts" style="display: none;"></div>
+                    <div id="R_es_result" class="box_es_result"></div>
+                </div>
+            </div>
+            <!-- rate model-->
+            <div id="R_div_rate_model" class="bottom" style="display: none;">
+                <div class="percent_text">
+                    <div class="main_num team_h">
+                        *WIN_RATE_H* %
+					<span class="*RATE_H_CLASS*">*RATE_CHANGE*</span>
+                        <!-- 無數值請留空｜class="text_up / text_down" -->
+                    </div>
+                    <tt id="R_rate">*NOW_PERIOD* *ART_win*</tt>
+                    <div class="main_num team_c">
+                        *WIN_RATE_C* %
+					<span class="*RATE_C_CLASS*">*RATE_CHANGE*</span>
+                        <!-- 無數值請留空｜class="text_up / text_down" -->
+                    </div>
+                </div>
+                <div class="percent_graph" style="--win_h: *WIN_RATE_H*%; --win_c: *WIN_RATE_C*%;">
+                    <span class="team_h"></span>
+                    <span class="team_c"></span>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

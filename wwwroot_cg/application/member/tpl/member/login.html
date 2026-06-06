@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+	<title>login</title>
+	<script id="loginJS">{JS}</script>
+	<link href="{CDNURL}/style/login.css" rel="stylesheet" type="text/css" media="screen">
+	<!-- <style id="loginCS">{CSS}</style> -->
+</head>
+<body>
+<div ontouchstart="" class="login">
+	<div class="bg_login">
+		<div class="box_language">
+			<span id="lang_cn" class="btn_language">*ART_login_cn*</span>
+			<span id="lang_tw" class="btn_language on">*ART_login_tw*</span><!-- 當前語系新增class="on" -->
+			<span id="lang_en" class="btn_language">*ART_login_en*</span>
+		</div>
+		<!-- <i id="icon_login" class="icon_login"></i> -->
+		<div class="box_login">
+			<label id="usr_lab" class="lab_input"><!-- input內有文字時 Add class="on" / 錯誤Add class="error" -->
+				<input id="usr" class="userid" type="text" autocomplete="off" required="required">
+				<span class="text_input" data-tooltip="*ART_login_id*"></span>
+				<i id="usr_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+			</label>
+
+			<label id="pwd_lab" class="lab_input"><!-- input內有文字時 Add class="on" / 錯誤Add class="error" -->
+				<input id="pwd" class="pwd" type="password" autocomplete="off" required="required">
+				<span class="text_input" data-tooltip="*ART_login_pwd*"></span>
+				<i id="pwd_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+			</label>
+
+			<span id="text_error" class="text_error" style="display: none;"><!-- 請輸入您的登入帳號 --></span>
+
+			<input id="btn_login" class="btn_login" type="button" value="*ART_login_btn_login*">
+
+			<div class="box_remember">
+				<label class="check_remember lab_radio">
+					<input id="remember" type="checkbox">
+					<span class="checkmark"></span>
+					<tt>*ART_login_remeber*</tt>
+				</label>
+				<span id="btn_forgot" class="btn_forgot">*ART_login_forgot*</span>
+			</div>
+
+			<input id="btn_pwd4" class="btn_passcode" type="button" value="*ART_login_btn_passcode*" style="display: none;">
+			<!-- <input id="btn_site" class="btn_oldsite" type="button" value="*ART_login_btn_oldsite*" style="display: ;"> -->
+
+		</div>
+
+		<div id="div_run" class="box_img *ART_lang*">
+			<div class="img_festival"></div>
+			<div class="img_ip">
+				<a id="ip_run" href="http://125.252.69.39" target="_blank" class="btn_ip">
+					<span id="run_ip">66.133.87.217</span>
+				</a>
+				<div id="ip_guide" class="btn_ipguide"></div>
+			</div>
+		</div>
+
+		<div class="box_browser">
+			<span>*ART_login_brower_title*</span>
+			<div class="wrap_browser">
+				<div id="browse_chr" class="btn_browser">
+					<i class="icon_chrome"></i>
+					<span>*ART_login_chrome*</span>
+				</div>
+				<div id="browse_saf" class="btn_browser">
+					<i class="icon_safari"></i>
+					<span>*ART_login_safari*</span>
+				</div>
+				<div id="browse_fox" class="btn_browser">
+					<i class="icon_firefox"></i>
+					<span>*ART_login_firefox*</span>
+				</div>
+			</div>
+			<p>*ART_login_brower_text_1*<a id="systemreq">*ART_login_brower_text_btn*</a>*ART_login_brower_text_2*</p>
+		</div>
+	</div>
+</div>
+</body>
+</html>

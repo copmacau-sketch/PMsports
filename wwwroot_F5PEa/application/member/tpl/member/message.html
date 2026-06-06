@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>{JS}</script>
+
+    <link href="{CDNURL}/style/message.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/share_tool.css" rel="stylesheet" type="text/css">
+    <title></title>
+
+</head>
+<body>
+<div>
+    <div class="all_outside">
+
+        <!-- 標題列 -->
+        <div class="tool_title_extend">
+            <div>
+                <button id="message_back_btn" class="btn_tool_back minimouse_hover">
+                    <i><svg><use xlink:href="#icon_backbtn"/></svg></i>
+                </button>
+                <span class="tool_title_txt">*ART_message_title*</span>
+                <!-- 開啟時加上class .on -->
+                <button id="message_search_btn" class="btn_tool_search minimouse_hover">
+                    <i><svg><use xlink:href="#icon_search"/></svg></i>
+                </button>
+            </div>
+
+
+
+            <!-- 搜尋function -->
+            <div id="message_select" class="msg_bar" style="display: none;">
+                <!-- 輸入時加上class .active -->
+                <label id="message_enterbox" class="msg_enterbox">
+                    <input id="message_text" type="text" placeholder="*ART_message_search*" autocorrect="off" spellcheck="false" autocapitalize="off" data-system="ios12" required>
+                    <div id="message_selectclear_btn" class="msg_close">
+                        <i><svg><use xlink:href="#icon_close"/></svg></i>
+                    </div>
+                </label>
+                <span id="message_clear_btn" class="btn_msg_enterbox">*ART_message_cancel*</span>
+            </div>
+            <!-- 搜尋function end -->
+
+
+
+            <!-- 當前選項加上class .active 有訊息加上class .on -->
+            <div class="tool_category">
+                <ul>
+                    <li id="message_General" class="active">
+                        *ART_message_normal*<i></i>
+                    </li>
+                    <li id="message_Important">
+                        *ART_message_important*<i></i>
+                    </li>
+                    <li id="message_Personal">
+                        *ART_message_personal*<i></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 標題列 end -->
+
+
+
+
+
+
+
+
+
+
+        <!-- 區段 -->
+        <!-- 當前選項加上class .active -->
+        <div class="tool_squarebtn scrollmask">
+            <ul>
+                <li id="message_all" class="active">*ART_message_all*</li>
+                <li id="message_today">*ART_message_today*</li>
+                <li id="message_oldtoday">*ART_message_yeaterday*</li>
+            </ul>
+        </div>
+        <!-- 區段 end -->
+
+
+
+
+        <div id="message_showmsg" class="msg_infobox"></div>
+
+
+
+
+
+        <!-- 訊息內容 -->
+        <div id="message_msg" class="msg_infobox" style="display: none;">
+            <!-- START DYNAMIC BLOCK: tr -->
+            <div class="msg_infolist">
+                <div class="msg_info_date">*ADDDATE*</div>
+                <div class="msg_info_txt">*MSG*</div>
+            </div>
+            <!-- END DYNAMIC BLOCK: tr -->
+        </div>
+        <!-- 訊息內容 end -->
+
+
+
+
+
+
+
+
+
+
+
+        <!-- 無資料 -->
+        <div id="message_noinfo" class="msg_noinfo">*ART_message_nodata*</div>
+        <!-- 無資料 end -->
+
+
+
+
+
+
+
+    </div>
+</div>
+</body>
+</html>

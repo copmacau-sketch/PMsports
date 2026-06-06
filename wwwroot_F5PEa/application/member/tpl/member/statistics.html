@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+        <title>es-資料分析</title>
+       <script id="homeJS">{JS}</script>
+        <link href="{CDNURL}/style/score_board.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <div class="es_content">
+            <!-- class大小寫勿更動 class="ES_MOBA-1 / ES_FPS-1 / ES_BASIC" -->
+            <span id="es_mode" class="es_title" data-MOBA-tw="擊殺" data-MOBA-cn="击杀" data-MOBA-en="Kills" data-FPS-tw="回合分數" data-FPS-cn="回合分数" data-FPS-en="Round Scores"></span>
+            <div id="start_game" class="es_starts" style="display: none;"></div>
+            <div id="es_result" class="box_es_result"></div>
+            <div id="es_result_model" class="box_es_result" style="display: none;">
+                <div>
+                    <div class="team_h *RESULT_H*">
+                        <!-- class="win / lose" -->
+                        <i class="icon_state"></i>
+                        <p id="score_h">*SCORE_H*</p>
+                    </div>
+                    <span class="es_game">*GAMENUM*</span>
+                    <tt class="es_time *LIVE*">*DUR_SCORE*</tt>
+                    <div class="team_c *RESULT_C*">
+                        <p id="score_c">*SCORE_C*</p>
+                        <i class="icon_state"></i>
+                        <!-- class="win / lose" -->
+                    </div>
+                </div>
+                <hr>
+            </div>
+        </div>
+    </body>
+</html>

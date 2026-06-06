@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name='viewport' content='maximum-scale=1, width=device-width, user-scalable=no, minimum-scale=1.0, viewport-fit=cover'/>
+    <title>home page</title>
+    <script id="homeJS">{JS}</script>
+    <link href="{CDNURL}/style/login.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="chg_psw">
+    <div class="title_chgpwd *ART_lang*">*ART_log_chgpwd*</div>
+    <div class="content_chgpwd">
+        <div class="noteBox">
+				<span class="noteBox1">*ART_log_chgpwd_text_1*
+					<br>
+					<br>
+					*ART_log_chgpwd_text_2*
+				</span>
+            <ul class="noteBox2">
+                <li>*ART_log_chgpwd_text_3*</li>
+                <li>*ART_log_chgpwd_text_4*</li>
+                <li>*ART_log_chgpwd_text_5*</li>
+            </ul>
+        </div>
+        <div class="">
+            <label id="currentpwd" class="lab_input" ><!--  錯誤時新增class="error" -->
+                <input id="oldpassword" name="oldpassword" type="password" required="required" class="" >
+                <span class="text_input" data-tooltip="*ART_log_inp_nowpwd*"></span>
+                <i id="currentpwd_rd_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+            </label>
+
+            <label id="newpwd" class="lab_input "><!--  錯誤時新增class="error" -->
+                <input id="password" name="password" type="password" required="required" class="">
+                <span class="text_input" data-tooltip="*ART_log_inp_newpwd*"></span>
+                <i id="newpwd_rd_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+            </label>
+
+            <label id="confirmpwd" class="lab_input "><!--  錯誤時新增class="error" -->
+                <input id="REpassword" name="REpassword" type="password" required="required" class="">
+                <span class="text_input" data-tooltip="*ART_log_inp_repwd*"></span>
+                <i id="confirmpwd_rd_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+            </label>
+
+            <span id="chgpwd_text_error" class="text_error" style="display: none;"><!-- 錯誤訊息 --></span>
+
+            <div id="chgpswBtnBox" class="btn_chgpwd" style="display:;">
+                <div id="cancel" name="cancel" class="btn_cancel" data-system="ios12">*ART_log_btn_cancel*</div>
+                <div id="greenBtn" name="OK" class="btn_submit" data-system="ios12">*ART_log_btn_submit*</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

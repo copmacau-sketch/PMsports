@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>{JS}</script>
+
+    <link href="{CDNURL}/style/other_page.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/share_tool.css" rel="stylesheet" type="text/css">
+    <title></title>
+</head>
+<body>
+<div>
+    <div class="all_outside">
+
+        <!-- 標題列 -->
+        <div class="tool_title48">
+            <button id="toback" class="btn_tool_back minimouse_hover">
+                <i><svg><use xlink:href="#icon_backbtn"/></svg></i>
+            </button>
+            <span class="tool_title_txt">*ART_passcode_title*</span>
+        </div>
+        <!-- 標題列 end -->
+
+
+
+
+
+
+
+
+
+
+        <!-- 四位密碼輸入 -->
+        <div id="oth_pass_set" class="oth_pass_box" style="display: none;">
+            <h1 id="intocode" class="oth_pass_title" style="display:;">*ART_passcode_enter*</h1>
+            <h1 id="chkcode" class="oth_pass_title" style="display: none;">*ART_passcode_check*</h1>
+            <div class="oth_pass_txt">
+                <tt id="chkmsg">*ART_passcode_set*</tt>
+                <span id="delall" type="button" style="display: none;">*ART_passcode_reset*</span>
+            </div>
+            <div id="code_err" class="oth_pass_err" style="display: none;">*ART_passcode_err*</div>
+
+
+
+            <!-- 輸入圈圈 -->
+            <!-- 輸入時在li加入class .active -->
+            <ul class="oth_pass_circle">
+                <li id="li_1" class=""></li>
+                <li id="li_2" class=""></li>
+                <li id="li_3" class=""></li>
+                <li id="li_4" class=""></li>
+            </ul>
+            <!-- 輸入圈圈 end -->
+
+
+
+            <!-- 數字鍵盤 -->
+            <div class="oth_pass_keyboard">
+                <span id="key_1">1</span>
+                <span id="key_2">2</span>
+                <span id="key_3">3</span>
+                <span id="key_4">4</span>
+                <span id="key_5">5</span>
+                <span id="key_6">6</span>
+                <span id="key_7">7</span>
+                <span id="key_8">8</span>
+                <span id="key_9">9</span>
+                <span id="key_0">0</span>
+            </div>
+            <!-- 數字鍵盤 end -->
+
+
+
+            <!-- 功能鍵 -->
+            <div class="oth_function">
+                <button id="back_login" type="button" class="btn_oth_fun">*ART_passcode_close*</button>
+                <button id="delpasscode" type="button" class="btn_oth_fun">*ART_passcode_delete*</button>
+            </div>
+            <!-- 功能鍵 end -->
+        </div>
+        <!-- 四位密碼輸入 end -->
+
+
+
+
+
+
+
+
+
+
+        <!-- 輸入成功 -->
+        <div id="into_success" class="oth_pass_success" style="display: none;">
+            <h1 class="oth_pass_title">*ART_passcode_success*</h1>
+            <div class="oth_pass_txt">*ART_passcode_succtxt*</div>
+
+            <ul class="oth_pass_circle active">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+            <div class="oth_pass_txt">*ART_passcode_nextset*</div>
+
+            <button id="set_end" type="button" class="btn_green_full">*ART_passcode_ok*</button>
+        </div>
+        <!-- 輸入成功 end -->
+
+
+
+
+
+
+
+
+
+        <!-- 移除四位密碼 -->
+        <div id="oth_pass_lab" class="oth_remove_box" style="display:none;">
+            <ul id="oth_pass_1" class="oth_pass_note" style="display:none;">
+                <li>*ART_passcode_txt01*</li>
+                <li>*ART_passcode_txt02*</li>
+            </ul>
+
+            <ul id="oth_pass_2" class="oth_pass_note" style="display:none;">
+                <li>*ART_passcode_txt03*</li>
+                <li>*ART_passcode_txt04*</li>
+            </ul>
+            <div id="oth_pass_btn1" class="function_group" style="display:none;">
+                <button  id="rm_btn" type="button" class="btn_gray">*ART_passcode_remove*</button>
+                <button  id="chg_btn" type="button" class="btn_green">*ART_passcode_edit*</button>
+            </div>
+
+            <div id="oth_pass_btn2" class="function_group" style="display:none;">
+                <button  id="oth_pass_btn_no" type="button" class="btn_gray">*ART_passcode_no*</button>
+                <button  id="oth_pass_btn_yes" type="button" class="btn_green">*ART_passcode_yes*</button>
+            </div>
+        </div>
+        <!-- 移除四位密碼 end -->
+
+
+
+
+
+
+
+
+
+        <!-- 遮罩吐司訊息 搬入alert_msg.html -->
+        <!-- <div id="toast_lab" class="toast_mask" style="display:none;">
+            <div class="toast_box">
+                <ul class="popup_txt">
+                    <li id="msg_1" style="display:none1;">您現在的裝置 / 瀏覽器尚未設定簡易密碼登入，為了讓您更快速方便的登入，是否要現在設定呢？</li>
+                    <li id="msg_2" style="display:;">注意：使用其他帳戶登錄將暫時禁止此設備/瀏覽器上的簡易密碼登錄。</li>
+                    <li id="msg_3" style="display:none1;">您的其他手機也將無法使用四位數密碼登入此帳號，確定嗎？</li>
+                    <li id="msg_4" style="display:none1;">您已經成功移除四位數密碼登入</li>
+                </ul>
+
+
+
+
+                <div class="function_group">
+                    <button id="button_no" type="button" class="btn_gray" style="display:;">否</button>
+                    <button id="button_yes" type="button" class="btn_green" style="display:;">是</button>
+                    <button id="button_no3" type="button" class="btn_gray" style="display:none;">否</button>
+                    <button id="button_yes3" type="button" class="btn_green" style="display:none;">是</button>
+                </div>
+
+
+
+
+
+                <div  id="msg4_lab" class="function_group" style="display: none;">
+                    <button id="msg4_btn" type="button" class="btn_green_full">OK</button>
+                </div>
+
+
+
+
+                <div id="checkbox_lab"class="toast_checkbox">
+                    <label>
+                        <input id="checkbox_noshow" type="checkbox">
+                        <i></i>
+                    </label>
+                    不要再顯示。
+                </div>
+
+            </div>
+        </div> -->
+        <!-- 遮罩吐司訊息 end -->
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  html, body {
+    @apply bg-bg text-neutral-100 font-sans;
+  }
+  ::selection { @apply bg-accent/30 text-white; }
+}
+
+@layer components {
+  .panel        { @apply bg-panel border border-border rounded-lg; }
+  .panel-padded { @apply p-4; }
+  .kpi          { @apply panel panel-padded flex flex-col gap-1; }
+  .kpi-label    { @apply text-xs uppercase tracking-wide text-muted; }
+  .kpi-value    { @apply text-2xl font-semibold tabular-nums; }
+  .badge        { @apply inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium border border-border bg-bg; }
+  .nav-link     { @apply px-3 py-1.5 text-sm rounded-md text-muted hover:text-white hover:bg-panel transition-colors; }
+  .nav-link-active { @apply text-white bg-panel; }
+  .input        { @apply bg-bg border border-border rounded-md px-3 py-1.5 text-sm placeholder:text-muted focus:outline-none focus:ring-1 focus:ring-accent; }
+  .btn          { @apply inline-flex items-center gap-1.5 px-3 py-1.5 text-sm rounded-md border border-border bg-bg hover:bg-panel transition-colors; }
+  .btn-primary  { @apply btn bg-accent border-accent hover:bg-accent/90 text-white; }
+  .table        { @apply w-full text-sm; }
+  .table th     { @apply text-left text-xs uppercase tracking-wide text-muted font-medium border-b border-border px-3 py-2 bg-panel; }
+  .table td     { @apply border-b border-border px-3 py-2 align-top; }
+  .table tr:hover td { @apply bg-panel/40; }
+  .num          { @apply tabular-nums; }
+  .pos          { @apply text-positive; }
+  .neg          { @apply text-negative; }
+  .warn         { @apply text-warning; }
+}

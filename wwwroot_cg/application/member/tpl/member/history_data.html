@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <script>{JS}</script>
+
+    <link href="{CDNURL}/style/order.css" rel="stylesheet" type="text/css">
+    <link href="{CDNURL}/style/share_tool.css" rel="stylesheet" type="text/css">
+    <title></title>
+</head>
+<body>
+<div>
+    <div class="all_outside">
+
+        <!-- 選擇按鈕 -->
+        <ul class="tool_category big">
+            <li id="title_todaywagers">*ART_hisdata_titlebtn01*</li>
+            <li class="active">*ART_hisdata_titlebtn02*</li>
+            <li id="title_creditlogs">*ART_hisdata_titlebtn03*</li>
+        </ul>
+        <!-- 選擇按鈕 end -->
+
+
+
+        <!-- title -->
+        <div class="tool_title48">
+            <button id="backpage" class="btn_tool_back minimouse_hover">
+                <i><svg><use xlink:href="#icon_backbtn"/></svg></i>
+            </button>
+            <span class="tool_title_txt">*ART_hisdata_title*</span>
+            <button id="more_date" class="btn_tool_cal minimouse_hover"></button>
+        </div>
+        <!-- title end -->
+
+
+
+
+        <!-- 下拉選單 -->
+        <div class="tool_selboxv2 full has_range">
+
+            <!-- 大螢幕 打開選單在class="tool_select"後加上class .active 球類當前選項加上 .on -->
+            <div id="pc_gtype_sel_div" class="tool_select half pc_select">
+                <span id="gtypeTxt">*ART_hisdata_allsports*</span>
+                <ul id="pc_gtype_sel_ul" class="use_animate">
+                    <li id="ALL">*ART_hisdata_allsports*</li>
+                    <li id="FT">*ART_hisdata_ft*</li>
+                    <li id="BK">*ART_hisdata_bk*</li>
+					<li id="ES">*ART_hisdata_es*</li>
+                    <li id="TN">*ART_hisdata_tn*</li>
+                    <li id="VB">*ART_hisdata_vb*</li>
+                    <li id="BM">*ART_hisdata_bm*</li>
+                    <li id="TT">*ART_hisdata_tt*</li>
+                    <li id="BS">*ART_hisdata_bs*</li>
+                    <li id="SK">*ART_hisdata_sk*</li>
+                    <li id="OP">*ART_hisdata_op*</li>
+                    <li id="FS">*ART_hisdata_fs*</li>
+                </ul>
+            </div>
+
+            <!-- 小螢幕 -->
+            <div class="tool_select half ph_select">
+                <select id="gtype_sel">
+                    <option value="ALL">*ART_hisdata_allsports*</option>
+                    <option value="FT">*ART_hisdata_ft*</option>
+                    <option value="BK">*ART_hisdata_bk*</option>
+					<option value="ES">*ART_hisdata_es*</option>
+                    <option value="TN">*ART_hisdata_tn*</option>
+                    <option value="VB">*ART_hisdata_vb*</option>
+                    <option value="BM">*ART_hisdata_bm*</option>
+                    <option value="TT">*ART_hisdata_tt*</option>
+                    <option value="BS">*ART_hisdata_bs*</option>
+                    <option value="SK">*ART_hisdata_sk*</option>
+                    <option value="OP">*ART_hisdata_op*</option>
+                    <option value="FS">*ART_hisdata_fs*</option>
+                </select>
+            </div>
+
+            <!-- 範圍下拉選單 大螢幕 -->
+            <div id="tool_date_select" class="tool_rangebox half pc_select">
+                <!-- 大螢幕 打開選單在class="tool_selv2"後加上class .on 球類當前選項加上 .on -->
+
+                <div id="date_rangStart_div" class="tool_selv2 full">
+							<span id="date_rangStart_span" class="tool_selv2_span">
+								<p>*ART_hisdata_from*</p>
+								<p id="dateStart" class="word_bold"></p>
+								<i class="icon_arrdown"><svg><use xlink:href="#icon_arrdown"></use></svg></i>
+							</span>
+
+                    <ul id="date_Start_ul" class="use_animate">
+                        <li></li>
+                    </ul>
+                </div>
+
+                <div id="date_rangEnd_div" class="tool_selv2 full">
+							<span id="date_rangEnd_span" class="tool_selv2_span">
+								<p>*ART_hisdata_to*</p>
+								<p id="dateEnd" class="word_bold"></p>
+								<i class="icon_arrdown"><svg><use xlink:href="#icon_arrdown"></use></svg></i>
+							</span>
+                    <ul id="date_End_ul" class="use_animate">
+                        <li></li>
+                    </ul>
+                </div>
+                <i id="rangSearch" class="tool_selicon"><svg><use xlink:href="#icon_search"/></svg></i>
+            </div>
+
+            <!-- 範圍下拉選單 小螢幕 -->
+            <div id="ph_tool_date_select" class="tool_rangebox half ph_select">
+                <div class="tool_selv2 full ">
+							<span id="ph_date_rangStart_span" class="tool_selv2_span">
+								<p>*ART_hisdata_from*</p>
+								<select id="range_selStart">
+									<option></option>
+								</select>
+								<i class="icon_arrdown"><svg><use xlink:href="#icon_arrdown"></use></svg></i>
+							</span>
+                </div>
+                <div class="tool_selv2 full">
+							<span id="ph_date_rangEnd_span" class="tool_selv2_span" >
+								<p>*ART_hisdata_to*</p>
+								<select id="range_selEnd">
+									<option></option>
+								</select>
+								<i class="icon_arrdown"><svg><use xlink:href="#icon_arrdown"></use></svg></i>
+							</span>
+                </div>
+                <i id="ph_rangSearch" class="tool_selicon"><svg><use xlink:href="#icon_search"/></svg></i>
+            </div>
+
+        </div>
+        <!-- 下拉選單 end -->
+
+
+
+
+
+
+
+
+
+        <!-- loading -->
+        <div id="load" class="ord_loading" style="display:none;">
+            <span class="load_ring"></span>
+        </div>
+        <!-- loading end -->
+
+
+
+        <div id="div_show" name="div_show"></div>
+        <!-- 資料 -->
+        <!-- 負數.word_red 正數.word_green 可點擊粗體.word_bold -->
+        <div id="template_model" name="template_model" style="display:none;">
+            <div class="his_info_box">
+                <table cellpadding="0" cellspacing="0" class="his_info_tb">
+                    <tr class="dark_head">
+                        <th width="34%" class="date">*ART_hisdata_date*</th>
+                        <th width="22%">*ART_hisdata_bet*</th>
+                        <th width="22%">*ART_hisdata_stake*</th>
+                        <th width="22%">*ART_hisdata_winloss*</th>
+                    </tr>
+                    <!-- START DYNAMIC BLOCK: tr -->
+                    <tr id="tr_*DATE*">
+                        <td class="date">
+                            *DATE_NAME*<br>*WEEK_NAME*
+                        </td>
+                        <td>
+                            <tt>*GOLD*</tt>
+                        </td>
+
+                        <td>
+                            <tt>*VGOLD*</tt>
+                        </td>
+
+                        <td>
+                            <tt class="*WINLOSS_CLASS*">*WINLOSS*</tt>
+                        </td>
+                    </tr>
+                    <!-- END DYNAMIC BLOCK: tr -->
+                    <!--
+                    <tr>
+                        <td>
+                            07-07<br>星期日
+                        </td>
+                        <td>
+                            <tt>495</tt>
+                        </td>
+
+                        <td>
+                            <tt>495</tt>
+                        </td>
+
+                        <td>
+                            <tt class="word_green">1000</tt>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            07-07<br>星期日
+                        </td>
+                        <td>
+                            <tt>495</tt>
+                        </td>
+
+                        <td>
+                            <tt>495</tt>
+                        </td>
+
+                        <td>
+                            <tt class="word_lightred">-1000</tt>
+                        </td>
+                    </tr>
+                    -->
+                    <!-- 負數.word_lightred 正數.word_lightgreen 可點擊粗體.word_bold 總計白字.word_white -->
+                    <tr class="dark_head word_bold">
+                        <th class="date">
+                            <tt class="word_lightwhite">*ART_hisdata_total*</tt>
+                        </th>
+                        <th>
+                            *TOTAL_GOLD*
+                        </th>
+
+                        <th>
+                            *TOTAL_VGOLD*
+                        </th>
+
+                        <th>
+                            <tt class="*TOTAL_WINLOSS_CLASS*">*TOTAL_WINLOSS*</tt>
+                        </th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!-- 資料 end -->
+
+
+
+        <!-- 無資料 -->
+        <div id="noHistoryData" class="his_noinfo" style="display: none;">*ART_hisdata_nodata*</div>
+        <!-- 無資料 end -->
+
+
+
+
+
+
+
+
+
+
+        <!-- 顯示更多 -->
+        <div id="allsports" class="btn_showmore" style="display: none;">
+            *ART_hisdata_more*
+            <i><svg><use xlink:href="#icon_arrdown"/></svg></i>
+        </div>
+        <!-- 顯示更多 end -->
+
+
+        <!-- 回到頂部 -->
+        <div id="tool_backtop" class="tool_backtop" style="display:none;">
+            <button id="backtop" type="button" class="btn_gray_full">*ART_hisdata_backtop*</button>
+        </div>
+        <!-- 回到頂部 end -->
+
+
+
+
+
+
+
+
+    </div>
+</div>
+</body>
+</html>

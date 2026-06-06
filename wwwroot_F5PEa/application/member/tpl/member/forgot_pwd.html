@@ -1,0 +1,100 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<script>{JS}</script>
+	<link href="{CDNURL}/style/login.css" rel="stylesheet" type="text/css">
+	<title></title>
+</head>
+<body>
+<div class="chg_acc">
+	<div class="title_chgpwd *ART_lang*">
+		<span>*ART_forgot_title*</span>
+	</div>
+
+	<!-- Step 1 -->
+	<div id="div_set_email" class="content_chgpwd forpwd" style="display: ;">
+		<div class="tip_chgpwd">
+			<b>*ART_forgot_text1*</b>
+			*ART_forgot_text2*
+		</div>
+		<span class="text_sub">*ART_forgot_text3*</span>
+
+		<label id="lab_user" class="lab_input">
+			<!--  錯誤時新增class="error" -->
+			<input id="username" name="username" type="text" required="required">
+			<span class="text_input" data-tooltip="*ART_forgot_inp_id*"></span>
+			<i id="username_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+		</label>
+
+		<label id="lab_email" class="lab_input">
+			<input id="set_Email" name="set_Email" type="text" required="required">
+			<span class="text_input" data-tooltip="*ART_forgot_inp_email*"></span>
+			<i id="set_Email_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+		</label>
+
+		<span id="forgot_pwd_msg_error" class="text_error" style="display: none;"><!-- 錯誤訊息 --></span>
+
+		<div id="div_buttons" name="div_buttons" class="btn_chgpwd">
+			<div id="cancel_set" class="btn_cancel" data-system="ios12">*ART_forgot_btn_cancel*</div>
+			<div id="getVerify" class="btn_submit" data-system="ios12">*ART_forgot_btn_next*</div>
+		</div>
+	</div>
+
+	<!-- Step 2 -->
+	<div id="div_set_verify" class="content_chgpwd forpwd" style="display: none;">
+		<p class="text_normal">*ART_forgot_text4*</p>
+
+		<label id="lab_verify" class="lab_input">
+			<input id="myVerify" type="text" class="input_safecode" required="required">
+			<span class="text_input" data-tooltip="*ART_forgot_inp_safecode*"></span>
+			<i id="myVerify_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+		</label>
+
+		<span id="verify_show_info" class="text_error" style="display: none;">*ART_forgot_error*</span>
+
+		<div id="getVerify2" class="btn_sendcode">*ART_forgot_btn_resent*</div>
+
+		<div id="div_buttons" name="div_buttons" class="btn_chgpwd">
+			<div id="cancel_verify" class="btn_cancel" data-system="ios12">*ART_forgot_btn_cancel*</div>
+			<div id="chkVerify" class="btn_submit" data-system="ios12">*ART_forgot_btn_submit*</div>
+		</div>
+	</div>
+
+	<!-- Step 3 -->
+	<div id="div_set_pwd" class="content_chgpwd forpwd" style="display: none;">
+		<p class="text_normal">*ART_forgot_text5*</p>
+
+		<label id="passwords_lab" class="lab_input">
+			<input id="passwords" type="password" required="required">
+			<span class="text_input" data-tooltip="*ART_forgot_inp_pwd*"></span>
+			<i id="passwords_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+		</label>
+
+		<label id="pwd_chk_lab" class="lab_input" required="required">
+			<input id="pwd_chk" type="password" required="required">
+			<span class="text_input" data-tooltip="*ART_forgot_inp_repwd*"></span>
+			<i id="pwd_chk_dele" class="btn_clear" data-system="ios12"><svg><use xlink:href="#icon_close"></use></svg></i>
+		</label>
+
+		<span id="pwd_show_info" class="text_error" style="display: none;"><!--密碼確認錯誤, 請重新輸入。--></span>
+
+		<div id="div_buttons" name="div_buttons" class="btn_chgpwd">
+			<div id="cancel_setPwd" class="btn_cancel" data-system="ios12">*ART_forgot_btn_cancel*</div>
+			<div id="set_Pwd" class="btn_submit" data-system="ios12">*ART_forgot_btn_submit*</div>
+		</div>
+	</div>
+
+	<!-- Step 4 -->
+	<div id="div_set_done" class="content_chgpwd forpwd" style="display: none;">
+		<span class="text_sub text_sub_st4">*ART_forgot_text6*</span>
+
+		<div id="div_buttons" name="div_buttons" class="btn_chgpwd">
+			<div id="continue_btn" class="btn_submit" data-system="ios12">*ART_forgot_btn_gologin*</div>
+		</div>
+	</div>
+
+</div>
+</body>
+</html>

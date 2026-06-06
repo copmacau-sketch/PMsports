@@ -1,0 +1,9141 @@
+function game_list(_win, _dom, _post){
+    var _self = this;
+    var win = _win;
+    var dom = _dom;
+	var postHash = _post;
+	var classname = "game_list";
+	var parentClass;
+	var childClass;
+    var eventHandler = new Object();
+	var util = new win.Util(win,dom);
+	var util_game = new win.Util_game(win,dom);
+	var CookieManager = new win.CookieManager();
+    var config_set;
+    var LS;
+    var LS_game;
+	var _mc = new Object();
+	var openHash = new Object();
+	var openHash2 = new Object();
+	var clickedHash = new Object();
+	var orientationobj = new Object();
+	var orientationgid = new Array();
+	var orientationxml = new Object();
+	var timerHash;
+	var GameInfo;
+	var GameRatio;
+	var GameSubRatio;
+	var OBT;
+	var PK;
+	var IOR;
+	var _xmlnode;
+	var _jsonData;
+	var lastDataHash = new Object();
+	var hasPD = false;
+	var closeGameMovieStandard = 2;
+	var _lastOBT_tab = null;
+	var _lastOBT_div = null;
+	var _lastOBT_close = null;
+	var _lastCourt_tab = null;
+	var _lastPK = new Object();
+	var _lastPKset = new Object();
+	var nowOBT_count = new Object();
+	var mainModel = new Object();
+	var keepLeg = "";
+	var keepLegID = "";
+	var totalLeg = new Array();
+	var myLeg = new Object();
+	var ptype_str = new Object();
+	var ec_chg = false;
+	var ecid_array = new Array();
+	var pageCountHash = new Object();
+	ptype_str["1"] = "ET";
+	ptype_str["2"] = "PK";
+	ptype_str["3"] = "PK";
+	ptype_str["910"] = "ET";
+	ptype_str["911"] = "ET";
+
+	var OBT_transHT = new Object();
+	OBT_transHT["RE"] = "HRE";
+	OBT_transHT["ROU"] = "HROU";
+	OBT_transHT["R"] = "HR";
+	OBT_transHT["OU"] = "HOU";
+	OBT_transHT["ETRE"] = "ETHRE";
+	OBT_transHT["ETROU"] = "ETHROU";
+	var showOBT = new Array("HT","FT","ET");
+	var OBT_notShowAry = new Array("ET","PK");
+	var OBT_needsR = new Array("WI","CN","RN","ET","PK","PD");
+	var OBTAry = new Array("R","OU","WI","CN","RN","ET","PK","PD","SFS");
+	var OBT_ETAry = new Array("CN","RN","PD");
+	var OBT_rb_Ary = new Object();
+	OBT_rb_Ary["R"] = "RE";
+	OBT_rb_Ary["OU"] = "ROU";
+	var OBT_loop = new Array("RE","HRE","ROU","HROU","R","HR","OU","HOU","WI","MIX","HMIX");
+	var sessionModeAry = new Array("MIX","HMIX");
+	var getMainIor = new Array("RE","HRE","ROU","HROU","R","HR","OU","HOU");
+	var TAB_ary = new Array("main","rnou","cn","rn","pd","sfs","moua","fantasy");
+	var es_tabHash = new Array("main","sprb","lol","dota","cs","kog","val","wr","ml","star2","pubg","aov","ove","rs","rl","star","war","cro","cod","ff","aoe","aoe2","pu","al","others");
+	var filterRtypeAry =  new Array("rnou","cn","rn","pd","sfs","moua","fantasy","rrnou","rcn","rrn","rpd","rmoua");
+	var needSubRtype = new Array("rrnou","rnou");
+	var myGameNeedR = new Array("rnou","cn","rn","pd","moua");
+	var nowHTECID = new Array();
+	var motherGameObj = new Object();
+	var specialShowtype = new Array("special","fantasy");
+	_self.paramHash = new Object();
+	_self.paramHash["lid"] = postHash["lid"];
+	_self.paramHash["action"] = postHash["action"];
+	_self.paramHash["field"] = postHash["field"];
+	var swHash = new Object();
+	var isP3_R = new Object();
+	var config_ior = null;
+	var needsTransWtype = new Array("RG","RPX","RSH","RSC","RNC","RNB","RF","RGA","RPTW","RWXP");//
+	var sort_type = "L";
+	var chgSort = false;
+	var rightChgSort = false;
+	var ecidScrollHash = new Object();
+	var obtScrollHash = new Object();
+	var menuScrollHash = new Object();
+	var filterScrollHash = new Object();
+	var gid_rtype_ior = new Object();
+	var chgColorIor = new Object();
+	var chgColorID;
+	var rbP3_ECID = new Array();
+	var regexpHash = new Object();
+	var rowAry = new Array();
+	var lastNowModel = new Object();
+	var OBT_closed = ""; 
+	var firstLoadObt = true;
+	var mainIor = new Object();
+	var FantasyDataHash = new Array();
+	var SFSDataHash = new Array();
+	var sfsChoseTeam = new Array();
+	var firstLoad = true;
+	var isIOS = util.isIOS();
+	var nowTS = null;
+	var defHash = new Object();
+	var tmpOBTModelHash = new Object();
+	var isRB_OBT = new Object();
+	var worker_sw = true;
+	var _worker;
+	var obt_xml;
+	var halfAry = new Object();
+	var FantasyAry = new Array();
+
+	var page_sw = false;
+	var page_no = 1;
+	var pageTotal;
+	var pageObj = null;
+	var RESIZE = false;
+	var _totalPage = 0;
+	var last_nowGame = "";
+	
+	var clusterize_sw = false;
+	var clusterize = null;
+	var _lastOBTHeight = 0;
+	var pdShowMoreHash =  new Object();
+	var isClickOBT = false;
+	var obtRequestAry = new Array();
+	var blockHeight, blockNum;
+	var nowGameHash = new Object();
+	var nowOBTGameHash = new Object();
+	var isMixPage = top.choice_showtype.match(/parlay|today|soon|hot/) ? true:false;
+
+	top["nowTs"] = "";
+	top["pageTs"] = new Object();
+	top["choice_lid"] = "";
+	
+	
+	var writeLog_sw = true;
+	var _log = "";
+	var tsAry = new Object();
+
+	var lastECID;
+	var lastECID_scroll = false;
+	
+	var hasGet = false;
+	var first_no_tvmt = false;
+	var scDataObj;
+	var rightPlay = false;
+	var statisticsID = "";
+	var nowScoreType = "";
+	var nowScoreObj = null;
+	var lastMenuCount = 0;
+
+	var my_ecidAry = new Array();
+	var my_rightTV = new Object();
+	var my_rightTVAry = new Array();
+	var sportFrame = null;
+	var newTS = 0;
+	var oldTS = 0;
+	var oldRtype = "";
+
+	var lastClickTS = postHash["nowTS"];
+	var first_OBTMenuBtn = true;
+	var first_Clusterize=true;
+	var del_EC ="";
+
+	
+	var MixObtRtype = new Object();
+	var OBT_Needs_Parse = false;
+	var gid_count_min = new Array();
+	gid_count_min["R"] = 4;
+	gid_count_min["RE"] = 4;
+	gid_count_min["OU"] = 5;
+	gid_count_min["ROU"] = 5;
+	var gid_count_max = 6;
+	var more_param_obj = new Object();
+	var OBT_LIVE_MIX_wtype = new Array("RE","ROU");
+	var OBT_MIX_wtype = new Array("R","OU");
+	var OBT_LIVE_HMIX_wtype = new Array("HRE","HROU");
+	var OBT_HMIX_wtype = new Array("HR","HOU");
+	var OBT_mix_Ary = new Array("R","OU","HR","HOU","RE","ROU","HRE","HROU");
+	OBT_transHT["MIX"] = "HMIX";
+	OBT_transHT["ETMIX"] = "ETHMIX";
+	var nowOBTMix_count = new Object();
+	var OBT_WI_count = new Object();
+	var OBT_TQ_count = new Object();
+	var gameSubObj = new Object();
+	var sfsClickHash = new Object();
+	var last_OBT_WImodel = new Object();
+	var needRename = true;
+	var myhash={};
+	var showMoreECID = new Array();
+	var pdSortHash = new Array();
+	var pdHeadHash = new Array();
+	var pdIorHead = new Array();
+	var nowOpenForecastECID = "";
+	var isAllZero = false;
+	var nowOBTShow = "FT";
+	var fsMoreHash = new Array();
+	var ios = util.isIOS();
+	var isMoving = "N";
+	var notNeedLegAry = new Array("live","today","mygame","hot","soon");
+	var analysisStatus = false;
+	var rightScData = new Object();
+	var myGamePageCountHash = new Object();
+	var chgFilter = false;
+	var chgSortTS = 0;
+
+    _self.init = function(){
+           echo("worker throw");
+    }
+
+    _self.reInit=function(_childClass, _classname, _GameInfo, _GameRatio, _OBT, _PK, _IOR,_GameSubRatio){
+			top.isLeagued = false;
+			top.bet_className = classname;
+			top.nowPDMode = "all";
+			_self.addEventListener("backPage", _self.backClick);
+			_self.addEventListener("startTimer", _self.startTimer);
+			_self.addEventListener("clearTimer", _self.clearTimer);
+			_self.addEventListener("internetError", _self.internetError);
+			_self.addEventListener("bodyGoToPage", _self.bodyGoToPage);
+			_self.addEventListener("showAlertMsg", _self.showAlertMsg);
+			_self.addEventListener("showDateOption", _self.showDateOption);
+			_self.addEventListener("getModel", _self.getModel);
+			_self.addEventListener("getData", _self.getData);
+			_self.addEventListener("getData_FS", _self.getData_FS);
+			_self.addEventListener("chgSortType", _self.chgSortType);
+			_self.addEventListener("showLeagueFilter", _self.showLeagueFilter);
+			_self.addEventListener("retryLoop", _self.retryLoop);
+        	_self.addEventListener("retryLastfail", _self.retryLastfail);
+			_self.addEventListener("retryComplete", _self.retryComplete);
+			_self.addEventListener("getSpecialData", _self.getSpecialData);
+			_self.addEventListener("showGameLoading", _self.showGameLoading);
+			_self.addEventListener("clearGameTimer", _self.clearGameTimer);
+			_self.addEventListener("createGameTimer", _self.createGameTimer);
+			_self.addEventListener("initBackCount", _self.initBackCount);
+			_self.addEventListener("chkBannerCount", _self.chkBannerCount);
+			_self.addEventListener("getPgCnt", _self.getPageCount);
+			_self.addEventListener("clearHTECID", _self.clearHTECID);
+			_self.addEventListener("clearSFSTeam", _self.clearSFSTeam);
+			_self.addEventListener("chgPDMode", _self.chgPDMode);
+			_self.addEventListener("showLegSetting", _self.showLegSetting);
+			_self.addEventListener("set_first_no_tvmt", _self.set_first_no_tvmt);
+			_self.addEventListener("set_statisticsID", _self.set_statisticsID);
+			_self.addEventListener("setMyGameEStabScroll", _self.setMyGameEStabScroll);
+			_self.addEventListener("chgFilterPage", _self.chgFilterPage);
+			
+			util.setParentclass(_self);
+			childClass = _childClass;
+			GameInfo = _GameInfo;
+			GameRatio = _GameRatio;
+			GameSubRatio = _GameSubRatio;
+			OBT = _OBT;
+			PK = _PK;
+			IOR = _IOR;
+			classname = _classname;
+			util_game.init();
+			config_ior = config_set.get("CONFIG_IORATIO");
+			if(top.mobile!="N") clusterize_sw = config_set.get("CLUSTERIZE_SW");
+			page_sw = config_set.get("PAGE_SW");
+			top["notShowLeg"] = new Object();
+			top["notShowLegGame"] = new Object();
+			//top["showPDmore"] = new Object();
+
+			
+			if(top.choice_showtype=="mygame"){
+				parentClass.dispatchEvent("initMyGame", {});
+				parentClass.dispatchEvent("chkGame", {"myGame_sw":true, "clean_data":"N", "chkNow":true, "from":"game_list"});
+			}
+
+			_self.loadSport();
+
+			top.rightRB ="";
+
+			if(getView().viewportwidth < 1024){
+				parentClass.dispatchEvent("resetRightTV", {});
+			}			
+
+			util.addEvent(_mc["back_btn"], "click", _self.backClick);
+			_lastOBT_tab = null;
+			_lastOBT_div = null;
+			_lastOBT_close = null;
+			_lastCourt_tab = null;
+			_lastPK = new Object();
+			_lastPKset = new Object();
+			keepLeg = "";
+			keepLegID = "";
+			top["showOBT"] = "";
+			win.addEventListener("orientationchange", _self.orientationchange);
+			if(worker_sw && window.Worker){
+				var jsonStr = (top.choice_gtype!="ft")?"Json":"";//改OP
+				var workerpage = (top.minify_sw=="Y")?"worker"+jsonStr+".min.js":"worker"+jsonStr+".js";
+				_worker = new Worker("/js/game/"+workerpage+"?ver="+top.ver);
+				_worker.addEventListener("message",  _self.workerThrough , false);
+				_worker.addEventListener("error", function(e){
+					console.log("[Worker Error]["+top.choice_gtype+"]["+top.choice_showtype+"]", e.message, "line:", e.lineno, "file:", e.filename);
+					_self.showNoData(true);
+					_self._closeGameLoading();
+				}, false);
+			}
+
+	}
+
+	_self.backClick = function(e){
+			var param = new Object();
+			param.retFun = null;
+			parentClass.dispatchEvent("backPage", param);
+			record_distance = new Array();
+	}
+
+	_self.getThis=function(varible){
+        
+        if(!myhash[varible]) {
+            var msg = "no myhash["+varible+"]";
+            util.writeLog(classname, msg);
+        }
+        return myhash[varible];
+    }
+	
+	_self.getParentThis = function (varible) {
+        	return parentClass.getThis(varible);
+	}
+
+	_self.addEventListener=function(eventname, eventFunction){
+        eventHandler[eventname] = eventFunction;
+	}
+	
+	_self.dispatchEvent = function (eventname, param) {
+        	if (eventHandler[eventname]) eventHandler[eventname](param);
+    }
+
+    _self.setParentclass = function(_parentclass){
+            parentClass = _parentclass;
+            config_set = parentClass.getThis("config_set");
+            timerHash = parentClass.getThis("timerHash");
+			LS = parentClass.getThis("LS");
+			LS_game = parentClass.getThis("LS_game");
+			headerFrame = parentClass.getThis("headerFrame");
+			myhash["LS"] = LS;
+			myhash["LS_game"] = LS_game;
+			myhash["timerHash"] = timerHash;
+			myhash["config_set"] = config_set;
+			myhash["headerFrame"] = headerFrame;
+	}
+
+	_self.loadSport = function(){
+		var param = new Object();
+		var isback = _self.chkIsBack();
+		var ts = (lastClickTS && !isback)?lastClickTS:top["lastClickTS"];
+		var isLeagued = (postHash["isLeagued"] == "Y")?"Y":"N";
+		param["page"] = "sport_menu";
+		param["target"] = "sport_content";
+		param["postHash"] = {"type":"game","gtype":top.choice_gtype,"showtype":top.choice_showtype,"rtype":top.choice_rtype,"ts":ts,"isLeagued":isLeagued};
+		param["useDefineParent"] = "Y";
+		param["parentClass"] = childClass;
+		param["retChild"] = _self.retChildSport;
+		param["post"] = "gtype=" + top.choice_gtype + "&showtype=" + top.choice_showtype + "&rtype=" + top.choice_rtype;
+		param["nowTS"] = ts;
+		if(_self.paramHash["action"] && _self.paramHash["action"] != ""){
+			param["postHash"]["action"] = _self.paramHash["action"];
+		}
+		parentClass.dispatchEvent("goToPage", param);
+	}
+
+	_self.retChildSport = function(childObj){
+		sportFrame = childObj;
+		var filterTag = "filter";
+		if(top.choice_gtype=="es" && !top.isLeagued && top.specialClick=="")filterTag=(top.choice_showtype=="mygame")?"MYES_tab":"ES_tab";
+		else if(top.specialGame.gtype=="ES" && top.specialClick!="")filterTag = "SPES_tab";
+		sportFrame.setDragScroll(filterTag);
+		try{
+			if(top.specialClick == "special"){
+				if(top.specialGame.title != "")postHash.specialTitle = top.specialGame.title;
+				sportFrame.setTitle("special",{"title":top.specialGame.title});
+				sportFrame.showSportMenu({"isShow": false });
+				sportFrame.showSelectSort({"isShow":false});
+			}
+		}catch(e){};
+
+		var obj = win._history[win._history.length-1];
+		_mc["game_loading"] = dom.getElementById("game_loading");
+		var chk = _self.chkIsGame();
+		
+		if(chk){
+			_self.getModel({"needGet":true}); 
+			_self.createGameTimer();
+		}
+		
+	}
+
+	_self.chkIsBack = function(){
+		
+		var obj = win._history[win._history.length-1];
+		if(!obj.state.back)return false;
+		else return true;
+	}
+
+	_self.chkIsGame = function(){
+		var obj = win._history[win._history.length-1];
+		if(!obj.state.back){
+			return true;
+		}else{
+			if(obj.page.indexOf("game_list")!=-1 || obj.page.indexOf("game_more")!=-1)return true;
+			else return false;
+		}
+	}
+
+	_self.initBackCount = function(){
+		parentClass.dispatchEvent("initBackCount");
+	}
+
+	_self.startTimer = function(){
+		if(sportFrame) sportFrame.startTimer();
+	}
+	
+	_self.clearTimer = function(){
+		if(sportFrame) sportFrame.clearTimer();
+	}
+	
+	_self.internetError = function(){
+
+	}
+	
+	_self.bodyGoToPage = function(param){
+		parentClass.dispatchEvent("bodyGoToPage", param);
+	}
+
+	_self.showAlertMsg = function(param){
+		parentClass.dispatchEvent("showAlertMsg", param);
+	}
+
+	_self.retryLoop = function(param){
+		parentClass.dispatchEvent("retryLoop", param);
+    }
+    
+    _self.retryLastfail = function(){
+		parentClass.dispatchEvent("retryLastfail");
+    }
+
+	_self.retryComplete = function(){
+		parentClass.dispatchEvent("retryComplete");
+	}
+
+	_self.showDateOption = function(_par){
+        var dateIcon = dom.getElementById("sel_date");
+		var dateDiv = dom.getElementById("div_date");
+        if(dateIcon!=null) dateIcon.style.display = (_par.isShow)?"":"none";
+        if(dateDiv!=null) dateDiv.style.display = (_par.isShow)?"":"none";
+	}
+	
+	_self.chgTabCss = function(_rtype){
+        var _tabHash = (top.choice_gtype=="es")?es_tabHash:TAB_ary;
+		var SPorMYGAME_str = "";
+		if(top.specialGame.gtype=="ES" && top.specialClick!="")SPorMYGAME_str="SP";
+		else if(top.choice_gtype=="es" && top.choice_showtype=="mygame")SPorMYGAME_str="MY";
+		var isES = (top.choice_gtype=="es")?SPorMYGAME_str+"ES_":"";
+        for(var i=0; i < _tabHash.length; i++){
+			var tmpObj = dom.getElementById(isES+"tab_"+_tabHash[i]);
+			if(tmpObj!=null) util.removeClass(tmpObj, "on");
+		}
+		var tmpRtype = "main";
+		if(_rtype != "r" &&  _rtype != "rb"){
+			if(top.choice_showtype == "live"){
+				tmpRtype = _rtype.slice(1);
+				// console.log(tmpRtype,"|",_rtype);
+			}else{
+				tmpRtype = _rtype;
+			}
+		}
+		
+		//var tmpRtype = (_rtype!="pd" && _rtype!="rpd")?"main":"pd";
+		var obj = dom.getElementById(isES+"tab_"+tmpRtype);
+        if(obj) util.addClass(obj, "on");
+    }
+
+	_self.useClusterize = function(total_h, _blockHeight, _blockNum){
+		var tmpID = (top.specialGame.mode=="CUP" && top.specialClick=="special")?"body_show_bak":"body_show";
+		if(tmpID == "body_show_bak" && !dom.getElementById("body_show_bak"))tmpID = "body_show";
+		clusterize = new Clusterize({
+			scrollId: tmpID,
+			contentId: 'div_show',
+			rows_in_block: config_set.get("CLUSTERIZE_ROW"),
+			blocks_in_cluster: config_set.get("CLUSTERIZE_BLOCKS"),
+			block_limit_height_S: config_set.get("CLUSTERIZE_LIMIT_S"),
+			block_limit_height_M: config_set.get("CLUSTERIZE_LIMIT_M"),
+			block_limit_height_L: config_set.get("CLUSTERIZE_LIMIT_L"),
+			callbacks: {
+				clusterChanged: _self.changeFunc,
+			  }
+		});
+		clusterize.update(rowAry, total_h, _blockHeight, _blockNum);
+		
+	}
+
+	_self.chgFilterPage = function(ts){
+		div_show.innerHTML = "";
+		firstLoad = true;
+		first_no_tvmt = false;
+		first_OBTMenuBtn=true;
+		first_Clusterize=true;
+		chgColorIor = new Object();
+		gid_rtype_ior = new Object();
+		top["notShowLeg"] = new Object();
+		top["notShowLegGame"] = new Object();
+		showMoreECID = new Array();
+		clickedHash = new Object();
+		top.rightNowPlay = "";
+		top.showOBT = "";
+		if(clusterize_sw && clusterize) _self.clusterizeDestroy();
+		_self.getData(null,ts);
+	}
+
+	_self.changeFunc = function(){
+		clusterChg = true;
+		if(OBT_closed!="" && top.choice_gtype=="ft") _self.close_obt_proc(OBT_closed);
+		var _xmdObj = new Object();
+		var tmpEcAry = new Object();
+		var tmpMenuAry = new Object();
+		var jsonObj = new Object();
+		var filterAry = new Object();
+
+		var _s,_e;
+		_self.initLeague(FantasyAry);
+		if(top.choice_gtype!="ft"){
+			jsonObj = util_game.jsonECToHash(_jsonData["response"],util);
+			if((top.choice_showtype == "today" || top.choice_showtype == "mygame" || top.choice_showtype == "hot") && top.choice_gtype!="bk"){
+				_self.setRP3AryJson(jsonObj["obj"]);
+			}
+			_self.initInfoBtn(_jsonData, jsonObj["obj"], true);
+			_self.initIorBtn(_jsonData, jsonObj["obj"], true);
+
+			if(top.choice_showtype=="mygame")filterAry[top.choice_gtype] = (filterScrollHash[top.choice_gtype]? filterScrollHash[top.choice_gtype] : 0);
+			for(var _ecid in jsonObj["obj"]){
+				var ECID = _ecid.replace(/ec/,"");
+				tmpEcAry[ECID] = (ecidScrollHash[ECID]? ecidScrollHash[ECID] : 0);
+				tmpMenuAry[ECID] = (menuScrollHash[ECID]? menuScrollHash[ECID] : 0);
+			}
+		}else{
+			_xmdObj["ec"] = _xmlnode.Node(_xmlnode.Root[0],"ec", false);
+			_s = 0;
+			_e = _xmdObj["ec"].length;
+			if(top.choice_gtype=="ft") _self.setRP3Ary(_xmdObj, _s, _e);
+			_self.initInfoBtn(_xmlnode, _xmdObj["ec"]);
+			_self.initIorBtn(_xmlnode, _xmdObj["ec"]);
+			if(needSubRtype.indexOf(top.choice_rtype) != -1)_self.initSubIorBtn(_xmlnode);
+
+			if(filterRtypeAry.indexOf(top.choice_rtype) == -1 && top.choice_gtype=="ft"){
+				_self.initOBTMenuBtn(_xmlnode, _xmdObj["ec"]);
+			}
+			for(var j = _s; j < _e; j++){
+				var tmp_ec = _xmdObj["ec"][j];
+				var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+				if(needSubRtype.indexOf(top.choice_rtype) != -1){
+					_self.setRatioScroll(ECID,"update");
+					
+					if(!ecidScrollHash[ECID])ecidScrollHash[ECID] = new Object();
+					if(!tmpEcAry[ECID])tmpEcAry[ECID] = new Object();
+					tmpEcAry[ECID]["R"] = (ecidScrollHash[ECID]["R"]? ecidScrollHash[ECID]["R"] : 0);
+					tmpEcAry[ECID]["OU"] = (ecidScrollHash[ECID]["OU"]? ecidScrollHash[ECID]["OU"] : 0);
+				}else{
+					tmpEcAry[ECID] = (ecidScrollHash[ECID]? ecidScrollHash[ECID] : 0);
+					tmpMenuAry[ECID] = (menuScrollHash[ECID]? menuScrollHash[ECID] : 0);
+				}
+			}
+		}
+
+		_self.loadScroll(tmpEcAry, tmpMenuAry, filterAry);
+		chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+		util_game.initSelect(util);
+		_self.showGameLoading(false);
+	}
+
+	_self.updateOBTRowData = function(action, _html){
+		if(top["showOBT"]=="")return;
+		var _ECID = top["showOBT"].split("_")[0];
+		var pageIndex = top["showOBT"].split("_")[2];
+		var gameIndex = top["showOBT"].split("_")[3];
+		var newOBTHeight = (dom.getElementById("div_OBT_show_"+_ECID))?dom.getElementById("div_OBT_show_"+_ECID).clientHeight:0;
+		if(action=="add"){
+			if(_lastOBTHeight==0){
+				var clone_show = dom.getElementById("clone_obt_show");
+				clone_show.innerHTML = _html;
+				_lastOBTHeight = clone_show.offsetHeight*1;
+				blockHeight[pageIndex] += _lastOBTHeight;
+				clone_show.innerHTML = "";
+
+				var tmpGameStr = rowAry[gameIndex];
+				var tmpGame = dom.createElement("div");
+				tmpGame.innerHTML = tmpGameStr;
+				var objids = ",div_OBT_show_"+_ECID+",OBT_close_"+_ECID+",";
+				var ary = util.getObjAry(tmpGame, objids);
+				if(ary["div_OBT_show_"+_ECID] && ary["OBT_close_"+_ECID]){
+					ary["OBT_close_"+_ECID].style.display = "";
+					ary["div_OBT_show_"+_ECID].style.display = "";
+					ary["div_OBT_show_"+_ECID].innerHTML = _html;
+					rowAry[gameIndex] = tmpGame.innerHTML;
+				}
+			}else{
+				var difHeight = newOBTHeight - _lastOBTHeight;
+				_lastOBTHeight += difHeight;
+				blockHeight[pageIndex] += difHeight;
+
+				var tmpGameStr = rowAry[gameIndex];
+				var tmpGame = dom.createElement("div");
+				tmpGame.innerHTML = tmpGameStr;
+				var objids = ",div_OBT_show_"+_ECID+",OBT_close_"+_ECID+",";
+				var ary = util.getObjAry(tmpGame, objids);
+				if(ary["div_OBT_show_"+_ECID] && ary["OBT_close_"+_ECID]){
+					ary["OBT_close_"+_ECID].style.display = "";
+					ary["div_OBT_show_"+_ECID].style.display = "";
+					ary["div_OBT_show_"+_ECID].innerHTML = _html;
+					rowAry[gameIndex] = tmpGame.innerHTML;
+				}
+			}
+			
+		}else if(action=="remove"){
+			if(!blockHeight[pageIndex])pageIndex -= 1;
+			blockHeight[pageIndex] -= _lastOBTHeight;
+			clusterize.updateDOM(pageIndex, _lastOBTHeight*-1);
+
+			var tmpGameStr = rowAry[gameIndex];
+			var tmpGame = dom.createElement("div");
+			tmpGame.innerHTML = util_game.showTxt(tmpGameStr);
+			var objids = ",div_OBT_show_"+_ECID+",OBT_close_"+_ECID+",";
+			var ary = util.getObjAry(tmpGame, objids);
+			if(ary["div_OBT_show_"+_ECID] && ary["OBT_close_"+_ECID]){
+				ary["OBT_close_"+_ECID].style.display = "none";
+				ary["div_OBT_show_"+_ECID].style.display = "none";
+				ary["div_OBT_show_"+_ECID].innerHTML = "";
+				rowAry[gameIndex] = tmpGame.innerHTML;
+			}
+			_lastOBTHeight = 0;
+		}
+		var total_height = util.sumArrayVal(blockHeight);
+		clusterize.updateRowHeight(rowAry, total_height, blockHeight);
+	}
+
+	var _body = dom.getElementById("body_show");
+	util.addClass(dom.getElementById("body_content"),"bg_game");
+	var isScrolled = false;
+	_self.lockHorizontalScroll = function(){
+		util.addEvent(_body, "touchstart", _self.touchStart);
+		util.addEvent(_body, "touchmove", _self.tocuchMove);
+		util.addEvent(_body, "touchend", _self.tocuchEnd);
+	}
+	
+	_self.removeTouch = function(){
+		util.removeEvent(_body, "touchstart", _self.touchStart);
+		util.removeEvent(_body, "touchmove", _self.tocuchMove);
+		util.removeEvent(_body, "touchend", _self.tocuchEnd);
+	}
+
+	var touchStartPosY = 0;
+	var touchTarget = null;
+	_self.touchStart = function(e){
+		var start_touch = e.touches[0]; 
+		touchStartPosY = Number(start_touch.pageY);
+		var tarObj = e.target;
+		touchTarget = _self.getParent(tarObj);
+		if(touchTarget==null) return;
+		var tmpID = touchTarget.getAttribute("id");
+		var needScroll = (tmpID!=null && (tmpID.indexOf("ratioShow")!=-1 || tmpID.indexOf("div_OBT_menu")!=-1));
+		if(needScroll && touchTarget.classList.contains("box_lebet_lock")){
+			touchTarget.classList.remove("box_lebet_lock");
+		}
+	}
+
+	_self.getParent = function(targetObj){
+		var tmpObj = targetObj;
+		if(typeof(tmpObj.getAttribute)=="undefined") return null;
+		var tmpID = tmpObj.getAttribute("id");
+		var isStop = (tmpID!=null && (tmpID.indexOf("ratioShow")!=-1 || tmpID.indexOf("mainShow")!=-1 || tmpID.indexOf("div_OBT_menu")!=-1 || tmpID.indexOf("div_show")!=-1));
+		if(!isStop){
+			return _self.getParent(tmpObj.parentNode);
+		}
+		return tmpObj;
+	}
+
+	_self.tocuchMove = function(e){
+		if(!isScrolled){
+			var diffY = (touchStartPosY*1) - (e.touches[0].pageY)*1; 
+			var vertical = (Math.abs(diffY)>50);
+			var tmpID = touchTarget.getAttribute("id");
+			var needScroll = (tmpID!=null && (tmpID.indexOf("ratioShow")!=-1 || tmpID.indexOf("div_OBT_menu")!=-1));
+			if(needScroll && vertical && !touchTarget.classList.contains("box_lebet_lock")) {
+				touchTarget.classList.add("box_lebet_lock");
+				isScrolled = true;
+			}
+		}
+	}
+
+	_self.tocuchEnd = function(e){
+		isScrolled = false;
+	}
+
+	_self.getPageCount=function(from){
+		parentClass.dispatchEvent("getPgCnt",{"from":from,"fun":""});
+	}
+
+	_self.getTimerSec = function(){
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var st = (isSpecialGame == "Y")?"special":top.choice_showtype;
+		var hash = new Object();
+		if(top.choice_filter == "RB")st = "live";
+		hash[st] = 600000;
+		hash["live"] = config_set.get("CONFIG_LIVE_GAME_LIST");
+		hash["today"] = config_set.get("CONFIG_GAME_LIST");
+		hash["soon"] = config_set.get("CONFIG_MYGAME_GAME_LIST");
+		hash["hot"] = config_set.get("CONFIG_MYGAME_GAME_LIST");
+		hash["early"] = hash["today"];
+		hash["parlay"] =  config_set.get("CONFIG_PARLAY_GAME_LIST");
+		hash["mygame"] =  config_set.get("CONFIG_MYGAME_GAME_LIST");
+		hash["special"] = config_set.get("CONFIG_LIVE_GAME_LIST");
+		return hash[st];
+	}
+
+	_self.createGameTimer=function(){
+			if(top.specialClick=="special")parentClass.dispatchEvent("resetHeaderTimer","clear");
+			else {
+				if(timerHash["cup_gameTimer"]!=null){
+					timerHash["cup_gameTimer"].clearObj();
+					timerHash["cup_gameTimer"].is_clear = true;
+					timerHash["cup_gameTimer"]=null;
+				}
+				if(timerHash["winnerTimer"]!=null){
+					timerHash["winnerTimer"].clearObj();
+					timerHash["winnerTimer"].is_clear = true;
+					timerHash["winnerTimer"]=null;
+				}
+			}
+			if(timerHash["gameTimer"]!=null) return;
+			var sec = _self.getTimerSec();
+			 echo("[game_list][createGameTimer]sec="+sec);
+			timerHash["gameTimer"] = new Timer(sec);
+			timerHash["gameTimer"].setParentclass(_self);
+			timerHash["gameTimer"].init();
+			timerHash["gameTimer"].addEventListener("TimerEvent.TIMER", _self.gameTimerRun);
+			timerHash["gameTimer"].addEventListener("TimerEvent.TIMER_COMPLETE", _self.gameTimerFinish);
+			timerHash["gameTimer"].startTimer();
+	}
+
+	_self.clearGameTimer=function(){
+			if(timerHash!=null){
+					if(timerHash["gameTimer"]!=null){
+							timerHash["gameTimer"].clearObj();
+							timerHash["gameTimer"].is_clear = true;
+							timerHash["gameTimer"]=null;
+					}
+			}
+			return true;
+	}
+
+	_self.gameTimerRun=function(count){
+		if(top.specialClick == "special"){
+			echo("更新特殊賽事盤面");
+			if(top.choice_gtype == "ft")parentClass.dispatchEvent("getPgCnt",{"from":"game_list","fun":""});
+			sportFrame.getSpecCount("get_game_list");
+		}else{
+			if(postHash["rtype"]=="fs"){
+				_self.getData_FS();
+			}else{
+				if((top.choice_gtype == "ft" || (top.choice_gtype == "es" && top.specialClick=="")) && top.choice_showtype != "mygame")parentClass.dispatchEvent("getPgCnt",{"from":"game_list","fun":""});
+				_self.getData();
+			}
+		}
+	}
+
+	_self.getSpecialData=function(){
+		if(postHash["rtype"]=="fs"){
+			_self.getData_FS();
+		}else{
+			_self.getData();
+		}
+	}
+
+	_self.gameTimerFinish=function(count){
+
+	}
+
+	_self.chgPDMode = function(){
+		_self.showPDLoading(true);
+		for(var ecid in top["bet_select"]){
+			var splitSelect = top["bet_select"][ecid].split("_");
+			var tmpECID = ecid.replace("ec_","");
+			var gameHash = lastDataHash["ec"+tmpECID];
+			if(gameHash){
+				var rtype = splitSelect[3];
+				var hgopen = gameHash["hgopen"];
+				var hpd_sw = gameHash["hpd_sw"];
+				var tmpPdRtype = gameHash["pd_rtypes"];
+				var isHalf = "N";
+				var nowScore = rtype.replace(/R/,"").replace(/H/,"").replace(/H/,"").replace(/C/,"-");
+				if(rtype.match(/^HR?H[1-2]?[0-9]C[1-2]?[0-9]/)){
+					if(hgopen == "Y" && hpd_sw == "Y"){
+						isHalf = "Y";
+						tmpPdRtype = gameHash["hpd_rtypes"];
+						nowHTECID.push(tmpECID);
+					}
+				}
+				_self.setPDHash("ec"+tmpECID,tmpPdRtype,isHalf,gameHash["is_rb"],nowScore);
+				// console.log("更新PD容器,現在比分 = ",nowScore);
+			}
+		}
+		_self.parseData(_xmlnode,true);
+	}
+
+	_self.getModel = function (_par) {
+		if(_par.postHash)postHash = _par.postHash;
+		if(page_sw) page_no = 1;
+		_self.showGameLoading(true);
+
+		var tab_block_sw = config_set.get("TAB_BLOCK_SW");
+		if(tab_block_sw){
+				newTS = util_game.getTimestamp();	
+				var sec_diff = Math.abs(newTS-oldTS);
+				var min = 300;
+				var max = 600;
+				var randomTime = Math.floor(Math.random()*(max-min+1))+min;
+			if(!_par.kind){
+				if(sec_diff<3000 && (oldRtype == top.choice_rtype)){
+					setTimeout(_self.showGameLoading,randomTime,false);
+					return;
+				}else{
+					oldTS = newTS;
+					oldRtype = top.choice_rtype;
+				}
+			}
+		}
+		dom.getElementById("main_content").style.display = "";
+		firstLoad = true;
+		first_no_tvmt = false;
+		first_OBTMenuBtn=true;
+		first_Clusterize=true;
+		chgColorIor = new Object();
+		gid_rtype_ior = new Object();
+		top["notShowLeg"] = new Object();
+		top["notShowLegGame"] = new Object();
+		pdSortHash = new Array();
+		showMoreECID = new Array();
+		clickedHash = new Object();
+		if(top.choice_showtype != "mygame" || (top.choice_showtype == "mygame" && top.choice_gtype != "es"))_self.chgTabCss(top.choice_rtype);
+		var param = new Object();
+		var showtype = (_par.showtype)?_par.showtype:top.choice_showtype;
+		var rtype = (_par.rtype)?_par.rtype:top.choice_rtype;
+		var isSpecial = (top.specialClick != "")?"Y":"N";
+		var isFantasy = (top.specialGame.isFantasy)?"Y":"N";
+
+		var chgModelTs = (_par.chgModelTs)?_par.chgModelTs:postHash["nowTS"];
+		param["post"] = "gtype=" + top.choice_gtype + "&showtype=" + showtype + "&rtype=" + rtype + "&isSpecial=" + isSpecial + "&isFantasy=" + isFantasy + "&ts=" + chgModelTs;
+		param["page"] = "gameModel";
+		param["target"] = "main_content";
+		param["retFun"] = function () { 
+			if(postHash["rtype"] == "fs" || top.choice_rtype=="fs")_self.getModelComplete_FS(_par);		
+			else _self.getModelComplete(_par);
+			};
+		param["noCache"] = "Y";
+		parentClass.dispatchEvent("goToPage", param);
+	}
+	
+	_self.getModelComplete = function (par) {
+		if(par.chgModelTs){
+			if(!util_game.checkTS(top.chgModelTs, par.chgModelTs, "getModel")){
+				console.log("ts不同，取錯model!!!");
+				return;
+			}
+		}
+		if(postHash["back"] != "Y" && postHash["nowClickTabTs"] && postHash["nowClickTabTs"] != ""){
+			if(postHash["nowClickTabTs"] != top["specialGame"]["clickTabTs"]){
+				console.log("getModel TS不同，阻擋!!!! [ts] = ",postHash["nowClickTabTs"],"top值ts = ",top["specialGame"]["clickTabTs"]);
+				return;
+			}
+		}
+		if(clusterize_sw && clusterize) _self.clusterizeDestroy();
+		if(page_sw && !isIOS){
+			pageObj = new pagination(win, dom);
+			pageObj.setParentclass(this);
+			pageObj.init();
+			pageObj.bindBtn(_self.goPage);
+		}
+		top.nowPDMode = (top.choice_rtype.match(/pd/))?"choice":"all";
+		if(top.choice_showtype == "mygame" && top.choice_gtype == "es")_self.chgTabCss(top.choice_rtype);
+		if (par.needGet) { 
+			top.showOBT = "";
+			if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+				top.rightNowPlay = "";
+				top.rightGtype = top.choice_gtype;
+				top.rightShowType = top.choice_showtype;
+			}
+			var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+			var isMixFT = ((top.choice_showtype.match(/mygame|parlay|today|hot/)||isSpecialGame == "Y") && top.choice_gtype=="ft");
+			var isMixOther = ((top.choice_showtype.match(/mygame|parlay|today|hot/)||isSpecialGame == "Y") && top.choice_gtype!="ft");
+			if(((top.choice_showtype != "mygame" && isSpecialGame != "Y") || isMixFT) && filterRtypeAry.indexOf(top.choice_rtype) == -1 && getView().viewportwidth >= 1024){
+				parentClass.dispatchEvent("loadRightScore", {"scFun":_self.getData});
+				dom.getElementById("right_show").scrollTop = 0;
+			}else{
+				if(isMixOther && top.rightECID!="")parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+				_self.getData();
+			}
+		} else {
+			_self.parseData(_xmlnode);
+		}
+	}
+
+	_self.getNowPage = function(){
+        var tmpPage = "";
+        if(win._history.length!=0){
+            tmpPage = win._history[win._history.length-1].page;
+        }
+        return tmpPage;
+    }
+
+	_self.chgSortType = function(param){
+		first_OBTMenuBtn=true;
+		chgSort = true;
+		rightChgSort = true;
+		sort_type = param.sort_type;
+		firstLoad = true;
+		top.rightNowPlay = "";
+		if(top.rightECID!=""){
+			parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+			parentClass.dispatchEvent("resetRightTV", {});
+		}
+		_self.getData();
+	}
+
+	_self.showLeagueFilter = function(){
+		var nowTS = util.getTimestamp();
+        top["lastClickTS"] = nowTS;
+		var targetShowType = top.choice_showtype;
+		var postHash = new Object();
+        postHash["gtype"] = top.choice_gtype;
+        postHash["showtype"] = targetShowType;
+		postHash["nowTS"] = nowTS;
+		postHash["type"] = targetShowType;
+		postHash["specialClick"] = top.specialClick;
+		postHash["outrightsClick"] = top.outrightsClick;
+		postHash["from"] = "goToLeg";
+		
+		var par = new Object();
+		par["page"] = "league_index";
+		par["post"] = "gtype="+top.choice_gtype+"&showtype="+targetShowType;
+        par["postHash"] = postHash;
+		par["nowTS"] = nowTS;
+		par["type"] = targetShowType;
+		par["specialClick"] = top.specialClick;
+		par["outrightsClick"] = top.outrightsClick;
+        parentClass.dispatchEvent("bodyGoToPage", par);
+	}
+
+	_self.getData=function(fromScoreBoard,chgFilterTs){
+			console.log("[getData]["+top.choice_gtype+"]["+top.choice_showtype+"] called");
+			chgSortTS = util.getTimestamp();
+			if(page_sw){
+				var tmpPageNo = (isIOS)? 0 : page_no; 
+			}
+			var isJson = false;
+			parentClass.dispatchEvent("initMyGame", {});
+			if(top.choice_showtype=="mygame"){
+				var allZero = util.chkAllMyGameHash(false);
+				if(allZero){
+					//if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+						dom.getElementById("sport_menu").style.display="none";
+						dom.getElementById("total_tab").style.display="none";
+						dom.getElementById("showtype_now").innerHTML = "";
+						dom.getElementById("gtype_now").innerHTML = util.showTxt(LS.get("showtype_mygame"));
+						dom.getElementById("head_league").className = "head_league all";
+						_self.showNoData_myGame(true);
+					// }else{
+					// 	console.log("這個頁籤["+top.choice_rtype+"]無賽事,秀狗圖!!");
+					// 	_self.showNoData(true);
+					// }
+					if(top.choice_gtype=="es"){
+						sportFrame.showESTab(false);
+						if(top.choice_showtype=="mygame")_self.showMYESTab(false);
+					}
+					_self.showGameLoading(false);
+					parentClass.dispatchEvent("showLoading", { "isShow": false });
+					parentClass.dispatchEvent("showGreenBtnProc", false);
+					if(filterRtypeAry.indexOf(top.choice_rtype) == -1){	
+						if(top.rightECID != "")parentClass.dispatchEvent("resetRightTV", {});
+						parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+						parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+						top.rightNowPlay = "";
+						top.rightECID = "";
+						top.rightGtype = top.choice_gtype;
+					}
+	
+					if(top.rightECID!="")parentClass.dispatchEvent("setRightTimer", "start");
+					return;
+				}
+			}
+			if(top["choice_lid"] && top["choice_lid"] != ""){
+				_self.paramHash["lid"] = top["choice_lid"];
+			}else{
+				if(postHash["lid"] && postHash["lid"] != ""){
+					_self.paramHash["lid"] = postHash["lid"];
+				}
+			}
+
+			var tmp_date = postHash["date"];
+			if(tmp_date==null) tmp_date="";
+			var isSpecial = (top.specialClick)?top.specialClick:"";
+			var isFantasy = (postHash["kind"]=="fantasy" || top.choice_filter=="FANTASY" || top.choice_rtype == "fantasy")? "Y": "N";
+			var param = "";
+			var isback = _self.chkIsBack();
+			var ts = (lastClickTS && !isback)?lastClickTS:top["lastClickTS"];
+			var gtype = (top.choice_gtype != "")?top.choice_gtype:postHash["gtype"];
+			var FantasyLID = top.specialGame.FantasyLID;
+			param += top.param;
+			if(gtype=="es" && isSpecial!="" && top.specialGame.mode == "NORMAL")param += "&p=get_game_list_page";
+			else param += "&p=get_game_list";
+			param += "&p3type="+(postHash["p3type"]||"");
+			param += "&date="+tmp_date;
+			if (postHash["url_param"]) param += "&" + postHash["url_param"];
+			
+			param += "&gtype=" + gtype;
+			if(gtype!="ft")isJson=true; //改OP
+			param += "&showtype=" + top.choice_showtype;
+			param += "&rtype=" + top.choice_rtype;
+			param += "&ltype=" + top["userData"].ltype;
+			param += "&filter=" + top.choice_filter;
+			if(isFantasy == "Y" && gtype == "ft" && FantasyLID)param += "&fanlid=" + FantasyLID;
+			if(top.specialGame.isFantasy && top.specialGame.mode=="CUP")param += "&cupFantasy=Y";
+			else param += "&cupFantasy=N";
+			if(_self.paramHash["lid"] && top.choice_filter != "FANTASY") param += "&lid=" + _self.paramHash["lid"];
+			if(_self.paramHash["field"]) param += "&field=" + _self.paramHash["field"];
+			if(_self.paramHash["action"]) param += "&action=" + _self.paramHash["action"];
+			param += "&sorttype="+top.choice_sorttype;
+			param += "&specialClick=" + isSpecial;
+			param += "&isFantasy=" + isFantasy;
+			param += "&ts=" + ts;
+			param += "&chgSortTS=" + chgSortTS;
+			// if(chgFilterTs && chgFilterTs*1 > 0){
+			// 	param += "&chgFilterTs=" + chgFilterTs;
+			// }
+			// if(postHash["nowClickTabTs"]){
+			// 	param += "&nowClickTabTs=" + postHash["nowClickTabTs"];
+			// }
+
+			if(top.choice_showtype=="mygame"){
+				var tmpStr = (CookieManager.get(top.choice_gtype+"_myGame_"+top["userData"].mid)!=null)?CookieManager.get(top.choice_gtype+"_myGame_"+top["userData"].mid):"";
+				var ecid_str = "";
+				if(tmpStr!=""){
+					var tmpHash = JSON.parse(tmpStr);
+					for(var ecid in tmpHash){
+						if(ecid_str=="")ecid_str = ecid;
+						else ecid_str += "|"+ecid;
+					}
+					param += "&ecid_str=" + ecid_str;
+				}
+			}
+			if(page_sw) param += "&page_no=" + tmpPageNo;
+
+			hr = new win.HttpRequestRetry(win.HttpRequest, config_set.get("RETRY_TIME"), config_set.get("RETRY_LIMIT"),null);
+			hr.setParentclass(childClass);
+			hr.addEventListener("onError", _self.onError);
+			hr.addEventListener("LoadComplete", function(xml){
+				_self.LoadGameComplete(xml,isJson,chgFilterTs);
+			});
+			hr.loadURL(top.m2_url, "POST", param);
+	}
+
+	_self._closeGameLoading = function () {
+			_self.showGameLoading(false);
+			parentClass.dispatchEvent("showLoading", { "isShow": false });
+			if (typeof getView !== "undefined" && getView().viewportwidth >= 1024) {
+				parentClass.dispatchEvent("setRightLoading", {"isShow": false});
+			}
+		};
+	_self.LoadGameComplete = function (data,isJson,chgFilterTs) {
+			console.log("[LoadGameComplete]["+top.choice_gtype+"]["+top.choice_showtype+"] isJson="+isJson);
+			if(top.checkBackPage=="checking"){
+				top.checkBackPage="";
+				return;
+			}
+            var tmp_xml;
+            var tmp_data;
+            _self.paramHash["errorMsg"] = util.showConnectMsg(data);
+            if(util.alertConnectMsg(_self.paramHash["errorMsg"])){
+				_self.showNoData(true);
+				_self._closeGameLoading();
+				return;
+			}
+			if(top.specialClick == "special"){
+				if(top.specialGame.cup_postToFrontend_sw!="Y" && top.specialGame.mode=="CUP"){
+					parentClass.dispatchEvent("GoHome", {});
+					_self._closeGameLoading();
+					return;
+				}
+				if(top.choice_rtype == "fs"){
+					_self._closeGameLoading();
+					return;
+				}
+			}
+			try {
+			if(isJson){
+				tmp_xml = JSON.parse(data);
+				_jsonData = tmp_xml;
+				echo("1. [LoadGameComplete]_jsonData:",_jsonData);
+				var _pd = tmp_xml["phpData"];
+				if (!_pd) {
+					_self.showNoData(true);
+					_self._closeGameLoading();
+					return;
+				}
+				// 篮球等 JSON 接口返回的 phpData 键可能是小写，getKeyValue 会转大写查找，这里先规范为大写键
+				tmp_data = {};
+				for(var _pk in _pd){ if(_pd.hasOwnProperty(_pk)) tmp_data[_pk.toUpperCase()] = _pd[_pk]; }
+				myGamePageCountHash = tmp_data["MYGAMEPAGECOUNTHASH"] || tmp_data["myGamePageCountHash"] || {};
+				_xmlnode = null; //點完冠軍頁籤再點賽事>_xmlnode不清空的話util.getKeyValue會壞
+				if(top.choice_gtype=="es" && top.specialClick!=""){
+					_self.getPageCountData(tmp_xml["pageData"]);
+				}else if(top.choice_gtype=="es" && top.choice_showtype=="mygame"){
+					if(top.choice_rtype!="r" && myGamePageCountHash[top.choice_rtype]==undefined){
+						// console.log(top.choice_rtype+"沒賽事,跑回All");
+						sportFrame.chgTab("",{"rtype":"r"});
+						_self._closeGameLoading();
+						return;
+					}
+					_self.showPageProc(myGamePageCountHash);
+				}
+			}else{
+				tmp_xml = util.parseXml(data);
+				_xmlnode = tmp_xml;
+				tmp_data = _xmlnode.Root[0];
+			}
+			var nowShowtype = util.getKeyValue(_xmlnode,tmp_data,"nowShowtype");//_xmlnode.Node(_xmlnode.Root[0],"nowShowtype").innerHTML;
+			if(nowShowtype=="mygame"){
+				var totalCount = util.getKeyValue(_xmlnode,tmp_data,"totalDataCount")*1;
+				if(top.choice_rtype!="r")totalCount = util.countSize(top["myGameHash"][top.choice_gtype]);
+				var totalDataCount = util.getMyGameTotalCount(top.choice_gtype);
+				parentClass.dispatchEvent("showMyGameCount", totalDataCount+totalCount);
+			}
+			var code = util.getKeyValue(_xmlnode,tmp_data,"code");//_xmlnode.Node(_xmlnode.Root[0],"code").innerHTML;
+			var nowClickTabTs = util.getKeyValue(_xmlnode,tmp_data,"ts");//_xmlnode.Node(_xmlnode.Root[0],"nowClickTabTs").innerHTML;
+			// var chgFilterTs = util.getKeyValue(_xmlnode,tmp_data,"chgFilterTs");//_xmlnode.Node(_xmlnode.Root[0],"chgFilterTs").innerHTML;
+			if(chgFilterTs && chgFilterTs != top.chgModelTs){
+				console.log("換model ts不同，阻擋!!!! [chgFilterTs] = ",chgFilterTs ,",[chgModelTs] = ",top.chgModelTs);
+				_self._closeGameLoading();
+				return;
+			}
+
+			var chgSortTS_php = util.getKeyValue(_xmlnode,tmp_data,"chgsortts");
+			// 仅足球严格校验排序时间戳，篮球等非足球不拦截，避免因 chgSortTS 差异整页不渲染
+			if(top.choice_gtype=="ft" && chgSortTS_php && chgSortTS_php != chgSortTS){
+				console.log("換排序 chgSortTS不同，阻擋!!!! [php] = ",chgSortTS_php ,",[now] = ",chgSortTS);
+				_self._closeGameLoading();
+				return;
+			}
+
+			if(code == "noData" && top.choice_showtype!="mygame"){
+				if(top.choice_gtype=="es"){
+					sportFrame.showESTab(false);
+					if(top.choice_showtype=="mygame")_self.showMYESTab(false);
+				}
+				_self.showNoData(true);
+				_self._closeGameLoading();
+				return;
+			}
+			if(postHash["back"] != "Y" && nowClickTabTs && nowClickTabTs !== ""){
+				if(String(nowClickTabTs) !== String(top.lastClickTS)){
+					console.log("特殊TS不同，阻擋!!!! [ts] = ",nowClickTabTs,"top值ts = ",top.lastClickTS);
+					_self._closeGameLoading();
+					return;
+				}
+			}
+			_self.parseData(tmp_xml,"",isJson);
+
+			if(top.specialClick != ""){
+				if(!util.in_array(nowShowtype,specialShowtype)){
+					_self._closeGameLoading();
+					return;
+				}
+			}else{
+				if(nowShowtype != top.choice_showtype){
+					_self._closeGameLoading();
+					return;
+				}
+			}
+			} catch (e) {
+				console.log("[game_list][LoadGameComplete] error", e);
+				_self.showNoData(true);
+				_self._closeGameLoading();
+			}
+	}
+
+    _self.parseData = function (xmlnode,isClick,isJson) {
+			var _header = "";
+			var couponKey = "";
+			var xmdObj = new Object();
+			var ec_count = 0;
+			var tmp_data = "";
+			if(isJson){
+				var _pd = xmlnode["phpData"];
+				tmp_data = {};
+				if(_pd){
+					for(var _k in _pd){ if(_pd.hasOwnProperty(_k)) tmp_data[_k.toUpperCase()] = _pd[_k]; }
+				}
+				var _total = tmp_data["TOTALDATACOUNT"] != null ? tmp_data["TOTALDATACOUNT"]*1 : NaN;
+				ec_count = (!isNaN(_total) && _total >= 0) ? _total : (xmlnode["response"] ? util.countSize(xmlnode["response"]) : 0);
+			}else{
+				tmp_data = _xmlnode.Root[0];
+				xmdObj["ec"] = xmlnode.Node(xmlnode.Root[0],"ec", false);
+				ec_count = xmdObj["ec"].length;
+			}
+			var specialTitle = (top.specialGame.title != "")?top.specialGame.title:postHash.specialTitle;
+			var tmpTS = util.getKeyValue(_xmlnode,tmp_data,"ts");//xmlnode.Node(xmlnode.Root[0],"ts").innerHTML;
+			var tmpMyGameRtype = util.getKeyValue(_xmlnode,tmp_data,"mygame_rtype");//xmlnode.Node(xmlnode.Root[0],"mygame_rtype").innerHTML;
+			// 只在「我的赛事」页签上校验 mygame_rtype，避免 live 等其它页签被误挡（特别是篮球滚球返回 rb）
+			var chkMyGameRtype = (top.choice_showtype=="mygame" && tmpMyGameRtype !== "" && tmpMyGameRtype != null && top.choice_rtype != tmpMyGameRtype);
+			var couponLid = util.getKeyValue(_xmlnode,tmp_data,"couponLid");//xmlnode.Node(xmlnode.Root[0],"couponLid").innerHTML;
+			// 非足球(gtype != ft) 不做 TS 严格校验，避免篮球滚球等因为后台 ts 差异被整页拦截
+			var needTsCheck = (top.choice_gtype=="ft");
+			if((needTsCheck && lastClickTS != 0 && !util_game.checkTS(top["lastClickTS"], tmpTS, "get_game_list")) || chkMyGameRtype) {
+				if(chkMyGameRtype)console.log("rtype錯誤!! [tmpMyGameRtype] = ",tmpMyGameRtype,",[choice_rtype] = ",top.choice_rtype);
+				else {
+					_self.clearGameTimer();
+					console.log("[清掉盤面timer][game_list][tmpTS]===>"+tmpTS+" [top.lastClickTS]=====>"+top["lastClickTS"]+" ts錯誤!!!!!!不繼續執行");
+				}
+				_self._closeGameLoading();
+				return;
+			}
+			var isALL = (postHash["lid"]=="");
+			if(postHash["headertype"]!=null){
+				sportFrame.setPostHash(postHash);
+				switch(postHash["headertype"]){
+					case "coupon":
+						_header = postHash["headername"];
+						couponKey = postHash["couponKey"];
+						break;
+					case "mycoupon":
+						_header = LS.get(postHash["headertype"]);
+						break;
+					case "league":
+						_header = postHash["headername"];
+						// if(!isIOS || !isALL) sportFrame.showSelectSort({"isShow":false});
+						break;
+					default:
+						_header = postHash["headername"];
+						break;
+				}
+			}
+			if(postHash["field"] != null){
+				win._history[win._history.length-1]["state"]["postHash"]["lid"] = couponLid;
+				if(_self.paramHash["lid"] != "" && _self.paramHash["lid"] != couponLid){
+					_self.paramHash["lid"] = couponLid;
+					top["choice_lid"] = couponLid;
+				}
+			}
+
+			try{
+			if(top.specialClick == "special"){
+				if(top.specialGame.title != "")postHash.specialTitle = top.specialGame.title;
+				sportFrame.setTitle("special",{"title":specialTitle});
+				sportFrame.showSportMenu({"isShow": false });
+				var ES_SpecialHigh = (top.specialGame.gtype=="ES" && top.choice_rtype=="r");
+				if(top.specialGame.cup_page == "game" || (top.specialGame.mode == "NORMAL" && !top.specialGame.isFantasy && !ES_SpecialHigh))sportFrame.showSelectSort({"isShow":true});
+				else sportFrame.showSelectSort({"isShow":false});
+			}else if(top.choice_showtype=="mygame"){
+				sportFrame.setTitle("mygame",{"gtype":top.choice_gtype, "showtype":top.choice_showtype, "league":_header});
+				sportFrame.showSportMenu({"isShow": true });
+			}else{
+				sportFrame.setTitle("total",{"gtype":top.choice_gtype, "showtype":top.choice_showtype, "league":_header, "isALL":isALL ,"couponKey":couponKey});
+				// sportFrame.showSportMenu({"isShow": (notNeedLegAry.indexOf(top.choice_showtype) != -1) });
+				sportFrame.showSportMenu({"isShow": true });
+				if(_self.paramHash["lid"] && _self.paramHash["lid"] != ""){
+					top["choice_lid"] = _self.paramHash["lid"];
+					if(_self.paramHash["action"] != "clickCoupon" && top.fantasy_lid != "" && _self.paramHash["lid"].indexOf(top.fantasy_lid) != -1){
+						sportFrame.hideFilterTab("fantasy");
+					}
+				}
+				if(_self.paramHash["action"] && _self.paramHash["action"] != ""){
+					if(_self.paramHash["action"] != "click_league")sportFrame.hideFilterTab("fs");
+				}
+				
+			}
+			}catch(e){};
+
+			var isHeader = (top.choice_showtype.match(/live|today|hot|soon/))?headerFrame.headerToSport():"N";
+			var showData = true;
+			if(isHeader !="N" && top.choice_gtype=="ft"){
+				var game_count = headerFrame.typeCount();
+				if(game_count==0)showData = false;
+			}
+			if(top.choice_gtype == "ft"){
+				if(pageCountHash["main"] == 0)showData = false;
+				if(top.choice_showtype == "mygame"){
+					dom.getElementById("tab_fantasy").style.display = "";
+				}
+				sportFrame.setShowDataSw(showData);
+			}
+			
+			if(ec_count > 0 && showData){
+				if(!isAllZero)_self.showNoData(false);
+				// var showScroll = dom.getElementById("body_show");
+				// util.addEvent(showScroll,"scroll",_self.obtFirstCheck);
+				if(top.choice_showtype=="mygame"){
+					if(top.choice_gtype=="ft" && dom.getElementById("total_tab"))dom.getElementById("total_tab").style.display="";
+					parentClass.dispatchEvent("showGreenBtnProc", true);
+				}
+			}else{
+				top.lastDataHash = new Object();
+				// console.log("秀狗圖",showData,",header取到的值 = ",headerFrame.typeCount(),",pageCount的Main = ",pageCountHash["main"]);
+				_self.setPDtabVisible(false);
+				top["showOBT"] = "";
+				if(top.choice_gtype=="es" && top.rightECID!="")parentClass.dispatchEvent("closeAnalysis");
+				if(top.choice_showtype=="mygame"){
+					if(filterRtypeAry.indexOf(top.choice_rtype) != -1){
+						var allZero = util.chkAllMyGameHash(true);
+						if(allZero){
+							//if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+								dom.getElementById("sport_menu").style.display="none";
+								dom.getElementById("total_tab").style.display="none";
+								dom.getElementById("showtype_now").innerHTML = "";
+								dom.getElementById("gtype_now").innerHTML = util.showTxt(LS.get("showtype_mygame"));
+								dom.getElementById("head_league").className = "head_league all";
+								_self.showNoData_myGame(true);
+							// }else{
+							// 	console.log("這個頁籤["+top.choice_rtype+"]無賽事,秀狗圖!!");
+							// 	_self.showNoData(true);
+							// }
+							_self.showGameLoading(false);
+							parentClass.dispatchEvent("showLoading", { "isShow": false });
+							parentClass.dispatchEvent("showGreenBtnProc", false);
+							if(top.choice_rtype.indexOf("pd")==-1){	
+								if(top.rightECID != "")parentClass.dispatchEvent("resetRightTV", {});
+								parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+								parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+								top.rightNowPlay = "";
+								top.rightECID = "";
+								top.rightGtype = top.choice_gtype;
+							}
+			
+							if(top.rightECID!="")parentClass.dispatchEvent("setRightTimer", "start");
+						}else{
+							dom.getElementById("head_league").className = "head_league "+top.choice_gtype;
+							_self.showNoData(true);
+						}
+					}else{
+						my_ecidAry = new Array();
+						_self.checkMyGame(my_ecidAry);
+					}								
+				}else{
+					_self.showNoData(true);
+				}
+				_self.noDataProc();
+				return;
+			}
+
+			if(worker_sw && window.Worker){
+				if(top.choice_gtype=="ft"){
+					_self.workerPost(_worker, {"action":"getData", "xml":_xmlnode ,"isClick":isClick});
+				}else{
+					_self.workerPostJsonOthers(_worker, {"action":"getOthersJsonData", "json":_jsonData});
+					// if(top.choice_gtype=="es" || top.choice_gtype=="bk") _self.workerPostJsonOthers(_worker, {"action":"getOthersJsonData", "json":_jsonData});//改OP
+					// else _self.workerPostOthers(_worker, {"action":"getOthersData", "xml":_xmlnode});
+				}
+				return;
+			}
+	}
+
+	_self.obtFirstCheck = function(e){
+		if(first_OBTMenuBtn)first_OBTMenuBtn = false;
+	}
+
+	_self.bodyRename = function(){
+		var par = new Object();
+		par._id = "body_show";
+		par.dom = dom;
+		parentClass.dispatchEvent("specialRename", par);
+	}
+
+	_self.getScDataObj = function (tmp_game,mainGame,showtype) {
+		var obj = new Object();
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var nowShowtype = (showtype)?showtype:top.choice_showtype;
+		obj.mainGame = mainGame;
+		if(top.choice_gtype!="ft")obj.scoreObj = tmp_game["SCORE"];
+		obj.LS_game = LS_game;
+		obj.nowMode =  (top.choice_gtype!="ft")?tmp_game["NOW_MODEL"]:tmp_game["now_model"];
+		obj.gtype = top.choice_gtype;
+		if(nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y"){
+			var _mygame = (top.choice_gtype!="ft")?tmp_game["SHOWTYPE"]:tmp_game["myGame"];
+			obj.showtype = util_game.transMyGameShowtype(_mygame);
+		}else{
+			obj.showtype = nowShowtype;
+		}
+		obj.isRB = (top.choice_gtype!="ft")?tmp_game["IS_RB"]:tmp_game["is_rb"];
+		obj.gopen = "Y";
+		obj.Live = "Y";
+		obj.league = (top.choice_gtype!="ft")?tmp_game["LEAGUE"]:tmp_game["league"];
+		obj.team_h = (top.choice_gtype!="ft")?tmp_game["TEAM_H"]:tmp_game["team_h"];
+		obj.team_c = (top.choice_gtype!="ft")?tmp_game["TEAM_C"]:tmp_game["team_c"];
+		obj.def_league = (top.choice_gtype!="ft")?tmp_game["LEAGUE"]:tmp_game["league"];
+		obj.def_team_h = (top.choice_gtype!="ft")?tmp_game["TEAM_H"]:tmp_game["team_h"];
+		obj.def_team_c = (top.choice_gtype!="ft")?tmp_game["TEAM_C"]:tmp_game["team_c"];
+		obj.limit_min = tmp_game["par_minlimit"];
+		obj.OuterOpen = "Y";
+
+		if(top.choice_gtype!="ft"){
+			if(tmp_game["DATETIME"]!=null&&tmp_game["DATETIME"]!=""){
+				obj.newDatetime = util.newDatetime({"systime":tmp_game["SYSTIME"],"datetime":tmp_game["DATETIME"],"LS_game":LS_game,"timetype":top["userData"].timetype,"langx":top.langx});
+			}else{
+				obj.newDatetime = "";
+			}
+		}else{
+			if(tmp_game["datetime"]!=null&&tmp_game["datetime"]!=""){
+				obj.newDatetime = util.newDatetime({"systime":tmp_game["systime"],"datetime":tmp_game["datetime"],"LS_game":LS_game,"timetype":top["userData"].timetype,"langx":top.langx});
+			}else{
+				obj.newDatetime = "";
+			}
+		}
+
+
+		
+		obj.from = "game_list";
+		obj.ptype = (top.choice_gtype!="ft")? util_game.showTxt(tmp_game["PTYPE"]) : util_game.showTxt(tmp_game["ptype"]);
+		if(top.choice_gtype=="ft"){
+			if(tmp_game["midfield"] == "Y"){
+				//obj.team_h = _self.replaceMidfield(obj.team_h);
+				obj.midfield = "Y";
+			}else{
+				obj.midfield = "N";
+			}
+		}else{
+			obj.midfield = tmp_game["MIDFIELD"];
+			if(obj.ptype!=""){
+				obj.team_h = obj.team_h+obj.ptype;
+				obj.def_team_h = obj.def_team_h+obj.ptype;
+				obj.team_c = obj.team_c+obj.ptype;
+				obj.def_team_c = obj.def_team_c+obj.ptype;
+			}
+		}
+		
+		switch(top.choice_gtype){
+			case "ft":
+				if(top.choice_rtype=="rcn" || top.choice_rtype=="rrn" ||
+				  ((top.choice_rtype=="cn" || top.choice_rtype=="rn") && tmp_game["myGame"]=="rb")){
+					obj.score_h = (tmp_game["main_score_h"]!=null)? tmp_game["main_score_h"] : tmp_game["score_h"];
+					obj.score_c = (tmp_game["main_score_c"]!=null)? tmp_game["main_score_c"] : tmp_game["score_c"];
+				}else{
+					obj.score_h = tmp_game["score_h"];
+					obj.score_c = tmp_game["score_c"];
+				}
+
+				obj.score_new = "";
+				obj.redcard_h = tmp_game["redcard_h"];
+				obj.redcard_c = tmp_game["redcard_c"];
+				obj.re_time = tmp_game["retimeset"];
+				obj.nowGoal = tmp_game["nowset"];
+				obj.endGame = tmp_game["end_game"];
+				obj.pk_method = tmp_game["pk_method"];
+				obj.FTscoreH = tmp_game["ft_scroe_h"];
+				obj.FTscoreC = tmp_game["ft_scroe_c"];
+				obj.pfcolor_h = tmp_game["pfcolor_h"];
+				obj.pfcolor_c = tmp_game["pfcolor_c"];
+
+				if(obj.ptype!=null && obj.nowMode.match(/^(PK|PKOU|PKR|ET)$/g)){
+					obj.team_h = obj.team_h.split(" ")[0];
+					obj.team_c = obj.team_c.split(" ")[0];
+				}
+
+				break;
+			case "bk":
+				var t_count = tmp_game["LASTTIME"];
+				if(isNaN(t_count)||t_count<0)t_count=0;
+				var TimeM= Math.floor(t_count/60);
+				var TimeS= t_count%60;
+				if(TimeM<10)TimeM="0"+TimeM;
+				if(TimeS<10)TimeS="0"+TimeS;
+				t_count = TimeM+":"+TimeS
+				obj.t_count = t_count;
+				var se_now = "";
+				if(tmp_game["NOW_MODEL"]=="QT")se_now = tmp_game["MS_SE"];
+				else if(tmp_game["NOW_MODEL"]=="HV")se_now = tmp_game["HALF_SE"];
+				else if(tmp_game["NOW_MODEL"]=="OT")se_now = "OT";
+				var se_now_str = "";
+				if(se_now == "HT") se_now_str = "1H";
+				else if(se_now == "H2") se_now_str = "2H";
+				else se_now_str = se_now;
+				obj.se_now_str = se_now_str;
+				obj.se_now = se_now;
+				var se_num = (se_now!="")?se_now.substr(1,1)*1:"";
+				if(se_now == "HT") se_num = 1;
+				obj.se_num = se_num;
+				var bk_model = tmp_game["NOW_MODEL"];
+				var se_str = new Object();
+				se_str["QT"] = "Quarters";
+				se_str["HV"] = "Halves";
+				se_str["OT"] = "OT"
+				obj.se_type = tmp_game["SE_TYPE"];
+				obj.HalfTime = tmp_game["HALFTIME"];
+				obj.score_H_FT = tmp_game["SCORE_H"];
+				obj.score_A_FT = tmp_game["SCORE_C"];
+				obj.sw_3x3 = tmp_game["SW_3X3"];
+				break;
+			case "bs":
+				obj.part = tmp_game["PART"];
+				obj.game_H = tmp_game["SCORE_H"];
+				obj.game_A = tmp_game["SCORE_C"];
+				obj.overT_H = (tmp_game["SCORE"])?tmp_game["SCORE"]["SC_OT_H"]:"";
+				obj.overT_A = (tmp_game["SCORE"])?tmp_game["SCORE"]["SC_OT_A"]:"";
+				obj.over_H = (tmp_game["SCORE"])?tmp_game["SCORE"]["SC_OV_H"]:"";
+				obj.over_A = (tmp_game["SCORE"])?tmp_game["SCORE"]["SC_OV_A"]:"";
+				obj.out_count = tmp_game["OUTCOUNT"];
+				obj.base_1B = tmp_game["BASE_1B"];
+				obj.base_2B = tmp_game["BASE_2B"];
+				obj.base_3B = tmp_game["BASE_3B"];
+				break;
+			case "bm":
+				var best = tmp_game["BEST"];
+				var playSet = best.split(" ");
+				var max_set = playSet[2]*1;
+				var playDeuce = (playSet[3]!=null);
+				obj.max_set = max_set;
+				obj.playDeuce = playDeuce;
+				obj.sc_game_H = tmp_game["SCORESETH"];
+				obj.sc_game_A = tmp_game["SCORESETC"];
+				obj.server_sw = tmp_game["SERVE"];
+				break;
+			case "op":
+				obj.score_h = tmp_game["SCORE_H"];
+				obj.score_c = tmp_game["SCORE_C"];
+				break;						
+			case "sk":
+				obj.score_h = tmp_game["SCORE_H"];
+				obj.score_c = tmp_game["SCORE_C"];
+				obj.best = tmp_game["BEST"];
+				obj.mode = tmp_game["BEST_MODE"].split(" ");
+				break;						
+			case "tn":
+				var best = tmp_game["BEST"];
+				var max_set = best.substr(best.length-1,1)*1;
+				obj.max_set = max_set;
+				obj.sc_set_H = tmp_game["SCORESETH"];
+				obj.sc_set_A = tmp_game["SCORESETC"];
+				obj.server_sw = tmp_game["SERVE"];
+				obj.sc_game_H = tmp_game["SCOREPOINTH"];
+				obj.sc_game_A = tmp_game["SCOREPOINTC"];
+				obj.w_delay = tmp_game["SHOWDELAY"];
+				obj.nowGame = tmp_game["NOWGAME"];
+				break;						
+			case "tt":
+			case "vb":
+				var best = tmp_game["BEST"];
+				var max_set = best.substr(best.length-1,1)*1;
+				obj.max_set = max_set;
+				obj.sc_game_H = tmp_game["SCORESETH"];
+				obj.sc_game_A = tmp_game["SCORESETC"];
+				obj.server_sw = tmp_game["SERVE"];
+				break;
+			case "es":
+				obj.peid = tmp_game["PARENT_ID"];
+				obj.matchScoreH = tmp_game["MATCH_H"];
+				obj.matchScoreC = tmp_game["MATCH_C"];
+				var bestmode = tmp_game["BEST"];
+				bestmode = bestmode.replace(/ /g,"_");
+				obj.gameType = LS_game.get("ES_"+bestmode);
+				obj.mode = tmp_game["BEST"];
+
+				var _nowGame = (tmp_game["SCORE"] && tmp_game["SCORE"]["NOWGAME"])?tmp_game["SCORE"]["NOWGAME"]:tmp_game["NOWGAME"];
+				obj.nowGame = isNaN(_nowGame*1)?_nowGame:"g"+_nowGame;
+				obj.nowGameStr = LS_game.get("ES_"+obj.nowGame);
+
+				var nowSet = tmp_game["NOWSET"];
+
+				if(_nowGame!=nowSet){
+					obj.ior_m_c = "0";
+					obj.ior_m_h = "0";
+				}else{
+					obj.ior_m_c = tmp_game["PLAYS"]["MS_M"]["MS_IOR_RMC"];
+					obj.ior_m_h = tmp_game["PLAYS"]["MS_M"]["MS_IOR_RMH"];
+				}
+
+				obj.scoreType = tmp_game["SCORETYPE"];
+				var kill_h = (tmp_game["SCORE"]["KILL_H"])?tmp_game["SCORE"]["KILL_H"]:0;
+				var kill_c = (tmp_game["SCORE"]["KILL_C"])?tmp_game["SCORE"]["KILL_C"]:0;
+				var game_h = (tmp_game["SCORE"]["GAME_H"])?tmp_game["SCORE"]["GAME_H"]:0;
+				var game_c = (tmp_game["SCORE"]["GAME_C"])?tmp_game["SCORE"]["GAME_C"]:0;
+				obj.subScoreH = (obj.scoreType == "MOBA-1")? kill_h: game_h;
+				obj.subScoreC = (obj.scoreType == "MOBA-1")? kill_c: game_c;
+				obj.midfield = tmp_game["MIDFIELD"];
+				obj.nowStatus = tmp_game["STATUS"];
+				obj.statusStr = LS_game.get("ES_"+obj.nowStatus);
+				obj.color_h = tmp_game["COLOR_H"];
+				obj.color_c = tmp_game["COLOR_C"];
+				if(obj.mode == "N/A" && obj.nowGame == "N/A")obj.showLive = LS_game.get("re");
+				obj.type = util.chgGameType(tmp_game["TYPE"]);
+				break;
+			default:
+				obj.score_h = tmp_game["score_h"];
+				obj.score_c = tmp_game["score_c"];
+				obj.score_new = "";
+				obj.redcard_h = tmp_game["redcard_h"];
+				obj.redcard_c = tmp_game["redcard_c"];
+				obj.re_time = tmp_game["retimeset"];
+				break;
+		}
+		return obj;
+	}
+
+	_self.makeFantasyObj = function(xmlHash){
+		var ret = new Array();
+		var gameHead = new Array("GAMEC_ECID","GAMEC_LEAGUE_ID","GAMEC_GID","GAMEC_LEAGUE","GAMEC_DATETIME","GAMEC_TEAM_C","GAMEC_TEAM_H","GAMEC_TEAM_C_ID","GAMEC_TEAM_H_ID","GAMEH_ECID","GAMEH_LEAGUE_ID","GAMEH_GID","GAMEH_LEAGUE","GAMEH_DATETIME","GAMEH_TEAM_C","GAMEH_TEAM_H","GAMEH_TEAM_C_ID","GAMEH_TEAM_H_ID");
+		
+			var fantasyData = xmlnode.Node(xmlHash,"FANTASY_DATA");
+			for(var g=0;g<gameHead.length;g++){
+				ret[gameHead[g]] = _xmlnode.Node(fantasyData,gameHead[g]).innerHTML;
+			}
+		
+		return ret;
+	}
+
+	_self.setGameSFS=function(main_game){
+		var tmp_Obj = new Object();
+		var tmp_game = main_game;
+		var xmdObj = new Object();
+		xmdObj["SFSGAME"] = xmlnode.Node(tmp_game,"SFSGAME");
+		xmdObj["SFS"] = xmlnode.Node(xmdObj["SFSGAME"],"SFS");
+		max_FS = 0;
+		var SFSGAME = new Array();
+		var S_LIST = new Array();
+		var cnt_H = new Array();
+		var cnt_C = new Array();
+		var RTYPE_H = new Array();
+		var RTYPE_C = new Array();
+
+		for(var i=0; i<xmdObj["SFS"].length; i++){
+				var tmp_sfs = xmdObj["SFS"][i];
+				var SFStype = xmlnode.Node(tmp_sfs,"SFS_ID").innerHTML;
+				S_LIST[S_LIST.length] = SFStype;
+				SFSGAME[SFStype] = new Array();
+				SFSGAME[SFStype]["SFS_GID"] = xmlnode.Node(tmp_sfs,"SFS_GID").innerHTML;
+				SFSGAME[SFStype]["SFS_TITLE"] = xmlnode.Node(tmp_sfs,"SFS_PICTHER").innerHTML;
+
+				xmdObj["RTYPE"] = xmlnode.Node(tmp_sfs,"RTYPE");
+				for(var j=0; j<xmdObj["RTYPE"].length; j++){
+
+					var tmp_rtype = xmdObj["RTYPE"][j];
+					var RTYPE_ID = xmlnode.Node(tmp_rtype,"RTYPE_ID").innerHTML;
+					var FSteam = xmlnode.Node(tmp_rtype,"SFS_NAME").innerHTML;
+					var FSior = xmlnode.Node(tmp_rtype,"SFS_IOR").innerHTML; 
+					var FSteam_id = xmlnode.Node(tmp_rtype,"TEAM_ID").innerHTML; 
+
+					SFSGAME[SFStype]["SFS_IOR_"+RTYPE_ID] = FSior;
+					SFSGAME[SFStype]["SFS_NAME_"+RTYPE_ID] = FSteam;
+					SFSGAME[SFStype]["TEAM_ID_"+RTYPE_ID] = FSteam_id;
+
+					if(SFStype.indexOf("H")!=-1){
+						if(cnt_H[RTYPE_ID]==undefined) cnt_H[RTYPE_ID] = 0;
+						cnt_H[RTYPE_ID] += FSior*1;
+					}
+
+					if(SFStype.indexOf("C")!=-1){
+						if(cnt_C[RTYPE_ID]==undefined) cnt_C[RTYPE_ID] = 0;
+						cnt_C[RTYPE_ID] += FSior*1;
+					}
+				}					
+		}
+	
+		for(var r_key in cnt_H){
+			if(cnt_H[r_key] > 0) RTYPE_H.push(r_key);
+		}
+
+		for(var r_key in cnt_C){
+			if(cnt_C[r_key] > 0) RTYPE_C.push(r_key);
+		}
+
+		max_FS = (RTYPE_C.length > RTYPE_H.length)?RTYPE_C.length:RTYPE_H.length;
+		tmp_Obj["STYPE_LIST"] = _self.sortStype(S_LIST);
+		tmp_Obj["H_LIST"] = RTYPE_H;
+		tmp_Obj["C_LIST"] = RTYPE_C;
+		tmp_Obj["MAXSFS"] = max_FS
+		tmp_Obj["SFS"] = SFSGAME;
+		return tmp_Obj;
+	}
+
+	_self.sortStype = function(S_LIST){
+		S_LIST = new Array("H19","H204","H20","C19","C204","C20");
+		var outObj = new Object();
+		var match = {"H":"A","C":"B"};
+		var cnt = {"H":0,"C":0};
+		var tmp;
+		for(var i=0 ;i<S_LIST.length;i++){
+				tmp = S_LIST[i].substr(0,1);
+				outObj[match[tmp]+(cnt[tmp]++)] = S_LIST[i];
+		}
+		return outObj;
+	}
+
+	_self.setPDHash = function(ecid,SortStr,isHalf,is_rb,choiceScore){
+		var tmpEC = ecid;
+		var half = (isHalf == "Y")?"_H":"";
+		if(pdSortHash[tmpEC+half] == null)pdSortHash[tmpEC+half] = new Array();
+		pdSortHash[tmpEC+half]["H"] = new Array();
+		pdSortHash[tmpEC+half]["C"] = new Array();
+		pdSortHash[tmpEC+half]["DRAW"] = new Array();
+		pdSortHash[tmpEC+half]["All"] = new Array();
+		if(pdSortHash[tmpEC+half]["choice"] == null)pdSortHash[tmpEC+half]["choice"] = "";
+
+		pdHeadHash[tmpEC+half] = new Array();
+		pdIorHead[tmpEC+half] = new Array();
+
+		var tmpHeadStr = (isHalf == "Y")?"IOR_H":"IOR_";
+		var tmpIorStr = (isHalf == "Y")?"H":"";
+
+		var splitSortStr = SortStr.split("#");
+		for(var p=0;p<splitSortStr.length;p++){
+			if(splitSortStr[p] == "")continue;
+			var tmpScore = splitSortStr[p];
+			var splitScore = tmpScore.split("-");
+			var hScore = splitScore[0];
+			var cScore = splitScore[1];
+			var tmpHeadKey = (is_rb != "Y")? tmpHeadStr+"H"+hScore+"C"+cScore : tmpHeadStr+"RH"+hScore+"C"+cScore;
+			var tmpIorKey = (is_rb != "Y")? tmpIorStr+"H"+hScore+"C"+cScore : tmpIorStr+"RH"+hScore+"C"+cScore;
+
+			pdSortHash[tmpEC+half]["All"].push(tmpScore);
+			pdHeadHash[tmpEC+half].push(tmpHeadKey);
+			pdIorHead[tmpEC+half].push(tmpIorKey);
+			if(top.nowPDMode == "choice"){
+				pdSortHash[tmpEC+half]["choice"] = choiceScore;
+			}else{
+				if(hScore*1 > cScore*1)pdSortHash[tmpEC+half]["H"].push(tmpScore);
+				else if(cScore*1 > hScore*1)pdSortHash[tmpEC+half]["C"].push(tmpScore);
+				else pdSortHash[tmpEC+half]["DRAW"].push(tmpScore);
+			}
+		}
+		util_game.sortHash(pdSortHash[tmpEC+half]["H"],"positive");
+		util_game.sortHash(pdSortHash[tmpEC+half]["C"],"reverse");
+		util_game.sortHash(pdSortHash[tmpEC+half]["DRAW"],"positive");
+		return true;
+	}
+
+	_self.getPDModel = function(obj){
+		var ecid = obj.ecid;
+		var tmpDiv = obj.div;
+		var model = obj.model;
+		var strongMODEL = obj.strongMODEL;
+		var isHalf = "N";
+		if(model){
+			isHalf = (model.match(/\bH/))?"Y":"N";
+		}else{
+			isHalf =  (nowHTECID.indexOf(ecid) == -1)?"N":"Y";
+		}
+		var halfStr =  (isHalf == "Y")?"_H":"";
+		var tmpHtml = tmpDiv.innerHTML;
+		if(top.nowPDMode == "choice"){
+			tmpHtml = tmpHtml.replace(new RegExp("\\\*PD0\\\*","gi"), _self.transPDRtype(pdSortHash["ec"+ecid+halfStr]["choice"]));
+		}else{
+			var modelSet = new Object();
+			modelSet["H"] = {"H":3,"DRAW":1,"C":1};
+			modelSet["N"] = {"H":2,"DRAW":1,"C":2};
+			modelSet["A"] = {"H":1,"DRAW":1,"C":3};
+			var nowSet = modelSet[strongMODEL];
+			var disPlayBtn = "none";
+			for(var site in pdSortHash["ec"+ecid+halfStr]){
+				if(site == "All")continue;
+				var tmpHash = pdSortHash["ec"+ecid+halfStr][site];
+				var tmpLength = tmpHash.length;
+				var rowNum = nowSet[site];
+				if(tmpLength/rowNum > 5){
+					disPlayBtn = "";
+				}
+				for(var no in tmpHash){
+					tmpHtml = tmpHtml.replace(new RegExp("\\\*"+site+no+"_SHOW\\\*","gi"), "show");
+					tmpHtml = tmpHtml.replace(new RegExp("\\\*"+site+"PD"+no+"_SCORE\\\*","gi"), tmpHash[no]);
+					tmpHtml = tmpHtml.replace(new RegExp("\\\*"+site+"PD"+no+"\\\*","gi"), _self.transPDRtype(tmpHash[no]));
+				}
+			}
+			tmpHtml = tmpHtml.replace(new RegExp("\\\*DISPLAYBTN\\\*","gi"), disPlayBtn);
+		}
+		tmpDiv.innerHTML = tmpHtml;
+		return tmpDiv;
+	}
+
+	_self.transPDRtype = function(score){
+		var ret = "";
+		if(score){
+			var splitScore = score.split("-");
+			ret = "H"+splitScore[0]+"C"+splitScore[1];
+		}
+		return ret;
+	}
+
+	_self.workerPost = function(WORKER, parObj){
+		var xml = parObj["xml"];
+		var GameHash = util_game.convertNodeToHashForGame(xml.Root[0]);
+		var dataHash = GameHash["obj"];
+		var xmlHash = GameHash["xmlObj"];
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var rightTV = new Object();
+		var rightMT = new Object();
+		var tv_ecidAry = new Object();
+		var mt_ecidAry = new Object();
+		var cup_showFantasy = new Object();
+		var nowShowtype = _xmlnode.Node(xml.Root[0],"nowShowtype").innerHTML;
+		var systime = _xmlnode.Node(xml.Root[0],"system_time").innerHTML;
+		var ior_ary = [["reh","rec"],["rouh","rouc"],["hreh","hrec"],["hrouh","hrouc"],["rouho","rouhu"],["rouco","roucu"],["rshy","rshn"],["rscy","rscn"],["rh","rc"],["ouh","ouc"],["hrh","hrc"],["houh","houc"],["eoo","eoe"],["heoo","heoe"],["reoo","reoe"],["hreoo","hreoe"],["rnch","rncc"],["rnbh","rnbc"]];
+		var eo_ary = [["reoo","reoe"],["hreoo","hreoe"],["eoo","eoe"],["heoo","heoe"]];
+		var rs_ary = [["rshy","rshn"],["rscy","rscn"]];
+		my_rightTVAry = new Array();
+
+		for(var _key in dataHash){
+			var tmp_game = dataHash[_key];
+			if(top.choice_rtype.match(/pd/)){
+				var _ecid = _key.replace("ec","");
+				var closeHT = false;
+				var closeFT = false;
+				closeFT = (tmp_game["pd_sw"] == "N");
+				if(tmp_game["is_rb"] == "Y"){
+					closeHT = (tmp_game["hnike"] == "N" || tmp_game["hgopen"] == "N" || tmp_game["hpd_sw"] == "N");
+				}else{
+					closeHT = (tmp_game["hgopen"] == "N" || tmp_game["hpd_sw"] == "N");
+				}
+				if(nowHTECID.indexOf(_ecid) != -1 && closeHT){
+					nowHTECID.splice(nowHTECID.indexOf(_ecid),1);
+				}
+				if(closeFT && nowHTECID.indexOf(_ecid) == -1){
+					nowHTECID.push(_ecid);
+				}
+				var isHalf =  (nowHTECID.indexOf(_ecid) == -1)?"N":"Y";
+				var halfStr = (isHalf == "Y")?"_H":"";
+				var tmpPDRtype = (isHalf == "Y")?tmp_game["hpd_rtypes"]:tmp_game["pd_rtypes"];
+				var tmpGid =  (isHalf == "Y")?tmp_game["hgid"]:tmp_game["gid"];
+				if(top.nowPDMode == "choice"){
+					var nowScore = "0-0";
+						if(pdSortHash[_key+halfStr] && pdSortHash[_key+halfStr]["choice"] != "" && tmpPDRtype.match(pdSortHash[_key+halfStr]["choice"])){
+							// console.log("容器有資料，取容器");
+							nowScore = pdSortHash[_key+halfStr]["choice"];
+						}else{
+							if(top["bet_select"]["ec_"+_ecid]){
+								// console.log("容器無資料，有點賠率，取注單上比分");
+								var rtype = top["bet_select"]["ec_"+_ecid].split("_")[3];
+								var selectGid = top["bet_select"]["ec_"+_ecid].split("_")[1];
+								var isPDrtype = rtype.match(/^H?R?H[1-2]?[0-9]C[1-2]?[0-9]/);
+								if(isPDrtype && (tmpGid == selectGid)){
+									nowScore = rtype.replace(/R/,"").replace(/H/,"").replace(/H/,"").replace(/C/,"-");
+								}else{
+									if(tmp_game["score_h"] != "" && tmp_game["score_c"] != ""){
+										nowScore = tmp_game["score_h"]+"-"+tmp_game["score_c"];
+									}
+								}
+							}else{
+								// console.log("容器無資料，無點賠率，取最原始資料");
+								if(tmp_game["score_h"] != "" && tmp_game["score_c"] != ""){
+									nowScore = tmp_game["score_h"]+"-"+tmp_game["score_c"];
+								}
+							}
+						}
+					// console.log("isClick = ",parObj["isClick"]," [ECID] = ",_key," [目前設定比分] = ",nowScore);
+					_self.setPDHash(_key,tmpPDRtype,isHalf,tmp_game["is_rb"],nowScore);
+				}else{
+					_self.setPDHash(_key,tmpPDRtype,isHalf,tmp_game["is_rb"]);
+				}
+			}
+			if(nowShowtype!="parlay"){
+				for(var k=0; k<ior_ary.length; k++){
+					var tmpAry = ior_ary[k];
+					if(tmp_game["ior_"+tmpAry[0]]!="" && tmp_game["ior_"+tmpAry[1]]!=""){
+						var ior_h = tmp_game["ior_"+tmpAry[0]];
+						var ior_c = tmp_game["ior_"+tmpAry[1]];
+						if(tmpAry[0].indexOf("eoo")!=-1&&tmpAry[1].indexOf("eoe")!=-1){
+							var hash_hc = util_game.chgOddfIoratio(ior_h-1, ior_c-1, config_ior,"HK");
+							if(!isNaN( hash_hc[0])) dataHash[_key]["ior_"+tmpAry[0]] = (hash_hc[0]*1)+1;
+							if(!isNaN( hash_hc[1])) dataHash[_key]["ior_"+tmpAry[1]] = (hash_hc[1]*1)+1;
+						}else{
+							var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+							if(!isNaN( hash_hc[0])) dataHash[_key]["ior_"+tmpAry[0]] = hash_hc[0];
+							if(!isNaN( hash_hc[1])) dataHash[_key]["ior_"+tmpAry[1]] = hash_hc[1];
+						}
+					}
+					if(needSubRtype.indexOf(top.choice_rtype) != -1){
+						var subAry = Array("a","b","c","d","e","f","g");
+						for(var sub=0;sub<subAry.length;sub++){
+							var tmpkey = subAry[sub]+"_sub_ior_";
+							if(tmp_game[tmpkey+tmpAry[0]] && tmp_game[tmpkey+tmpAry[1]]){
+								var sub_ior_h = tmp_game[tmpkey+tmpAry[0]];
+								var sub_ior_c = tmp_game[tmpkey+tmpAry[1]];
+								var hash_hc = util_game.chgOddfIoratio(sub_ior_h, sub_ior_c, config_ior);
+								if(!isNaN( hash_hc[0])) dataHash[_key][tmpkey+tmpAry[0]] = hash_hc[0];
+								if(!isNaN( hash_hc[1])) dataHash[_key][tmpkey+tmpAry[1]] = hash_hc[1];
+								//console.log("子盤換盤口:第"+subAry[sub]+"盤: [sub_ior_h] = ",sub_ior_h+"| [sub_ior_c] = ",sub_ior_c,",[轉完賠率] =>",hash_hc[0],"|",hash_hc[1]);
+							}
+						}
+					}
+				}
+			}else{
+				for(var e=0; e<eo_ary.length; e++){
+					var tmpAry = eo_ary[e];
+					if(tmp_game["ior_"+tmpAry[0]] && tmp_game["ior_"+tmpAry[1]]){
+						var ior_h = tmp_game["ior_"+tmpAry[0]]*1-1;
+						var ior_c = tmp_game["ior_"+tmpAry[1]]*1-1;
+						var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior, "HK");
+						if(!isNaN( hash_hc[0])) dataHash[_key]["ior_"+tmpAry[0]] = (hash_hc[0]*1)+1;
+						if(!isNaN( hash_hc[1])) dataHash[_key]["ior_"+tmpAry[1]] = (hash_hc[1]*1)+1;
+						var tmp_ior_h = (hash_hc[0]*1)+1;
+						var tmp_ior_c = (hash_hc[1]*1)+1;
+					}
+				}
+
+				for(var h=0; h<rs_ary.length; h++){
+					var tmpAry = rs_ary[h];
+					if(tmp_game["ior_"+tmpAry[0]] && tmp_game["ior_"+tmpAry[1]]){
+						var ior_h = tmp_game["ior_"+tmpAry[0]];
+						var ior_c = tmp_game["ior_"+tmpAry[1]];
+						var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+						if(!isNaN( hash_hc[0])) dataHash[_key]["ior_"+tmpAry[0]] = (hash_hc[0]*1)+1;
+						if(!isNaN( hash_hc[1])) dataHash[_key]["ior_"+tmpAry[1]] = (hash_hc[1]*1)+1;
+					}
+				}
+			}
+
+			if(!first_no_tvmt && filterRtypeAry.indexOf(top.choice_rtype) == -1){	
+				var ecid = tmp_game["ecid"]; 
+				var ph_sw = tmp_game["tv_ph_sw"]; 
+				var eventid = tmp_game["eventid"]; 
+				var mtid = tmp_game["mt_id"]; 
+				var hasTV = (typeof eventid!="undefined" && eventid!="" && eventid!="0" && ph_sw=="Y");
+				var hasMT = (typeof mtid!="undefined" && mtid!="" && mtid!="0");
+				var isRB = ((tmp_game["is_rb"]=="Y"&&nowShowtype=="parlay")||nowShowtype=="live"||top.choice_filter=="RB")?"Y":"N";
+				if(nowShowtype.match(/mygame|today|soon|hot/) || top.specialClick != ""){
+					var tmpShowType = util_game.transMyGameShowtype(tmp_game["myGame"]);
+					if(tmpShowType=="live") isRB = "Y";
+				}else{
+					var tmpShowType = nowShowtype;
+				}	 
+				
+				if(hasTV){
+					if(rightTV["ecid"]==""||rightTV["ecid"]==undefined){
+						rightTV["key"]=_key;
+						rightTV["ecid"]=ecid;
+						rightTV["data"]=tmp_game;
+						rightTV["hasTV"]=hasTV;
+						rightTV["hasMT"]=hasMT;
+						rightTV["isRB"]=isRB;
+						rightTV["rightShowType"]=tmpShowType;
+					}
+					tv_ecidAry[tmp_game["ecid"]]=true;
+				}
+				
+				if(hasMT){
+					if(rightMT["ecid"]=="" || rightMT["ecid"]==undefined){
+						rightMT["key"]=_key;
+						rightMT["ecid"]=ecid;
+						rightMT["data"]=tmp_game;
+						rightMT["hasTV"]= hasTV;
+						rightMT["hasMT"]= hasMT;
+						rightMT["isRB"]=isRB;
+						rightMT["rightShowType"]=tmpShowType;
+					}
+					mt_ecidAry[tmp_game["ecid"]]=true;
+				}
+
+				if(hasTV||hasMT){
+					my_rightTV[tmp_game["ecid"]] = new Object();
+					my_rightTV[tmp_game["ecid"]]["key"] = _key;
+					my_rightTV[tmp_game["ecid"]]["ecid"] = ecid;
+					my_rightTV[tmp_game["ecid"]]["data"] = tmp_game;
+					my_rightTV[tmp_game["ecid"]]["hasTV"] = hasTV;
+					my_rightTV[tmp_game["ecid"]]["hasMT"] = hasMT;
+					my_rightTV[tmp_game["ecid"]]["isRB"] = isRB;
+					my_rightTV[tmp_game["ecid"]]["rightShowType"] = tmpShowType;
+					my_rightTV[tmp_game["ecid"]]["dataHash"] = dataHash;
+					my_rightTV[tmp_game["ecid"]]["xmlHash"] = xmlHash;
+					my_rightTVAry.push(tmp_game["ecid"]);
+				}
+			}
+			if(tmp_game["isfantasy"] == "Y"){
+				var teamH_id = tmp_game["team_h_id"];
+				var teamC_id = tmp_game["team_c_id"];
+				if(FantasyDataHash[_key] == null)FantasyDataHash[_key] = new Array();
+				FantasyDataHash[_key] = _self.makeFantasyObj(xmlHash[_key]);
+				if(top.specialGame.isFantasy){
+					cup_showFantasy[_key] = true;
+				}else cup_showFantasy[_key] = false;
+
+				var fantasy_teamh = (teamH_id==FantasyDataHash[_key]["GAMEH_TEAM_H_ID"])?"teamA":"teamB";
+				var fantasy_teamc = (teamC_id==FantasyDataHash[_key]["GAMEH_TEAM_H_ID"])?"teamC":"teamD";
+
+				FantasyDataHash[_key]["systime"] = systime;
+				FantasyDataHash[_key]["fantasy_teamh"] = fantasy_teamh;
+				FantasyDataHash[_key]["fantasy_teamc"] = fantasy_teamc;
+			}
+			if(tmp_game["sfsgame"]){
+				if(SFSDataHash[_key] == null)SFSDataHash[_key] = new Array();
+				SFSDataHash[_key] = _self.setGameSFS(xmlHash[_key]);
+				if(!sfsChoseTeam[_key]){
+					sfsChoseTeam[_key]="teamH";
+				}
+				//console.log(SFSDataHash);
+			}
+		}
+		lastDataHash = dataHash;
+		top.lastDataHash = lastDataHash;
+
+		nowGameHash = util.clone(dataHash);
+		if(!first_no_tvmt && filterRtypeAry.indexOf(top.choice_rtype) == -1){	
+			if(top.rightNowPlay == ""){ 
+				if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+				if(rightTV["ecid"]!=""&&rightTV["ecid"]!=undefined){
+					top.rightECID = rightTV["ecid"];
+					top.rightGtype = top.choice_gtype;
+					top.rightNowPlay = "TV";
+					top.rightRB = rightTV["isRB"];
+					top.rightShowType = rightTV["rightShowType"];
+
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+					 if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+				}
+				else if(rightMT["ecid"]!=""&&rightMT["ecid"]!=undefined){
+					top.rightECID = rightMT["ecid"];
+					top.rightGtype = top.choice_gtype;
+					top.rightNowPlay = "MT";
+					top.rightRB = rightMT["isRB"];
+					top.rightShowType = rightMT["rightShowType"];
+
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTVDefaultPlay", rightMT);
+				}
+				else{
+					first_no_tvmt = true; 
+					top.rightNowPlay = "";
+					top.rightECID = "";
+					top.rightGtype = "";
+					top.rightRB = "";
+					top.rightShowType = "";
+					parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+				}
+			}
+			else if(top.rightNowPlay == "TV"){ 
+				if(!tv_ecidAry[top.rightECID]){
+					if(rightTV["ecid"]==undefined||rightTV["ecid"]==""){
+						if(rightMT["ecid"]!=undefined&&rightMT["ecid"]!=""){ 
+							top.rightECID = rightMT["ecid"];
+							top.rightGtype = top.choice_gtype;
+							top.rightNowPlay = "MT";
+							top.rightRB = rightMT["isRB"];
+							top.rightShowType = rightMT["rightShowType"];
+
+							parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash[rightMT["key"]], "from":"game_list"});
+						}			
+						else{
+							first_no_tvmt = true; 
+							top.rightECID = "";
+							top.rightGtype = "";
+							top.rightNowPlay = "";
+							top.rightRB = "";
+							top.rightShowType = "";
+
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+							parentClass.dispatchEvent("resetRightTV", {});
+						}
+					}else{
+						top.rightECID = rightTV["ecid"];
+						top.rightGtype = top.choice_gtype;
+						top.rightRB = rightTV["isRB"];
+						top.rightShowType = rightTV["rightShowType"];
+
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+						if(getView().viewportwidth >= 1024){
+							parentClass.dispatchEvent("resetRightTV", {});
+							parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+						}
+					}
+				}
+				// else if(top.choice_filter == "MIX"){
+				// 	if(rightTV["isRB"] == "Y" && (top.rightRB != rightTV["isRB"])){
+				// 		top.rightECID = rightTV["ecid"];
+				// 		top.rightGtype = top.choice_gtype;
+				// 		top.rightRB = rightTV["isRB"];
+				// 		top.rightShowType = rightTV["rightShowType"];
+				// 		parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+				// 		if(getView().viewportwidth >= 1024){
+				// 			parentClass.dispatchEvent("resetRightTV", {});
+				// 			parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+				// 		}
+				// 	}
+				// }
+				else{
+					_self.setRightScore(dataHash,xmlHash);
+					if(top.rightRB!=my_rightTV[top.rightECID]["isRB"]){
+						top.rightShowType = my_rightTV[top.rightECID]["rightShowType"];
+						top.rightRB = my_rightTV[top.rightECID]["isRB"];
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+						parentClass.dispatchEvent("resetRightTV", {});
+					}
+					if(getView().viewportwidth >= 1024){
+						parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+					}
+				}
+			}
+			else if(top.rightNowPlay == "MT"){
+				if(!mt_ecidAry[top.rightECID]){
+					if(tv_ecidAry[top.rightECID]){
+						top.rightNowPlay = "TV";
+						if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+					}else{
+						if(rightTV["ecid"]==undefined){
+							first_no_tvmt = true;
+							top.rightECID = "";
+							top.rightGtype = "";
+							top.rightNowPlay = "";
+							top.rightRB = "";
+							top.rightShowType = "";
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+							parentClass.dispatchEvent("resetRightTV", {});
+						}else{
+							top.rightECID = rightTV["ecid"];
+							top.rightGtype = top.choice_gtype;
+							top.rightRB = rightTV["isRB"];
+							top.rightShowType = rightTV["rightShowType"];
+
+							parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							if(getView().viewportwidth >= 1024){
+								parentClass.dispatchEvent("resetRightTV", {});
+								parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+							}
+						}
+					}
+				}
+				else{
+					if(top.rightRB!=my_rightTV[top.rightECID]["isRB"]){ 
+						top.rightRB = my_rightTV[top.rightECID]["isRB"];
+						top.rightShowType = my_rightTV[top.rightECID]["rightShowType"];
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+						parentClass.dispatchEvent("resetRightTV", {});
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+				}
+			}
+		}
+		if(xmlHash["ec"+top.rightECID]!=null){
+			if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+				top.resize_mainGame = xmlHash["ec"+top.rightECID];
+				top.rightFrom = "game_list";
+			}
+		}
+
+		if(top.rightECID!=""){
+			if(dataHash["ec"+top.rightECID]!=null&&xmlHash["ec"+top.rightECID]!=null){
+				parentClass.dispatchEvent("setRightTimer", "stop");
+				if(top.rightNowPlay != "")_self.setRightScore(dataHash,xmlHash,nowShowtype);
+			}else{
+				if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTimer", "start");
+			}
+		}
+		if(scDataObj)top.scDataObj = scDataObj;
+
+		var div_model = dom.getElementById("div_model");
+		var div_model_leg = dom.getElementById("div_model_leg"); 
+		if(top.choice_sorttype == "T")var timeSort_model = dom.getElementById("timeSort_model");
+		var infoModel = dom.getElementById("left_info");
+		var infoModel_R = dom.getElementById("left_info_R");
+		var rightInfoModel = dom.getElementById("right_info");
+		var rightInfoModel_R = dom.getElementById("right_info_R");
+		var model_fansty_info = dom.getElementById("model_fansty_info");
+		var model_sfs = dom.getElementById("model_sfs");
+		var model_sfs_game = dom.getElementById("model_sfs_game");
+		// var PDModel = dom.getElementById("PD_info");
+		// var RPDModel = dom.getElementById("RPD_info");
+		var obtModel = null;
+		hasPD = (top.choice_rtype.indexOf("pd")!=-1);
+		var choice_info = infoModel;
+		if(filterRtypeAry.indexOf(top.choice_rtype) == -1 && top.choice_gtype=="ft"){
+			obtModel = dom.getElementById("model_OBT");
+		}
+		if(getView().viewportwidth >= 1024 || isIOS || top.mobile != "Y" || top.choice_rtype == "sfs") clusterize_sw = false;
+		else clusterize_sw = true;
+		var _sourceData = new Object();
+		_sourceData["gameObj"] = dataHash;
+		_sourceData["hasPD"] = hasPD;
+		_sourceData["fantasyObj"] = FantasyDataHash;
+		_sourceData["SFSObj"] = SFSDataHash;
+		_sourceData["model_fansty_info"] = (model_fansty_info!=null)?model_fansty_info.innerHTML:"";
+		_sourceData["model_sfs"] = (model_sfs!=null)?model_sfs.innerHTML:"";
+		_sourceData["model_sfs_game"] = (model_sfs_game!=null)?model_sfs_game.innerHTML:"";
+		_sourceData["div_model"] = (div_model!=null)?div_model.innerHTML:"";
+		_sourceData["div_model_leg"] = (div_model_leg!=null)?div_model_leg.innerHTML:"";
+		_sourceData["choice_info"] = (choice_info!=null)?choice_info.innerHTML:"";
+		_sourceData["choice_info_R"] = (infoModel_R!=null)?infoModel_R.innerHTML:"";
+		_sourceData["choice_right_info"] = (rightInfoModel!=null)?rightInfoModel.innerHTML:"";
+		_sourceData["choice_right_info_R"] = (rightInfoModel_R!=null)?rightInfoModel_R.innerHTML:"";
+		_sourceData["timeSort_model"] = (timeSort_model!=null)?timeSort_model.innerHTML:"";
+		// _sourceData["PDModel"] = (PDModel!=null)?PDModel.innerHTML:"";
+		// _sourceData["RPDModel"] = (RPDModel!=null)?RPDModel.innerHTML:"";
+		_sourceData["obtModel"] = (obtModel!=null)?obtModel.innerHTML:"";
+		_sourceData["model_HT"] = (dom.getElementById("model_HT"))?dom.getElementById("model_HT").innerHTML:"";
+		_sourceData["model_FT"] = (dom.getElementById("model_FT"))?dom.getElementById("model_FT").innerHTML:"";
+		_sourceData["model_ET"] = (dom.getElementById("model_ET"))?dom.getElementById("model_ET").innerHTML:"";
+		_sourceData["model_ETFT"] = (dom.getElementById("model_ETFT"))?dom.getElementById("model_ETFT").innerHTML:"";
+		_sourceData["model_PK"] = (dom.getElementById("model_PK"))?dom.getElementById("model_PK").innerHTML:"";
+		_sourceData["model_RPD"] = (dom.getElementById("model_RPD"))?dom.getElementById("model_RPD").innerHTML:"";
+		_sourceData["model_HT_R"] = (dom.getElementById("model_HT_R"))?dom.getElementById("model_HT_R").innerHTML:"";
+		_sourceData["model_FT_R"] = (dom.getElementById("model_FT_R"))?dom.getElementById("model_FT_R").innerHTML:"";
+		_sourceData["model_PD"] = (dom.getElementById("model_PD"))?dom.getElementById("model_PD").innerHTML:"";
+		_sourceData["model_OBT"] = (dom.getElementById("model_OBT"))?dom.getElementById("model_OBT").innerHTML:"";
+		_sourceData["model_HT_HOST"] = (dom.getElementById("model_HT_HOST"))?dom.getElementById("model_HT_HOST").innerHTML:"";
+		_sourceData["model_HT_DRAW"] = (dom.getElementById("model_HT_DRAW"))?dom.getElementById("model_HT_DRAW").innerHTML:"";
+		_sourceData["model_HT_CUSTOMER"] = (dom.getElementById("model_HT_CUSTOMER"))?dom.getElementById("model_HT_CUSTOMER").innerHTML:"";
+		_sourceData["model_FT_HOST"] = (dom.getElementById("model_FT_HOST"))?dom.getElementById("model_FT_HOST").innerHTML:"";
+		_sourceData["model_FT_DRAW"] = (dom.getElementById("model_FT_DRAW"))?dom.getElementById("model_FT_DRAW").innerHTML:"";
+		_sourceData["model_FT_CUSTOMER"] = (dom.getElementById("model_FT_CUSTOMER"))?dom.getElementById("model_FT_CUSTOMER").innerHTML:"";
+		_sourceData["model_FT_R_HOST"] = (dom.getElementById("model_FT_R_HOST"))?dom.getElementById("model_FT_R_HOST").innerHTML:"";
+		_sourceData["model_FT_R_DRAW"] = (dom.getElementById("model_FT_R_DRAW"))?dom.getElementById("model_FT_R_DRAW").innerHTML:"";
+		_sourceData["model_FT_R_CUSTOMER"] = (dom.getElementById("model_FT_R_CUSTOMER"))?dom.getElementById("model_FT_R_CUSTOMER").innerHTML:"";
+		_sourceData["model_HT_R_HOST"] = (dom.getElementById("model_HT_R_HOST"))?dom.getElementById("model_HT_R_HOST").innerHTML:"";
+		_sourceData["model_HT_R_DRAW"] = (dom.getElementById("model_HT_R_DRAW"))?dom.getElementById("model_HT_R_DRAW").innerHTML:"";
+		_sourceData["model_HT_R_CUSTOMER"] = (dom.getElementById("model_HT_R_CUSTOMER"))?dom.getElementById("model_HT_R_CUSTOMER").innerHTML:"";
+		_sourceData["model_ETHT_HOST"] = (dom.getElementById("model_ETHT_HOST"))?dom.getElementById("model_HT_HOST").innerHTML:"";
+		_sourceData["model_ETHT_DRAW"] = (dom.getElementById("model_ETHT_DRAW"))?dom.getElementById("model_HT_DRAW").innerHTML:"";
+		_sourceData["model_ETHT_CUSTOMER"] = (dom.getElementById("model_ETHT_CUSTOMER"))?dom.getElementById("model_HT_CUSTOMER").innerHTML:"";
+		_sourceData["model_ETFT_HOST"] = (dom.getElementById("model_ETFT_HOST"))?dom.getElementById("model_ETFT_HOST").innerHTML:"";
+		_sourceData["model_ETFT_DRAW"] = (dom.getElementById("model_ETFT_DRAW"))?dom.getElementById("model_ETFT_DRAW").innerHTML:"";
+		_sourceData["model_ETFT_CUSTOMER"] = (dom.getElementById("model_ETFT_CUSTOMER"))?dom.getElementById("model_ETFT_CUSTOMER").innerHTML:"";
+		_sourceData["model_FT_CHOOSE"] = (dom.getElementById("model_FT_CHOOSE"))?dom.getElementById("model_FT_CHOOSE").innerHTML:"";
+		_sourceData["model_HT_CHOOSE"] = (dom.getElementById("model_HT_CHOOSE"))?dom.getElementById("model_HT_CHOOSE").innerHTML:"";
+		_sourceData["model_FT_R_CHOOSE"] = (dom.getElementById("model_FT_R_CHOOSE"))?dom.getElementById("model_FT_R_CHOOSE").innerHTML:"";
+		_sourceData["model_HT_R_CHOOSE"] = (dom.getElementById("model_HT_R_CHOOSE"))?dom.getElementById("model_HT_R_CHOOSE").innerHTML:"";
+		_sourceData["model_ETFT_CHOOSE"] = (dom.getElementById("model_ETFT_CHOOSE"))?dom.getElementById("model_ETFT_CHOOSE").innerHTML:"";
+		_sourceData["model_ETHT_CHOOSE"] = (dom.getElementById("model_ETHT_CHOOSE"))?dom.getElementById("model_ETHT_CHOOSE").innerHTML:"";
+		_sourceData["needsTransWtype"] = needsTransWtype;
+		_sourceData["LS"] = _self.new_eval("LS_"+top.ls).toString();
+		_sourceData["nowLS"] = top.ls;
+		_sourceData["LS_game"] = _self.new_eval("LS_game_"+top.ls).toString();
+		_sourceData["util"] = _self.new_eval("Util").toString();
+		_sourceData["fastTemplate_a1"] = _self.new_eval("fastTemplate_a1").toString();
+		_sourceData["util_game"] = _self.new_eval("Util_game").toString();
+		_sourceData["ratioChgRule"] = _self.new_eval("ratioChgRule").toString();
+		_sourceData["GameRatio"] = GameRatio;
+		_sourceData["GameSubRatio"] = GameSubRatio;
+		_sourceData["nowHTECID"] = nowHTECID;
+		_sourceData["GameInfo"] = GameInfo;
+		_sourceData["PK"] = PK;
+		_sourceData["choice_showtype"] = nowShowtype;
+		_sourceData["specialClick"] = top.specialClick;
+		_sourceData["cup_special"] = (top.specialGame.mode=="CUP" && top.specialClick=="special")?true:false;
+		_sourceData["cup_team_flag"] = top.specialGame.CUP_TEAM_FLAG;
+		_sourceData["choice_rtype"] = top.choice_rtype;
+		_sourceData["choice_gtype"] = top.choice_gtype;
+		_sourceData["choice_filter"] = top.choice_filter;
+		_sourceData["isFantasyPage"] = top.specialGame.isFantasy;
+		_sourceData["cup_showFantasy"] = cup_showFantasy;
+		_sourceData["nowPDMode"] = top.nowPDMode;
+		//_sourceData["showPDmore"] = top.showPDmore;
+		if(chgSort){
+			top.showOBT="";
+		}
+		_sourceData["showOBT"] = top.showOBT;
+		_sourceData["_lastOBT_div"] = (_lastOBT_div!=null && !chgSort)?_lastOBT_div.innerHTML:"";
+		_sourceData["_lastOBT_div_ECID"] = (_lastOBT_div!=null && !chgSort)?_lastOBT_div.getAttribute("id").split("_")[3]:"";
+		_sourceData["_lastOBTHeight"] = _lastOBTHeight;
+		_sourceData["couponKey"] = postHash["couponKey"];
+		_sourceData["filterLid"] = postHash["lid"];
+		_sourceData["_lastPK"] = _lastPK;
+		_sourceData["_lastPKset"] = _lastPKset;
+		_sourceData["isIOS"] = isIOS;
+		_sourceData["showMoreECID"] = showMoreECID;
+		_sourceData["sfsChoseTeam"] = sfsChoseTeam;
+		_sourceData["pdSortHash"] = pdSortHash;
+		_sourceData["pdShowMoreHash"] = pdShowMoreHash;
+		if(chgSort  && parObj["action"]!="leagueChg") {
+			top["notShowLeg"] = new Object();
+			top["notShowLegGame"] = new Object();
+		}
+		_sourceData["notShowLegGame"] = top["notShowLegGame"];
+		_sourceData["notShowLeg"] = top["notShowLeg"];
+		_sourceData["gameAry"] = GameHash["ary"];
+		_sourceData["action"] = parObj["action"];
+		_sourceData["timetype"] = top["userData"].timetype;
+		_sourceData["firstLoad"] = firstLoad;
+
+		_sourceData["CLUSTERIZE_ROW"] = config_set.get("CLUSTERIZE_ROW");
+		_sourceData["DEFINED_ROWHEIGHT"] = config_set.get("DEFINED_ROWHEIGHT");
+		_sourceData["CLUSTERIZE_LIMIT_S"] = config_set.get("CLUSTERIZE_LIMIT_S");
+		_sourceData["CLUSTERIZE_LIMIT_M"] = config_set.get("CLUSTERIZE_LIMIT_M");
+		_sourceData["CLUSTERIZE_LIMIT_L"] = config_set.get("CLUSTERIZE_LIMIT_L");
+		_sourceData["viewport_height"] = getView().viewportheight;
+		_sourceData["CLUSTERIZE_SW"] = clusterize_sw;
+		_sourceData["sort_type"] = top.choice_sorttype;
+		_sourceData["DEFINED_ROWHEIGHT"] = getRtypeROWHEIGHT(_sourceData["DEFINED_ROWHEIGHT"]);
+
+		_sourceData["isMyGame"] = (nowShowtype=="mygame" || (top.specialClick != "" && !top.specialGame.isFantasy))?"mygame":"";
+		var _post = new Object();
+		_post["cmd"] = "parseData";
+		_post["sourceData"] = _sourceData;
+		WORKER.postMessage(_post);
+	}
+
+	function getRtypeROWHEIGHT(obj){
+		var tmpRtype = top.choice_rtype;
+		if(top.ls == "us")obj["LEAGUE_FIX"] = obj["LEAGUE_FIX_US"];
+		if(top.choice_showtype == "live")tmpRtype = tmpRtype.substring(1);
+		var ret = new Object();
+		var filterRtypeAry =  new Array("rnou","cn","rn","pd","sfs","moua");
+		if(getView().viewportwidth >= 640){
+			obj["FANTASY_INFO"] = obj["FANTASY_INFO_640"];
+		}else{
+			obj["FANTASY_INFO"] = obj["FANTASY_INFO_320"];
+		}
+		if(filterRtypeAry.indexOf(tmpRtype) != -1){
+			if(tmpRtype.match(/rnou/)){
+				if(getView().viewportwidth >= 640){
+					obj["GAME_FIX"] = obj["GAME_FIX_"+tmpRtype.toUpperCase()+"_640"];
+				}else{
+					obj["GAME_FIX"] = obj["GAME_FIX_"+tmpRtype.toUpperCase()+"_320"];
+				}
+			}else if(tmpRtype.match(/pd/)){
+				if(top.nowPDMode == "choice"){
+					obj["GAME_FIX"] = obj["GAME_FIX_PD_choice"];
+				}else{
+					obj["GAME_FIX"] = 0;
+				}
+			}else{
+				obj["GAME_FIX"] = obj["GAME_FIX_"+tmpRtype.toUpperCase()];
+			}
+		}else{
+			obj["GAME_FIX"] = obj["GAME_FIX_MAIN"];
+		}
+		ret = obj;
+		return ret;
+	}
+
+	_self.workerPostOthers = function(WORKER, parObj){
+		var xml = parObj["xml"];
+		var GameHash = util_game.convertNodeToHashForGame(xml.Root[0]);
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var dataHash = GameHash["obj"];
+		var xmlHash = GameHash["xmlObj"];
+
+		var rightTV = new Object();
+		var rightMT = new Object();
+		var tv_ecidAry = new Object();
+		var mt_ecidAry = new Object();
+		var nowShowtype = _xmlnode.Node(xml.Root[0],"nowShowtype").innerHTML;
+		my_rightTVAry = new Array();
+
+		for(var _key in dataHash){
+			var tmp_game = dataHash[_key];
+			if(nowShowtype!="parlay"){
+				var setAry = new Array("","half_","point_","ms_");
+				var ior_ary = [["reh","rec"],["rouh","rouc"],["hreh","hrec"],["hrouh","hrouc"],["rouho","rouhu"],["rouco","roucu"],["rh","rc"],["ouh","ouc"],["hrh","hrc"],["houh","houc"],["ouho","ouhu"],["ouco","oucu"],["eoo","eoe"]];
+				for(var a=0; a<setAry.length; a++){
+					for(var k=0; k<ior_ary.length; k++){
+						var tmpAry = ior_ary[k];
+						if(tmp_game[setAry[a]+"ior_"+tmpAry[0].toLowerCase()] && tmp_game[setAry[a]+"ior_"+tmpAry[1]]){
+							var ior_h = tmp_game[setAry[a]+"ior_"+tmpAry[0]];
+							var ior_c = tmp_game[setAry[a]+"ior_"+tmpAry[1]];
+							if(tmpAry[0]=="eoo"&&tmpAry[1]=="eoe"){
+								var hash_hc = util_game.chgOddfIoratio(ior_h-1, ior_c-1, config_ior,"HK");
+								if(!isNaN( hash_hc[0])) dataHash[_key][setAry[a]+"ior_"+tmpAry[0]] = (hash_hc[0]*1)+1;
+								if(!isNaN( hash_hc[1])) dataHash[_key][setAry[a]+"ior_"+tmpAry[1]] = (hash_hc[1]*1)+1;
+							}else{
+								var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+								if(!isNaN( hash_hc[0])) dataHash[_key][setAry[a]+"ior_"+tmpAry[0]] = hash_hc[0];
+								if(!isNaN( hash_hc[1])) dataHash[_key][setAry[a]+"ior_"+tmpAry[1]] = hash_hc[1];
+							}
+						}
+					}
+				}
+			}else{
+				var eo_ary = [["reoo","reoe"],["hreoo","hreoe"],["eoo","eoe"],["heoo","heoe"]];
+				for(var e=0; e<eo_ary.length; e++){
+					var tmpAry = eo_ary[e];
+					if(tmp_game["ior_"+tmpAry[0]] && tmp_game["ior_"+tmpAry[1]]){
+						var ior_h = tmp_game["ior_"+tmpAry[0]]*1-1;
+						var ior_c = tmp_game["ior_"+tmpAry[1]]*1-1;
+						var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior, "HK");
+						if(!isNaN( hash_hc[0])) dataHash[_key]["ior_"+tmpAry[0]] = (hash_hc[0]*1)+1;
+						if(!isNaN( hash_hc[1])) dataHash[_key]["ior_"+tmpAry[1]] = (hash_hc[1]*1)+1;
+					}
+				}
+			}
+
+			if(!first_no_tvmt && !top.choice_rtype.match("pd")){	
+				var ecid = tmp_game["gidm"]; 
+				var ph_sw = tmp_game["tv_ph_sw"]; 
+				var eventid = tmp_game["eventid"]; 
+				var mtid = tmp_game["mt_id"]; 
+				var hasTV = (typeof eventid!="undefined" && eventid!="" && eventid!="0" && ph_sw=="Y");
+				var hasMT = (typeof mtid!="undefined" && mtid!="" && mtid!="0");
+				var isRB = (tmp_game["is_rb"]=="Y"||top.choice_showtype=="live")?"Y":"N";
+				if(nowShowtype.match(/mygame|today|soon|hot/) || top.specialClick != ""){
+					var tmpShowType = util_game.transMyGameShowtype(tmp_game["myGame"]);
+					if(tmpShowType=="live") isRB = "Y";
+				}
+				else{
+					var tmpShowType = nowShowtype;
+				}
+				
+				if(hasTV){
+					if(rightTV["ecid"]==""||rightTV["ecid"]==undefined){
+						rightTV["key"]=_key;
+						rightTV["ecid"]=ecid;
+						rightTV["data"]=tmp_game;
+						rightTV["hasTV"]= hasTV;
+						rightTV["hasMT"]= hasMT;
+						rightTV["isRB"]=isRB;
+						rightTV["rightShowType"]=tmpShowType;
+					}
+					tv_ecidAry[tmp_game["gidm"]]=true;
+				}
+				
+				if(hasMT){
+					if(rightMT["ecid"]=="" || rightMT["ecid"]==undefined){
+						rightMT["key"]=_key;
+						rightMT["ecid"]=ecid;
+						rightMT["data"]=tmp_game;
+						rightMT["hasTV"]= hasTV;
+						rightMT["hasMT"]= hasMT;
+						rightMT["isRB"]=isRB;
+						rightMT["rightShowType"]=tmpShowType;
+					}
+					mt_ecidAry[tmp_game["gidm"]]=true;
+				}
+
+				if(hasTV||hasMT){
+					my_rightTV[tmp_game["gidm"]] = new Object();
+					my_rightTV[tmp_game["gidm"]]["key"] = _key;
+					my_rightTV[tmp_game["gidm"]]["ecid"] = ecid;
+					my_rightTV[tmp_game["gidm"]]["data"] = tmp_game;
+					my_rightTV[tmp_game["gidm"]]["hasTV"] = hasTV;
+					my_rightTV[tmp_game["gidm"]]["hasMT"] = hasMT;
+					my_rightTV[tmp_game["gidm"]]["isRB"] = isRB;
+					my_rightTV[tmp_game["gidm"]]["rightShowType"] = tmpShowType;
+					my_rightTV[tmp_game["gidm"]]["dataHash"] = dataHash;
+					my_rightTV[tmp_game["gidm"]]["xmlHash"] = xmlHash;
+					my_rightTVAry.push(tmp_game["gidm"]);
+				}
+			}	
+		}
+		lastDataHash = dataHash;
+		top.lastDataHash = lastDataHash;
+		nowGameHash = util.clone(dataHash);
+
+		if(!first_no_tvmt && !top.choice_rtype.match("pd")){			
+			if(top.rightNowPlay == ""){ 
+				if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+				if(rightTV["ecid"]!=""&&rightTV["ecid"]!=undefined){
+					top.rightECID = rightTV["ecid"];
+					top.rightGtype = top.choice_gtype;
+					top.rightNowPlay = "TV";
+					top.rightRB = rightTV["isRB"];
+					top.rightShowType = rightTV["rightShowType"];
+
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+					if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && top.choice_rtype.indexOf("pd")==-1 && getView().viewportwidth >= 1024){	
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						dom.getElementById("right_show").scrollTop = 0;
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+				 	if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+				}
+				else if(rightMT["ecid"]!=""&&rightMT["ecid"]!=undefined){
+					top.rightECID = rightMT["ecid"];
+					top.rightGtype = top.choice_gtype;
+					top.rightNowPlay = "MT";
+					top.rightRB = rightMT["isRB"];
+					top.rightShowType = rightMT["rightShowType"];
+
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+					if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && top.choice_rtype.indexOf("pd")==-1 && getView().viewportwidth >= 1024){
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						dom.getElementById("right_show").scrollTop = 0;
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTVDefaultPlay", rightMT);
+				}
+				else{
+					first_no_tvmt = true;
+					top.rightNowPlay = "";
+					top.rightECID = "";
+					top.rightGtype = "";
+					top.rightRB = "";
+					top.rightShowType = "";
+					parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+					if(nowShowtype=="mygame" || isSpecialGame == "Y")parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+				}
+			}
+			else if(top.rightNowPlay == "TV"){ 
+				if(!tv_ecidAry[top.rightECID]){
+					if(rightTV["ecid"]==undefined||rightTV["ecid"]==""){
+						if(rightMT["ecid"]!=undefined&&rightMT["ecid"]!=""){ 
+							top.rightECID = rightMT["ecid"];
+							top.rightGtype = top.choice_gtype;
+							top.rightNowPlay = "MT";
+							top.rightRB = rightMT["isRB"];
+
+							parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							if((nowShowtype.match(/mygame|today/) || isSpecialGame == "Y") && (top.rightShowType!=rightMT["rightShowType"])){
+								top.rightShowType = rightMT["rightShowType"];
+								if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+								parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+							}else{
+								top.rightShowType = rightMT["rightShowType"];
+								_self.setRightScore(dataHash,xmlHash);
+							}							
+							
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash[rightMT["key"]], "from":"game_list"});
+						}						
+						else{
+							first_no_tvmt = true; 
+							top.rightECID = "";
+							top.rightGtype = "";
+							top.rightNowPlay = "";
+							top.rightRB = "";
+							top.rightShowType = "";
+
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+							parentClass.dispatchEvent("resetRightTV", {});
+						}
+					}else{
+						top.rightECID = rightTV["ecid"];
+						top.rightGtype = top.choice_gtype;
+						top.rightRB = rightTV["isRB"];
+
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+						if((nowShowtype.match(/mygame|today/) || isSpecialGame == "Y") && (top.rightShowType!=rightTV["rightShowType"])){
+							top.rightShowType = rightTV["rightShowType"];
+							parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						}else{
+							top.rightShowType = rightTV["rightShowType"];
+							_self.setRightScore(dataHash,xmlHash);
+						}
+
+						if(getView().viewportwidth >= 1024){
+							parentClass.dispatchEvent("resetRightTV", {});
+							parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+						}
+					}
+				}
+				else{
+					var hasChgShowtype = (top.rightShowType!=my_rightTV[top.rightECID]["rightShowType"]);
+					if((nowShowtype.match(/mygame|today/) || isSpecialGame == "Y") && hasChgShowtype){
+						top.rightShowType = my_rightTV[top.rightECID]["rightShowType"];
+						top.rightRB = my_rightTV[top.rightECID]["isRB"];
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+						if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+				}
+			}
+			else if(top.rightNowPlay == "MT"){
+				if(!mt_ecidAry[top.rightECID]){
+					if(tv_ecidAry[top.rightECID]){
+						top.rightNowPlay = "TV";
+						_self.setRightScore(dataHash,xmlHash);
+						if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+					}else{
+						if(rightTV["ecid"]==undefined){
+							first_no_tvmt = true; 
+							top.rightECID = "";
+							top.rightGtype = "";
+							top.rightNowPlay = "";
+							top.rightRB = "";
+							top.rightShowType = "";
+
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+							parentClass.dispatchEvent("resetRightTV", {});
+						}else{
+							top.rightECID = rightTV["ecid"];
+							top.rightGtype = top.choice_gtype;
+							top.rightRB = rightTV["isRB"];
+
+							parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && (top.rightShowType!=rightTV["rightShowType"])){
+								top.rightShowType = rightTV["rightShowType"];
+								parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+							}else{
+								top.rightShowType = rightTV["rightShowType"];
+								_self.setRightScore(dataHash,xmlHash);
+							}
+
+							if(getView().viewportwidth >= 1024){
+								parentClass.dispatchEvent("resetRightTV", {});
+								parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+							}
+						}
+					}
+				}
+				else{
+					var hasChgShowtype = (top.rightShowType!=my_rightTV[top.rightECID]["rightShowType"]);
+					if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && hasChgShowtype){
+						top.rightShowType = my_rightTV[top.rightECID]["rightShowType"];
+						top.rightRB = my_rightTV[top.rightECID]["isRB"];
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						parentClass.dispatchEvent("resetRightTV", {});
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+				}
+			}
+		}	
+		if(xmlHash["ec"+top.rightECID]!=null){
+			top.resize_mainGame = xmlHash["ec"+top.rightECID];
+			top.rightFrom = "game_list";
+		}
+		if(scDataObj)top.scDataObj = scDataObj;
+
+		var div_model = dom.getElementById("div_model");
+		if(top.choice_sorttype == "T")var timeSort_model = dom.getElementById("timeSort_model");
+		var infoModel = dom.getElementById("left_info");
+		var infoModel_R = dom.getElementById("left_info_R");
+		//var PDModel = dom.getElementById("PD_info");
+		hasPD = (top.choice_rtype.indexOf("pd")!=-1);
+		var choice_info = (hasPD) ? PDModel : infoModel;
+
+		if(hasPD  || getView().viewportwidth >= 1024 || isIOS || top.mobile != "Y") clusterize_sw = false;
+		else clusterize_sw = true;
+		var _sourceData = new Object();
+		_sourceData["gameObj"] = dataHash;
+		_sourceData["hasPD"] = hasPD;
+		_sourceData["div_model"] = (div_model!=null)?div_model.innerHTML:"";
+		_sourceData["choice_info"] = (choice_info!=null)?choice_info.innerHTML:"";
+		_sourceData["choice_info_R"] = (infoModel_R!=null)?infoModel_R.innerHTML:"";
+		_sourceData["timeSort_model"] = (timeSort_model!=null)?timeSort_model.innerHTML:"";
+		//_sourceData["PDModel"] = (PDModel!=null)?PDModel.innerHTML:"";
+		_sourceData["model_FT"] = (dom.getElementById("model_FT"))?dom.getElementById("model_FT").innerHTML:"";
+		_sourceData["model_QT"] = (dom.getElementById("model_QT"))?dom.getElementById("model_QT").innerHTML:"";
+		_sourceData["model_HV"] = (dom.getElementById("model_HV"))?dom.getElementById("model_HV").innerHTML:"";
+		_sourceData["model_OT"] = (dom.getElementById("model_OT"))?dom.getElementById("model_OT").innerHTML:"";
+		_sourceData["model_FT_R"] = (dom.getElementById("model_FT_R"))?dom.getElementById("model_FT_R").innerHTML:"";
+		_sourceData["needsTransWtype"] = needsTransWtype;
+		_sourceData["LS"] = _self.new_eval("LS_"+top.ls).toString();
+		_sourceData["nowLS"] = top.ls;
+		_sourceData["LS_game"] = _self.new_eval("LS_game_"+top.ls).toString();
+		_sourceData["util"] = _self.new_eval("Util").toString();
+		_sourceData["util_game"] = _self.new_eval("Util_game").toString();
+		_sourceData["ratioChgRule"] = _self.new_eval("ratioChgRule").toString();
+		_sourceData["GameRatio"] = GameRatio;
+		_sourceData["GameInfo"] = GameInfo;
+		_sourceData["choice_showtype"] = nowShowtype;
+		_sourceData["specialClick"] = top.specialClick;
+		_sourceData["choice_rtype"] = top.choice_rtype;
+		_sourceData["choice_gtype"] = top.choice_gtype;
+		_sourceData["choice_filter"] = top.choice_filter;
+		//_sourceData["showPDmore"] = top.showPDmore;
+		_sourceData["headertype"] = postHash["headertype"];
+		_sourceData["couponKey"] = postHash["couponKey"];
+		_sourceData["filterLid"] = postHash["lid"];
+		_sourceData["isIOS"] = isIOS;
+		if(chgSort && parObj["action"]!="leagueOthersChg") {
+			top["notShowLeg"] = new Object();
+			top["notShowLegGame"] = new Object();
+		}
+		_sourceData["notShowLegGame"] = top["notShowLegGame"];
+		_sourceData["notShowLeg"] = top["notShowLeg"];
+		_sourceData["gameAry"] = GameHash["ary"];
+		_sourceData["action"] = parObj["action"];
+		_sourceData["timetype"] = top["userData"].timetype;
+		_sourceData["firstLoad"] = firstLoad;
+
+		_sourceData["isMyGame"] = (nowShowtype=="mygame" || top.specialClick != "")?"mygame":"";
+
+		_sourceData["CLUSTERIZE_ROW"] = config_set.get("CLUSTERIZE_ROW");
+		_sourceData["DEFINED_ROWHEIGHT"] = config_set.get("DEFINED_ROWHEIGHT");
+		_sourceData["CLUSTERIZE_LIMIT_S"] = config_set.get("CLUSTERIZE_LIMIT_S");
+		_sourceData["CLUSTERIZE_LIMIT_M"] = config_set.get("CLUSTERIZE_LIMIT_M");
+		_sourceData["CLUSTERIZE_LIMIT_L"] = config_set.get("CLUSTERIZE_LIMIT_L");
+		_sourceData["viewport_height"] = getView().viewportheight;
+		_sourceData["CLUSTERIZE_SW"] = clusterize_sw;
+		_sourceData["sort_type"] = top.choice_sorttype;
+		
+		var _post = new Object();
+		_post["cmd"] = "parseData";
+		_post["sourceData"] = _sourceData;
+		WORKER.postMessage(_post);
+	}
+
+	_self.workerPostJsonOthers = function(WORKER, parObj){
+		var json = parObj["json"];
+		var GameHash = "";
+		var tmp_data = "";
+		GameHash = util_game.jsonECToHash(json["response"],util);
+		tmp_data = json["phpData"];
+		if(util.countSize(json["response"]) == 0 && top.choice_showtype=="mygame" && parObj["action"]=="leagueOthersJsonChg")return;
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		//var dataHash = GameHash["obj"];
+		//要用clone的，不然會被reference影響到原始資料造成問題
+		//ex：有兩場我的賽事，移除其中一場，會造成雙盤賠率變盤兩次
+		var dataHash = util.clone(GameHash["obj"]);
+		var xmlHash = GameHash["obj"];
+		var rightTV = new Object();
+		var rightMT = new Object();
+		var rightES = new Object();
+		var tv_ecidAry = new Object();
+		var mt_ecidAry = new Object();
+		var es_ecidAry = new Object();
+		var nowShowtype = tmp_data["NOWSHOWTYPE"];
+		my_rightTVAry = new Array();
+		echo("2. [workerPostJsonOthers]dataHash:",dataHash);
+		for(var _key in dataHash){
+			var tmp_game = dataHash[_key.toLowerCase()];
+			// 如果没有 PLAYS 字段，从 PLAY1...PLAY8 合并构建（JSON 格式）
+			if(!tmp_game["PLAYS"]) {
+				var _newPlays = {};
+				for(var _pi = 1; _pi <= 8; _pi++) {
+					var _playN = tmp_game["PLAY" + _pi];
+					if(_playN) {
+						for(var _pt in _playN) {
+							_newPlays[_pt] = _playN[_pt];
+						}
+					}
+				}
+				tmp_game["PLAYS"] = _newPlays;
+			}
+			var plays = tmp_game["PLAYS"];
+			if(nowShowtype!="parlay"){
+				var setAry = new Array("","HALF_","POINT_","MS_");
+				var wtypeAry = new Array("R","M","OU","OUH","OUC","EO");
+				var ior_ary = [["REH","REC"],["ROUH","ROUC"],["HREH","HREC"],["HROUH","HROUC"],["ROUHO","ROUHU"],["ROUCO","ROUCU"],["RH","RC"],["OUH","OUC"],["HRH","HRC"],["HOUH","HOUC"],["OUHO","OUHU"],["OUCO","OUCU"],["EOO","EOE"],["REOO","REOE"]];
+				for(var a=0; a<setAry.length; a++){
+					for(var e=0; e<wtypeAry.length; e++){
+						for(var k=0; k<ior_ary.length; k++){
+							var tmpAry = ior_ary[k];
+							var playsKey = setAry[a]+wtypeAry[e]; //ex:R、HALF_R、POINT_R、MS_R
+							if(plays && plays[playsKey] && plays[playsKey][setAry[a]+"IOR_"+tmpAry[0]] && plays[playsKey][setAry[a]+"IOR_"+tmpAry[1]]){
+								var ior_h = plays[playsKey][setAry[a]+"IOR_"+tmpAry[0]];
+								var ior_c = plays[playsKey][setAry[a]+"IOR_"+tmpAry[1]];
+								if(tmpAry[0]=="EOO"&&tmpAry[1]=="EOE"){
+									var hash_hc = util_game.chgOddfIoratio(ior_h-1, ior_c-1, config_ior,"HK");
+									if(!isNaN( hash_hc[0])) dataHash[_key]["PLAYS"][playsKey][setAry[a]+"IOR_"+tmpAry[0]] = (hash_hc[0]*1)+1;
+									if(!isNaN( hash_hc[1])) dataHash[_key]["PLAYS"][playsKey][setAry[a]+"IOR_"+tmpAry[1]] = (hash_hc[1]*1)+1;
+								}else{
+									var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+									if(!isNaN( hash_hc[0])) dataHash[_key]["PLAYS"][playsKey][setAry[a]+"IOR_"+tmpAry[0]] = hash_hc[0];
+									if(!isNaN( hash_hc[1])) dataHash[_key]["PLAYS"][playsKey][setAry[a]+"IOR_"+tmpAry[1]] = hash_hc[1];
+								}
+							}
+						}
+					}
+				}
+			}else{
+				var eo_ary = [["REOO","REOE"],["HREOO","HREOE"],["EOO","EOE"],["HEOO","HEOE"]];
+				for(var e=0; e<eo_ary.length; e++){
+					var tmpAry = eo_ary[e];
+					if(plays["EO"] && plays["EO"]["IOR_"+tmpAry[0]] && plays["EO"]["IOR_"+tmpAry[1]]){
+						var ior_h = plays["EO"]["IOR_"+tmpAry[0]]*1-1;
+						var ior_c = plays["EO"]["IOR_"+tmpAry[1]]*1-1;
+						var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior, "HK");
+						if(!isNaN( hash_hc[0])) dataHash[_key]["PLAYS"]["EO"]["IOR_"+tmpAry[0]] = (hash_hc[0]*1)+1;
+						if(!isNaN( hash_hc[1])) dataHash[_key]["PLAYS"]["EO"]["IOR_"+tmpAry[1]] = (hash_hc[1]*1)+1;
+					}
+				}
+			}
+
+			var _nowGame = (tmp_game["SCORE"] && tmp_game["SCORE"]["NOWGAME"])?tmp_game["SCORE"]["NOWGAME"]:tmp_game["NOWGAME"];
+			if(top.choice_gtype=="es" && tmp_game["PARENT_ID"]==top.rightECID){
+				if(_nowGame=="N/A" || tmp_game["SCORETYPE"]=="N/A"){
+					_self.set_statisticsID("");
+					first_no_tvmt = true;
+					statisticsID = "";
+					nowScoreType = "";
+					nowScoreObj = null;
+					top.rightNowPlay = "";
+					top.rightECID = "";
+					top.rightGtype = "";
+					top.rightRB = "";
+					top.rightShowType = "";
+					parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+					parentClass.dispatchEvent("closeAnalysis");
+				}else if(_nowGame!=last_nowGame){
+					parentClass.dispatchEvent("resetRate");
+					nowScoreObj = tmp_game;
+					var analysisGameNum = nowScoreObj["SCORE"]["ANALYSIS_GAME"];
+					var analysisHash = (nowScoreObj["SCORE"])?{"score":nowScoreObj["SCORE"],"nowGame":analysisGameNum}:null;
+					parentClass.dispatchEvent("updateScoreObj", analysisHash);
+					last_nowGame = _nowGame;
+				}
+			}
+				
+			if(!first_no_tvmt && !top.choice_rtype.match("pd")){
+				var ecid = (top.choice_gtype=="es")?tmp_game["PARENT_ID"]:tmp_game["GIDM"]; 
+				var ph_sw = (tmp_game["EVENTID"]!=null && tmp_game["EVENTID"]!="")? "Y":"N";  
+				var eventid = tmp_game["EVENTID"]; 
+				var mtid = tmp_game["MT_ID"]; 
+				var hasTV = (typeof eventid!="undefined" && eventid!="" && eventid!="0" && ph_sw=="Y");
+				var hasMT = (typeof mtid!="undefined" && mtid!="" && mtid!="0");
+				var isRB = (tmp_game["IS_RB"]=="Y"||top.choice_showtype=="live")?"Y":"N";
+				var hasES = (top.choice_gtype=="es" && statisticsID==ecid && isRB=="Y" && _nowGame!="N/A");
+				
+				if(nowShowtype.match(/mygame|today|soon|hot/) || top.specialClick != ""){
+					var tmpShowType = util_game.transMyGameShowtype(tmp_game["SHOWTYPE"]);
+					if(tmpShowType=="live") isRB = "Y";
+				}else{
+					var tmpShowType = nowShowtype;
+				}
+				
+				if(hasTV){
+					if(rightTV["ecid"]==""||rightTV["ecid"]==undefined){
+						rightTV["key"]=_key;
+						rightTV["ecid"]=ecid;
+						rightTV["data"]=tmp_game;
+						rightTV["hasTV"]= hasTV;
+						rightTV["hasMT"]= hasMT;
+						rightTV["hasES"]= hasES;
+						rightTV["isRB"]=isRB;
+						rightTV["rightShowType"]=tmpShowType;
+					}
+					tv_ecidAry[tmp_game["GIDM"]]=true;
+				}
+				
+				if(hasMT){
+					if(rightMT["ecid"]=="" || rightMT["ecid"]==undefined){
+						rightMT["key"]=_key;
+						rightMT["ecid"]=ecid;
+						rightMT["data"]=tmp_game;
+						rightMT["hasTV"]= hasTV;
+						rightMT["hasMT"]= hasMT;
+						rightMT["hasES"]= hasES;
+						rightMT["isRB"]=isRB;
+						rightMT["rightShowType"]=tmpShowType;
+					}
+					mt_ecidAry[tmp_game["GIDM"]]=true;
+				}
+
+				if(hasES){
+					if(rightES["ecid"]=="" || rightES["ecid"]==undefined){
+						rightES["key"]=_key;
+						rightES["ecid"]=ecid;
+						rightES["data"]=tmp_game;
+						rightES["hasTV"]= hasTV;
+						rightES["hasMT"]= hasMT;
+						rightES["hasES"]= hasES;
+						rightES["isRB"]=isRB;
+						rightES["rightShowType"]=tmpShowType;
+					}
+					es_ecidAry[tmp_game["GIDM"]]=true;
+				}
+
+				if(hasTV||hasMT||hasES){
+					var _gidm = (top.choice_gtype=="es")?tmp_game["PARENT_ID"]:tmp_game["GIDM"];
+					my_rightTV[_gidm] = new Object();
+					my_rightTV[_gidm]["key"] = _key;
+					my_rightTV[_gidm]["ecid"] = ecid;
+					my_rightTV[_gidm]["data"] = tmp_game;
+					my_rightTV[_gidm]["hasTV"] = hasTV;
+					my_rightTV[_gidm]["hasMT"] = hasMT;
+					my_rightTV[_gidm]["hasES"] = hasES;
+					my_rightTV[_gidm]["isRB"] = isRB;
+					my_rightTV[_gidm]["rightShowType"] = tmpShowType;
+					my_rightTV[_gidm]["dataHash"] = dataHash;
+					my_rightTV[_gidm]["xmlHash"] = xmlHash;
+					my_rightTVAry.push(_gidm);
+				}
+			}
+		}
+		lastDataHash = dataHash;
+		top.lastDataHash = lastDataHash;
+		nowGameHash = util.clone(dataHash);
+
+		if(top.rightNowPlay == "ES" && analysisStatus){
+			if(dataHash["ec"+top.rightECID]){
+				var analysisGameNum = dataHash["ec"+top.rightECID]["SCORE"]["ANALYSIS_GAME"];
+				var analysisHash = {"score":dataHash["ec"+top.rightECID]["SCORE"],"nowGame":analysisGameNum,"scoreType":dataHash["ec"+top.rightECID]["SCORETYPE"]};
+				parentClass.dispatchEvent("updateAnalysisScore", {"scoreObj":analysisHash});
+			}else {
+				parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+				parentClass.dispatchEvent("closeAnalysis");
+				_self.set_statisticsID("");
+			}
+		}
+		if(!first_no_tvmt && !top.choice_rtype.match("pd")){
+			if(top.rightNowPlay == ""){
+				if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+				if(rightTV["ecid"]!=""&&rightTV["ecid"]!=undefined){
+					top.rightECID = rightTV["ecid"];
+					top.rightGtype = top.choice_gtype;
+					top.rightNowPlay = "TV";
+					top.rightRB = rightTV["isRB"];
+					top.rightShowType = rightTV["rightShowType"];
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+					if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && top.choice_rtype.indexOf("pd")==-1 && getView().viewportwidth >= 1024){	
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						dom.getElementById("right_show").scrollTop = 0;
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+				 	if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+				}else if(rightMT["ecid"]!=""&&rightMT["ecid"]!=undefined){
+					top.rightECID = rightMT["ecid"];
+					top.rightGtype = top.choice_gtype;
+					top.rightNowPlay = "MT";
+					top.rightRB = rightMT["isRB"];
+					top.rightShowType = rightMT["rightShowType"];
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+					if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && top.choice_rtype.indexOf("pd")==-1 && getView().viewportwidth >= 1024){
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						dom.getElementById("right_show").scrollTop = 0;
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTVDefaultPlay", rightMT);
+				}else if(rightES["ecid"]!=""&&rightES["ecid"]!=undefined){
+					top.rightECID = rightES["ecid"];
+					top.rightGtype = top.choice_gtype;
+					top.rightNowPlay = "ES";
+					top.rightRB = rightES["isRB"];
+					top.rightShowType = rightES["rightShowType"];
+
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+					if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && top.choice_rtype.indexOf("pd")==-1 && getView().viewportwidth >= 1024){
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						dom.getElementById("right_show").scrollTop = 0;
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightTVDefaultPlay", rightES);
+				}else{
+					first_no_tvmt = true;
+					top.rightNowPlay = "";
+					statisticsID = "";
+					nowScoreType = "";
+					nowScoreObj = null;
+					top.rightECID = "";
+					top.rightGtype = "";
+					top.rightRB = "";
+					top.rightShowType = "";
+					parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+					if(nowShowtype=="mygame" || isSpecialGame == "Y")parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+				}
+			}else if(top.rightNowPlay == "TV"){ 
+				if(!tv_ecidAry[top.rightECID]){
+					if(rightTV["ecid"]==undefined||rightTV["ecid"]==""){
+						if(rightMT["ecid"]!=undefined&&rightMT["ecid"]!=""){ 
+							top.rightECID = rightMT["ecid"];
+							top.rightGtype = top.choice_gtype;
+							top.rightNowPlay = "MT";
+							top.rightRB = rightMT["isRB"];
+
+							parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							if((nowShowtype.match(/mygame|today/) || isSpecialGame == "Y") && (top.rightShowType!=rightMT["rightShowType"])){
+								top.rightShowType = rightMT["rightShowType"];
+								if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+								parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+							}else{
+								top.rightShowType = rightMT["rightShowType"];
+								_self.setRightScore(dataHash,xmlHash);
+							}							
+							
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash[rightMT["key"]], "from":"game_list"});
+						}						
+						else{
+							first_no_tvmt = true; 
+							top.rightECID = "";
+							top.rightGtype = "";
+							top.rightNowPlay = "";
+							top.rightRB = "";
+							top.rightShowType = "";
+
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+							parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+							parentClass.dispatchEvent("resetRightTV", {});
+						}
+					}else{
+						top.rightECID = rightTV["ecid"];
+						top.rightGtype = top.choice_gtype;
+						top.rightRB = rightTV["isRB"];
+
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+						if((nowShowtype.match(/mygame|today/) || isSpecialGame == "Y") && (top.rightShowType!=rightTV["rightShowType"])){
+							top.rightShowType = rightTV["rightShowType"];
+							parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						}else{
+							top.rightShowType = rightTV["rightShowType"];
+							_self.setRightScore(dataHash,xmlHash);
+						}
+
+						if(getView().viewportwidth >= 1024){
+							parentClass.dispatchEvent("resetRightTV", {});
+							parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+						}
+					}
+				}else{
+					var hasChgShowtype = (top.rightShowType!=my_rightTV[top.rightECID]["rightShowType"]);
+					if((nowShowtype.match(/mygame|today/) || isSpecialGame == "Y") && hasChgShowtype){
+						top.rightShowType = my_rightTV[top.rightECID]["rightShowType"];
+						top.rightRB = my_rightTV[top.rightECID]["isRB"];
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+						if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+				}
+			}else if(top.rightNowPlay == "MT"){
+				if(!mt_ecidAry[top.rightECID]){
+					if(tv_ecidAry[top.rightECID]){
+						top.rightNowPlay = "TV";
+						_self.setRightScore(dataHash,xmlHash);
+						if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+					}else{
+						if(rightTV["ecid"]==undefined){
+							first_no_tvmt = true; 
+							top.rightECID = "";
+							top.rightGtype = "";
+							top.rightNowPlay = "";
+							top.rightRB = "";
+							top.rightShowType = "";
+
+							if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+							parentClass.dispatchEvent("resetRightTV", {});
+						}else{
+							top.rightECID = rightTV["ecid"];
+							top.rightGtype = top.choice_gtype;
+							top.rightRB = rightTV["isRB"];
+
+							parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+
+							if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && (top.rightShowType!=rightTV["rightShowType"])){
+								top.rightShowType = rightTV["rightShowType"];
+								parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+							}else{
+								top.rightShowType = rightTV["rightShowType"];
+								_self.setRightScore(dataHash,xmlHash);
+							}
+
+							if(getView().viewportwidth >= 1024){
+								parentClass.dispatchEvent("resetRightTV", {});
+								parentClass.dispatchEvent("setRightTVDefaultPlay", rightTV);
+							}
+						}
+					}
+				}else{
+					var hasChgShowtype = (top.rightShowType!=my_rightTV[top.rightECID]["rightShowType"]);
+					if((nowShowtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && hasChgShowtype){
+						top.rightShowType = my_rightTV[top.rightECID]["rightShowType"];
+						top.rightRB = my_rightTV[top.rightECID]["isRB"];
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":dataHash,"obj":xmlHash});
+						parentClass.dispatchEvent("resetRightTV", {});
+					}else{
+						_self.setRightScore(dataHash,xmlHash);
+					}
+					if(getView().viewportwidth >= 1024)parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash["ec"+top.rightECID], "from":"game_list"});
+				}
+			}else if(top.rightNowPlay == "ES" && analysisStatus){
+				if(getView().viewportwidth >= 1024){
+					_self.setRightScore(dataHash,xmlHash);
+					parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":xmlHash[rightES["key"]], "from":"game_list"});
+				}
+			}
+		}
+		if(xmlHash["ec"+top.rightECID]!=null){
+			top.resize_mainGame = xmlHash["ec"+top.rightECID];
+			nowScoreObj = xmlHash["ec"+top.rightECID];
+			top.rightFrom = "game_list";
+		}
+		if(scDataObj)top.scDataObj = scDataObj;
+
+		var div_model = dom.getElementById("div_model");
+		if(top.choice_sorttype == "T")var timeSort_model = dom.getElementById("timeSort_model");
+		var infoModel = dom.getElementById("left_info");
+		var infoModel_BASIC = dom.getElementById("left_info_BASIC");
+		var infoModel_NA = dom.getElementById("left_info_NA");
+		var infoModel_R = dom.getElementById("left_info_R");
+		//var PDModel = dom.getElementById("PD_info");
+		hasPD = (top.choice_rtype.indexOf("pd")!=-1);
+		var choice_info = (hasPD) ? PDModel : infoModel;
+
+		if(hasPD  || getView().viewportwidth >= 1024 || isIOS || top.mobile != "Y") clusterize_sw = false;
+		else clusterize_sw = true;
+		var _sourceData = new Object();
+		_sourceData["gameObj"] = dataHash;
+		_sourceData["hasPD"] = hasPD;
+		_sourceData["div_model"] = (div_model!=null)?div_model.innerHTML:"";
+		_sourceData["choice_info"] = (choice_info!=null)?choice_info.innerHTML:"";
+		_sourceData["choice_info_BASIC"] = (infoModel_BASIC!=null)?infoModel_BASIC.innerHTML:"";
+		_sourceData["choice_info_NA"] = (infoModel_NA!=null)?infoModel_NA.innerHTML:"";
+		_sourceData["choice_info_R"] = (infoModel_R!=null)?infoModel_R.innerHTML:"";
+		_sourceData["timeSort_model"] = (timeSort_model!=null)?timeSort_model.innerHTML:"";
+		//_sourceData["PDModel"] = (PDModel!=null)?PDModel.innerHTML:"";
+		_sourceData["model_FT"] = (dom.getElementById("model_FT"))?dom.getElementById("model_FT").innerHTML:"";
+		_sourceData["model_QT"] = (dom.getElementById("model_QT"))?dom.getElementById("model_QT").innerHTML:"";
+		_sourceData["model_HV"] = (dom.getElementById("model_HV"))?dom.getElementById("model_HV").innerHTML:"";
+		_sourceData["model_OT"] = (dom.getElementById("model_OT"))?dom.getElementById("model_OT").innerHTML:"";
+		_sourceData["model_FT_R"] = (dom.getElementById("model_FT_R"))?dom.getElementById("model_FT_R").innerHTML:"";
+		_sourceData["needsTransWtype"] = needsTransWtype;
+		_sourceData["LS"] = _self.new_eval("LS_"+top.ls).toString();
+		_sourceData["nowLS"] = top.ls;
+		_sourceData["LS_game"] = _self.new_eval("LS_game_"+top.ls).toString();
+		_sourceData["util"] = _self.new_eval("Util").toString();
+		_sourceData["util_game"] = _self.new_eval("Util_game").toString();
+		_sourceData["ratioChgRule"] = _self.new_eval("ratioChgRule").toString();
+		_sourceData["GameRatio"] = GameRatio;
+		_sourceData["GameInfo"] = GameInfo;
+		_sourceData["choice_showtype"] = nowShowtype;
+		_sourceData["specialClick"] = top.specialClick;
+		_sourceData["choice_rtype"] = top.choice_rtype;
+		_sourceData["choice_gtype"] = top.choice_gtype;
+		_sourceData["choice_filter"] = top.choice_filter;
+		//_sourceData["showPDmore"] = top.showPDmore;
+		_sourceData["headertype"] = postHash["headertype"];
+		_sourceData["couponKey"] = postHash["couponKey"];
+		_sourceData["filterLid"] = postHash["lid"];
+		_sourceData["isIOS"] = isIOS;
+		if(chgSort && parObj["action"]!="leagueOthersJsonChg") {
+			top["notShowLeg"] = new Object();
+			top["notShowLegGame"] = new Object();
+		}
+		_sourceData["notShowLegGame"] = top["notShowLegGame"];
+		_sourceData["notShowLeg"] = top["notShowLeg"];
+		_sourceData["gameAry"] = GameHash["ary"];
+		_sourceData["action"] = parObj["action"];
+		_sourceData["timetype"] = top["userData"].timetype;
+		_sourceData["firstLoad"] = firstLoad;
+
+		_sourceData["isMyGame"] = (nowShowtype=="mygame" || top.specialClick != "")?"mygame":"";
+
+		_sourceData["CLUSTERIZE_ROW"] = config_set.get("CLUSTERIZE_ROW");
+		_sourceData["DEFINED_ROWHEIGHT"] = config_set.get("DEFINED_ROWHEIGHT");
+		_sourceData["CLUSTERIZE_LIMIT_S"] = config_set.get("CLUSTERIZE_LIMIT_S");
+		_sourceData["CLUSTERIZE_LIMIT_M"] = config_set.get("CLUSTERIZE_LIMIT_M");
+		_sourceData["CLUSTERIZE_LIMIT_L"] = config_set.get("CLUSTERIZE_LIMIT_L");
+		_sourceData["viewport_height"] = getView().viewportheight;
+		_sourceData["CLUSTERIZE_SW"] = clusterize_sw;
+		_sourceData["sort_type"] = top.choice_sorttype;
+		
+		var _post = new Object();
+		_post["cmd"] = "parseData";
+		_post["sourceData"] = _sourceData;
+		WORKER.postMessage(_post);
+	}
+
+	_self.setRightScore = function(dataHash,xmlHash,showtype){
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var nowShowtype = (showtype)?showtype:top.choice_showtype;
+		scDataObj = _self.getScDataObj(dataHash["ec"+top.rightECID],xmlHash["ec"+top.rightECID],showtype);
+		if(getView().viewportwidth >= 1024){
+			parentClass.dispatchEvent("parseRightScoreBoard", scDataObj);
+		}
+		if((nowShowtype=="mygame" || isSpecialGame == "Y") && top.choice_gtype!="ft"){
+			setTimeout(_self.closeRightLoadingSlowly,"500");
+		}
+	}
+
+	_self.workerThrough = function(e){
+		var ret = e.data;
+		console.log("[workerThrough]["+top.choice_gtype+"]["+top.choice_showtype+"] action=", ret ? ret["action"] : ret);
+		echo("3. [workerThrough]ret",ret);
+		if(ret=="tooMuchCMD"){
+			echo("tooMuchCMD");
+			return;
+		}
+		parentClass.dispatchEvent("showLoading", { "isShow": false });
+		if(ret["action"]=="getData"){
+			_self.workerRefreshResponse(e);
+		}else if(ret["action"]=="getOthersData"){
+			_self.workerOthersRefreshResponse(e);
+		}else if(ret["action"]=="getOthersJsonData"){
+			_self.workerOthersJsonRefreshResponse(e);
+		}else if(ret["action"]=="leagueChg" || ret["action"]=="leagueOthersChg"){
+			_self.workerLeagueChg(e);
+		}else if(ret["action"]=="leagueOthersJsonChg"){
+			_self.workerLeagueJsonChg(e);
+		}
+	}
+
+	_self.workerRefreshResponse = function(e){
+
+		echo("workerRefreshResponse");
+		var ret = e.data;
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var tmpEcAry = new Object();
+		var tmpMenuAry = new Object();
+		var filterAry = new Object();
+		myLeg = new Object();
+		gameSubObj = ret["gameSubObj"];
+		sfsClickHash = ret["sfsClickHash"];
+		totalLeg = ret["totalLeg"];
+		myLeg = ret["myLeg"];
+		top["notShowLegGame"] = ret["notShowLegGame"];
+		var gameContent = ret["tmpDiv"];
+		if(gameContent == "allZero"){
+			isAllZero = true;
+			if(top.specialGame.isFantasy){
+				_self.showGameLoading(false);
+				_self.showNoData(true);
+				parentClass.dispatchEvent("showLoading", { "isShow": false });
+				return;
+			}
+		}else {
+			_self.showNoData(false);
+			isAllZero = false;
+		}
+		if(top.specialClick == "special"){
+			var nowModelShowtype = top.game_model.split("_")[1];
+			// if( gameContent == ""){
+			// 	console.log("賽事內容為空的 不能收掉loading");
+			// 	return;
+			// }
+			if(nowModelShowtype == "today" && !top.specialGame.isFantasy){
+				// console.log("取到的model=>"+top.game_model+"應該要顯示[特殊賽事][賽事] model,不能收掉loading");
+				return;
+			}
+			if(nowModelShowtype == "mygame" && top.specialGame.isFantasy){
+				// console.log("取到的model=>"+top.game_model+"應該要顯示[特殊賽事][夢幻賽事] model,不能收掉loading");
+				return;
+			}
+		}
+		FantasyAry = ret["FantasyAry"];
+
+		var delLidAry = ret["delLidAry"];
+		for(d=0;d<delLidAry.length;d++){
+			delete top["notShowLeg"][delLidAry[d]];
+		}
+		if(totalLeg.length == 0 && delLidAry.length != 0){
+			_self.setPDtabVisible(false);
+			_self.showGameLoading(false);
+			_self.showNoData(true);
+			parentClass.dispatchEvent("showLoading", { "isShow": false });
+			return;
+		}
+
+		//top["showPDmore"] = ret["showPDmore"];
+		total_parlay_limit = ret["total_parlay_limit"];
+		sportFrame.setGameParlayLimit({"parlay_limit_min":total_parlay_limit});
+		_self.chooseOBT(ret["showOBT"]);
+		if(ret["_lastOBT_div_ECID"]!=""){
+			_lastOBT_div = dom.createElement("div");
+			_lastOBT_div.setAttribute("id", "div_OBT_show_"+ret["_lastOBT_div_ECID"]);
+			_lastOBT_div.innerHTML = ret["_lastOBT_div"];
+		}
+		_lastPK = ret["_lastPK"];
+		_lastPKset = ret["_lastPKset"];
+		
+		var xmdObj = new Object();
+		xmdObj["ec"] = _xmlnode.Node(_xmlnode.Root[0],"ec", false);
+		var _s,_e;
+		_s = 0;
+		_e = xmdObj["ec"].length;
+
+		_self.setRP3Ary(xmdObj, _s, _e);
+		if(!chgSort){
+			_self.saveScroll();
+		}
+		if(top.choice_rtype.match(/pd/)){
+			_self.pdTabLight(top.nowPDMode);
+			_self.setPDtabVisible(true);
+			_self.setPDModeBtn();
+			setTimeout(_self.showPDLoading,	300,false);
+		}
+		if(clusterize_sw){
+			sportFrame.showTab(true);
+			rowAry.length = 0;
+			rowAry = ret["rowAry"];
+			blockHeight = ret["blockHeight"];
+			blockNum = ret["blockNum"];
+			var total_height = ret["totalRowHeight"];
+			if(clusterize!=null){
+				clusterize.update(rowAry, total_height, blockHeight, blockNum);
+			}else{
+				_self.useClusterize(total_height, blockHeight, blockNum);
+			}
+			if(firstLoad && !isIOS) _self.lockHorizontalScroll();
+			chgSort = false;
+			if(clusterChg){
+				firstLoad = false;
+				clusterChg = false;
+				return;
+			}
+		}else{
+			var tmpRet = _self.parseGameList(ret);
+
+			if(top.rightNowPlay=="TV" || top.rightNowPlay=="MT"){
+				if(document.getElementById("icon_tv_"+top.rightECID) && getView().viewportwidth >= 1024)document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+			}else if(top.rightNowPlay=="" && top.choice_showtype=="parlay"){
+				if(document.getElementById("icon_tv_"+top.rightECID) && getView().viewportwidth >= 1024)document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+			}else if(filterRtypeAry.indexOf(top.choice_rtype) != -1 && top.rightECID!=""){
+				if(document.getElementById("icon_tv_"+top.rightECID) && getView().viewportwidth >= 1024)document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+			}
+
+			if(tmpRet){
+				_self.initLeague(FantasyAry);
+				_self.initInfoBtn(_xmlnode, xmdObj["ec"]);
+				_self.initIorBtn(_xmlnode, xmdObj["ec"]);
+				if(needSubRtype.indexOf(top.choice_rtype) != -1)_self.initSubIorBtn(_xmlnode);
+			}
+			chgSort = false;
+			if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+				_self.initOBTMenuBtn(_xmlnode, xmdObj["ec"]);
+			}
+			// else{
+			// 	_self.initPDbtn(_xmlnode, xmdObj["ec"]);
+			// }
+
+			for(var j = _s; j < _e; j++){
+				var tmp_ec = xmdObj["ec"][j];
+				var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+				if(needSubRtype.indexOf(top.choice_rtype) != -1){
+					var ratioOBJ = _self.setRatioScroll(ECID,"update");
+
+					if(!ecidScrollHash[ECID])ecidScrollHash[ECID] = new Object();
+					if(!tmpEcAry[ECID])tmpEcAry[ECID] = new Object();
+					tmpEcAry[ECID]["R"] = (ecidScrollHash[ECID]["R"]? ecidScrollHash[ECID]["R"] : 0);
+					tmpEcAry[ECID]["OU"] = (ecidScrollHash[ECID]["OU"]? ecidScrollHash[ECID]["OU"] : 0);
+					if(top.mobile == "N"){
+						var iorRDragObj = {"tagName":"ratioR_"+ECID,"total":ratioOBJ["r_total"],"scroll":ratioOBJ["r_scroll"],"isRatio":"Y"};
+						var iorOUDragObj = {"tagName":"ratioOU_"+ECID,"total":ratioOBJ["ou_total"],"scroll":ratioOBJ["ou_scroll"],"isRatio":"Y"};
+						util.dragScroll(dom,"ratioR_"+ECID,_self.startIorClick,_self.stopIorClick,iorRDragObj);
+						util.dragScroll(dom,"ratioOU_"+ECID,_self.startIorClick,_self.stopIorClick,iorOUDragObj);
+					}
+				}else{
+					tmpEcAry[ECID] = (ecidScrollHash[ECID]? ecidScrollHash[ECID] : 0);
+					tmpMenuAry[ECID] = (menuScrollHash[ECID]? menuScrollHash[ECID] : 0);
+				}
+			}
+
+			_self.loadScroll(tmpEcAry, tmpMenuAry, filterAry);
+			chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+			util_game.initSelect(util);
+
+			if(!isIOS){
+				if(page_sw){
+					_totalPage = _xmlnode.Node(_xmlnode.Root[0],"pageCount").innerHTML;
+					_self.showPagination(_totalPage, RESIZE);
+				}
+				setTimeout(_self.refreshDisplayScrollBar, 1500);
+			}
+			sportFrame.showTab(true);
+			_self.showGameLoading(false);
+			if(top.choice_showtype=="mygame" || isSpecialGame == "Y" || top.choice_showtype == "parlay" || rightChgSort){
+				rightChgSort = false;
+				setTimeout(_self.closeRightLoadingSlowly,"500");
+			}else{
+				parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+			}
+			if(page_sw) RESIZE = false;
+		}
+		firstLoad = false;
+	}
+
+	_self.workerOthersRefreshResponse = function(e){
+		echo("workerOthersRefreshResponse");
+		var ret = e.data;
+		var tmpEcAry = new Object();
+		var tmpMenuAry = new Object();
+		var filterAry = new Object();
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		myLeg = new Object();
+
+		totalLeg = ret["totalLeg"];
+		myLeg = ret["myLeg"];
+		top["notShowLegGame"] = ret["notShowLegGame"];
+		var gameContent = ret["tmpDiv"];
+		if(top.specialClick == "special"){
+			if( gameContent == ""){
+				return;
+			}
+		}
+
+		//top["showPDmore"] = ret["showPDmore"];
+		total_parlay_limit = ret["total_parlay_limit"];
+		sportFrame.setGameParlayLimit({"parlay_limit_min":total_parlay_limit});
+
+		var xmdObj = new Object();
+		xmdObj["ec"] = _xmlnode.Node(_xmlnode.Root[0],"ec", false);
+
+		var _s,_e;
+		_s = 0;
+		_e = xmdObj["ec"].length;
+		
+		if((top.choice_showtype == "today" || top.choice_showtype == "mygame" || top.choice_showtype == "hot") && top.choice_gtype!="bk"){
+			_self.setRP3Ary(xmdObj, _s, _e);
+		}
+
+		if(!chgSort){
+			_self.saveScroll();
+		}
+		if(clusterize_sw){
+			rowAry.length = 0;
+			rowAry = ret["rowAry"];
+			blockHeight = ret["blockHeight"];
+			blockNum = ret["blockNum"];
+			var total_height = ret["totalRowHeight"];
+			if(clusterize!=null){
+				clusterize.update(rowAry, total_height, blockHeight, blockNum);
+			}else{
+				_self.useClusterize(total_height, blockHeight, blockNum);
+			}
+			if(firstLoad && !isIOS) _self.lockHorizontalScroll();
+			chgSort = false;
+			if(clusterChg){
+				firstLoad = false;
+				clusterChg = false;
+				return;
+			}
+			
+		}else{
+			var tmpRet = _self.parseGameList(ret);
+			if(top.rightNowPlay=="TV" || top.rightNowPlay=="MT"){
+				if(document.getElementById("icon_tv_"+top.rightECID) && getView().viewportwidth >= 1024)document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+			}else if(top.rightNowPlay=="" && top.choice_showtype=="parlay"){
+				if(document.getElementById("icon_tv_"+top.rightECID) && getView().viewportwidth >= 1024)document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+			}
+
+			if(tmpRet){
+				_self.initLeague();
+				_self.initInfoBtn(_xmlnode, xmdObj["ec"]);
+				_self.initIorBtn(_xmlnode, xmdObj["ec"]);
+			}
+			chgSort = false;
+			if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+				_self.initOBTMenuBtn(_xmlnode, xmdObj["ec"]);
+			}
+			// else{
+			// 	_self.initPDbtn(_xmlnode, xmdObj["ec"]);
+			// }
+
+			for(var j = _s; j < _e; j++){
+				var tmp_ec = xmdObj["ec"][j];
+				var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+				tmpEcAry[ECID] = (ecidScrollHash[ECID]? ecidScrollHash[ECID] : 0);
+				tmpMenuAry[ECID] = (menuScrollHash[ECID]? menuScrollHash[ECID] : 0);
+			}
+
+			_self.loadScroll(tmpEcAry, tmpMenuAry, filterAry);
+			chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+			util_game.initSelect(util);
+
+			if(!isIOS){
+				if(page_sw){
+					_totalPage = _xmlnode.Node(_xmlnode.Root[0],"pageCount").innerHTML;
+					_self.showPagination(_totalPage, RESIZE);
+				}
+				setTimeout(_self.refreshDisplayScrollBar, 1500);
+			}
+			_self.showGameLoading(false);
+			if((top.choice_showtype!="mygame" && isSpecialGame!="Y") || ((top.choice_showtype=="mygame" || isSpecialGame == "Y") && top.rightECID=="")){
+				parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+			}
+			if(page_sw) RESIZE = false;
+		}
+		firstLoad = false;
+	}
+
+	_self.workerOthersJsonRefreshResponse = function(e){
+		echo("workerOthersJsonRefreshResponse");
+		console.log("[workerOthersJsonRefreshResponse]["+top.choice_gtype+"]["+top.choice_showtype+"] called");
+		var ret = e.data;
+		var tmpEcAry = new Object();
+		var tmpMenuAry = new Object();
+		var filterAry = new Object();
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		myLeg = new Object();
+
+		try {
+		totalLeg = ret["totalLeg"];
+		myLeg = ret["myLeg"];
+		top["notShowLegGame"] = ret["notShowLegGame"];
+		var gameContent = ret["tmpDiv"];
+		if(top.specialClick == "special"){
+			if( gameContent == ""){
+				_self._closeGameLoading();
+				return;
+			}
+		}
+		if(!gameContent && totalLeg && totalLeg.length == 0){
+			_self.showNoData(true);
+			_self._closeGameLoading();
+			return;
+		}
+		total_parlay_limit = ret["total_parlay_limit"];
+		sportFrame.setGameParlayLimit({"parlay_limit_min":total_parlay_limit});
+
+		var jsonObj = new Object();
+		jsonObj = util_game.jsonECToHash(_jsonData["response"],util);
+		var _obj = jsonObj["obj"];
+		if(_obj){
+			for(var _k in _obj){
+				var _g = _obj[_k];
+				if(_g && !_g["PLAYS"]){
+					var _newPlays = {};
+					for(var _pi = 1; _pi <= 8; _pi++){
+						var _pn = _g["PLAY"+_pi];
+						if(_pn){ for(var _pt in _pn) _newPlays[_pt] = _pn[_pt]; }
+					}
+					_g["PLAYS"] = _newPlays;
+				}
+			}
+			nowGameHash = util.clone(_obj);
+		}
+		if((top.choice_showtype == "today" || top.choice_showtype == "mygame" || top.choice_showtype == "hot") && top.choice_gtype!="bk"){
+			_self.setRP3AryJson(jsonObj["obj"]);
+		}
+
+		if(!chgSort){
+			_self.saveScroll();
+		}
+		if(clusterize_sw){
+			rowAry.length = 0;
+			rowAry = ret["rowAry"];
+			blockHeight = ret["blockHeight"];
+			blockNum = ret["blockNum"];
+			var total_height = ret["totalRowHeight"];
+			if(clusterize!=null){
+				clusterize.update(rowAry, total_height, blockHeight, blockNum);
+			}else{
+				_self.useClusterize(total_height, blockHeight, blockNum);
+			}
+			if(firstLoad && !isIOS) _self.lockHorizontalScroll();
+			chgSort = false;
+			if(clusterChg){
+				firstLoad = false;
+				clusterChg = false;
+				return;
+			}
+			_self.showGameLoading(false);
+		}else{
+			var tmpRet = _self.parseGameList(ret);
+			if(top.rightNowPlay=="TV" || top.rightNowPlay=="MT"){
+				if(document.getElementById("icon_tv_"+top.rightECID) && getView().viewportwidth >= 1024)document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+			}else if(top.rightNowPlay=="" && top.choice_showtype=="parlay"){
+				if(document.getElementById("icon_tv_"+top.rightECID) && getView().viewportwidth >= 1024)document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+			}
+			if(top.choice_gtype=="es" && top.rightNowPlay=="ES"){
+				if(document.getElementById("icon_sc_"+top.rightECID))document.getElementById("icon_sc_"+top.rightECID).classList.add("on");
+			}
+
+			if(tmpRet){
+				if(top.choice_gtype=="es" && top.choice_showtype=="mygame")_self.getMyGameCnt();
+				_self.initLeague();
+				_self.initInfoBtn(_jsonData, jsonObj["obj"], true);
+				_self.initIorBtn(_jsonData, jsonObj["obj"], true);
+			}
+			chgSort = false;
+
+			for(var _ecid in jsonObj["obj"]){
+				var ECID = _ecid.replace(/ec/,"");
+				tmpEcAry[ECID] = (ecidScrollHash[ECID]? ecidScrollHash[ECID] : 0);
+				tmpMenuAry[ECID] = (menuScrollHash[ECID]? menuScrollHash[ECID] : 0);
+			}
+			filterAry[top.choice_gtype] = (filterScrollHash[top.choice_gtype]? filterScrollHash[top.choice_gtype] : 0);
+			_self.loadScroll(tmpEcAry, tmpMenuAry, filterAry);
+			chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+			util_game.initSelect(util);
+			if(!isIOS){
+				if(page_sw){
+					_totalPage = _jsonData["phpData"]["pageCount"];
+					_self.showPagination(_totalPage, RESIZE);
+				}
+				setTimeout(_self.refreshDisplayScrollBar, 1500);
+			}
+			_self.showGameLoading(false);
+			if((top.choice_showtype!="mygame" && isSpecialGame!="Y") || ((top.choice_showtype=="mygame" || isSpecialGame == "Y") && top.rightECID=="")){
+				parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+			}
+			if(page_sw) RESIZE = false;
+		}
+		} catch(e) {
+			console.log("[workerOthersJsonRefreshResponse][error]", e);
+			_self.showNoData(true);
+			_self._closeGameLoading();
+		}
+		firstLoad = false;
+	}
+
+	_self.workerLeagueJsonChg = function(e){
+		echo("workerLeagueJsonChg");
+		var ret = e.data;
+		gameSubObj = ret["gameSubObj"];
+		total_parlay_limit = ret["total_parlay_limit"];
+		sportFrame.setGameParlayLimit({"parlay_limit_min":total_parlay_limit});
+		_self.saveScroll();
+		if(clusterize_sw){
+			rowAry.length = 0;
+			rowAry = ret["rowAry"];
+			blockHeight = ret["blockHeight"];
+			blockNum = ret["blockNum"];
+			var total_height = ret["totalRowHeight"];
+			if(clusterize!=null) clusterize.update(rowAry, total_height, blockHeight, blockNum);
+		}else{
+			var tmpEcAry = new Object();
+			var tmpMenuAry = new Object();
+			var filterAry = new Object();
+			myLeg = new Object();
+
+			totalLeg = ret["totalLeg"];
+			myLeg = ret["myLeg"];
+
+			//top["showPDmore"] = ret["showPDmore"];
+			total_parlay_limit = ret["total_parlay_limit"];
+			_self.chooseOBT(ret["showOBT"]);
+			if(ret["_lastOBT_div_ECID"]!=""){
+				_lastOBT_div = dom.createElement("div");
+				_lastOBT_div.setAttribute("id", "div_OBT_show_"+ret["_lastOBT_div_ECID"]);
+				_lastOBT_div.innerHTML = ret["_lastOBT_div"];
+			}
+			_lastPK = ret["_lastPK"];
+			_lastPKset = ret["_lastPKset"];
+			
+			var jsonObj = new Object();
+			jsonObj = util_game.jsonECToHash(_jsonData["response"],util);
+			if((top.choice_showtype == "today" || top.choice_showtype == "mygame" || top.choice_showtype == "hot") && top.choice_gtype!="bk"){
+				_self.setRP3AryJson(jsonObj["obj"]);
+			}
+
+			var tmpRet = _self.parseGameList(ret);
+
+			if(tmpRet){
+				_self.initLeague();
+				_self.initInfoBtn(_jsonData, jsonObj["obj"], true);
+				_self.initIorBtn(_jsonData, jsonObj["obj"], true);
+			}
+			
+			// if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+			// 	_self.initOBTMenuBtn(_jsonData, jsonObj["obj"], true);
+			// }
+
+			for(var _ecid in jsonObj["obj"]){
+				var ECID = _ecid.replace(/ec/,"");
+				tmpEcAry[ECID] = (ecidScrollHash[ECID]? ecidScrollHash[ECID] : 0);
+				tmpMenuAry[ECID] = (menuScrollHash[ECID]? menuScrollHash[ECID] : 0);
+			}
+			filterAry[top.choice_gtype] = (filterScrollHash[top.choice_gtype]? filterScrollHash[top.choice_gtype] : 0);
+			_self.loadScroll(tmpEcAry, tmpMenuAry, filterAry);
+			chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+			util_game.initSelect(util);
+
+			if(!isIOS){
+				if(page_sw){
+					_totalPage = _jsonData["phpData"]["pageCount"];
+					_self.showPagination(_totalPage, RESIZE);
+				}
+				setTimeout(_self.refreshDisplayScrollBar, 1500);
+			}
+			_self.showGameLoading(false);
+			if(page_sw) RESIZE = false;
+		}
+	}
+
+	_self.workerLeagueChg = function(e){
+		echo("workerLeagueChg");
+		var ret = e.data;
+		gameSubObj = ret["gameSubObj"];
+		total_parlay_limit = ret["total_parlay_limit"];
+		sportFrame.setGameParlayLimit({"parlay_limit_min":total_parlay_limit});
+		_self.saveScroll();
+		if(clusterize_sw){
+			rowAry.length = 0;
+			rowAry = ret["rowAry"];
+			blockHeight = ret["blockHeight"];
+			blockNum = ret["blockNum"];
+			var total_height = ret["totalRowHeight"];
+			if(clusterize!=null) clusterize.update(rowAry, total_height, blockHeight, blockNum);
+		}else{
+			var tmpEcAry = new Object();
+			var tmpMenuAry = new Object();
+			var filterAry = new Object();
+			myLeg = new Object();
+
+			totalLeg = ret["totalLeg"];
+			myLeg = ret["myLeg"];
+
+			//top["showPDmore"] = ret["showPDmore"];
+			total_parlay_limit = ret["total_parlay_limit"];
+			_self.chooseOBT(ret["showOBT"]);
+			if(ret["_lastOBT_div_ECID"]!=""){
+				_lastOBT_div = dom.createElement("div");
+				_lastOBT_div.setAttribute("id", "div_OBT_show_"+ret["_lastOBT_div_ECID"]);
+				_lastOBT_div.innerHTML = ret["_lastOBT_div"];
+			}
+			_lastPK = ret["_lastPK"];
+			_lastPKset = ret["_lastPKset"];
+			
+			var xmdObj = new Object();
+			xmdObj["ec"] = _xmlnode.Node(_xmlnode.Root[0],"ec", false);
+			var _s,_e;
+			_s = 0;
+			_e = xmdObj["ec"].length;
+
+			
+			if(top.choice_gtype=="ft") _self.setRP3Ary(xmdObj, _s, _e);
+
+			
+			var tmpRet = _self.parseGameList(ret);
+
+			if(tmpRet){
+				_self.initLeague();
+				_self.initInfoBtn(_xmlnode, xmdObj["ec"]);
+				_self.initIorBtn(_xmlnode, xmdObj["ec"]);
+			}
+			
+
+			if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+				_self.initOBTMenuBtn(_xmlnode, xmdObj["ec"]);
+			}
+
+			for(var j = _s; j < _e; j++){
+				var tmp_ec = xmdObj["ec"][j];
+				var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+				tmpEcAry[ECID] = (ecidScrollHash[ECID]? ecidScrollHash[ECID] : 0);
+				tmpMenuAry[ECID] = (menuScrollHash[ECID]? menuScrollHash[ECID] : 0);
+			}
+
+			_self.loadScroll(tmpEcAry, tmpMenuAry, filterAry);
+			chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+			util_game.initSelect(util);
+
+			if(!isIOS){
+				if(page_sw){
+					_totalPage = _xmlnode.Node(_xmlnode.Root[0],"pageCount").innerHTML;
+					_self.showPagination(_totalPage, RESIZE);
+				}
+				setTimeout(_self.refreshDisplayScrollBar, 1500);
+			}
+			_self.showGameLoading(false);
+			if(page_sw) RESIZE = false;
+		}
+	}
+
+	_self.chooseOBT = function(_showOBT){
+		if(top["showOBT"] && _showOBT!=top["showOBT"]){
+			var tmpECID = top["showOBT"].split("_")[0];
+			var tmpModel = top["showOBT"].split("_")[1];
+			var menuObj = dom.getElementById("div_OBT_menu_"+tmpECID);
+			var pageIndex = top["showOBT"].split("_")[2];
+			var gameIndex = top["showOBT"].split("_")[3];
+			var isEarly = top["showOBT"].split("_")[4];
+			var tmp_model = (tmpModel.indexOf("ET")!=-1 && tmpModel!="ET")?tmpModel.replace("ET", ""):tmpModel;
+			var objids = ",OBT_" + tmp_model + ",";
+			var ary = util.getObjAry(menuObj, objids);
+			var _par = new Object();
+			_par["obj"] = ary["OBT_"+tmp_model];
+			_par["ECID"] = tmpECID;
+			_par["model"] = tmpModel;
+			_par["pageIndex"] = pageIndex;
+			_par["gameIndex"] = gameIndex;
+			_par["isEarly"] = isEarly;
+			_self.chgDiv(null, _par);
+		}
+	}
+
+	_self.setRP3Ary = function(xmdObj, _start, _end){
+		rbP3_ECID = util.clearArray(rbP3_ECID);
+		util.clearObject(isP3_R);
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var isMix = (isSpecialGame == "Y" || top.choice_showtype.match(/parlay|mygame/));
+		for(var j = _start; j < _end; j++){
+			var tmp_ec = xmdObj["ec"][j];
+			var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+			var myGameShowtype = tmp_ec.getAttribute("myGame");
+			//if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+				rbP3_ECID.push(ECID);
+			//}
+			xmdObj["game"] = _xmlnode.Node(tmp_ec,"game", false);
+			var game_length = xmdObj["game"].length;
+			for(var x = 0; x < game_length; x++){
+				var tmpRB = "";
+				var tmp_game = xmdObj["game"][x];
+				var _gid = _xmlnode.Node(tmp_game,"GID").innerHTML;
+				var is_rb = _xmlnode.Node(tmp_game,"IS_RB").innerHTML;
+				var isfantasy = _xmlnode.Node(tmp_game,"ISFANTASY").innerHTML;
+				var pdStrongModel = _xmlnode.Node(tmp_game,"PD_STRONG").innerHTML;
+				tmpRB = is_rb;
+				if(isMix && !is_rb){
+					tmpRB = (myGameShowtype == "rb")?"Y":"N";
+				}
+				var nowModel = _xmlnode.Node(tmp_game,"NOW_MODEL").innerHTML;
+				if(nowModel){
+					var tmpLayer = _self.getRatioLayer(nowModel,tmpRB,isfantasy,pdStrongModel).cloneNode(true);
+					if(!tmpLayer) continue;
+				}
+				var tmp_ecid = ECID;
+				// if(filterRtypeAry.indexOf(top.choice_rtype) != -1){
+				// 	tmp_ecid = _gid+"_"+ECID;
+				// 	rbP3_ECID.push(tmp_ecid);
+				// }
+
+				isP3_R[tmp_ecid] = (is_rb=="Y") || (top.choice_showtype=="live") || ((top.choice_showtype=="mygame" || isSpecialGame == "Y") && (nowModel=="RPD"||myGameShowtype=="rb"));
+			}
+		}
+	}
+
+	_self.setRP3AryJson = function(jsonObj){
+		rbP3_ECID = util.clearArray(rbP3_ECID);
+		util.clearObject(isP3_R);
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var isMix = (isSpecialGame == "Y" || top.choice_showtype.match(/parlay|mygame/));
+		for(var ECID in jsonObj){
+			var myGameShowtype = jsonObj[ECID]["SHOWTYPE"];
+			rbP3_ECID.push(ECID.replace(/ec/,""));
+			var tmp_game = jsonObj[ECID];
+			for(var _key in tmp_game){
+				var tmpRB = "";
+				var tmp_game = jsonObj[ECID];
+				var _gid = tmp_game["GID"];
+				var is_rb = tmp_game["IS_RB"];
+				var isfantasy = tmp_game["ISFANTASY"];
+				var pdStrongModel = tmp_game["PD_STRONG"];
+				tmpRB = is_rb;
+				if(isMix && !is_rb){
+					tmpRB = (myGameShowtype == "rb")?"Y":"N";
+				}
+				var nowModel = tmp_game["NOW_MODEL"];
+				if(nowModel){
+					var tmpLayer = _self.getRatioLayer(nowModel,tmpRB,isfantasy,pdStrongModel).cloneNode(true);
+					if(!tmpLayer) continue;
+				}
+				var tmp_ecid = ECID.replace(/ec/,"");
+				isP3_R[tmp_ecid] = (is_rb=="Y") || (top.choice_showtype=="live") || ((top.choice_showtype=="mygame" || isSpecialGame == "Y") && (nowModel=="RPD"||myGameShowtype=="rb"));
+			}
+		}
+	}
+
+	_self.parseGameList = function(_ret){
+		var div_show = dom.getElementById("div_show");
+		div_show.innerHTML = _ret["tmpDiv"];
+		return true;
+	}
+
+	_self.ratioResize = function(){
+		for(var key in lastDataHash){
+			if(top.notShowLeg[lastDataHash[key]["lid"]])continue;
+			var ecid = (lastDataHash[key]["hasEC"] == "Y")?lastDataHash[key]["ecid"]:lastDataHash[key]["gidm"];
+			_self.setRatioScroll(ecid,"check");
+		}
+	}
+
+	_self.ratioScroll = function(total,scroll,right,left,action){
+		if(total && scroll){
+			var totalWidth = parseFloat(window.getComputedStyle(total).width);
+			var scrollWidth = parseFloat(window.getComputedStyle(scroll).width);
+			if(totalWidth > scrollWidth){
+				util.addClass(right,"on");
+				util.addEvent(right,"click",util.move,{"click":right ,"div":scroll, "direction":"right", "opposite":left});
+			}
+		}else{
+			util.removeClass(right,"on");
+			util.removeEvent(right, "click");
+		}
+		util.addEvent(scroll,"scroll",_self.addScrollEvent,{"total":total ,"scroll":scroll , "left":left , "right":right , "isRatio":"Y"});
+	}
+
+	_self.chkRatioScroll = function(total,scroll,right,left){
+		if(scroll){
+			var scrollLeft = scroll.scrollLeft;
+			//var menuW = scroll.scrollWidth - scroll.clientWidth -1;
+			var totalWidth = parseFloat(window.getComputedStyle(total).width);
+			var scrollWidth = parseFloat(window.getComputedStyle(scroll).width);
+			var menuW = Math.floor(totalWidth - scrollWidth);
+			if(scrollLeft < menuW){
+				util.addClass(right,"on");
+				util.addEvent(right,"click",util.move,{"click":right ,"div":scroll, "direction":"right", "opposite":left});
+			}
+		}else{
+			util.removeClass(right,"on");
+			util.removeEvent(right, "click");
+		}
+	}
+
+	_self.saveScroll = function(){
+		if(needSubRtype.indexOf(top.choice_rtype) != -1){
+			ecidScrollHash = _self.getScroll("ratio", ecidScrollHash);
+		}else{
+			ecidScrollHash = _self.getScroll("ratioShow", ecidScrollHash);
+			menuScrollHash = _self.getScroll("div_OBT_menu", menuScrollHash);
+			if(top.choice_showtype=="mygame" && top.choice_gtype=="es")filterScrollHash = _self.getScroll("myGameFilterScroll", filterScrollHash);
+			obtScrollHash = _self.getScroll("ratioShow_OBT", obtScrollHash);
+		}
+	}
+
+	_self.loadScroll = function(tmpEcAry, tmpMenuAry, filterAry){
+		if(needSubRtype.indexOf(top.choice_rtype) != -1){
+			ecidScrollHash = _self.setScroll("ratio", tmpEcAry);
+		}else{
+			ecidScrollHash = _self.setScroll("ratioShow", tmpEcAry);
+			menuScrollHash = _self.setScroll("div_OBT_menu", tmpMenuAry);
+			if(top.choice_showtype=="mygame" && top.choice_gtype=="es")filterScrollHash = _self.setScroll("myGameFilterScroll", filterAry);
+			if(top.showOBT != "" && top.showOBT.split("_")[1].indexOf("MIX") != -1){
+				obtScrollHash = _self.setScroll("table_obt_bet", obtScrollHash);
+			}
+			else obtScrollHash = _self.setScroll("ratioShow_OBT", obtScrollHash);
+		}
+	}
+
+	_self.refreshHideScrollBar = function(){
+		for(i=0;i<ecid_array.length;i++){
+			var gameObj = dom.getElementById("game_"+ecid_array[i]);
+			if(gameObj) util.addClass(gameObj, "update");
+		}
+		if(top["showOBT"]){
+			var tmpECID = top["showOBT"].split("_")[0];
+			var obtObj = dom.getElementById("div_OBT_show_"+tmpECID);
+			if(obtObj) util.addClass(obtObj, "update");
+		}
+	}
+
+	_self.refreshDisplayScrollBar = function(){
+		for(i=0;i<ecid_array.length;i++){
+			var gameObj = dom.getElementById("game_"+ecid_array[i]);
+			var obtObj = dom.getElementById("div_OBT_show_"+ecid_array[i]);
+			if(gameObj) util.removeClass(gameObj, "update");
+			if(obtObj) util.removeClass(obtObj, "update");
+		}
+	}
+
+	_self.getScroll = function(_name, hash){
+		if(_name == "ratioShow_OBT" && top.showOBT != "" && top.showOBT.split("_")[1].indexOf("MIX") != -1){
+			for(var ecid in hash){
+				for(var wtype in hash[ecid]){
+					if(wtype.indexOf("H") != -1){
+						wtype = wtype.replace(/H/,"");
+						var obj = dom.getElementById("half").querySelectorAll("[id='table_obt_bet_"+wtype.toLowerCase()+"']")[0];
+						if(obj && !top.notShowLegGame[ecid]){
+							hash[ecid]["H"+wtype] = obj.scrollLeft;
+						}
+						else{
+							delete hash[ecid];
+						}
+					}else{
+						var obj = dom.getElementById("table_obt_bet_"+wtype.toLowerCase());
+						if(obj && !top.notShowLegGame[ecid]){
+							hash[ecid][wtype] = obj.scrollLeft;
+						}
+						else{
+							delete hash[ecid];
+						}
+					}
+				}
+			}
+		}else if(_name=="myGameFilterScroll"){
+			var obj = dom.getElementById("MYES_tab_scroll");
+			if(obj){
+				hash[top.choice_gtype] = (hash["chgTab"])?hash["chgTab"]:obj.scrollLeft;
+				hash["chgTab"] = null;
+			}
+		}else{
+			for(var ecid in hash){
+				if(util.countSize(hash[ecid]) > 0){
+					for (var wtype in hash[ecid]){
+						var obj = dom.getElementById(_name+wtype.toUpperCase()+"_"+ecid);
+						if(obj)hash[ecid][wtype] = obj.scrollLeft;
+						else delete hash[ecid];
+					}
+				}else{
+					var obj = dom.getElementById(_name+"_"+ecid);
+					if(obj && !top.notShowLegGame[ecid])hash[ecid] = obj.scrollLeft;
+					else {
+						delete hash[ecid];
+					}
+				}
+			}
+		}
+		
+		return hash;
+	}
+
+	_self.setScroll = function(_name, hash){
+		if(_name == "table_obt_bet" || _name == "ratio"){
+			for(var ecid in hash){
+				for (var wtype in hash[ecid]){
+					if(wtype.indexOf("H") != -1){
+						wtype = wtype.replace(/H/,"");
+						var obj = dom.getElementById("half").querySelectorAll("[id='table_obt_bet_"+wtype.toLowerCase()+"']")[0];
+						if(obj)obj.scrollLeft = hash[ecid]["H"+wtype];
+					}
+					else{
+						var tmpId =  (needSubRtype.indexOf(top.choice_rtype) != -1)?_name+wtype.toUpperCase()+"_"+ecid : _name+"_"+wtype.toLowerCase();
+						var obj = dom.getElementById(tmpId);
+						if(obj)obj.scrollLeft = hash[ecid][wtype];
+					}
+				}
+			}
+		}else if(_name=="myGameFilterScroll"){
+			var obj = dom.getElementById("MYES_tab_scroll");
+			if(obj) obj.scrollLeft = hash[top.choice_gtype];
+		}else{
+			for(var ecid in hash){
+				var obj = dom.getElementById(_name+"_"+ecid);
+				if(obj) obj.scrollLeft = hash[ecid];
+			}
+		}
+		
+		return hash;
+	}
+	
+	_self.obt_menu_move = function(obj_obt,ecid){
+		var obj = obj_obt;
+		var menu_id = ecid;
+		var menu = dom.getElementById("div_OBT_menu_"+menu_id);
+		var obt_close = dom.getElementById("OBT_close_"+menu_id);
+		var distance = (obj.offsetLeft)?obj.offsetLeft:0;
+		if(obj.classList.contains("on")) var relative_pos_left = obj.getBoundingClientRect().left;
+		if(relative_pos_left + obj.clientWidth - 8 < dom.body.clientWidth - obt_close.clientWidth)return;
+		if(!relative_pos_left && dom.body.clientWidth - obt_close.clientWidth > obj.offsetLeft + obj.clientWidth)return;
+		menu.scrollLeft = distance;
+		
+	}
+
+	_self.replaceMidfield = function(vals){
+		return vals.replace("[Mid]","").replace("[中]","");
+	}
+
+	_self.addZero = function(val){
+		var n = parseInt(val);
+		return (n<10)? "0"+n : n.toString();
+	}
+
+	_self.transDate = function(xml_datetime, sys_time, hasPD){
+		var ret = "";
+		var tmpdate = xml_datetime.split(" "); 
+		var xml_date = tmpdate[0]; 
+		var gmt = new Date(sys_time.replace(/-/g,"/")); 
+		var now_m = parseInt(gmt.getMonth()+1); 
+		var now_date = _self.addZero(now_m)+"-"+_self.addZero(gmt.getDate());
+		
+		var game_m = parseInt(xml_date.split("-")[0]);
+		if(now_m > game_m) gmt.setFullYear(gmt.getFullYear() +1);
+		var y = gmt.getFullYear();
+		var hm = _self.get24Hours(y+"-"+xml_datetime);
+		if(top.choice_showtype=="today" || xml_date==now_date){
+			if(hasPD){
+				ret = LS.get("datetime_today")+"<br>"+hm;
+			}else{
+				ret = LS.get("datetime_today")+" "+hm;
+			}
+		}else{
+			var w = new Date(y+"-"+xml_date).getDay();
+			var week = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+			var str_w = (week[w])? LS_game.get("game_"+week[w]) : "";
+			var dt_ary = xml_datetime.split(" ");
+			var d_ary = dt_ary[0].split("-");
+			if(hasPD){
+				ret = d_ary[1]+" / "+d_ary[0]+"<br>"+hm; 
+			}else{
+				ret = d_ary[1]+" / "+d_ary[0]+"   "+hm; 
+				ret = str_w +" "+ret;
+			}
+		}
+		return ret;
+	}
+
+	_self.get24Hours = function(datetime){
+		var ret = "";
+		try{
+			var tmp = datetime.replace(/-/g,"/");
+			tmp = tmp.replace(/a/g," am").replace(/p/g," pm");
+			var h = new Date(tmp).getHours();
+			var str_h = (parseInt(h)<10)? "0"+h : h;
+			var tmpd = datetime.split(" ");
+			var tmph = tmpd[1].split(":");
+			ret = str_h + ":" + tmph[1];
+			ret = ret.replace(/a/gi, "").replace(/p/gi, "");
+		}catch(e){}
+		return ret;
+	}
+
+	_self.showNoData = function(isShow){
+			var div_show = dom.getElementById("div_show");
+			var divNoData = dom.getElementById("div_nodata");
+			var div_nodata_mygame = dom.getElementById("div_nodata_mygame");
+			if(isShow){			
+				if(divNoData)divNoData.style.display="";
+				div_show.innerHTML = "";
+				if(div_nodata_mygame)div_nodata_mygame.style.display="none";
+				if(top.specialClick == "special" && top.specialGame.Total_Count == 0){
+					sportFrame.setTitle("special",{"title":top.specialGame.title});
+				}
+			}else{
+				if(divNoData)divNoData.style.display="none";
+				if(div_nodata_mygame)div_nodata_mygame.style.display="none";
+			}
+	}
+
+	_self.showNoData_myGame = function(isShow){
+		var div_show = dom.getElementById("div_show");
+		var divNoData = dom.getElementById("div_nodata");
+		var div_nodata_mygame = dom.getElementById("div_nodata_mygame");
+		if(isShow){
+			divNoData.style.display="none";
+			div_nodata_mygame.style.display="";
+			div_show.innerHTML = "";
+		}else{
+			divNoData.style.display="none";
+			div_nodata_mygame.style.display="none";
+		}
+	}	
+
+	_self.getRatioLayer=function(_name, is_rb,isfantasy,pdStrongModel,isHalf){
+			var isMix = (top.choice_showtype.match(/parlay|mygame|today|soon|hot/) || top.specialClick != "")?"Y":"N";
+			var tmpName = (isMix == "Y" && (_name.match(/HT|FT/)) && is_rb=="N")? _name+"_R" : _name;
+			if(top.choice_rtype.match(/pd/)){
+				var tmpStr = "DRAW";
+				if(top.nowPDMode == "choice"){
+					tmpStr = "CHOOSE";
+				}else{
+					if(pdStrongModel != "N")tmpStr = (pdStrongModel == "H")?"HOST":"CUSTOMER";
+				}
+				if(isHalf == "Y"){
+					if(isMix == "Y" && (_name.match(/HT|FT/)) && is_rb=="N"){
+						tmpName = "HT_R_"+tmpStr;
+					}else{
+						tmpName = "HT_"+tmpStr;
+					}
+				}else{
+					if(isMix == "Y" && (_name.match(/HT|FT/)) && is_rb=="N"){
+						tmpName = "FT_R_"+tmpStr;
+					}else{
+						tmpName = "FT_"+tmpStr;
+					}
+				}
+				if(_name == "ET")tmpName = "ET" + tmpName;
+			}
+			var tarObj = dom.getElementById("model_"+tmpName);
+			if(tarObj!=null){
+				return tarObj;
+			}else{
+				// console.log("[game_list][getRatioLayer] _name=",_name,"is_rb=",is_rb);
+			}
+	}
+
+	_self.initLeague = function(FantasyAry){
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var league_limit = 5;
+		var tmp_league_limit=0;
+		for(var i = 0; i < totalLeg.length; i++){
+			var tarObj = dom.getElementById("LEG_"+totalLeg[i]);
+			if(top["notShowLeg"][totalLeg[i]]==null || chgSort) {
+				if(tmp_league_limit>=league_limit){
+					top["notShowLeg"][totalLeg[i]] = true;
+					for(var j = 0; j < myLeg[totalLeg[i]].length; j++){
+						var obj = dom.getElementById("game_"+myLeg[totalLeg[i]][j]);
+						top["notShowLegGame"][myLeg[totalLeg[i]][j]] = myLeg[totalLeg[i]][j];
+						if(!clusterize_sw && obj) {
+							obj.style.display = "none";
+						}
+					}
+				}else {
+					top["notShowLeg"][totalLeg[i]] = false;
+					tmp_league_limit+=1;
+				}
+			}
+			util.addEvent(tarObj, "click", _self.showLeg, totalLeg[i]);
+		}
+
+		if(util.countSize(top["notShowLegGame"])!=0){
+			notShowPage = new Object();
+			for(var key in top["notShowLegGame"]){
+				var obj = dom.getElementById("game_"+key);
+				if(obj) obj.style.display = "none";
+			}
+		}
+
+		if(top.choice_showtype.match(/parlay|mygame|hot/) || (top.choice_showtype=="today" && (top.choice_filter.match(/RB|MIX/))) || isSpecialGame == "Y"){
+			for(var j=0; j<rbP3_ECID.length; j++){
+				var _ecid = rbP3_ECID[j];
+				if(isP3_R[_ecid]){
+					var obj = dom.getElementById("game_"+_ecid);
+					if(obj) util.addClass(obj, "live_lebet");
+				}
+			}
+		}
+	}
+
+	_self.showLeg = function(e, _name){
+		if(e.target.id.indexOf("LEG_") != -1 || e.target.id.indexOf("lea_") != -1){
+			var leagueOBJ = dom.getElementById("LEG_"+_name);
+			for(var i = 0; i < myLeg[_name].length; i++){
+				var obj = dom.getElementById("game_"+myLeg[_name][i]);
+				if(!top["notShowLeg"][_name]){
+					top["notShowLegGame"][myLeg[_name][i]] = myLeg[_name][i];
+					if(!clusterize_sw && obj){
+						util.addClass(leagueOBJ,"off");
+						obj.style.display = "none";
+					}
+				}else{
+					delete top["notShowLegGame"][myLeg[_name][i]];
+					if(!clusterize_sw && obj){
+						util.removeClass(leagueOBJ,"off");
+						obj.style.display = "";
+						document.getElementById("ratioShow_"+myLeg[_name][i]).scrollLeft = 0;
+						if(needSubRtype.indexOf(top.choice_rtype) != -1)_self.setRatioScroll(myLeg[_name][i],"update");
+					}
+				}
+			}
+			top["notShowLeg"][_name] = !(top["notShowLeg"][_name]);
+			if(clusterize_sw){
+				if(top.choice_gtype=="ft"){
+					if(del_EC == "")_self.workerPost(_worker, {"action":"leagueChg", "xml":_xmlnode});
+					else { 
+						_self.getData();
+						del_EC="";
+					}
+				}else if(top.choice_gtype!="ft"){//改OP
+					if(del_EC == "")_self.workerPostJsonOthers(_worker, {"action":"leagueOthersJsonChg", "json":_jsonData});
+					else { 
+						_self.getData();
+						del_EC="";
+					}
+				}else{
+					if(del_EC == "")_self.workerPostOthers(_worker, {"action":"leagueOthersChg", "xml":_xmlnode});
+					else { 
+						_self.getData();
+						del_EC="";
+					}
+				}
+			}
+		}
+	}
+
+	_self.initInfoBtn = function(xmlnode, ecObj, isJson){
+		var myGameShowtype = "";
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		if(ecid_array.length > 0)ecid_array = new  Array();
+		if(my_ecidAry.length > 0)my_ecidAry = new  Array();
+		var tmpGameObj = "";
+		// var system_time = "";
+		var gameInfoCount = 0;
+		if(isJson){
+			tmpGameObj = ecObj;
+			// system_time = xmlnode["phpData"]["SYSTEM_TIME"];
+			gameInfoCount = util.countSize(ecObj);
+			xmlnode = null;
+		}else{
+			tmpGameObj = util_game.convertNodeToHashForGame(xmlnode.Root[0]);
+			// system_time = xmlnode.Node(xmlnode.Root[0],"system_time").innerHTML;
+			gameInfoCount = ecObj.length;
+		}
+		var tmpShowType = "";
+
+		for(var j=0; j < gameInfoCount; j++){
+			var mainScore = "";
+			var extraScore = "";
+			var tmp_ec = "";
+			var tmp_game = "";
+			var ECID = "";
+			var hasEC = "";
+			var right_game_obj = "";
+			if(isJson){
+				tmp_ec = Object.keys(ecObj);
+				ECID = tmp_ec[j].replace(/ec/,"");
+				tmp_game = ecObj["ec"+ECID];
+				hasEC = "N";
+				right_game_obj = ecObj["ec"+ECID];
+				if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame== "Y")myGameShowtype = ecObj["ec"+ECID]["SHOWTYPE"];
+			}else{
+				tmp_ec = ecObj[j];
+				tmp_game = xmlnode.Node(tmp_ec,"game", false)[0];
+				ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+				hasEC = tmp_ec.getAttribute("hasEC");
+				right_game_obj = tmpGameObj["obj"][tmp_ec.getAttribute("id")];
+				if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame== "Y")myGameShowtype = tmp_ec.getAttribute("mygame");
+			}
+			ecid_array.push(ECID);
+			var ptype_map = util.getKeyValue(xmlnode,tmp_game,"PTYPE_MAP");//xmlnode.Node(tmp_game, "ptype_map").innerHTML;
+			var ptype = util.getKeyValue(xmlnode,tmp_game,"PTYPE");//xmlnode.Node(tmp_game, "ptype").innerHTML;
+			var _gid = util.getKeyValue(xmlnode,tmp_game,"GID");//xmlnode.Node(tmp_game, "GID").innerHTML;
+			var _peid = util.getKeyValue(xmlnode,tmp_game,"PARENT_ID");//xmlnode.Node(tmp_game, "PARENT_ID").innerHTML;
+			var _hgid = util.getKeyValue(xmlnode,tmp_game,"HGID");//xmlnode.Node(tmp_game, "HGID").innerHTML;
+			var _gidm = util.getKeyValue(xmlnode,tmp_game,"GIDM");//xmlnode.Node(tmp_game, "GIDM").innerHTML;
+			var isRB = util.getKeyValue(xmlnode,tmp_game,"IS_RB");//xmlnode.Node(tmp_game, "IS_RB").innerHTML;
+			var LID = util.getKeyValue(xmlnode,tmp_game,"LID");//xmlnode.Node(tmp_game, "LID").innerHTML;
+			if(isRB == null)isRB = ((top.choice_showtype == "live" || ((top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame== "Y") && myGameShowtype=="rb"))?"Y":"N");
+			var more_league = util.getKeyValue(xmlnode,tmp_game,"LEAGUE");//xmlnode.Node(tmp_game, "league").innerHTML;
+			var more_team_h = util.getKeyValue(xmlnode,tmp_game,"TEAM_H");//xmlnode.Node(tmp_game, "team_h").innerHTML;
+			more_team_h = more_team_h.replace(" [Mid]","").replace(" [中]","");
+			var more_team_c = util.getKeyValue(xmlnode,tmp_game,"TEAM_C");//xmlnode.Node(tmp_game, "team_c").innerHTML;
+			var more_score_h = util.getKeyValue(xmlnode,tmp_game,"SCORE_H");//xmlnode.Node(tmp_game, "score_h").innerHTML;
+			var more_score_c = util.getKeyValue(xmlnode,tmp_game,"SCORE_C");//xmlnode.Node(tmp_game, "score_c").innerHTML;
+			var xml_datetime = util.getKeyValue(xmlnode,tmp_game,"DATETIME");//xmlnode.Node(tmp_game, "datetime").innerHTML;
+			var sys_time = util.getKeyValue(xmlnode,tmp_game,"SYSTIME");//xmlnode.Node(tmp_game, "systime").innerHTML;
+			var nowModel = util.getKeyValue(xmlnode,tmp_game,"NOW_MODEL");//xmlnode.Node(tmp_game, "NOW_MODEL").innerHTML;
+			var isFantasy = util.getKeyValue(xmlnode,tmp_game,"ISFANTASY");//xmlnode.Node(tmp_game, "ISFANTASY").innerHTML;
+			var SFSGAME = util.getKeyValue(xmlnode,tmp_game,"SFSGAME");//xmlnode.Node(tmp_game, "SFSGAME").innerHTML;
+			var MIDFIELD = util.getKeyValue(xmlnode,tmp_game,"MIDFIELD");//xmlnode.Node(tmp_game, "MIDFIELD").innerHTML;
+			var HNIKE = util.getKeyValue(xmlnode,tmp_game,"HNIKE");//xmlnode.Node(tmp_game, "HNIKE").innerHTML;
+			var scoreType = "";
+			var nowGame = "";
+			var nowBest = "";
+			if(top.choice_gtype=="es"){
+				scoreType = tmp_game["SCORETYPE"];
+				nowGame = (tmp_game["SCORE"] && tmp_game["SCORE"]["NOWGAME"])?tmp_game["SCORE"]["NOWGAME"]:tmp_game["NOWGAME"];
+				nowBest = tmp_game["BEST"];
+			}
+			var isToday = _self.isToday(xml_datetime,sys_time);
+			var xml_retimeset = util.getKeyValue(xmlnode,tmp_game,"RETIMESET");//xmlnode.Node(tmp_game, "RETIMESET").innerHTML;
+			var hasPD = (top.choice_rtype.indexOf("pd")!=-1);
+			if((isMixPage && isRB!="Y")){
+				var more_retime = _self.transDate(xml_datetime, sys_time, hasPD);
+			}else{
+				var more_retime = (xml_retimeset)? util_game.transRETIME(xml_retimeset, hasPD, LS_game):0;
+			}
+			if(filterRtypeAry.indexOf(top.choice_rtype) == -1)var more_datetime = _self.transDate(xml_datetime, sys_time, hasPD);
+			if(hasPD){
+				var gameObj = {"ECID":ECID,"GID":_gid,"HGID":_hgid};
+				_self.setCourtBtn(gameObj);
+				_self.setPDBtn(gameObj);
+			}
+
+			var moreBtn;
+			var infoObj = dom.getElementById("mainShow_"+ECID);
+			var objids = (top.choice_gtype!="bk")?",div_icon_info,info_team,info_more,info_icon_btn,icon_N,":",div_icon_info,more,";
+			var ary = util.getObjAry(infoObj, objids);
+			var needExtraInfo = (ptype_str[ptype_map]=="PK" || ptype_str[ptype_map]=="ET" || MIDFIELD == "Y");
+			if(ary["div_icon_info"]){
+				var dataOBj = new Object();
+				if(ptype_str[ptype_map]=="PK" || ptype_str[ptype_map]=="ET"){
+					var FT_score_h = util.getKeyValue(xmlnode,tmp_game,"FT_SCROE_H");//xmlnode.Node(tmp_game, "FT_SCROE_H").innerHTML;
+					var FT_score_c = util.getKeyValue(xmlnode,tmp_game,"FT_SCROE_C");//xmlnode.Node(tmp_game, "FT_SCROE_C").innerHTML;
+					var ET_score_h = util.getKeyValue(xmlnode,tmp_game,"ET_SCROE_H");//xmlnode.Node(tmp_game, "ET_SCROE_H").innerHTML;
+					var ET_score_c = util.getKeyValue(xmlnode,tmp_game,"ET_SCROE_C");//xmlnode.Node(tmp_game, "ET_SCROE_C").innerHTML;
+					if(FT_score_h!="" && FT_score_c) mainScore = FT_score_h+" - "+FT_score_c;
+					if(ET_score_h!="" && ET_score_c) extraScore = ET_score_h+" - "+ET_score_c;
+					dataOBj = {"ptype":ptype_str[ptype_map], "hasEC":hasEC, "mainScore":mainScore, "extraScore":extraScore,"midfield":MIDFIELD};
+				}else{
+					dataOBj = {"ptype":"","hasEC":hasEC,"midfield":MIDFIELD};
+				}
+				if(needExtraInfo){
+					if(top.mobile!="Y") ary["div_icon_info"].classList.add("info_on");
+					util.addEvent(ary["div_icon_info"], "click", _self.showExtraInfo, dataOBj);
+				}
+			}
+			if(isFantasy=="Y"){
+				var nowHash = FantasyDataHash["ec"+ECID];
+				var _gameObj = dom.getElementById("game_"+ECID);
+				var _objid = ","+nowHash["GAMEC_GID"]+","+nowHash["GAMEH_GID"]+",";
+				var fanObj = util.getObjAry(_gameObj, _objid);
+				nowHash["isToday"] = isToday;
+				util.addEvent(fanObj[nowHash["GAMEC_GID"]], "click", _self.goToMore, {"gid":nowHash["GAMEC_GID"],"ECID":nowHash["GAMEC_ECID"], "isToday":isToday, "league":nowHash["GAMEC_LEAGUE"], "team_h":nowHash["GAMEC_TEAM_H"], "team_c":nowHash["GAMEC_TEAM_C"], "datetime":nowHash["GAMEC_DATETIME"], "lid":nowHash["GAMEC_LEAGUE_ID"],"myGameShowtype":myGameShowtype,"isFantasy":"Y"});
+                util.addEvent(fanObj[nowHash["GAMEH_GID"]], "click", _self.goToMore, {"gid":nowHash["GAMEH_GID"],"ECID":nowHash["GAMEH_ECID"], "isToday":isToday, "league":nowHash["GAMEH_LEAGUE"], "team_h":nowHash["GAMEH_TEAM_H"], "team_c":nowHash["GAMEH_TEAM_C"], "datetime":nowHash["GAMEH_DATETIME"], "lid":nowHash["GAMEH_LEAGUE_ID"],"myGameShowtype":myGameShowtype,"isFantasy":"Y"});
+			}
+			
+			var moreID = "";
+			var myGameID = "";
+			var morePEID = "";
+			if(top.choice_gtype=="ft"){
+				moreID = ECID;
+				if(hasEC=="N")myGameID = _gidm;
+				else myGameID = ECID;
+			}else if(top.choice_gtype=="es"){
+				moreID = _gid;
+				morePEID = _peid;
+				myGameID = morePEID;
+			}else{
+				moreID = _gid;
+				myGameID = _gidm;
+			}
+
+			if(top.forecast_sw){
+				if(dom.getElementById("icon_forecast_"+myGameID))dom.getElementById("icon_forecast_"+myGameID).style.display="";
+			}else{
+				if(dom.getElementById("icon_forecast_"+myGameID))dom.getElementById("icon_forecast_"+myGameID).style.display="none";
+			}
+			
+			if(top.choice_showtype=="mygame"){
+				tmpShowType = util_game.transMyGameShowtype(myGameShowtype);
+			}else{
+				if(isMixPage || top.specialClick == "special"){
+					if(isRB=="Y"){
+						tmpShowType = "live";
+					}else{
+						tmpShowType = (isToday=="Y")?"today":"early"; 
+					}
+				}else{
+					tmpShowType = top.choice_showtype;
+				}
+			}
+			_self.updateMyGame(myGameID,xml_datetime,tmpShowType);
+
+			my_ecidAry.push(myGameID);
+			more_param_obj[moreID] = {"gameObj":right_game_obj, "mainGame":tmp_game, "ECID":moreID,"peid":morePEID,
+				"isRB":isRB, "league":more_league, "team_h":more_team_h, "team_c":more_team_c, "retime":more_retime, 
+				"datetime":more_datetime, "score_h":more_score_h, "score_c":more_score_c, "gidm":_gidm ,"lid":LID, 
+				"FT_scroe_H":FT_score_h, "FT_scroe_C":FT_score_c, "myGameShowtype":myGameShowtype, "hasEC":hasEC, 
+				"myGameID":myGameID,"isToday":isToday,"gid":_gid,"showtype":tmpShowType,"ptype":ptype,
+				"scoreType":scoreType,"nowGame":nowGame,"nowBest":nowBest};
+
+			if(top.choice_gtype == "ft"){
+				moreBtn = ary["info_more"];
+				var teamBtn = ary["info_team"];
+				var iconBtn = ary["info_icon_btn"];
+				var midfieldBtn = ary["icon_N"];
+				var starObj = (hasEC=="N")?dom.getElementById("star_"+myGameID):dom.getElementById("star_"+moreID);
+				var tvObj = (hasEC=="N")?dom.getElementById("icon_tv_"+myGameID):dom.getElementById("icon_tv_"+moreID);
+				var HtObj = (hasEC=="N")?dom.getElementById("icon_HT_"+myGameID):dom.getElementById("icon_HT_"+moreID);
+				
+				if(isRB=="Y"){
+					if(HNIKE != "Y"){
+						//半場沒勾滾球勾
+						if(HtObj)util.addClass(HtObj,"off");
+						HtObj = "";
+						if(nowHTECID.indexOf(ECID) != -1){
+							nowHTECID.splice(nowHTECID.indexOf(ECID),1);
+							// _self.getData();
+							_self.showHalf(ECID);
+							return;
+						}
+					}else{
+						//賽事進入下半場,反灰上半點擊開關
+						if(HtObj){
+							var splitRETime = xml_retimeset.split("^");
+							var nowCourt = (splitRETime[0] == "2H" || splitRETime[1] == "HT")?"FT":"HT";
+							if(nowCourt == "FT"){
+								util.addClass(HtObj,"off");
+								HtObj = "";
+								if(nowHTECID.indexOf(ECID) != -1){
+									nowHTECID.splice(nowHTECID.indexOf(ECID),1);
+									// _self.getData();
+									_self.showHalf(ECID);
+									return;
+								}
+							}
+						}
+					}
+				}
+				
+				var forecastObj = (hasEC=="N")?dom.getElementById("icon_forecast_"+myGameID):dom.getElementById("icon_forecast_"+moreID);
+				var InfoObj = (top.choice_rtype.match(/rnou/))?new Array(moreBtn,teamBtn,starObj,tvObj,HtObj,forecastObj):new Array(moreBtn,iconBtn,teamBtn,starObj);
+				for(var i = 0; i < InfoObj.length; i++){
+					if(InfoObj[i]!=null)util.addEvent(InfoObj[i],"click", _self.clickMore, more_param_obj[moreID]);
+				}
+				if(SFSGAME){
+					var targetOBj = dom.getElementById("ratioShow_"+ECID);
+					var sfsCnt = SFSDataHash["ec"+ECID]["MAXSFS"];
+					var sfsMoreObj = dom.getElementById("sfs_show_more_"+ECID);
+					var sfsTeamH = dom.getElementById("title_sfs_h_"+ECID);
+					var sfsTeamC = dom.getElementById("title_sfs_c_"+ECID);
+					util.addEvent(sfsTeamH, "click", _self.chgSfSTeam,{"targetOBj":targetOBj,"type":"teamH","ecid":ECID});
+					util.addEvent(sfsTeamC, "click", _self.chgSfSTeam,{"targetOBj":targetOBj,"type":"teamC","ecid":ECID});
+					if(sfsMoreObj){
+						if(getView().viewportwidth >= 640){
+							if(sfsCnt > 5 && showMoreECID.indexOf(ECID) == -1){
+								util.addEvent(sfsMoreObj, "click", _self.showMoreIor,{"targetOBj":targetOBj,"ECID":ECID,"WTYPE":"sfs"});
+							}else{
+								sfsMoreObj.style.display = "none";
+							}
+						}else{
+							var needHide = _self.hideSFSMoreObj(ECID);
+							if(!needHide && showMoreECID.indexOf(ECID) == -1){
+								sfsMoreObj.style.display = "";
+								util.addEvent(sfsMoreObj, "click", _self.showMoreIor,{"targetOBj":targetOBj,"ECID":ECID,"WTYPE":"sfs"});
+							}
+						}
+					}	
+				}
+				
+			}else if(top.choice_gtype!="bk"){
+				moreBtn = ary["info_more"];
+				var teamBtn = ary["info_team"];
+				var iconBtn = ary["info_icon_btn"];
+				var midfieldBtn = ary["icon_N"];
+				var starObj = (hasEC=="N")?dom.getElementById("star_"+myGameID):dom.getElementById("star_"+moreID);
+				
+				var forecastObj = (hasEC=="N")?dom.getElementById("icon_forecast_"+myGameID):dom.getElementById("icon_forecast_"+moreID);
+				var InfoObj = new Array(moreBtn,iconBtn,teamBtn,starObj);
+				for(var i = 0; i < InfoObj.length; i++){
+					if(InfoObj[i]!=null){
+						util.addEvent(InfoObj[i],"click", _self.clickMore, more_param_obj[moreID]);
+					}
+				}
+				if(top.choice_gtype=="es" && top.rightECID==morePEID){
+					rightScData["tarObj"] = more_param_obj[moreID];
+				}
+			}else{
+				moreBtn = ary["more"];
+				util.addEvent(moreBtn, "click", _self.clickMore, more_param_obj[moreID]);
+			}
+		}
+		_self.checkMyGame(my_ecidAry);
+		_self.starShow(top.myGame_sw);
+	}
+
+	_self.setCourtBtn = function(gameObj){
+		var ecid = gameObj.ECID;
+		var ftOBJ = dom.getElementById("icon_FT_"+ecid);
+		var htOBJ = dom.getElementById("icon_HT_"+ecid);
+
+		util.addEvent(ftOBJ, "click", _self.clickHalf ,{"ecid":ecid,"model":"FT","rtype":"pd"});
+		if(htOBJ)util.addEvent(htOBJ, "click", _self.clickHalf ,{"ecid":ecid,"model":"HT","rtype":"pd"});
+	}
+
+	_self.setPDBtn = function(gameObj){
+		var ecid = gameObj.ECID;
+		var gid = gameObj.GID;
+		var hgid = gameObj.HGID;
+		var model = gameObj.MODEL;
+		var isHalf = "N";
+		if(model){
+			isHalf = (model.match(/\bH|\bETH/))?"Y" : "N";
+		}else{
+			isHalf =  (nowHTECID.indexOf(ecid) == -1)?"N":"Y";
+		}
+		var nowGID = (isHalf == "Y")? hgid : gid;
+		var moreBtnObj  = dom.getElementById("showMore_"+nowGID);
+		var targetOBj = dom.getElementById("div_PD_"+nowGID+"_"+ecid);
+
+		
+		if(moreBtnObj)util.addEvent(moreBtnObj, "click", _self.showMoreIor,{"targetOBj":targetOBj,"ECID":ecid,"WTYPE":"pd"});
+		if(top.nowPDMode == "choice")_self.setChoiceBtn(ecid,nowGID);
+		
+	}
+
+	_self.setChoiceBtn = function(ecid,gid){
+		var H_minus = dom.getElementById("H_minus_"+gid);
+		var H_plus = dom.getElementById("H_plus_"+gid);
+		var C_minus = dom.getElementById("C_minus_"+gid);
+		var C_plus = dom.getElementById("C_plus_"+gid);
+
+		var tmpAry = Array(H_minus,H_plus,C_minus,C_plus);
+		try {
+			for(var t=0;t<tmpAry.length;t++){
+				if(tmpAry[t]){
+					var dataObj = {"ecid":ecid,"id":tmpAry[t].id};
+					util.addEvent(tmpAry[t], "click" , _self.clickPDCal ,dataObj);
+				}
+			}	
+		} catch (error) {
+			console.trace(error);
+		}
+	}
+
+	_self.clickPDCal = function(e,obj){
+		var ecid = obj.ecid;
+		var id = obj.id;
+		var gid = id.split("_")[2];
+		var hostVal = dom.getElementById("H_val_"+gid).value;
+		var CustomerVal = dom.getElementById("C_val_"+gid).value;
+		var halfStr = (nowHTECID.indexOf(ecid) != -1)?"_H":"";
+		var model = (halfStr == "")?"FT":"HT";
+		var nowScore = pdSortHash["ec"+ecid+halfStr]["choice"];
+		var splitScore = nowScore.split("-");
+		var hostScore = splitScore[0]*1;
+		var customerScore = splitScore[1]*1;
+		if(id.match(/plus/)){
+			if(id.substr(0,1) == "C"){
+				customerScore += 1;
+				CustomerVal = customerScore;
+			}else{
+				hostScore += 1;
+				hostVal = hostScore;
+			}
+		}else{
+			if(id.substr(0,1) == "C"){
+				customerScore -= 1;
+				CustomerVal = customerScore;
+			}else{
+				hostScore -= 1;
+				hostVal = hostScore;
+			}
+		}
+		nowScore = hostScore + "-" + customerScore;
+		pdSortHash["ec"+ecid+halfStr]["choice"] = nowScore;
+		// console.log("新比分 = ",nowScore);
+		_self.parseTmpDataProc({"ecid":ecid,"model":model,"rtype":"pd"});
+	}
+
+	_self.chkPDLimit = function(ecid,gid){
+		var halfStr = (nowHTECID.indexOf(ecid) != -1)?"_H":"";
+		var allObj = pdSortHash["ec"+ecid+halfStr]["All"];
+		var nowScore = pdSortHash["ec"+ecid+halfStr]["choice"];
+		var splitNowScore = nowScore.split("-");
+		var HScore = splitNowScore[0];
+		var CScore = splitNowScore[1];
+		var forecastAddHScore = HScore*1+1;
+		var forecastAddCScore = CScore*1+1;
+		var forecastMinusHScore = HScore*1-1;
+		var forecastMinusCScore = CScore*1-1;
+		var filterTabAry = Array(forecastAddHScore+"-"+CScore , HScore+"-"+forecastAddCScore , forecastMinusHScore+"-"+CScore , HScore+"-"+forecastMinusCScore);
+		var btnIDAry = Array("H_plus_"+gid , "C_plus_"+gid , "H_minus_"+gid , "C_minus_"+gid);
+		var result = new Array();
+		
+		for(var t = 0;t < filterTabAry.length;t++){
+			tmpScore = filterTabAry[t];
+			result = allObj.indexOf(tmpScore);
+			if(result == -1){
+				dom.getElementById(btnIDAry[t]).disabled = true;
+			}
+		}
+
+	}
+
+	_self.hideSFSMoreObj = function(ecid){
+		var tmpTeam = sfsChoseTeam["ec"+ecid].substr(-1);
+		var sfsMoreObj = dom.getElementById("sfs_show_more_"+ecid);
+		tmpTeamCount = SFSDataHash["ec"+ecid][tmpTeam+"_LIST"].length;
+		if(tmpTeamCount <= 5){
+			sfsMoreObj.style.display = "none";
+			return true;
+		}
+		return false;
+	}
+
+	_self.chgSfSTeam = function(e,obj){
+		var choiceType = obj.type;
+		var sfsMoreObj = dom.getElementById("sfs_show_more_"+obj.ecid);
+		if(obj.from == "obt"){
+			var splitOBT = top.showOBT.split("_");
+			var _ecid = splitOBT[0];
+			var _model = splitOBT[1];
+			var isEarly = splitOBT[4];
+			sfsChoseTeam["ec"+_ecid] = choiceType;
+			_self.getOBT(_model, _ecid, true ,isEarly,e);
+		}else{
+			if(choiceType == "teamC"){
+				util.removeClass(obj.targetOBj,"teamH");
+				util.addClass(obj.targetOBj,"teamC");
+			}else{
+				util.removeClass(obj.targetOBj,"teamC");
+				util.addClass(obj.targetOBj,"teamH");
+			}
+			sfsChoseTeam["ec"+obj.ecid] = choiceType;
+			var needHide = _self.hideSFSMoreObj(obj.ecid);
+			if(!needHide && showMoreECID.indexOf(obj.ecid) == -1){
+				sfsMoreObj.style.display = "";
+				util.addEvent(sfsMoreObj, "click", _self.showMoreIor,{"targetOBj":obj.targetOBj,"ECID":obj.ecid,"WTYPE":"sfs"});
+			}
+		}
+		
+	}
+
+	_self.showMoreIor = function(e,obj){
+		var _ecid = obj.ECID;
+		if(obj.targetOBj.classList.contains("on")){
+			showMoreECID.splice(showMoreECID.indexOf(_ecid),1);
+			obj.targetOBj.classList.remove("on");
+			if(obj.WTYPE == "pd")delete pdShowMoreHash[_ecid];
+		}else{
+			var oldOffsetHeight = obj.targetOBj.offsetHeight;
+			showMoreECID.push(_ecid);
+			obj.targetOBj.classList.add("on");
+			if(obj.WTYPE == "sfs")dom.getElementById(e.target.id).style.display = "none";
+			else if(obj.WTYPE == "pd"){
+				if (!pdShowMoreHash.hasOwnProperty(_ecid)) {
+					pdShowMoreHash[_ecid] = new Object();
+				}
+				pdShowMoreHash[_ecid]["heightDiff"]=obj.targetOBj.offsetHeight*1-oldOffsetHeight*1;
+			}
+		}
+		
+		try {
+			var tmpOBT = dom.getElementById("div_OBT_show_"+_ecid);
+			if(tmpOBT){
+				_lastOBT_div = tmpOBT.cloneNode(true);
+				if(clusterize_sw)_self.updateOBTRowData("add",_lastOBT_div.innerHTML);
+			}
+		} catch (error) {
+			console.trace(error);
+		}
+		if(clusterize_sw && obj.WTYPE == "pd")_self.parseData(_xmlnode);
+	}
+
+	_self.goToMore = function(e,obj){
+		_self.showMore(obj);
+	}
+
+	_self.initIorBtn = function(xmlnode, ecObj, isJson){
+		var xmdObj = new Object();
+		top["transWtype"] = new Object();
+		var gtype_setAry = new Array("bk","es","bs","bm","tt","vb","tn","sk");
+		var myGameShowtype = "";
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var ec_count = 0;
+		if(isJson){
+			ec_count = util.countSize(ecObj);
+		}else{
+			ec_count = ecObj.length;
+		}
+		for(var j=0; j < ec_count; j++){
+			var tmp_ec = "";
+			var ECID = "";
+			var hasEC = "";
+			var game_count = 0;
+			if(isJson){
+				tmp_ec = Object.keys(ecObj);
+				ECID = tmp_ec[j].replace(/ec/,"");
+				hasEC = "N";
+				myGameShowtype = ecObj["ec"+ECID]["SHOWTYPE"];
+				game_count = 1;
+				xmlnode = null;
+			}else{
+				tmp_ec = ecObj[j];
+				ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+				hasEC = tmp_ec.getAttribute("hasEC");
+				if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame == "Y")myGameShowtype = tmp_ec.getAttribute("myGame");
+				xmdObj["game"] = xmlnode.Node(tmp_ec,"game", false);
+				game_count = xmdObj["game"].length;
+			}
+
+			if(motherGameObj[ECID] == null)motherGameObj[ECID] = new Object();
+			top["transWtype"]["ec_"+ECID] = new Object();
+			for(var x = 0; x < game_count; x++){
+				var tmp_game = "";
+				var plays = "";
+				if(isJson){
+					tmp_game = ecObj["ec"+ECID];
+					plays = tmp_game["PLAYS"];
+				}else{
+					tmp_game = xmdObj["game"][x];
+				}
+				var gid = util.getKeyValue(xmlnode,tmp_game,"GID");//xmlnode.Node(tmp_game, "GID").innerHTML;
+				var gidm = util.getKeyValue(xmlnode,tmp_game,"GIDM");//xmlnode.Node(tmp_game, "GIDM").innerHTML;
+				var gid2 = util.getKeyValue(xmlnode,tmp_game,"GID2");//xmlnode.Node(tmp_game, "GID2").innerHTML;				
+				var hgid = util.getKeyValue(xmlnode,tmp_game,"HGID");//xmlnode.Node(tmp_game, "HGID").innerHTML;
+				var is_rb = util.getKeyValue(xmlnode,tmp_game,"IS_RB");//xmlnode.Node(tmp_game,"IS_RB").innerHTML;
+				var _ptype = util_game.showTxt(util.getKeyValue(xmlnode,tmp_game,"PTYPE"));//xmlnode.Node(tmp_game,"ptype").innerHTML
+				var _imp = util_game.showTxt(util.getKeyValue(xmlnode,tmp_game,"IMPORTANT"));//xmlnode.Node(tmp_game,"important").innerHTML
+				var tmp_rtype = "";
+				if(needSubRtype.indexOf(top.choice_rtype) != -1){
+					motherGameObj[ECID]["hasEC"] = hasEC;
+					motherGameObj[ECID]["myGameShowtype"] = myGameShowtype;
+					motherGameObj[ECID]["game"] = tmp_game;
+				}
+
+				if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame == "Y"){
+					if(myGameNeedR.indexOf(top.choice_rtype) != -1){
+						if(top.choice_filter == "RB"){
+							tmp_rtype = "r"+top.choice_rtype;
+						}else{
+							tmp_rtype = (myGameShowtype!="rb")?top.choice_rtype:"r"+top.choice_rtype;
+						}
+					}
+					else {
+						if(top.choice_filter == "RB"){
+							tmp_rtype = "rb";
+						}else{
+							tmp_rtype = (myGameShowtype!="rb")?"r":"rb";
+						}
+					}
+				}else{
+					tmp_rtype = top.choice_rtype;
+				}
+
+				if(top.choice_showtype.match(/parlay|today/)){
+					if(hasPD){
+						tmp_rtype = (myGameShowtype!="rb")?"pd":"p3pd";
+					}
+				}
+
+				var wtype_ary = IOR[tmp_rtype];
+				var gidAry = new Array();
+
+				if(gid) gidAry.push(gid);
+				if(gid2) gidAry.push(gid2);
+				if(hgid) gidAry.push(hgid);
+
+				// if(util_game.in_array(top.choice_gtype,gtype_setAry)){
+				// 	var half_gid = util.getKeyValue(xmlnode,tmp_game,"HALF_GID");//xmlnode.Node(tmp_game, "HALF_GID").innerHTML;
+				// 	var ms_gid = (top.choice_gtype=="es")?util.getKeyValue(xmlnode,tmp_game,"MS_GID","MS_M"):util.getKeyValue(xmlnode,tmp_game,"MS_GID");//xmlnode.Node(tmp_game, "MS_GID").innerHTML;
+				// 	var point_gid = util.getKeyValue(xmlnode,tmp_game,"POINT_GID");//xmlnode.Node(tmp_game, "POINT_GID").innerHTML;
+				// 	if(half_gid) gidAry.push(half_gid);
+				// 	if(ms_gid) gidAry.push(ms_gid);
+				// 	if(point_gid) gidAry.push(point_gid);
+				// }
+
+				if(top.choice_rtype == "sfs"){
+					var data = new Object();
+						data["imp"] = _imp;
+						data["tmp_game"] = tmp_game;
+						data["ptype"] = _ptype;
+						data["ecid"] = ECID;
+						_self.setSFSClick(data);
+				}else{
+					var isHalf =  (nowHTECID.indexOf(ECID) == -1)?"N":"Y";
+					var pdIorAry = new Array();
+					for(var _wtype in wtype_ary){ //IOR["R"]、IOR["OU"]、...
+
+						var wtypeStr = util_game.switchWtypeStr(_wtype);
+						if(util_game.in_array(top.choice_gtype,gtype_setAry)){
+							var half_gid = util.getKeyValue(xmlnode, plays, "HALF_GID", "HALF_"+wtypeStr);
+							var ms_gid = util.getKeyValue(xmlnode, plays, "MS_GID", "MS_"+wtypeStr);
+							var point_gid = util.getKeyValue(xmlnode, plays, "POINT_GID", "POINT_"+wtypeStr);
+							//console.log(">>>>[initIorBtn][wtypeStr:"+wtypeStr+"][half_gid:"+half_gid+"][ms_gid:"+ms_gid+"][point_gid:"+point_gid+"]");
+							if(half_gid && !gidAry.includes(half_gid)) gidAry.push(half_gid);
+							if(ms_gid && !gidAry.includes(ms_gid)) gidAry.push(ms_gid);
+							if(point_gid && !gidAry.includes(point_gid)) gidAry.push(point_gid);
+						}
+
+						if(_wtype.match(/PD/)){
+							var halfStr =  (isHalf == "Y")?"_H":"";
+							pdIorAry = pdIorAry.concat(pdIorHead["ec"+ECID+halfStr]);
+							wtype_ary[_wtype] = pdIorAry;
+						}
+
+						for(var a=0 ; a < wtype_ary[_wtype].length; a++){
+							var _rtype = wtype_ary[_wtype][a];
+							var obj = null;
+							var _gid = null;
+							var nowWtype = "";
+							var nowRtype = "";
+
+							for(var i=0; i<gidAry.length; i++){
+								var tmp_gid = gidAry[i];
+								if(tmp_gid){
+									obj = _self.getIorObj(tmp_gid, ECID, _rtype, false);
+									//console.log(">>>>[initIorBtn][tmp_gid:"+tmp_gid+"][ECID:"+ECID+"][_rtype:"+_rtype+"]obj=",obj);
+									if(obj){
+										_gid = gidAry[i];
+										if(util.in_array(_wtype, needsTransWtype)){
+											var tmpWtype = "";
+											tmpWtype = util_game.showTxt(util.getKeyValue(xmlnode,tmp_game,"WTYPE_"+_wtype.toUpperCase()));
+											top["transWtype"]["ec_"+ECID][tmpWtype] = tmpWtype;
+											nowWtype = _wtype.replace(new RegExp(_wtype, "gi"), tmpWtype);
+											nowRtype = _rtype.replace(new RegExp(_wtype, "gi"), tmpWtype);
+										}else{
+											if(_wtype.match(/PD/) && isHalf == "Y"){
+												nowWtype = "H"+_wtype;
+											}else{
+												nowWtype = _wtype;
+											}
+											nowRtype = _rtype;
+										}					
+
+										if(_gid !=null && ECID !=null && nowRtype !=null){
+											var useJsonRtype = nowRtype.toUpperCase(); //非足球走json格式
+											var iorRtype = _rtype.toUpperCase();
+											var str_ms="";
+											if(ms_gid==_gid)str_ms="ms_";
+											else if(point_gid==_gid)str_ms="point_";
+											else if(half_gid==_gid)str_ms="half_";
+											var chg_ior = nowGameHash["ec"+ECID] ? nowGameHash["ec"+ECID][str_ms+"ior_"+iorRtype.toLowerCase()] : undefined;
+											if(top.choice_gtype!="ft"){ //改OP
+												var _ec = nowGameHash["ec"+ECID];
+												var _plays = _ec && _ec["PLAYS"];
+												var _playKey = _plays && (str_ms.toUpperCase()+util_game.switchWtypeStr(_wtype));
+												var _iorKey = _playKey && (str_ms.toUpperCase()+"IOR_"+useJsonRtype);
+												if(_plays && _playKey && _plays[_playKey] && _iorKey) chg_ior = _plays[_playKey][_iorKey];
+											}
+											chgColorID = "bet_"+_gid+"_"+ECID+"_"+iorRtype;
+											var isChg = (typeof(gid_rtype_ior[chgColorID]) != "undefined" && gid_rtype_ior[chgColorID] != chg_ior && chg_ior*1!=0 && gid_rtype_ior[chgColorID]*1!=0);
+											chgColorIor[chgColorID]=isChg;
+											gid_rtype_ior[chgColorID] = chg_ior;
+										}
+
+										if(obj){
+											var MSorPOINT = "";
+											if(top.choice_gtype=="bs"){
+												_ptype = "";
+												_imp = "";
+											}
+
+											if(util_game.in_array(top.choice_gtype,gtype_setAry)){
+												if(half_gid && _gid==half_gid) MSorPOINT = "HALF";
+												if(ms_gid && _gid==ms_gid) MSorPOINT = "MS";
+												if(point_gid && _gid==point_gid) MSorPOINT = "POINT";
+											}
+
+											if(top.choice_gtype=="bs" && MSorPOINT=="MS"){
+												var _ms = util.getKeyValue(xmlnode,tmp_game,"MS_SE");//xmlnode.Node(tmp_game, "MS_SE").innerHTML;
+												_ptype = LS_game.get("BS_game_"+_ms+"_set");
+												_imp = "Y";
+											}
+
+											obj.MSorPOINT = MSorPOINT;
+											obj.gtype = top.choice_gtype;
+
+											if(top.choice_gtype=="es" && MSorPOINT=="MS"){
+												var ms_se = tmp_game["NOWSET"];
+												var gameType = tmp_game["TYPE"];
+												obj.period = "1";
+												obj.nowGame = "G"+ms_se;
+												obj.gameType = gameType;
+											}
+
+											var tmpShowType = "";
+											if(top.choice_showtype == "mygame"){
+												if(top.choice_gtype=="ft"){
+													if(hasEC=="Y")tmpShowType = top["myGameHash"][top.choice_gtype][ECID]["showtype"];
+													else tmpShowType = top["myGameHash"][top.choice_gtype][gidm]["showtype"];
+												}else{
+													tmpShowType = (top["myGameHash"][top.choice_gtype][ECID])?top["myGameHash"][top.choice_gtype][ECID]["showtype"]:top.choice_showtype;
+												}
+											}else if(isSpecialGame == "Y"){
+												tmpShowType = top.choice_showtype;
+												switch(myGameShowtype){
+													case "rb":
+														tmpShowType = "live";
+														break;
+													case "fu":
+													case "em":
+														tmpShowType = "early";
+														break;
+
+												}
+											}
+											else{
+												tmpShowType = top.choice_showtype;
+											}
+
+											obj.showtype = tmpShowType;
+											obj.gid = _gid;
+											obj.ecid = ECID;
+											obj.rtype = nowRtype;
+											obj.wtype = nowWtype;
+											obj.chose_team = nowRtype.substr(nowRtype.length-1,1);
+											if(util.in_array(_wtype, needsTransWtype)) obj.remain_rtype = _rtype;
+											if(util_game.checkWtypeIsSingle2016(nowWtype) || util_game.checkWtypeIsDouble2016(nowWtype) || util_game.checkWtypeIsSingle2017(nowWtype)){
+												obj.chose_team = nowRtype;
+												obj.remain_rtype = _rtype;
+											}
+											obj.is_rb = is_rb;
+											obj.imp = _imp;
+											obj.ptype = _ptype;
+											obj.gameObj = tmp_game;
+											obj.ioratio = util_game.getIoratio(chg_ior, null, iorRtype);
+
+											var typeName = "";
+											if(top.specialClick=="special")typeName = "special";
+											if(top.choice_showtype=="mygame")typeName = "mygame";
+											obj.f = util_game.checkBetFrom(typeName,"R");
+											util.addEvent(obj, "click", _self.showBetEvent, obj);
+										}
+									}
+								}
+							}
+						}
+					}
+				}				
+			}
+		}
+	}
+
+	_self.initSubIorBtn = function(xmlnode,targetEcid){
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		for(var ec in gameSubObj){
+			var ecid = ec.split("_")[1];
+			if(targetEcid && targetEcid != "" && ecid != targetEcid)continue;
+			var tmp_rtype = ec.split("_")[0];
+			var GameBase = 7;
+			var subAry = new Array("a","b","c","d","e","f","g");
+			var hasEC = motherGameObj[ecid]["hasEC"];
+			var tmp_game = motherGameObj[ecid]["game"];
+			var myGameShowtype = motherGameObj[ecid]["myGameShowtype"];
+			var is_rb = xmlnode.Node(tmp_game,"IS_RB").innerHTML;
+			var _ptype = util_game.showTxt(xmlnode.Node(tmp_game,"ptype").innerHTML);
+			var _imp = util_game.showTxt(xmlnode.Node(tmp_game,"important").innerHTML);
+			var now_model = util_game.showTxt(xmlnode.Node(tmp_game,"now_model").innerHTML);
+			var lid = util_game.showTxt(xmlnode.Node(tmp_game,"lid").innerHTML);
+			if(clusterize_sw && top["notShowLeg"][lid])continue;
+
+			for(var j = 0; j < GameBase; j++){
+				var nowtype = subAry[j];
+				if(now_model == "PK")nowtype = "pk"+nowtype;
+				var ecObj = gameSubObj[ec];
+				var gameObj = ecObj[nowtype];
+				if(gameObj){
+					var wtype_ary = IOR[tmp_rtype];
+					var gid = gameObj["gid"];
+					var gid2 = gameObj["gid2"];
+					var gidm = gameObj["gidm"];
+					var hgid = gameObj["hgid"];
+					var tmpGID = "";
+					for(var _wtype in wtype_ary){
+						for(var i=0;i<wtype_ary[_wtype].length;i++){
+							var _rtype = wtype_ary[_wtype][i];
+							var nowWtype = "";
+							var nowRtype = "";
+							nowWtype = _wtype;
+							nowRtype = _rtype;
+							if(nowWtype.substr(0,1) == "H"){
+								tmpGID = hgid;
+							}else if(now_model == "PK" && nowWtype.match(/ROU/) && gid2 != ""){
+								tmpGID = gid2;
+							}else{
+								tmpGID = gid;
+							}
+							if(tmpGID !=null && ecid !=null && nowRtype !=null){
+								var iorRtype = _rtype.toUpperCase();
+								var chg_ior = nowGameHash["ec"+ecid][nowtype+"_sub_ior_"+iorRtype.toLowerCase()];
+								chgColorID = "bet_"+tmpGID+"_"+ecid+"_"+iorRtype;
+								var isChg = (typeof(gid_rtype_ior[chgColorID]) != "undefined" && gid_rtype_ior[chgColorID] != chg_ior && chg_ior*1!=0 && gid_rtype_ior[chgColorID]*1!=0);
+								chgColorIor[chgColorID]=isChg;
+								gid_rtype_ior[chgColorID] = chg_ior;
+							}
+
+							obj = _self.getIorObj(tmpGID, ecid, nowRtype, false);
+							if(obj){
+								var tmpShowType = "";
+								if(top.choice_showtype == "mygame"){
+									if(hasEC=="Y")tmpShowType = top["myGameHash"][top.choice_gtype][ecid]["showtype"];
+									else tmpShowType = top["myGameHash"][top.choice_gtype][gidm]["showtype"];
+								}else if(isSpecialGame == "Y"){
+									tmpShowType = top.choice_showtype;
+									switch(myGameShowtype){
+										case "rb":
+											tmpShowType = "live";
+											break;
+										case "fu":
+										case "em":
+											tmpShowType = "early";
+											break;
+
+									}
+								}
+								else{
+									tmpShowType = top.choice_showtype;
+								}
+
+								obj.gtype = top.choice_gtype;
+								obj.showtype = tmpShowType;
+								obj.gid = tmpGID;
+								obj.ecid = ecid;
+								obj.rtype = nowRtype;
+								obj.wtype = nowWtype;
+								obj.chose_team = nowRtype.substr(nowRtype.length-1,1);
+								if(util.in_array(_wtype, needsTransWtype)) obj.remain_rtype = _rtype;
+								if(util_game.checkWtypeIsSingle2016(nowWtype) || util_game.checkWtypeIsDouble2016(nowWtype) || util_game.checkWtypeIsSingle2017(nowWtype)){
+									obj.chose_team = nowRtype;
+									obj.remain_rtype = _rtype;
+								}
+								obj.is_rb = is_rb;
+								obj.imp = _imp;
+								obj.ptype = _ptype;
+								obj.gameObj = tmp_game;
+								obj.ioratio = util_game.getIoratio(chg_ior, null, iorRtype);
+
+								var typeName = "";
+								if(top.specialClick=="special")typeName = "special";
+								if(top.choice_showtype=="mygame")typeName = "mygame";
+								obj.f = util_game.checkBetFrom(typeName,"R");
+								util.addEvent(obj, "click", _self.showBetEvent, obj);
+							}
+						}
+					}
+				
+				}
+			}
+		}
+	}
+
+	_self.startIorClick = function(){
+		isMoving = "N";
+	}
+
+	_self.stopIorClick = function(){
+		if(isMoving == "N"){
+			isMoving = "Y";
+		}
+	}
+	
+	_self.getIorObj = function(gid, ecid, rtype, isOBT){
+		var _name = ((isOBT)?"OBT_":"")+"bet_"+gid+"_"+ecid+"_"+rtype;
+		return dom.getElementById(_name);
+	}
+
+	_self.showPagination = function(_total, resize){
+		pageTotal = _total;
+		if(page_no > pageTotal*1) page_no = pageTotal*1;
+		pageObj.updateTotal(_total);
+		if(_total*1==1){
+			pageObj.showPageDiv(false);
+		}else{
+			pageObj.showPageDiv(true);
+			pageObj.chgStyle("page_"+((win.Math.abs(win.orientation)==0)?"3":"5"));
+			pageObj.setBright(page_no ,resize);
+		}
+	}
+
+	_self.goPage = function(e, parObj){
+		_self.showGameLoading(true);
+		var div_show = dom.getElementById("div_show");
+		if(parObj["key"]=="next"){
+			page_no++;
+		}else if(parObj["key"]=="prev"){
+			page_no--;
+		}else{
+			page_no = parObj["val"];
+		}
+		if(page_no <= 0 ) page_no = 1;
+		if(page_no > pageTotal*1) page_no = pageTotal*1;
+		
+		div_show.innerHTML = "";
+		parentClass.dispatchEvent("backToTop", {});
+		_self.getData();
+	}
+
+	// _self.initPDbtn = function(xmlnode, ecObj){
+	// 		for(var j=0; j < ecObj.length; j++){
+	// 			var tmp_ec = ecObj[j];
+	// 			var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+	// 			var gameObj = xmlnode.Node(tmp_ec ,"game", false)[0];
+	// 			var _gid = xmlnode.Node(gameObj,"GID").innerHTML;
+	// 			var _key = _gid+"_"+ECID;
+	// 			var pdObj = dom.getElementById("div_PD_"+_key);
+	// 			var objids = ",pd_show_more_"+_key+",";
+	// 			var ary = util.getObjAry(pdObj, objids);
+	// 			if(top["showPDmore"][_key]) util.addClass(pdObj, "on");
+	// 			util.addEvent(ary["pd_show_more_"+_key], "click", _self.showPDMore, {"div":pdObj,"keys":_key});
+	// 		}
+	// }
+
+	// _self.showPDMore = function(e, tarObj){
+	// 		var tarDiv = tarObj.div;
+	// 		if(tarDiv.classList.contains("on")){
+	// 			util.removeClass(tarDiv, "on");
+	// 		}else{
+	// 			util.addClass(tarDiv, "on");
+	// 		}
+	// 		top["showPDmore"][tarObj.keys] = (tarDiv.classList.contains("on"));
+	// }
+
+    _self.initOBTMenuBtn = function (xmlnode, ecObj) {
+			var obtData = new Object();
+			nowOBTMix_count = new Object();
+			var noECData = true;
+			var myGameShowtype = "";
+			var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+			var tmpModel = "";
+			if(top["showOBT"]!=null && top["showOBT"]!=""){
+				tmpModel = top["showOBT"].split("_")[1];
+			}
+			for(var j=0; j < ecObj.length; j++){
+				var tmp_ec = ecObj[j];
+				var hasEC = tmp_ec.getAttribute("hasEC");
+				var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+				if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame == "Y")myGameShowtype = tmp_ec.getAttribute("myGame");
+				var tmp_game = xmlnode.Node(tmp_ec,"game", false)[0];
+				var ISFANTASY = xmlnode.Node(tmp_game, "ISFANTASY").innerHTML;
+				var nowModel = xmlnode.Node(tmp_game, "NOW_MODEL").innerHTML;
+				var dateTime = xmlnode.Node(tmp_game, "datetime").innerHTML;
+				var sysTime = xmlnode.Node(tmp_game, "SYSTIME").innerHTML;
+				var dateTime_split = dateTime.split(" ");
+				var game_date = dateTime_split[0];
+				var gmt = new Date(sysTime.replace(/-/g,"/")); 
+    			var now_m = parseInt(gmt.getMonth()+1); 
+    			var now_date = _self.addZero(now_m)+"-"+_self.addZero(gmt.getDate());
+				var getEarlyGame = "N";
+				var isMyGameEarly = (top.choice_showtype.match(/mygame|soon|hot/) && myGameShowtype.match(/fu|em/));
+				var isSpecialEarly = (isSpecialGame == "Y" && myGameShowtype.match(/fu|em/));
+				var isSpecialFantasy = (top.specialClick != "" && top.specialGame.isFantasy);
+				if((game_date != now_date) && (isSpecialEarly || isMyGameEarly || isSpecialFantasy || (top.choice_showtype == "parlay" && myGameShowtype != "rb"))){
+					getEarlyGame = "Y";
+				}
+				
+				lastECID = ECID;
+				if(ISFANTASY == "Y")continue;
+				var is_rb = (isP3_R[ECID]?"Y":"N");
+				var hasChgMode = (tmpOBTModelHash[ECID]!=nowModel && !(tmpOBTModelHash[ECID]=="HT" && nowModel=="FT"));
+				if(hasChgMode || isRB_OBT[ECID]!=is_rb)_self.close_obt_proc(ECID);
+				tmpOBTModelHash[ECID] = nowModel;
+				isRB_OBT[ECID] = is_rb;
+				if(hasEC=="Y" && nowModel!="PK"){
+					noECData = false;
+					var tmp_gid = xmlnode.Node(tmp_game, "GID").innerHTML;
+					mainIor["gid_"+tmp_gid] = new Object();
+					var menuObj = dom.getElementById("div_OBT_menu_"+ECID);
+					if(!clusterize_sw && !menuObj)continue;
+					var pageIndex = (menuObj)?menuObj.getAttribute("data-page"):0;
+					var gameIndex = (menuObj)?menuObj.getAttribute("data-gameindex"):0;
+					var objids = ( (top.choice_showtype.match(/live/))?",OBT_RE,OBT_ROU," : ",OBT_R,OBT_OU,");
+					if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame == "Y") objids = (myGameShowtype=="rb")?",OBT_RE,OBT_ROU,":",OBT_R,OBT_OU,";
+					objids+="OBT_MIX,OBT_ETMIX,OBT_CN,OBT_RN,OBT_WI,OBT_ET,OBT_PK,OBT_PD,OBT_SFS,";
+					var ary = util.getObjAry(menuObj, objids);
+					var OBT_count = 0;
+					nowOBT_count[ECID] = new Object();
+					nowOBTMix_count[ECID] = new Object();
+					var hasOne = false;
+					OBT_WI_count[ECID] = 0;
+					OBT_TQ_count[ECID] = 0;
+					var now_OBT_WImodel = "";
+					for(var i = 0; i < OBTAry.length; i++){
+						var OBTcount = "";
+						var tmp_type = "";
+						if(OBTAry[i]=="WI"){
+							var TQcount = xmlnode.Node(tmp_ec,"TQ_COUNT").innerHTML;
+							var WIcount = xmlnode.Node(tmp_ec,"WI_COUNT").innerHTML;
+							if(WIcount*1!=0){
+								OBTcount = WIcount;
+								OBT_WI_count[ECID] = OBTcount*1;
+								now_OBT_WImodel = "WI";
+							}else if(TQcount*1!=0){
+								OBTcount = TQcount;
+								OBT_TQ_count[ECID] = OBTcount*1;
+								now_OBT_WImodel = "TQ";
+							}
+						}else{
+							OBTcount = xmlnode.Node(tmp_ec, OBTAry[i]+ "_COUNT").innerHTML;
+						}
+
+						nowOBT_count[ECID][OBTAry[i]] = OBTcount;
+						if(OBTAry[i] == "R" || OBTAry[i] == "OU"){
+							nowOBTMix_count[ECID][OBTAry[i]] = OBTcount;
+						}
+						var tmp_type = (top.choice_showtype.match(/live/) && OBT_rb_Ary[OBTAry[i]]!=null) ? OBT_rb_Ary[OBTAry[i]] : OBTAry[i];
+						if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame == "Y") tmp_type = (myGameShowtype=="rb" && OBT_rb_Ary[OBTAry[i]]!=null)?OBT_rb_Ary[OBTAry[i]] : OBTAry[i];
+						if(getMainIor.indexOf(tmp_type)!=-1){
+							var iorH = xmlnode.Node(tmp_ec, "IOR_"+tmp_type+ "H").innerHTML;
+							var iorC = xmlnode.Node(tmp_ec, "IOR_"+tmp_type+ "C").innerHTML;
+							mainIor["gid_"+tmp_gid]["IOR_"+tmp_type+"H"] = iorH;
+							mainIor["gid_"+tmp_gid]["IOR_"+tmp_type+"C"] = iorC;
+							var iorH_HT = xmlnode.Node(tmp_ec, "IOR_H"+tmp_type+ "H").innerHTML;
+							var iorC_HT = xmlnode.Node(tmp_ec, "IOR_H"+tmp_type+ "C").innerHTML;
+							mainIor["gid_"+tmp_gid]["IOR_H"+tmp_type+"H"] = iorH_HT;
+							mainIor["gid_"+tmp_gid]["IOR_H"+tmp_type+"C"] = iorC_HT;
+
+							if(OBT_mix_Ary.indexOf(tmp_type) != -1){
+								if(tmp_type.indexOf("OU") != -1){
+									var ratioO = xmlnode.Node(tmp_ec, "RATIO_"+tmp_type+ "O").innerHTML;
+									var ratioU = xmlnode.Node(tmp_ec, "RATIO_"+tmp_type+ "U").innerHTML;
+									var ratioO_HT = xmlnode.Node(tmp_ec, "RATIO_H"+tmp_type+ "O").innerHTML;
+									var ratioU_HT = xmlnode.Node(tmp_ec, "RATIO_H"+tmp_type+ "U").innerHTML;
+									mainIor["gid_"+tmp_gid]["RATIO_H"+tmp_type+"O"] = ratioO_HT;
+									mainIor["gid_"+tmp_gid]["RATIO_H"+tmp_type+"U"] = ratioU_HT;
+									mainIor["gid_"+tmp_gid]["RATIO_"+tmp_type+ "O"] = ratioO;
+									mainIor["gid_"+tmp_gid]["RATIO_"+tmp_type+ "U"] = ratioU;
+								}else{
+									var ratioR = xmlnode.Node(tmp_ec, "RATIO_"+tmp_type).innerHTML;
+									var ratioR_HT = xmlnode.Node(tmp_ec, "RATIO_H"+tmp_type).innerHTML;
+									mainIor["gid_"+tmp_gid]["RATIO_"+tmp_type] = ratioR;
+									mainIor["gid_"+tmp_gid]["RATIO_H"+tmp_type] = ratioR_HT;
+								}
+							}
+						}
+						if(OBTcount!=null && OBTcount*1 != 0 && ary["OBT_"+tmp_type]!=null){
+							var isMyGameR = (top.choice_showtype.match(/mygame|today|soon|hot/) && myGameShowtype!="rb");
+							var isParlayR = (top.choice_showtype=="parlay" && is_rb=="N");
+							var isSpecialR = (isSpecialGame == "Y" && is_rb=="N");
+							if( (isMyGameR || isParlayR || isSpecialR) && util.in_array(tmp_type, OBT_notShowAry)){
+								ary["OBT_"+tmp_type].style.display = "none";
+								continue;
+							}
+							hasOne = true;
+							if(OBT_mix_Ary.indexOf(tmp_type) != -1){
+								if(nowOBTMix_count[ECID][OBTAry[i]] > 1){
+									ary["OBT_MIX"].style.display = "";
+									MixObtRtype[ECID] = tmp_type;
+									tmp_type = "MIX";
+								}else {
+									if(top["showOBT"]!=''){
+                                        if(top["showOBT"].split("_")[1].match(/HMIX|MIX/)){
+                                            _self.close_obt_proc(ECID);
+                                        }
+                                    }
+									continue;
+								}
+							}
+							else {
+								ary["OBT_"+tmp_type].style.display = "";
+							}
+							if(nowModel=="ET" && OBT_ETAry.indexOf(tmp_type)!=-1){
+								var newMode = nowModel+tmp_type;
+								ary["OBT_"+tmp_type].innerHTML = util_game.showTxt(LS_game.get(newMode));
+							}
+							OBT_count++;
+						}else{
+							if(top["showOBT"] && top["showOBT"].split("_")[0] == ECID  && top["showOBT"].split("_")[1] != ""){
+								var tmpWtype = top["showOBT"].split("_")[1].replace(/ET/,"").replace(/H/,"");
+								if(nowOBT_count[ECID][tmpWtype] == 0){
+									_self.close_obt_proc(ECID);
+									// console.log(tmpWtype,"玩法已不存在,自動關閉!!");
+								}
+							}
+						}
+						var click_type = tmp_type;
+						if(nowModel=="ET") click_type = "ET"+tmp_type;
+						util.addEvent(ary["OBT_" + tmp_type], "click", _self.chgDiv, {"obj" : ary["OBT_" + tmp_type], "ECID" : ECID, "model" : click_type, "pageIndex" : pageIndex, "gameIndex" : gameIndex, "isEarly" : getEarlyGame, "myGameShowtype" : myGameShowtype});
+
+						if(top.choice_gtype == "ft" && first_OBTMenuBtn){
+							if(OBTcount!=0){
+								if(util.countSize(obtData) == 0 && ary["OBT_" + tmp_type])obtData = {"obj" : ary["OBT_" + tmp_type], "ECID" : ECID, "model" : click_type, "pageIndex" : pageIndex, "gameIndex" : gameIndex, "isEarly" : getEarlyGame, "myGameShowtype" : myGameShowtype};
+							}
+						}
+					}
+					if(last_OBT_WImodel[ECID]){
+						if(last_OBT_WImodel[ECID]!="" && last_OBT_WImodel[ECID]!=now_OBT_WImodel && tmpModel=="WI")_self.close_obt_proc(ECID);
+					}
+					last_OBT_WImodel[ECID] = now_OBT_WImodel;
+					var obtObj = dom.getElementById("div_OBT_"+ECID);
+					if(obtObj) obtObj.style.display = (hasOne? "" : "none" );
+					
+					var dragParam = new Object();
+					dragParam["tagName"] = ECID;
+					dragParam["nowModel"] = nowModel;
+					dragParam["isEarly"] = getEarlyGame;
+					dragParam["myGameShowtype"] = myGameShowtype;
+					if(top.mobile == "N")util.dragScroll(dom,"div_OBT_menu_"+ECID,_self.addOBTClick,_self.removeOBTClick,dragParam);
+
+				}
+			}
+
+			if(lastNowModel[ECID]){
+				if(lastNowModel[ECID]!=nowModel && !(lastNowModel[ECID]=="HT" && nowModel=="FT")){
+					_self.close_obt_proc(ECID);
+				}
+			}
+
+			lastNowModel[ECID] = nowModel;
+			if(noECData)top["showOBT"] = "";
+			if(!first_OBTMenuBtn && top["showOBT"] != "" && !nowOBTMix_count[top["showOBT"].split("_")[0]]){
+				// console.log(nowOBTMix_count,"[之前打開的OBT已經不存在 刪除top值]");
+				top["showOBT"] = "";
+			}
+			if(top["showOBT"]!=null && top["showOBT"]!=""){
+				var tmpECID = top["showOBT"].split("_")[0];
+				//var tmpModel = top["showOBT"].split("_")[1];
+				var pageIndex = top["showOBT"].split("_")[2];
+				var gameIndex = top["showOBT"].split("_")[3];
+				var _par = new Object();
+				var menuObj = dom.getElementById("div_OBT_menu_"+tmpECID);
+				if(tmpModel.match(/\bH/) || tmpModel.match(/\bETH/)){
+					var FullMode = tmpModel.replace(/\bH/,"");
+					FullMode = FullMode.replace(/\bETH/,"");
+					var _HTmodel = tmpModel.replace(/ET/,"");
+					var objids = ",OBT_" + FullMode + ",";
+					var ary = util.getObjAry(menuObj, objids);
+					if(ary["OBT_"+FullMode]!=null) util.addClass(ary["OBT_"+FullMode], "on");
+					_lastOBT_tab = ary["OBT_"+FullMode];
+					var showObj = dom.getElementById("div_OBT_show_"+tmpECID);
+					var objids2 = ",COURT_" + _HTmodel + ",";
+					var ary2 = util.getObjAry(showObj, objids2);
+					_par["obj"] = ary2["COURT_"+_HTmodel];
+					_par["ECID"] = tmpECID;
+					_par["chose_model"] = tmpModel;
+					_par["pageIndex"] = pageIndex;
+					_par["gameIndex"] = gameIndex;
+					try{
+						_par["isEarly"] = top["showOBT"].split("_")[4];
+					}catch(e){
+						console.log(e);
+					}
+					_self.chgCourt(null, _par);
+				}else{
+					var tmp_model = (tmpModel.indexOf("ET")!=-1 && tmpModel!="ET")?tmpModel.replace("ET", ""):tmpModel;
+					var objids = ",OBT_" + tmp_model + ",";
+					var ary = util.getObjAry(menuObj, objids);
+					var _par = new Object();
+					_par["obj"] = ary["OBT_"+tmp_model];
+					_par["ECID"] = tmpECID;
+					_par["model"] = tmpModel;
+					_par["pageIndex"] = pageIndex;
+					_par["gameIndex"] = gameIndex;
+					try{
+						_par["isEarly"] = top["showOBT"].split("_")[4];
+					}catch(e){
+						console.log(e);
+					}
+					_self.chgDiv(null, _par);
+				}
+			}
+			if(top.choice_gtype=="ft" && top.showOBT == "" && obtData["obj"]!=undefined && obtData["ECID"]!=undefined){
+				if(first_OBTMenuBtn && top.specialGame.mode=="CUP" && top.specialClick=="special"){
+					_self.chgDiv("default",obtData); 
+				}
+			}
+			if(clusterize_sw && first_Clusterize){
+				first_Clusterize=false;
+			}else{
+				first_OBTMenuBtn = false;
+			}
+	}
+
+	_self.close_obt_proc = function(ecid){
+		var divOBT = dom.getElementById("div_OBT_show_"+ecid);
+		var OBT_close = dom.getElementById("OBT_close_"+ecid);
+		if(divOBT){
+			var isShowOBT = (divOBT.style.display=="");
+			if(isShowOBT){
+				_self.closeOBT(null, {"closeObj":divOBT,"closeBtn":OBT_close,"ECID":ecid});
+			}
+		}
+	}
+
+	_self.getOBTCount = function(xmlnode, gameObj){
+		var _count = 0;
+		var nowModel = xmlnode.Node(gameObj, "NOW_MODEL").innerHTML;
+		var hasEC = (xmlnode.Node(gameObj, "ECID").innerHTML!="")?"Y":"N";
+		if(hasEC=="Y" && nowModel!="PK"){
+			for(var i = 0; i < OBTAry.length; i++){
+				var OBTcount = xmlnode.Node(gameObj, OBTAry[i]+ "_COUNT").innerHTML;
+				if(OBTcount*1 != 0) _count++;
+			}
+		}
+		return _count;
+	}
+	
+	_self.initOBT = function(){
+		if(_lastOBT_div!=null && _lastOBT_close!=null){
+			var tmpObj = dom.getElementById(_lastOBT_div.getAttribute("id"));
+			if(tmpObj){
+				_lastCourt_tab = null;
+				tmpObj.innerHTML = "";
+				tmpObj.style.display = "none";
+				_lastOBT_close.style.display = "none";
+				util.removeEvent(_lastOBT_close,"click");
+			}
+			var tmpECID = _lastOBT_div.getAttribute("id").split("_")[3];
+			var menuShow = dom.getElementById("div_OBT_menu_"+tmpECID);
+			if(menuShow) util.removeClass(menuShow, "on");
+			OBT_closed = tmpECID;
+		}
+	}
+
+	_self.chgDiv = function(MouseClick, hash){
+		isClickOBT = (MouseClick!=null);
+		var nowOBT_Model = top["showOBT"].split("_")[1];
+		var nowOBT_ECID = top["showOBT"].split("_")[0];
+		if(MouseClick!=null) util.clearObject(obtScrollHash);
+		if(_lastOBT_div!=null){
+			var tmpECID = _lastOBT_div.getAttribute("id").split("_")[3];
+			if(tmpECID != hash["ECID"] && isClickOBT && clusterize_sw){
+				_lastOBTHeight = (dom.getElementById("div_OBT_show_"+tmpECID))?dom.getElementById("div_OBT_show_"+tmpECID).clientHeight:0;
+				_self.updateOBTRowData("remove", "");
+			} 
+		}
+		if(isClickOBT){
+			sfsChoseTeam["ec"+nowOBT_ECID] = "teamH";
+			_self.initOBT();
+		}
+
+		var tarObj = hash["obj"];
+		var tarECID = hash["ECID"];
+		var model = hash["model"];
+		var isEarly = hash["isEarly"];
+		var modelCount = _self.getNowOBTcount(tarECID, model);
+		var divOBT = dom.getElementById("div_OBT_show_"+tarECID);
+		var OBT_close = dom.getElementById("OBT_close_"+tarECID);
+
+		ec_chg = (tarECID!=nowOBT_ECID);
+		if(ec_chg && nowOBT_ECID != ""){
+			var last_OBT = dom.getElementById("div_OBT_show_"+nowOBT_ECID);
+			var last_OBT_close = dom.getElementById("OBT_close_"+nowOBT_ECID);
+			if(last_OBT && last_OBT_close)_self.closeOBT(null, {"closeObj":last_OBT,"closeBtn":last_OBT_close,"ECID":nowOBT_ECID});
+		}
+
+		if(_lastOBT_tab!=null) util.removeClass(_lastOBT_tab, "on");
+		if(isClickOBT && _lastOBT_tab == tarObj){
+			_self.closeOBT(null, {"closeObj":divOBT,"closeBtn":OBT_close,"ECID":tarECID});
+			return;
+		}else{
+			if(tarObj!=null) util.addClass(tarObj, "on");
+			_lastOBT_tab = tarObj;
+		}
+
+		if(model!=nowOBT_Model && tarECID==nowOBT_ECID){
+			_lastCourt_tab = null;
+			if(_lastOBT_tab && top["showOBT"] !="") _self.obt_menu_move(_lastOBT_tab,nowOBT_ECID);
+		} 
+		if(MouseClick!=null) _self.showOBTLoading(tarECID, true);
+		if(modelCount*1!=0){
+			if(mainModel[tarECID]!="PK"){
+				top["showOBT"] = tarECID + "_" + model + "_" + hash["pageIndex"] + "_" + hash["gameIndex"] + "_" + isEarly;
+				if(divOBT!=null){
+					_self.getOBT(model, tarECID, isClickOBT ,isEarly,MouseClick);
+				}
+			}
+		}else{
+			_self.closeOBT(null, {"closeObj":divOBT,"closeBtn":OBT_close,"ECID":tarECID})
+		}
+		if(MouseClick!=null&& MouseClick!="default"  && tarECID == lastECID) lastECID_scroll = true;
+	}
+
+	_self.getOBT = function(model, ecid, _isClickOBT ,isEarly,MouseClick){
+			if(top["showOBT"]=="")return;
+			var nowOBTTS = util_game.getTimestamp();
+			var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+			var param = "";
+			param += top.param;
+			param += "&p=get_game_OBT";
+			if (postHash["url_param"]) param += "&" + postHash["url_param"];
+
+			var is_rb = (isP3_R[ecid]?"Y":"N");
+
+			var tmpShowType = "";
+			if(top.choice_showtype.match(/mygame/)){
+				if(isEarly=="Y")tmpShowType = "early";
+				else tmpShowType = top["myGameHash"][top.choice_gtype][ecid]["showtype"];
+			}else if(isSpecialGame == "Y" || top.choice_showtype.match(/today|soon|hot/)){
+				tmpShowType = top.choice_showtype;
+				if(isEarly=="Y")tmpShowType = "early";
+				else if(is_rb == "Y")tmpShowType = "live";
+			}
+			else{
+				tmpShowType = top.choice_showtype;
+			} 
+
+			var isETWI = "N";
+			param += "&gtype=" + top.choice_gtype;
+			param += "&showtype=" + tmpShowType;
+			param += "&isSpecial=" + top.specialClick;
+			param += "&isEarly=" + isEarly;
+			if(model.indexOf("MIX") != -1){
+				mixModel = MixObtRtype[ecid] + "|" + model;
+				param += "&model=" + mixModel;
+			}else if(model.indexOf("WI")!= -1){
+				if(OBT_WI_count[ecid]*1>=1)param += "&model=WI";
+				else param += "&model=TQ";
+				if(model == "ETWI") isETWI="Y";
+			}
+			else param += "&model=" + model;
+			param += "&isETWI=" + isETWI;
+			param += "&ecid=" + ecid;
+			param += "&ltype=" + top["userData"].ltype;
+			param += "&is_rb=" + is_rb;
+			param += "&ts=" + nowOBTTS;
+			if(_isClickOBT){
+				param += "&isClick=Y";
+				OBT_Needs_Parse = true;
+			}
+			if(MouseClick == "rmStar")param += "&act=" + MouseClick;
+			var _len = obtRequestAry.length;
+			if(_len != 0){
+				while(_len-- > 0){
+					var req = obtRequestAry.shift();
+					if(req["ecid"]==ecid){
+						_self.showOBTLoading(req["ecid"], false);
+						// console.log("OBT請求過多 ecid = ",ecid);
+						req["request"].abort();
+					}
+				}
+			}
+			var hr = new win.HttpRequestRetry(win.HttpRequest, config_set.get("RETRY_TIME"), config_set.get("RETRY_LIMIT"),null);
+			var hrObj = new Object();
+			hrObj["request"] = hr;
+			hrObj["ecid"] = ecid;
+			obtRequestAry.push(hrObj);
+			if(timerHash["gameTimer"] != null)timerHash["gameTimer"].stopTimer();
+			hr.setParentclass(childClass);
+			hr.addEventListener("onError", _self.onError);
+			hr.addEventListener("onAbort", _self.OBTAbort);
+			hr.addEventListener("LoadComplete", function(xml){
+				_self.LoadOBTComplete(xml, model, ecid, _isClickOBT,nowOBTTS);
+			});
+			hr.loadURL(top.m2_url, "POST", param);
+	}
+
+	_self.onError = function(e){
+		console.log("onError!! ");
+		timerHash["gameTimer"].startTimer();
+	}
+
+	_self.OBTAbort = function(req){
+		echo("OBTAbort!!");
+		timerHash["gameTimer"].startTimer();
+	}
+
+	_self.LoadOBTComplete = function (xml, model, tarECID, _isClickOBT,nowOBTTS){
+		if(timerHash["gameTimer"] != null)timerHash["gameTimer"].startTimer();
+		_self.paramHash["errorMsg"] = util.showConnectMsg(xml);
+		if(util.alertConnectMsg(_self.paramHash["errorMsg"]))  return;
+		
+		obt_xml = util.parseXml(xml);
+		var tmpTS = obt_xml.Node(obt_xml.Root[0],"ts").innerHTML;
+		var SFSGAME = obt_xml.Node(obt_xml.Root[0],"SFSGAME").innerHTML;
+		if(!util_game.checkTS(nowOBTTS, tmpTS, "get_game_OBT")) {
+			console.log("nowOBTTS:"+nowOBTTS+" tmpTS:"+tmpTS+" ts錯誤!!!!!!不繼續執行");
+			return;
+		}
+		if(SFSGAME){
+			var tmpKey = "ec"+tarECID;
+			if(SFSDataHash[tmpKey] == null)SFSDataHash[tmpKey] = new Array();
+			SFSDataHash[tmpKey] = _self.setGameSFS(obt_xml.Root[0]);
+			if(!sfsChoseTeam[tmpKey])sfsChoseTeam[tmpKey]="teamH";
+			sfsClickHash = new Object();
+		}
+		if(_isClickOBT || OBT_Needs_Parse){
+			_self.parseOBTData(obt_xml);
+		}else{
+			_self.reAddOBTFunc(model, tarECID);
+		}
+	}
+
+	_self.parseOBTData = function (xmlnode) {
+			echo("parseOBTData");
+			OBT_Needs_Parse = false;
+			showMoreECID = new Array();
+			var tmpEcAry = new Object();
+			var xmdObj = new Object();
+			var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+			var code = xmlnode.Node(xmlnode.Root[0],"code").innerHTML;
+			var ecid = xmlnode.Node(xmlnode.Root[0],"ecid", false)[0].innerHTML;
+			var model = xmlnode.Node(xmlnode.Root[0],"model", false)[0].innerHTML;
+			var nowOBT_ECID = top["showOBT"].split("_")[0];
+			var nowOBT_Model = top["showOBT"].split("_")[1];
+			var _len = obtRequestAry.length;
+			var i = 0;
+			var OBT_MIX_Model = OBT_MIX_wtype;
+			while(_len-- > 0){
+				if(obtRequestAry[i]["ecid"] == ecid) obtRequestAry = util.aryRemove(obtRequestAry, i);
+			}
+			var objids = "OBT_MIX,OBT_ETMIX,OBT_CN,OBT_RN,OBT_WI,OBT_ET,OBT_PK,OBT_PD,OBT_SFS,";
+			if(ecid!=nowOBT_ECID || (model!=nowOBT_Model && model != null)){
+				if(ecid!=nowOBT_ECID) _self.close_obt_proc(ecid);
+				var menuObj = dom.getElementById("div_OBT_menu_"+ecid);
+                var ary = util.getObjAry(menuObj, objids);
+                var OBT_menu = ary["OBT_"+(model=="TQ"?"WI":nowOBT_Model)];
+				if(OBT_menu!=null){
+					util.removeClass(OBT_menu, "on");
+					OBT_menu.style.display= "none";
+				}
+				_self.showOBTLoading(ecid, false);
+				return;
+			}
+			if(code=="noData"){
+				var _ecid = xmlnode.Node(xmlnode.Root[0],"ecid").innerHTML;
+				var divOBT = dom.getElementById("div_OBT_show_"+_ecid);
+				var OBT_close = dom.getElementById("OBT_close_"+_ecid);
+				if(divOBT){
+					var isShowOBT = (divOBT.style.display=="");
+					if(isShowOBT){
+						_self.closeOBT(null, {"closeObj":divOBT,"closeBtn":OBT_close,"ECID":_ecid});
+					}
+				}
+				var menuObj = dom.getElementById("div_OBT_menu_"+_ecid);
+                var ary = util.getObjAry(menuObj, objids);
+				var obtStr = (model=="TQ")?"WI":nowOBT_Model;
+				if(nowOBT_Model == "ETPK") obtStr = "PK";
+                var OBT_noData = ary["OBT_"+obtStr];
+                if(OBT_noData!=null){
+                    util.removeClass(OBT_noData, "on");
+                    OBT_noData.style.display= "none";
+                }
+				echo("OBT no data");
+				_self.showOBTLoading(_ecid, false);
+				return;
+			}
+
+
+			xmdObj["ec"] = xmlnode.Node(xmlnode.Root[0],"ec", false);
+			xmdObj["game"] = xmlnode.Node(xmdObj["ec"][0],"game", false);
+			var TEAM_H = xmlnode.Node(xmdObj["game"][0],"TEAM_H").innerHTML;
+			var TEAM_C = xmlnode.Node(xmdObj["game"][0],"TEAM_C").innerHTML;
+			var STRONG = xmlnode.Node(xmdObj["game"][0],"STRONG").innerHTML;
+			var HSTRONG = xmlnode.Node(xmdObj["game"][0],"HSTRONG").innerHTML;
+			var PTYPE = xmlnode.Node(xmdObj["game"][0],"PTYPE").innerHTML;
+			var HT_FT = xmlnode.Node(xmdObj["game"][0],"HT_FT").innerHTML;
+			var HNIKE = xmlnode.Node(xmdObj["game"][0],"HNIKE").innerHTML;
+			var HGOPEN = xmlnode.Node(xmdObj["game"][0],"HGOPEN").innerHTML;
+			var PD_SW = xmlnode.Node(xmdObj["game"][0],"PD_SW").innerHTML;
+			var HPD_SW = xmlnode.Node(xmdObj["game"][0],"HPD_SW").innerHTML;
+			var pdsort = xmlnode.Node(xmdObj["game"][0],"PD_RTYPES").innerHTML;
+			var hpdsort = xmlnode.Node(xmdObj["game"][0],"HPD_RTYPES").innerHTML;
+			var nowGID = xmlnode.Node(xmdObj["game"][0],"GID").innerHTML;
+			var nowHGID = xmlnode.Node(xmdObj["game"][0],"HGID").innerHTML;
+			var div_show = dom.getElementById("div_OBT_show_"+ecid);
+			if(div_show==null) return;
+			tmpEcAry[ecid] = (obtScrollHash[ecid]? obtScrollHash[ecid] : 0);
+			var menuShow = dom.getElementById("div_OBT_menu_"+ecid);
+			util.addClass(menuShow, "on");
+			if(model.indexOf("ET")!=-1 && model!="ET"){
+				model = model.replace(/ET/,"");
+				if(OBT_ETAry.indexOf(model)!=-1) model = "ET"+model;
+			}
+			var is_rb = (isP3_R[ecid]?"Y":"N");
+			var tmpOBTDiv = model;
+			if(model.match(/MIX|PD/)){
+				tmpOBTDiv = model.replace(/H/,"");
+			}
+			if(model.match(/PD/)){
+				var strongMODEL = "";
+				if(model.match(/\bH/)){
+					strongMODEL = xmlnode.Node(xmdObj["game"][0],"HPD_STRONG").innerHTML;
+					nowOBTShow = "HT";
+				}else{
+					strongMODEL = xmlnode.Node(xmdObj["game"][0],"PD_STRONG").innerHTML;
+					nowOBTShow = "FT";
+				}
+			}
+			var OBT_model = _self.getOBTLayer(ecid, tmpOBTDiv ,strongMODEL);
+			var tmpOBT_model;
+			var tmpOBTHTML;
+			var tmpDiv = "";
+			halfAry = new Object();
+			if(util.in_array(model,OBT_loop)){
+				var tpl = new fastTemplate_a1();
+				tpl.init(OBT_model.cloneNode(true));
+			}else if(model.match(/PD/)){
+				tmpOBT_model = OBT_model.cloneNode(true);
+				if(model.match(/\bH/)){
+					_self.setPDHash("ec"+ecid,hpdsort,"Y",is_rb);
+				}else{
+					_self.setPDHash("ec"+ecid,pdsort,"N",is_rb);
+				}
+				var pdObj = {"ecid":ecid,"div":tmpOBT_model,"model":model,"strongMODEL":strongMODEL};
+				tmpOBT_model = _self.getPDModel(pdObj);
+				tmpOBTHTML = tmpOBT_model.innerHTML;
+			}else{
+				tmpOBT_model = OBT_model.cloneNode(true);
+				tmpOBTHTML = tmpOBT_model.innerHTML;
+			}
+
+			if(model.indexOf("MIX") != -1){
+				for(var s=0;s<sessionModeAry.length;s++){
+					var tmpModel = sessionModeAry[s];
+					// TEAM_H = TEAM_H.replace(PTYPE,"");
+					// TEAM_H = TEAM_H.replace("[Mid]","").replace("[中]","");
+					// TEAM_C = TEAM_C.replace(PTYPE,"");
+					// TEAM_C = TEAM_C.replace("[Mid]","").replace("[中]","");
+					var STRONG_TAG = (tmpModel.match(/HMIX/))?"STRONG_"+HSTRONG : "STRONG_"+STRONG;
+					var nowShowRtype = xmlnode.Node(xmlnode.Root[0],"nowShowRtype", false)[0].innerHTML;
+
+					
+		
+					tpl.addBlock("OBT_TEAM_"+tmpModel);
+					tpl.replace(new RegExp("\\\*TEAM_H\\\*", "gi"), util_game.showTxt(TEAM_H));
+					tpl.replace(new RegExp("\\\*TEAM_C\\\*", "gi"), util_game.showTxt(TEAM_C));
+					tpl.replace(new RegExp("\\\*" + STRONG_TAG + "\\\*", "i"), "strong_team");
+
+					tpl.addBlock("OBT_MORE_"+tmpModel);
+					tpl.replace(new RegExp("\\\*ECID\\\*", "gi"), util_game.showTxt(ecid));
+					
+					if(is_rb == "N"){
+						for(var w = 0; w < OBT_MIX_wtype.length; w++){
+							if(nowOBTMix_count[ecid] && nowOBTMix_count[ecid][OBT_MIX_wtype[w]] == 0){
+								tpl.addBlock("OBT_"+tmpModel+OBT_MIX_wtype[w]+"_EMPTY");
+								tpl.replace(new RegExp("\\\*TABLE_EMPTY\\\*", "gi"), "table_empty");
+							}
+						}
+					}
+				}
+			}
+
+			var GameHash = util_game.convertNodeToHashForOBTGame(xmlnode.Root[0]);
+			var dataHash = GameHash["obj"];
+			var gidCount = 0;
+			var subAry = new Array("mother","A","B","C","D","E","F","G");
+			var Half_open = false;
+			for(var tmpECID in dataHash){
+				for(var _key in dataHash[tmpECID]){
+					var tmp_game = dataHash[tmpECID][_key];
+					var _gid = tmp_game["gid"];
+					var _gid2 = tmp_game["gid2"];
+					gidCount++;
+					if(gid_count_max-gidCount < 0){
+						continue; 
+					}
+					if(mainIor["gid_"+_gid]!=null){
+						for(var ior_key in mainIor["gid_"+_gid]){
+							dataHash[tmpECID][_key][ior_key.toLowerCase()] = util_game.showTxt(mainIor["gid_"+_gid][ior_key]);
+						}
+					}
+					var eo_ary = (is_rb == "Y")?[["REOO","REOE"],["HREOO","HREOE"]]:[["EOO","EOE"],["HEOO","HEOE"]];
+					for(var e=0; e<eo_ary.length; e++){
+						var tmpAry = eo_ary[e];
+						if(tmp_game["ior_"+tmpAry[0].toLowerCase()] && tmp_game["ior_"+tmpAry[1].toLowerCase()]){
+							var ior_h = tmp_game["ior_"+tmpAry[0].toLowerCase()]*1-1;
+							var ior_c = tmp_game["ior_"+tmpAry[1].toLowerCase()]*1-1;
+							var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior, "HK");
+							if(!isNaN( hash_hc[0])) dataHash[tmpECID][_key]["ior_"+tmpAry[0].toLowerCase()] = (hash_hc[0]*1)+1;
+							if(!isNaN( hash_hc[1])) dataHash[tmpECID][_key]["ior_"+tmpAry[1].toLowerCase()] = (hash_hc[1]*1)+1;
+						}
+					}
+
+					if(top.choice_showtype!="parlay"){
+						var ior_ary = [["REH","REC"],["ROUH","ROUC"],["HREH","HREC"],["HROUH","HROUC"],["RNCH","RNCC"],["RNBH","RNBC"],["RSHY","RSHN"],["RSCY","RSCN"],["RH","RC"],["OUH","OUC"],["HRH","HRC"],["HOUH","HOUC"]];
+						for(var k=0; k<ior_ary.length; k++){
+							var tmpAry = ior_ary[k];
+							if(tmp_game["ior_"+tmpAry[0].toLowerCase()] && tmp_game["ior_"+tmpAry[1].toLowerCase()]){
+								var ior_h = tmp_game["ior_"+tmpAry[0].toLowerCase()];
+								var ior_c = tmp_game["ior_"+tmpAry[1].toLowerCase()];
+								var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+								if(!isNaN( hash_hc[0])) dataHash[tmpECID][_key]["ior_"+tmpAry[0].toLowerCase()] = (hash_hc[0]*1);
+								if(!isNaN( hash_hc[1])) dataHash[tmpECID][_key]["ior_"+tmpAry[1].toLowerCase()] = (hash_hc[1]*1);
+							}
+						}
+					}else{
+						var rs_ary = [["RSHY","RSHN"],["RSCY","RSCN"]];
+						for(var h=0; h<rs_ary.length; h++){
+							var tmpAry = rs_ary[h];
+							if(tmp_game["ior_"+tmpAry[0].toLowerCase()] && tmp_game["ior_"+tmpAry[1].toLowerCase()]){
+								var ior_h = tmp_game["ior_"+tmpAry[0].toLowerCase()];
+								var ior_c = tmp_game["ior_"+tmpAry[1].toLowerCase()];
+								var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+								if(!isNaN( hash_hc[0])) dataHash[tmpECID][_key]["ior_"+tmpAry[0].toLowerCase()] = (hash_hc[0]*1)+1;
+								if(!isNaN( hash_hc[1])) dataHash[tmpECID][_key]["ior_"+tmpAry[1].toLowerCase()] = (hash_hc[1]*1)+1;
+							}
+						}
+					}
+
+					if(model.indexOf("MIX") != -1){
+						obtScrollHash[ecid] = new Object();
+						tmpEcAry[ecid] = new Object();
+						for( r=0;r<OBT_MIX_wtype.length;r++){
+
+							var tmpRtype = "";
+							if(top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][tmpECID]!=null){
+								tmpRtype = (top["myGameHash"][top.choice_gtype][tmpECID]["showtype"]=="live")?"rb":"r";
+							}else if(isSpecialGame == "Y" || isMixPage){
+								tmpRtype = (is_rb == "Y")?"rb":"r";
+							}
+							else{
+								tmpRtype = top.choice_rtype
+							}
+							OBT_MIX_Model = (tmpRtype == "rb")?OBT_LIVE_MIX_wtype:OBT_MIX_wtype;
+							tmpEcAry[ecid][OBT_MIX_Model[r]] = (obtScrollHash[ecid][OBT_MIX_Model[r]]? obtScrollHash[ecid][OBT_MIX_Model[r]] : 0);
+							tmpEcAry[ecid]["H"+OBT_MIX_Model[r]] = (obtScrollHash[ecid]["H"+OBT_MIX_Model[r]]? obtScrollHash[ecid]["H"+OBT_MIX_Model[r]] : 0);
+							for(var v=0;v<sessionModeAry.length;v++){
+								var tmpModel = sessionModeAry[v];
+								tpl.addBlock("OBT"+tmpModel.toUpperCase()+OBT_MIX_Model[r]);
+								var rAry = OBT[tmpModel+"_"+tmpRtype];
+								for(var i =0 ; i < rAry.length; i++){
+									var keys = rAry[i];
+									var vals = tmp_game[keys.toLowerCase()];
+									vals = _self.checkRatioR(keys, vals, tmp_game);
+									vals = _self.checkRatioOU(keys, vals, tmp_game);
+									if(keys.indexOf("GID")!=-1 && tmpModel.match(/\bH/)){
+										vals = tmp_game["hgid"];
+									}else if(keys.indexOf("IOR")!=-1 ){
+										var tag = keys.split("_")[1];
+										vals = util_game.getIoratio(vals, null, tag);
+										vals = util_game.showTxt(vals);
+										if(tmpModel.match(/\bH/) && vals*1 != 0){
+											Half_open = true;
+										}
+										var closeKey = "CLOSE_"+tag;
+										tpl.replace(new RegExp("\\\*" + closeKey + "\\\*", "i"), util_game.showTxt(util_game.lockIor(vals)));
+									}
+									tpl.replace(new RegExp("\\\*" + keys + "\\\*", "gi"), util_game.showTxt(vals));
+								}
+							}
+						}
+					}else{
+						if(util.in_array(model,OBT_loop)){
+							if(model.match(/\bH/) && tmp_game["hnike"]=="N") continue;
+							tpl.addBlock("OBT"+model.toUpperCase());
+
+							var tmpRtype = "";
+							if(top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][tmpECID]!=null){
+								tmpRtype = (top["myGameHash"][top.choice_gtype][tmpECID]["showtype"]=="live")?"rb":"r";
+							}else if(isSpecialGame == "Y" || isMixPage){
+								tmpRtype = (is_rb == "Y")?"rb":"r";
+							}
+							else{
+								tmpRtype = top.choice_rtype
+							}
+
+							var rAry = OBT[model+"_"+tmpRtype];
+							for(var i =0 ; i < rAry.length; i++){
+								var keys = rAry[i];
+								var vals = tmp_game[keys.toLowerCase()];
+
+								vals = _self.checkRatioR(keys, vals, tmp_game);
+								vals = _self.checkRatioOU(keys, vals, tmp_game);
+								if(keys.indexOf("GID")!=-1 && model.match(/\bH/)){
+									vals = tmp_game["hgid"];
+								}else if(keys.indexOf("IOR")!=-1 ){
+									var tag = keys.split("_")[1];
+									vals = util_game.getIoratio(vals, null, tag);
+									vals = util_game.showTxt(vals);
+									var closeKey = "CLOSE_"+tag;
+									tpl.replace(new RegExp("\\\*" + closeKey + "\\\*", "i"), util_game.showTxt(util_game.lockIor(vals)));
+								}
+								tpl.replace(new RegExp("\\\*" + keys + "\\\*", "gi"), util_game.showTxt(vals));
+							}
+						}else{
+							var tmpRtype = "";
+							var nowType = subAry[gidCount-1];
+							var PD_open = false;
+							if(nowType == "mother")nowType = "";
+							if(top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][tmpECID]!=null){
+								tmpRtype = (top["myGameHash"][top.choice_gtype][tmpECID]["showtype"]=="live")?"rb":"r";
+							}else if(isSpecialGame == "Y" || isMixPage){
+								tmpRtype = (is_rb == "Y")?"rb":"r";
+							}
+							else{
+								tmpRtype = top.choice_rtype
+							}
+							if(tmp_game["sfsgame"]){
+								var tmpKey = "ec"+tmpECID;
+								var max_FS = SFSDataHash[tmpKey]["MAXSFS"];
+								var SFSGAME = SFSDataHash[tmpKey]["SFS"];
+								var S_LIST = SFSDataHash[tmpKey]["STYPE_LIST"];
+								var H_LIST = SFSDataHash[tmpKey]["H_LIST"];
+								var C_LIST = SFSDataHash[tmpKey]["C_LIST"];
+								var tmpOBT_SFSModel = "";
+
+								tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*TEAM_H\\\*","gi"), util_game.showTxt(TEAM_H));
+								tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*TEAM_C\\\*","gi"), util_game.showTxt(TEAM_C));
+								tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*ECID\\\*","gi"), util_game.showTxt(tmpECID));
+								tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*SHOW\\\*","gi"), util_game.showTxt(sfsChoseTeam[tmpKey]));
+
+								for(var i=0; i<max_FS; i++){
+									var hasNoGoal = false;
+									var hasOther = false;
+									var hasLast = false;
+									var noIorData = new Array();
+									var tmp_model_sfs_game = dom.getElementById("model_sfs_game").innerHTML;
+									noIorData["H"] = true;
+									noIorData["C"] = true;
+									for(var keys in S_LIST){									
+										var stype = S_LIST[keys]; 
+										var sgid = SFSGAME[stype]["SFS_GID"];
+										var isH = (stype.indexOf("H") < 0);
+										var FS_str = isH ? C_LIST[i]:H_LIST[i];
+										var ior_val = SFSGAME[stype]["SFS_IOR_"+FS_str]; 
+										var tmp_SFS_NAME = SFSGAME[stype]["SFS_NAME_"+FS_str]; 
+										var tmp_SFS_teamid = SFSGAME[stype]["TEAM_ID_"+FS_str];
+					
+										if(tmp_SFS_teamid=="129602") hasNoGoal=true;
+										else hasNoGoal=false;
+
+										var HC = stype.substr(0,1);
+										var close_css = (ior_val*1>0)? "" : "lock";
+										ior_val = util_game.getIoratio(ior_val, null, "FS");
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*ECID\\\*","gi"), util_game.showTxt(tmpECID));
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*SFS_TEAM_NAME_"+HC+"\\\*","gi"), util_game.showTxt(tmp_SFS_NAME));
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*SFS_IOR_"+stype+"\\\*","gi"), util_game.showTxt(ior_val));
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*"+stype+"_GID\\\*","gi"), util_game.showTxt(sgid));
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*RTYPE_"+HC+"\\\*","gi"), util_game.showTxt(FS_str));
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*CLOSE_"+stype+"_"+FS_str+"\\\*","gi"),  close_css);
+										if(ior_val*1 > 0){
+											noIorData[HC] = false;
+											PD_open = true;
+										}
+										var rtypeClose = (ior_val*1==0);
+										if(!rtypeClose){
+											var _name = "bet_"+sgid+"_"+tmpECID+"_"+FS_str;
+											var _par = new Object();
+											_par.ioratio = ior_val;
+											_par.rtype_name = tmp_SFS_NAME;
+											if(sfsClickHash[_name] == null)sfsClickHash[_name] = new Object();
+											sfsClickHash[_name] = _par;
+										}
+					
+										var nogoal_css = "";
+										var other_css = "";
+										if(hasNoGoal){
+											nogoal_css = "sfs_nogoal";
+											tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*STY_NO_GOAL_"+HC+"\\\*","gi"), nogoal_css);
+										}
+									}
+
+									for(var _type in noIorData){
+										if(noIorData[_type]){
+											tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*NOIORDATA_"+_type+"\\\*","gi"),"none");
+										}
+									}
+									tmpOBT_SFSModel += tmp_model_sfs_game;	
+								}
+								tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*SFS_CONTENT\\\*","gi"), util_game.showTxt(tmpOBT_SFSModel));
+							}else{
+								var rAry =  OBT[model+"_"+tmpRtype];
+								if(model.match(/PD/)){
+									if(showMoreECID.indexOf(ecid) != -1)tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*SHOWMORE\\\*", "gi"), "on");
+									if(model.match(/\bH/)){
+										rAry = rAry.concat(pdHeadHash["ec"+ecid+"_H"]);
+									}else{
+										rAry = rAry.concat(pdHeadHash["ec"+ecid]);
+									}
+								}
+								for(var i =0 ; i < rAry.length; i++){
+									var keys = rAry[i];
+									var vals = tmp_game[keys.toLowerCase()];
+									
+									vals = _self.checkRatioR(keys, vals, tmp_game);							
+									vals = _self.checkRatioOU(keys, vals, tmp_game);
+									if(keys.indexOf("STRONG")!=-1){ 
+										var tag = keys.split("_")[1];
+										var strong = tmp_game["strong"];
+										vals = (tag == strong)?"strong_team":"";
+									}else if(keys.indexOf("IOR")!=-1 ){ 
+										var tag = keys.split("_")[1];
+										if(model.match(/CN|RN/) && HT_FT == "FT" && tag.match(/\bH/))vals = 0;
+										if(model.match(/PD/) && vals && vals*1!=0){
+											PD_open = true;
+										}
+										vals = util_game.getIoratio(vals, null, tag);
+										vals = util_game.showTxt(vals);
+										var closeKey = "CLOSE_"+tag;
+										closeKey = nowType+closeKey;
+										if(vals*1 == -99){
+											var tmpWtype = tag.substr(0,tag.length-1);
+											tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*"+tmpWtype+"_OBT_"+nowType.toUpperCase()+"BLANK\\\*", "i"), "odd_empty");
+										}else tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*" + closeKey + "\\\*", "i"), util_game.showTxt(util_game.lockIor(vals)));
+									}else if(keys.indexOf("LASTESTSCORE")!=-1){ 
+										vals = (vals!="")?"last_goal":"";
+									}else if(keys.indexOf("WTYPE")!=-1){ 
+										vals = LS_game.get("str_"+vals);
+									}else if(keys.indexOf("_SCROE_") != -1){
+										var splitKey = keys.split("_");
+										if(vals != "" && vals*1 >= 0){
+											if(model == "PK" && splitKey[0] == "FT"){
+												keys =  splitKey[1]+"_"+splitKey[2]+"_PAST";
+											}
+											else if(model.match(/ETCN|ETRN/) && splitKey[0] == "FT"){
+												keys =  splitKey[1]+"_"+splitKey[2]+"_PAST";
+												vals = "("+vals+")";
+											}
+										}else{
+											if(model.match(/ETCN|ETRN/) && splitKey[0] == "FT"){
+												keys =  splitKey[1]+"_"+splitKey[2]+"_PAST";
+											}else{
+												keys =  "DIS_PK";
+												vals = "style='display:none'";
+											}
+										}
+									}
+									keys = nowType + keys;
+									tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*" + keys + "\\\*", "gi"), util_game.showTxt(vals));
+								}
+								if(model.indexOf("ET") != -1 || model.indexOf("PK") != -1){
+									var sub_count_max = 6;
+									var allGameCnt = xmdObj["game"].length;
+									var Show = "";
+									if(tmp_game["hnike"] == "N"){
+										tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*ETHALFSHOW\\\*", "gi"), "none");
+									}
+									for(var g=0;g<sub_count_max;g++){
+										var tmp_type = subAry[g];
+										if(tmp_type == "mother")tmp_type = "";
+										if(allGameCnt - g > 0)Show = "";
+										else Show = "none";
+										tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*"+tmp_type+"SHOW\\\*", "gi"), Show);
+									}
+								}
+							}
+							if(tmp_game["ismaster"] == "Y" && model.match(/PD|SFS/) && !PD_open){
+								tmpOBTHTML = tmpOBTHTML.replace(new RegExp("\\\*ALLZERO\\\*", "gi"), "no_event_obt");
+							}
+							tmpDiv = tmpOBTHTML;
+						}
+					}
+				}
+			}
+			if(model.match(/PD/)){
+				var nowCourt = "FT";
+				var nowHide = "HT";
+				var is_rb = (isP3_R[ecid]?"Y":"N");
+				var showHT;
+				var showFT;
+				if(is_rb == "Y"){
+					showHT = (HNIKE == "N" || HGOPEN == "N" || HPD_SW == "N")?"none":"";
+				}else{
+					showHT = (HGOPEN == "N" || HPD_SW == "N")?"none":"";
+				}
+				showFT = (PD_SW == "N")?"none":"";
+				if(model.match(/\bH/)){
+					nowCourt = "HT";
+					nowHide = "FT";
+				}
+				if(showFT == "none" && showHT == "")nowOBTShow = "HT";
+				
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*"+nowHide+"_SHOW\\\*", "gi"), "none");
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_COURT_SHOW_"+nowCourt+"\\\*", "gi"), "on");
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*NOHALF\\\*", "gi"), showHT);
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*NOFT\\\*", "gi"), showFT);		
+			}
+			if( (model.indexOf("MIX") != -1)){
+				for(var l = 0; l < OBT_MIX_Model.length; l++){
+					var base = gid_count_min[OBT_MIX_Model[l]];
+					if(gidCount - base < 0){
+						var needAddCount = base - gidCount;
+						for(var k = 1; k <= needAddCount; k++){
+								for(var v=0;v<sessionModeAry.length;v++){
+									var tmpModel = sessionModeAry[v];
+									tpl.addBlock("OBT"+tmpModel.toUpperCase()+OBT_MIX_Model[l]);
+									tpl.replace(new RegExp("\\\*GID\\\*", "i"), util_game.showTxt(ecid+"_"+k));
+									tpl.replace(new RegExp("\\\*OBT_BLANK\\\*", "i"), "odd_empty");
+								}
+						}
+					}
+					
+				}
+			}
+			
+			nowOBTGameHash = util.clone(dataHash);
+			if(util.in_array(model,OBT_loop)){
+				tmpDiv = tpl.fastPrint();
+				var needHT = false;
+				var nowCourt = "FT";
+				var nowHide = "HT";
+				var is_rb = (isP3_R[ecid]?"Y":"N");
+				if(top.choice_showtype!="live" && is_rb=="N"){
+					needHT = _self.getCourtOpen(xmdObj["game"], "HT" ,model);
+				}else{
+					needHT = !(_self.getHNIKE(xmdObj["game"]));
+				}
+				var isShow = (!needHT)?"style='display:none'":"";
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_HALF_DISPLAY\\\*", "gi"), util_game.showTxt(isShow));
+				if(model.indexOf("MIX") != -1){
+					if(model.match(/\bH/)){
+						nowCourt = "HT";
+						nowHide = "FT";
+					}
+					if(is_rb == "Y"){
+						var noHalf = _self.getHNIKE(xmdObj["game"]);
+						if(noHalf)tmpDiv = tmpDiv.replace(new RegExp("\\\*NOHALF\\\*", "gi"), "none");
+					}else{
+						if(!Half_open)tmpDiv = tmpDiv.replace(new RegExp("\\\*NOHALF\\\*", "gi"), "none");
+					}
+					tmpDiv = tmpDiv.replace(new RegExp("\\\*"+nowHide+"_SHOW\\\*", "gi"), "none");
+					tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_COURT_SHOW_"+nowCourt+"\\\*", "gi"), "on");					
+				}else{
+					if(model == "WI")tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_WI_STR\\\*", "gi"), LS_game.get("OBT_"+last_OBT_WImodel[ecid]));
+					tmpDiv = tmpDiv.replace(new RegExp("\\\*ECID\\\*", "gi"), ecid);
+				}
+			}
+			div_show.innerHTML = tmpDiv;
+
+			// if(model.indexOf("RN")!=-1){
+			// 	var _extra = dom.getElementById("div_OBT_RN_icon_"+ecid);
+			// 	if(top.mobile!="Y") _extra.classList.add("info_on");
+			// 	util.addEvent(_extra, "click", _self.showExtraInfo, {"ptype":"RN", "hasEC":"N", "mainScore":"", "extraScore":""});
+			// }
+			var btn_close = dom.getElementById("OBT_close_"+ecid);
+			var btn_more = dom.getElementById("OBT_more_"+ecid);
+			var teamH = dom.getElementById("title_sfs_h_"+ecid);
+			var teamC = dom.getElementById("title_sfs_c_"+ecid);
+			
+			btn_close.style.display = "";
+			_lastOBT_close = btn_close;
+			util.addEvent(btn_close, "click", _self.closeOBT, {"closeObj":div_show,"closeBtn":btn_close,"ECID":ecid});
+			util.addEvent(btn_more, "click", _self.clickMore, more_param_obj[ecid]);
+			util.addEvent(teamH, "click", _self.chgSfSTeam, {"type":"teamH","from":"obt"});
+			util.addEvent(teamC, "click", _self.chgSfSTeam, {"type":"teamC","from":"obt"});
+			_self.initOBTIorBtn(xmlnode, xmdObj["ec"]);
+			_self.initOBTChgCourt(xmlnode, xmdObj["ec"], div_show);
+			if(model.indexOf("MIX") != -1)obtScrollHash = _self.setScroll("table_obt_bet", tmpEcAry);
+			else obtScrollHash = _self.setScroll("ratioShow_OBT", tmpEcAry);
+			chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+			util_game.initSelect(util);
+			
+			
+			if(OBT_closed!="" || firstLoadObt){
+				var obt_loading = dom.getElementById("OBT_loading_"+ecid);
+				util.addClass(obt_loading, "obt_chg");
+			}
+			if(model.match(/PD/)){
+				if(nowCourt != nowOBTShow){
+					// console.log("全場沒開，自動打開半場");
+					nowOBTShow = "HT";
+					return;
+				}
+				var gameObj = {"ECID":ecid,"GID":nowGID,"HGID":nowHGID,"MODEL":model};
+				_self.setPDBtn(gameObj);
+			}
+			OBT_closed = "";
+			if(firstLoadObt) firstLoadObt = false;
+
+			if(isClickOBT && clusterize_sw) _self.updateOBTRowData("add", div_show.innerHTML);
+
+			
+			var obj_obt = dom.getElementsByClassName('btn_menu_obt on')[0];
+			if(ec_chg && obj_obt){
+				_self.obt_menu_move(obj_obt, ecid);
+				ec_chg = false;
+			}
+
+			_lastOBT_div = div_show.cloneNode(true);
+			div_show.style.display = "";
+			if(lastECID_scroll){
+				var lockObj = util.getScrollDom(ios);
+				var _height = 96;
+				var sport_height = dom.getElementById("sport_content").offsetHeight;
+				var main_height = dom.getElementById("main_content").offsetHeight;
+				var obt_height = dom.getElementById("div_OBT_show_"+lastECID).offsetHeight;
+				// dom.getElementById("body_show").scrollTop = main_height-obt_height;
+				var moveScroll = (main_height+sport_height)-_height-obt_height;
+				lockObj.scrollTop = moveScroll;
+				parentClass.dispatchEvent("updateScrollTop",moveScroll);
+				lastECID_scroll = false;
+			}
+			_self.showOBTLoading(ecid, false);
+	}
+
+	_self.reAddOBTFunc = function(_MODEL, _ECID){
+		
+		var xmdObj = new Object();
+		var tmpEcAry = new Object();
+		var div_show = dom.getElementById("div_OBT_show_"+_ECID);
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var is_rb = (isP3_R[_ECID]?"Y":"N");
+		if(div_show==null) return;
+		var OBT_MIX_Model = OBT_MIX_wtype;
+		var _len = obtRequestAry.length;
+		var i = 0;
+		while(_len-- > 0){
+			if(obtRequestAry[i]["ecid"] == _ECID) obtRequestAry = util.aryRemove(obtRequestAry, i);
+		}
+
+		xmdObj["ec"] = obt_xml.Node(obt_xml.Root[0],"ec", false);
+		xmdObj["game"] = obt_xml.Node(xmdObj["ec"][0],"game", false);
+		var pdsort = xmlnode.Node(xmdObj["game"][0],"PD_RTYPES").innerHTML;
+		var hpdsort = xmlnode.Node(xmdObj["game"][0],"HPD_RTYPES").innerHTML;
+		var TEAM_H = xmlnode.Node(xmdObj["game"][0],"TEAM_H").innerHTML;
+		var TEAM_C = xmlnode.Node(xmdObj["game"][0],"TEAM_C").innerHTML;
+		var STRONG = xmlnode.Node(xmdObj["game"][0],"STRONG").innerHTML;
+		var HSTRONG = xmlnode.Node(xmdObj["game"][0],"HSTRONG").innerHTML;
+		var PTYPE = xmlnode.Node(xmdObj["game"][0],"PTYPE").innerHTML;
+		var HT_FT = xmlnode.Node(xmdObj["game"][0],"HT_FT").innerHTML;
+		var HNIKE = xmlnode.Node(xmdObj["game"][0],"HNIKE").innerHTML;
+		var HGOPEN = xmlnode.Node(xmdObj["game"][0],"HGOPEN").innerHTML;
+		var PD_SW = xmlnode.Node(xmdObj["game"][0],"PD_SW").innerHTML;
+		var HPD_SW = xmlnode.Node(xmdObj["game"][0],"HPD_SW").innerHTML;
+		var nowGID = xmlnode.Node(xmdObj["game"][0],"GID").innerHTML;
+		var nowHGID = xmlnode.Node(xmdObj["game"][0],"HGID").innerHTML;
+		
+		if(_MODEL.indexOf("ET")!=-1 && _MODEL!="ET"){
+			_MODEL = _MODEL.replace(/ET/,"");
+			if(OBT_ETAry.indexOf(_MODEL)!=-1) _MODEL = "ET"+_MODEL;
+		}
+		var tmpOBTDiv = _MODEL;
+		if(_MODEL.match(/MIX|PD/)){
+			tmpOBTDiv = _MODEL.replace(/H/,"");
+		}
+		if(_MODEL.match(/PD/)){
+			var strongMODEL = "";
+			if(_MODEL.match(/\bH/)){
+				strongMODEL = xmlnode.Node(xmdObj["game"][0],"HPD_STRONG").innerHTML;
+			}else{
+				strongMODEL = xmlnode.Node(xmdObj["game"][0],"PD_STRONG").innerHTML;
+			}
+		}
+		var OBT_model = _self.getOBTLayer(_ECID, tmpOBTDiv ,strongMODEL);
+		var tmpOBT_model;
+		var tmpHTML = "";
+		var tmpDiv = "";
+		halfAry = new Object();
+		if(util.in_array(_MODEL,OBT_loop)){
+			var tpl = new fastTemplate_a1();
+			tpl.init(OBT_model.cloneNode(true));
+		}else if(_MODEL.match(/PD/)){
+			tmpOBT_model = OBT_model.cloneNode(true);
+			if(_MODEL.match(/\bH/)){
+				_self.setPDHash("ec"+_ECID,hpdsort,"Y",is_rb);
+			}else{
+				_self.setPDHash("ec"+_ECID,pdsort,"N",is_rb);
+			}
+			var pdObj = {"ecid":_ECID,"div":tmpOBT_model,"model":_MODEL,"strongMODEL":strongMODEL};
+			tmpOBT_model = _self.getPDModel(pdObj);
+			tmpHTML = tmpOBT_model.innerHTML;
+		}else{
+			tmpOBT_model = OBT_model.cloneNode(true);
+			tmpHTML = tmpOBT_model.innerHTML;
+		}
+
+		if(_MODEL.indexOf("MIX") != -1){
+		for(var s=0;s<sessionModeAry.length;s++){
+			var tmpModel = sessionModeAry[s];
+			// TEAM_H = TEAM_H.replace(PTYPE,"");
+			// TEAM_H = TEAM_H.replace("[Mid]","").replace("[中]","");
+			// TEAM_C = TEAM_C.replace(PTYPE,"");
+			// TEAM_C = TEAM_C.replace("[Mid]","").replace("[中]","");
+			var STRONG_TAG = (tmpModel.match(/HMIX/))?"STRONG_"+HSTRONG : "STRONG_"+STRONG;
+			var nowShowRtype = xmlnode.Node(xmlnode.Root[0],"nowShowRtype", false)[0].innerHTML;
+			
+			tpl.addBlock("OBT_TEAM_"+tmpModel);
+			tpl.replace(new RegExp("\\\*TEAM_H\\\*", "gi"), util_game.showTxt(TEAM_H));
+			tpl.replace(new RegExp("\\\*TEAM_C\\\*", "gi"), util_game.showTxt(TEAM_C));
+			tpl.replace(new RegExp("\\\*" + STRONG_TAG + "\\\*", "i"), "strong_team");
+
+			if(tmpModel == "MIX"){
+				tpl.addBlock("OBT_MORE_"+tmpModel);
+				tpl.replace(new RegExp("\\\*ECID\\\*", "gi"), util_game.showTxt(_ECID));
+			}
+
+		
+			if(is_rb == "N"){
+				for(var w = 0; w < OBT_MIX_wtype.length; w++){
+					if(nowOBTMix_count[_ECID] && nowOBTMix_count[_ECID][OBT_MIX_wtype[w]] == 0){
+						tpl.addBlock("OBT_"+tmpModel+OBT_MIX_wtype[w]+"_EMPTY");
+						tpl.replace(new RegExp("\\\*TABLE_EMPTY\\\*", "gi"), "table_empty");
+					}
+				}
+			}
+			}
+		}
+		var GameHash = util_game.convertNodeToHashForOBTGame(obt_xml.Root[0]);
+		var dataHash = GameHash["obj"];
+		var gidCount = 0;
+		var subAry = new Array("mother","A","B","C","D","E","F","G");
+		var Half_open = false;
+		for(var tmpECID in dataHash){
+			for(var _key in dataHash[tmpECID]){
+				var tmp_game = dataHash[tmpECID][_key];
+				var _gid = tmp_game["gid"];
+
+				gidCount++;
+				if(gid_count_max-gidCount < 0){
+					continue; 
+				}
+				if(mainIor["gid_"+_gid]!=null){
+					for(var ior_key in mainIor["gid_"+_gid]){
+						dataHash[tmpECID][_key][ior_key.toLowerCase()] = util_game.showTxt(mainIor["gid_"+_gid][ior_key]);
+					}
+				}
+				var eo_ary = (is_rb == "Y")?[["REOO","REOE"],["HREOO","HREOE"]]:[["EOO","EOE"],["HEOO","HEOE"]];
+				for(var e=0; e<eo_ary.length; e++){
+					var tmpAry = eo_ary[e];
+					if(tmp_game["ior_"+tmpAry[0].toLowerCase()] && tmp_game["ior_"+tmpAry[1].toLowerCase()]){
+						var ior_h = tmp_game["ior_"+tmpAry[0].toLowerCase()]*1-1;
+						var ior_c = tmp_game["ior_"+tmpAry[1].toLowerCase()]*1-1;
+						var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior, "HK");
+						if(!isNaN( hash_hc[0])) dataHash[tmpECID][_key]["ior_"+tmpAry[0].toLowerCase()] = (hash_hc[0]*1)+1;
+						if(!isNaN( hash_hc[1])) dataHash[tmpECID][_key]["ior_"+tmpAry[1].toLowerCase()] = (hash_hc[1]*1)+1;
+					}
+				}
+
+				if(top.choice_showtype!="parlay"){
+					var ior_ary = [["REH","REC"],["ROUH","ROUC"],["HREH","HREC"],["HROUH","HROUC"],["RNCH","RNCC"],["RNBH","RNBC"],["RSHY","RSHN"],["RSCY","RSCN"],["RH","RC"],["OUH","OUC"],["HRH","HRC"],["HOUH","HOUC"]];
+					for(var k=0; k<ior_ary.length; k++){
+						var tmpAry = ior_ary[k];
+						if(tmp_game["ior_"+tmpAry[0].toLowerCase()] && tmp_game["ior_"+tmpAry[1].toLowerCase()]){
+							var ior_h = tmp_game["ior_"+tmpAry[0].toLowerCase()];
+							var ior_c = tmp_game["ior_"+tmpAry[1].toLowerCase()];
+							var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+							if(!isNaN( hash_hc[0])) dataHash[tmpECID][_key]["ior_"+tmpAry[0].toLowerCase()] = (hash_hc[0]*1);
+							if(!isNaN( hash_hc[1])) dataHash[tmpECID][_key]["ior_"+tmpAry[1].toLowerCase()] = (hash_hc[1]*1);
+						}
+					}
+				}else{
+					var rs_ary = [["RSHY","RSHN"],["RSCY","RSCN"]];
+					for(var h=0; h<rs_ary.length; h++){
+						var tmpAry = rs_ary[h];
+						if(tmp_game["ior_"+tmpAry[0].toLowerCase()] && tmp_game["ior_"+tmpAry[1].toLowerCase()]){
+							var ior_h = tmp_game["ior_"+tmpAry[0].toLowerCase()];
+							var ior_c = tmp_game["ior_"+tmpAry[1].toLowerCase()];
+							var hash_hc = util_game.chgOddfIoratio(ior_h, ior_c, config_ior);
+							if(!isNaN( hash_hc[0])) dataHash[tmpECID][_key]["ior_"+tmpAry[0].toLowerCase()] = (hash_hc[0]*1)+1;
+							if(!isNaN( hash_hc[1])) dataHash[tmpECID][_key]["ior_"+tmpAry[1].toLowerCase()] = (hash_hc[1]*1)+1;
+						}
+					}
+				}
+
+				if(_MODEL.indexOf("MIX") != -1){
+					tmpEcAry[_ECID] = new Object();
+					for( r=0;r<OBT_MIX_wtype.length;r++){
+						var tmpRtype = "";
+						if(top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][tmpECID]!=null){
+							tmpRtype = (top["myGameHash"][top.choice_gtype][tmpECID]["showtype"]=="live")?"rb":"r";
+						}else if(isSpecialGame == "Y" || isMixPage){
+							tmpRtype = (is_rb == "Y")?"rb":"r";
+						}
+						else{
+							tmpRtype = top.choice_rtype
+						}
+						OBT_MIX_Model = (tmpRtype == "rb")?OBT_LIVE_MIX_wtype:OBT_MIX_wtype;
+						tmpEcAry[_ECID][OBT_MIX_Model[r]] = ((obtScrollHash[_ECID] && obtScrollHash[_ECID][OBT_MIX_Model[r]])? obtScrollHash[_ECID][OBT_MIX_Model[r]] : 0);
+						tmpEcAry[_ECID]["H"+OBT_MIX_Model[r]] = ((obtScrollHash[_ECID] && obtScrollHash[_ECID]["H"+OBT_MIX_Model[r]])? obtScrollHash[_ECID]["H"+OBT_MIX_Model[r]] : 0);
+						for(var v=0;v<sessionModeAry.length;v++){
+							var tmpModel = sessionModeAry[v];
+							tpl.addBlock("OBT"+tmpModel.toUpperCase()+OBT_MIX_Model[r]);
+							var rAry = OBT[tmpModel+"_"+tmpRtype];
+							for(var i =0 ; i < rAry.length; i++){
+								var keys = rAry[i];
+								var vals = tmp_game[keys.toLowerCase()];
+								vals = _self.checkRatioR(keys, vals, tmp_game);
+								vals = _self.checkRatioOU(keys, vals, tmp_game);
+
+								if(keys.indexOf("GID")!=-1 && tmpModel.match(/\bH/)){
+									vals = tmp_game["hgid"];
+								}else if(keys.indexOf("STRONG")!=-1){ 
+									var tag = keys.split("_")[1];
+									var strong = tmp_game["strong"];
+									vals = (tag == strong)?"strong_team":"";
+								}else if(keys.indexOf("IOR")!=-1 ){
+									var tag = keys.split("_")[1];
+									vals = util_game.getIoratio(vals, null, tag);
+									vals = util_game.showTxt(vals);
+									if(tmpModel.match(/\bH/) && vals*1 != 0){
+										Half_open = true;
+									}
+									var closeKey = "CLOSE_"+tag;
+									tpl.replace(new RegExp("\\\*" + closeKey + "\\\*", "i"), util_game.showTxt(util_game.lockIor(vals)));
+								}
+								tpl.replace(new RegExp("\\\*" + keys + "\\\*", "gi"), util_game.showTxt(vals));
+						}
+					}
+					}
+				}else{
+					if(util.in_array(_MODEL,OBT_loop)){
+						if(_MODEL.match(/\bH/) && tmp_game["hnike"]=="N") continue;
+						tpl.addBlock("OBT"+_MODEL.toUpperCase());
+						
+						
+						var tmpRtype = "";
+						if(top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][tmpECID]!=null){
+							tmpRtype = (top["myGameHash"][top.choice_gtype][tmpECID]["showtype"]=="live")?"rb":"r";
+						}else if(isSpecialGame == "Y" || isMixPage){
+							tmpRtype = (is_rb == "Y")?"rb":"r";
+						}
+						else{
+							tmpRtype = top.choice_rtype
+						}
+
+						var rAry = OBT[_MODEL+"_"+tmpRtype];
+						for(var i =0 ; i < rAry.length; i++){
+							var keys = rAry[i];
+							var vals = tmp_game[keys.toLowerCase()];
+							vals = _self.checkRatioR(keys, vals, tmp_game);
+							vals = _self.checkRatioOU(keys, vals, tmp_game);
+
+							if(keys.indexOf("GID")!=-1 && _MODEL.match(/\bH/)){
+								vals = tmp_game["hgid"];
+							}else if(keys.indexOf("IOR")!=-1 ){ 
+								var tag = keys.split("_")[1];
+								vals = util_game.getIoratio(vals, null, tag);
+								vals = util_game.showTxt(vals);
+								var closeKey = "CLOSE_"+tag;
+								tpl.replace(new RegExp("\\\*" + closeKey + "\\\*", "i"), util_game.showTxt(util_game.lockIor(vals)));
+							}
+							tpl.replace(new RegExp("\\\*" + keys + "\\\*", "gi"), util_game.showTxt(vals));
+						}
+					}else{
+						var PD_open = false;
+						var tmpRtype = "";
+						if(top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][tmpECID]!=null){
+							tmpRtype = (top["myGameHash"][top.choice_gtype][tmpECID]["showtype"]=="live")?"rb":"r";
+						}else if(isSpecialGame == "Y" || isMixPage){
+							tmpRtype = (is_rb == "Y")?"rb":"r";
+						}
+						else{
+							tmpRtype = top.choice_rtype
+						}
+						if(tmp_game["sfsgame"]){
+							var tmpKey = "ec"+tmpECID;
+							var max_FS = SFSDataHash[tmpKey]["MAXSFS"];
+							var SFSGAME = SFSDataHash[tmpKey]["SFS"];
+							var S_LIST = SFSDataHash[tmpKey]["STYPE_LIST"];
+							var H_LIST = SFSDataHash[tmpKey]["H_LIST"];
+							var C_LIST = SFSDataHash[tmpKey]["C_LIST"];
+							var tmpOBT_SFSModel = "";
+
+							tmpHTML = tmpHTML.replace(new RegExp("\\\*TEAM_H\\\*","gi"), util_game.showTxt(TEAM_H));
+							tmpHTML = tmpHTML.replace(new RegExp("\\\*TEAM_C\\\*","gi"), util_game.showTxt(TEAM_C));
+							tmpHTML = tmpHTML.replace(new RegExp("\\\*ECID\\\*","gi"), util_game.showTxt(tmpECID));
+							tmpHTML = tmpHTML.replace(new RegExp("\\\*SHOW\\\*","gi"), util_game.showTxt(sfsChoseTeam[tmpKey]));
+
+							for(var i=0; i<max_FS; i++){
+								var hasNoGoal = false;
+								var hasOther = false;
+								var hasLast = false;
+								var noIorData = new Array();
+								var tmp_model_sfs_game = dom.getElementById("model_sfs_game").innerHTML;
+								noIorData["H"] = true;
+								noIorData["C"] = true;
+								for(var keys in S_LIST){									
+									var stype = S_LIST[keys]; 
+									var sgid = SFSGAME[stype]["SFS_GID"];
+									var isH = (stype.indexOf("H") < 0);
+									var FS_str = isH ? C_LIST[i]:H_LIST[i];
+									var ior_val = SFSGAME[stype]["SFS_IOR_"+FS_str]; 
+									var tmp_SFS_NAME = SFSGAME[stype]["SFS_NAME_"+FS_str]; 
+									var tmp_SFS_teamid = SFSGAME[stype]["TEAM_ID_"+FS_str];
+				
+									if(tmp_SFS_teamid=="129602") hasNoGoal=true;
+									else hasNoGoal = false;
+				
+									var HC = stype.substr(0,1);
+									var close_css = (ior_val*1>0)? "" : "lock";
+									ior_val = util_game.getIoratio(ior_val, null, "FS");
+									tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*ECID\\\*","gi"), util_game.showTxt(tmpECID));
+									tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*SFS_TEAM_NAME_"+HC+"\\\*","gi"), util_game.showTxt(tmp_SFS_NAME));
+									tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*SFS_IOR_"+stype+"\\\*","gi"), util_game.showTxt(ior_val));
+									tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*"+stype+"_GID\\\*","gi"), util_game.showTxt(sgid));
+									tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*RTYPE_"+HC+"\\\*","gi"), util_game.showTxt(FS_str));
+									tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*CLOSE_"+stype+"_"+FS_str+"\\\*","gi"),  close_css);
+									
+									if(ior_val*1 != 0){
+										noIorData[HC] = false;
+										PD_open = true;
+									}
+									var rtypeClose = (ior_val*1==0);
+									if(!rtypeClose){
+										var _name = "bet_"+sgid+"_"+tmpECID+"_"+FS_str;
+										var _par = new Object();
+										_par.ioratio = ior_val;
+										_par.rtype_name = tmp_SFS_NAME;
+										if(sfsClickHash[_name] == null)sfsClickHash[_name] = new Object();
+										sfsClickHash[_name] = _par;
+									}
+				
+									
+				
+									var nogoal_css = "";
+									var other_css = "";
+									if(hasNoGoal){
+										nogoal_css = "sfs_nogoal";
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*STY_NO_GOAL_"+HC+"\\\*","gi"), nogoal_css);
+									}
+									
+				
+									
+								}
+				
+								for(var _type in noIorData){
+									if(noIorData[_type]){
+										tmp_model_sfs_game = tmp_model_sfs_game.replace(new RegExp("\\\*NOIORDATA_"+_type+"\\\*","gi"),"none");
+									}
+								}
+								tmpOBT_SFSModel += tmp_model_sfs_game;	
+							}
+							tmpHTML = tmpHTML.replace(new RegExp("\\\*SFS_CONTENT\\\*","gi"), util_game.showTxt(tmpOBT_SFSModel));
+						}else{
+							var nowType = subAry[gidCount-1];
+							if(nowType == "mother")nowType = "";
+							var rAry =  OBT[_MODEL+"_"+tmpRtype];
+							if(_MODEL.match(/PD/)){
+								if(showMoreECID.indexOf(_ECID) != -1)tmpHTML = tmpHTML.replace(new RegExp("\\\*SHOWMORE\\\*", "gi"), "on");
+								if(_MODEL.match(/\bH/)){
+									rAry = rAry.concat(pdHeadHash["ec"+_ECID+"_H"]);
+								}else{
+									rAry = rAry.concat(pdHeadHash["ec"+_ECID]);
+								}
+							}
+							for(var i =0 ; i < rAry.length; i++){
+								var keys = rAry[i];
+								var vals = tmp_game[keys.toLowerCase()];
+								vals = _self.checkRatioR(keys, vals, tmp_game)
+								vals = _self.checkRatioOU(keys, vals, tmp_game);
+
+								if(keys.indexOf("STRONG")!=-1){
+									var tag = keys.split("_")[1];
+									var strong = tmp_game["strong"];
+									vals = (tag == strong)?"strong_team":"";
+								}else if(keys.indexOf("IOR")!=-1 ){
+									var tag = keys.split("_")[1];
+									vals = util_game.getIoratio(vals, null, tag);
+									vals = util_game.showTxt(vals);
+									var closeKey = "CLOSE_"+tag;
+									if(_MODEL.match(/CN|RN/) && HT_FT == "FT" && tag.match(/\bH/))vals = 0;
+									if(_MODEL.match(/PD/) && vals && vals*1!=0){
+										PD_open = true;
+									}
+									closeKey = nowType + closeKey;
+									if(vals*1 == -99){
+										var tmpWtype = tag.substr(0,tag.length-1);
+										tmpHTML = tmpHTML.replace(new RegExp("\\\*"+tmpWtype+"_OBT_"+nowType.toUpperCase()+"BLANK\\\*", "i"), "odd_empty");
+									}else tmpHTML = tmpHTML.replace(new RegExp("\\\*" + closeKey + "\\\*", "i"), util_game.showTxt(util_game.lockIor(vals)));
+								}else if(keys.indexOf("LASTESTSCORE")!=-1){ 
+									vals = (vals!="")?"last_goal":"";
+								}else if(keys.indexOf("WTYPE")!=-1){ 
+									vals = LS_game.get("str_"+vals);
+								}else if(keys.indexOf("_SCROE_") != -1){
+									var splitKey = keys.split("_");
+									if(vals != "" && vals*1 >= 0){
+										if(_MODEL == "PK" && splitKey[0] == "FT"){
+											keys =  splitKey[1]+"_"+splitKey[2]+"_PAST";
+										}else if(_MODEL.match(/ETCN|ETRN/) && splitKey[0] == "FT"){
+											keys =  splitKey[1]+"_"+splitKey[2]+"_PAST";
+											vals = "("+vals+")";
+										}
+									}else{
+										if(_MODEL.match(/ETCN|ETRN/) && splitKey[0] == "FT"){
+											keys =  splitKey[1]+"_"+splitKey[2]+"_PAST";
+										}else{
+											keys =  "DIS_PK";
+											vals = "style='display:none'";
+										}
+									}
+								}
+								keys = nowType + keys;
+								tmpHTML = tmpHTML.replace(new RegExp("\\\*" + keys + "\\\*", "gi"), util_game.showTxt(vals));
+							}
+							if(_MODEL.indexOf("ET") != -1 || _MODEL.indexOf("PK") != -1){
+								var sub_count_max = 6;
+								var allGameCnt = xmdObj["game"].length;
+								var Show = "";
+								if(tmp_game["hnike"] == "N"){
+									tmpHTML = tmpHTML.replace(new RegExp("\\\*ETHALFSHOW\\\*", "gi"), "none");
+								}
+								for(var g=0;g<sub_count_max;g++){
+									var tmp_type = subAry[g];
+									if(tmp_type == "mother")tmp_type = "";
+									if(allGameCnt - g > 0)Show = "";
+									else Show = "none";
+									tmpHTML = tmpHTML.replace(new RegExp("\\\*"+tmp_type+"SHOW\\\*", "gi"), Show);
+								}
+							}
+						}
+						if(tmp_game["ismaster"] == "Y" && _MODEL.match(/PD|SFS/) && !PD_open){
+							tmpHTML = tmpHTML.replace(new RegExp("\\\*ALLZERO\\\*", "gi"), "no_event_obt");
+						}
+						tmpDiv = tmpHTML;
+					}
+				}
+			}
+		}
+		if(_MODEL.match(/PD/)){
+			var nowCourt = "FT";
+			var nowHide = "HT";
+			var is_rb = (isP3_R[_ECID]?"Y":"N");
+			var showHT;
+			var showFT;
+			if(is_rb == "Y"){
+				showHT = (HNIKE == "N" || HGOPEN == "N" || HPD_SW == "N")?"none":"";
+			}else{
+				showHT = (HGOPEN == "N" || HPD_SW == "N")?"none":"";
+			}
+			showFT = (PD_SW == "N")?"none":"";
+			if(_MODEL.match(/\bH/)){
+				nowCourt = "HT";
+				nowHide = "FT";
+			}
+			if(showFT == "none" && showHT == "")nowOBTShow = "HT";
+			else nowOBTShow = "FT";
+			tmpDiv = tmpDiv.replace(new RegExp("\\\*"+nowHide+"_SHOW\\\*", "gi"), "none");
+			tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_COURT_SHOW_"+nowCourt+"\\\*", "gi"), "on");
+			tmpDiv = tmpDiv.replace(new RegExp("\\\*NOHALF\\\*", "gi"), showHT);
+			tmpDiv = tmpDiv.replace(new RegExp("\\\*NOFT\\\*", "gi"), showFT);
+		}
+		if( (_MODEL.indexOf("MIX") != -1)){
+			for(var l = 0; l < OBT_MIX_Model.length; l++){
+				var base = gid_count_min[OBT_MIX_Model[l]];
+				if(gidCount - base < 0){
+					var needAddCount = base - gidCount;
+					for(var k = 1; k <= needAddCount; k++){
+							for(var v=0;v<sessionModeAry.length;v++){
+								var tmpModel = sessionModeAry[v];
+								tpl.addBlock("OBT"+tmpModel.toUpperCase()+OBT_MIX_Model[l]);
+								tpl.replace(new RegExp("\\\*GID\\\*", "i"), util_game.showTxt(_ECID+"_"+k));
+								tpl.replace(new RegExp("\\\*OBT_BLANK\\\*", "i"), "odd_empty");
+							}
+					}
+				}
+				
+			}
+		}	
+		nowOBTGameHash = util.clone(dataHash);	
+		if(util.in_array(_MODEL,OBT_loop)){
+			tmpDiv = tpl.fastPrint();
+			var needHT = false;
+			var nowCourt = "FT";
+			var nowHide = "HT";
+			var is_rb = (isP3_R[_ECID]?"Y":"N");
+			if(top.choice_showtype!="live" && is_rb=="N"){
+				needHT = _self.getCourtOpen(xmdObj["game"], "HT" ,_MODEL);
+			}else{
+				needHT = !(_self.getHNIKE(xmdObj["game"]));
+			}
+			var isShow = (!needHT)?"style='display:none'":"";
+			tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_HALF_DISPLAY\\\*", "gi"), util_game.showTxt(isShow));
+			if(_MODEL.indexOf("MIX") != -1){
+				if(_MODEL.match(/\bH/)){
+					nowCourt = "HT";
+					nowHide = "FT";
+				}
+				if(is_rb == "Y"){
+					var noHalf = _self.getHNIKE(xmdObj["game"]);
+					if(noHalf)tmpDiv = tmpDiv.replace(new RegExp("\\\*NOHALF\\\*", "gi"), "none");
+				}else{
+					if(!Half_open)tmpDiv = tmpDiv.replace(new RegExp("\\\*NOHALF\\\*", "gi"), "none");
+				}
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*"+nowHide+"_SHOW\\\*", "gi"), "none");
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_COURT_SHOW_"+nowCourt+"\\\*", "gi"), "on");
+			}else{
+				if(_MODEL == "WI")tmpDiv = tmpDiv.replace(new RegExp("\\\*OBT_WI_STR\\\*", "gi"), LS_game.get("OBT_"+last_OBT_WImodel[_ECID]));
+				tmpDiv = tmpDiv.replace(new RegExp("\\\*ECID\\\*", "gi"), _ECID);
+			}
+		}
+		div_show.innerHTML = tmpDiv;
+		_lastOBT_div = div_show.cloneNode(true);
+
+		// if(_MODEL.indexOf("RN")!=-1){
+		// 	var _extra = dom.getElementById("div_OBT_RN_icon_"+_ECID);
+		// 	if(top.mobile!="Y") _extra.classList.add("info_on");
+		// 	util.addEvent(_extra, "click", _self.showExtraInfo, {"ptype":"RN", "hasEC":"N", "mainScore":"", "extraScore":""});
+		// }
+
+		var btn_close = dom.getElementById("OBT_close_"+_ECID);
+		var btn_more = dom.getElementById("OBT_more_"+_ECID);
+		var teamH = dom.getElementById("title_sfs_h_"+_ECID);
+		var teamC = dom.getElementById("title_sfs_c_"+_ECID);
+		btn_close.style.display = "";
+		_lastOBT_close = btn_close;
+		util.addEvent(teamH, "click", _self.chgSfSTeam, {"type":"teamH","from":"obt"});
+		util.addEvent(teamC, "click", _self.chgSfSTeam, {"type":"teamC","from":"obt"});
+		util.addEvent(btn_close, "click", _self.closeOBT, {"closeObj":div_show,"closeBtn":btn_close,"ECID":_ECID});
+		util.addEvent(btn_more, "click", _self.clickMore, more_param_obj[_ECID]);
+		_self.initOBTIorBtn(obt_xml, xmdObj["ec"]);
+		_self.initOBTChgCourt(obt_xml, xmdObj["ec"], div_show);
+		if(_MODEL.match(/PD/)){
+			var gameObj = {"ECID":_ECID,"GID":nowGID,"HGID":nowHGID,"MODEL":_MODEL};
+			_self.setPDBtn(gameObj);
+		}
+		if(_MODEL.indexOf("MIX") != -1){
+			obtScrollHash = _self.setScroll("table_obt_bet", tmpEcAry);
+		}else{
+			tmpEcAry[_ECID] = (obtScrollHash[_ECID]? obtScrollHash[_ECID] : 0);
+			obtScrollHash = _self.setScroll("ratioShow_OBT", tmpEcAry);
+		}
+		chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+		util_game.initSelect(util);
+		OBT_closed = "";
+	}
+
+	_self.getNowOBTcount = function(_ecid, model){
+		var transHash = new Object();
+		transHash["RE"] = "R";
+		transHash["ROU"] = "OU";
+		transHash["HRE"] = "R";
+		transHash["HROU"] = "OU";
+		transHash["ETR"] = "R";
+		transHash["ETRE"] = "R";
+		transHash["ETOU"] = "OU";
+		transHash["ETROU"] = "OU";
+		transHash["ETPK"] = "PK";
+		var tmpModel = (transHash[model]!=null)?transHash[model]:model;
+		if(tmpModel.match(/MIX/) && (nowOBT_count[_ecid]["R"] != 0 || nowOBT_count[_ecid]["OU"] != 0)){
+			return (nowOBT_count[_ecid]["R"] >= nowOBT_count[_ecid]["OU"])?nowOBT_count[_ecid]["R"]:nowOBT_count[_ecid]["OU"];
+		}
+		return nowOBT_count[_ecid][tmpModel];
+	}
+
+	_self.showOBTLoading = function(_ECID, isShow){
+		var obt_loading = dom.getElementById("OBT_loading_"+_ECID);
+		obt_loading.style.display = (isShow)?"":"none";
+		var tmpECID = null;
+		if(_lastOBT_div!=null) tmpECID = _lastOBT_div.getAttribute("id").split("_")[3];
+		if(_lastOBT_div!=null && _lastOBT_div.innerHTML!="" && tmpECID == _ECID){
+			if(isShow){
+				util.addClass(obt_loading, "obt_chg");
+			}else{
+				util.removeClass(obt_loading, "obt_chg");
+			}
+		}
+	}
+
+	_self.initOBTIorBtn = function(xmlnode, ecObj){
+		var xmdObj = new Object();
+		for(var j=0; j < ecObj.length; j++){
+			var tmp_ec = ecObj[j];
+			var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+			var model = xmlnode.Node(tmp_ec, "model").innerHTML;
+			var low_model = model.toLowerCase();
+			xmdObj["game"] = xmlnode.Node(tmp_ec,"game", false);
+			// if(top["choice_showtype"]!="live"){
+			// 	var goFT = _self.getCourtOpen(xmdObj["game"], "FT");
+			// 	var goHT = _self.getCourtOpen(xmdObj["game"], "HT");
+			// 	if(!goFT && goHT && OBT_transHT[model]!=null) model = OBT_transHT[model];
+			// }
+			var is_rb = (isP3_R[ECID]?"Y":"N");
+			for(var x = 0; x < xmdObj["game"].length; x++){
+				var tmp_game = xmdObj["game"][x];
+				var gid = xmlnode.Node(tmp_game, "GID").innerHTML;
+				var gid2 = xmlnode.Node(tmp_game, "GID2").innerHTML;
+				var hgid = xmlnode.Node(tmp_game, "HGID").innerHTML;
+				var hgopen = xmlnode.Node(tmp_game, "HGOPEN").innerHTML;
+				var _ptype = util_game.showTxt(xmlnode.Node(tmp_game,"ptype").innerHTML);
+				var _imp = util_game.showTxt(xmlnode.Node(tmp_game,"important").innerHTML);
+				var isRP3  = (top.choice_showtype=="parlay" && is_rb=="Y");
+				var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+				var ior_key = "";
+				var isMixRB = (top.choice_showtype.match(/today|hot/) && is_rb=="Y");
+
+				var isMyGameRB = (top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][ECID]["showtype"]=="live");
+				if((isMixRB || top.choice_showtype=="live" || isRP3 || isMyGameRB || (isSpecialGame == "Y" && is_rb == "Y")) && util.in_array(model, OBT_needsR)){
+					ior_key = "OBT_r"+model.toLowerCase();
+				}else{
+					ior_key = "OBT_"+model.toLowerCase();
+				}
+				if(ior_key.match(/pd/)){
+					ior_key = ior_key.replace(/h/,"");
+				}
+				if(ior_key.indexOf("mix") != -1){
+					for(var s=0;s<sessionModeAry.length;s++){
+						var tmpModel = sessionModeAry[s];
+						var mix_wtype_ary = new Array();
+						if(tmpModel.match(/HMIX/)){
+							mix_wtype_ary = (OBT_LIVE_MIX_wtype.indexOf(MixObtRtype[ECID]) != -1)?OBT_LIVE_HMIX_wtype:OBT_HMIX_wtype;
+						}
+						else mix_wtype_ary = (OBT_LIVE_MIX_wtype.indexOf(MixObtRtype[ECID]) != -1)?OBT_LIVE_MIX_wtype:OBT_MIX_wtype;
+						for(var w = 0; w < mix_wtype_ary.length; w++){
+							ior_key = "OBT_"+mix_wtype_ary[w].toLowerCase();
+							var wtype_ary = IOR[ior_key];
+							for(var _wtype in wtype_ary){
+								for(var a=0 ; a < wtype_ary[_wtype].length; a++){
+									var _rtype = wtype_ary[_wtype][a];
+									var gidAry = new Array(gid, hgid);
+									if(gid2!=null) gidAry.push(gid2);
+									var obj = null;
+									var _gid = null;
+									var nowWtype = "";
+									var nowRtype = "";
+									for(var i=0; i<gidAry.length; i++){
+										obj = _self.getIorObj(gidAry[i], ECID, _rtype, true);
+										if(obj){
+											_gid = gidAry[i];
+											break;
+										}
+									}
+									
+									if(util.in_array(_wtype, needsTransWtype)){
+										if(tmpModel.indexOf("ET")!=-1 && tmpModel!="ET") tmpModel = tmpModel.replace(/ET/,"");
+										var getType = (model.indexOf("PK")!=-1 || tmpModel=="ET")?_wtype.toUpperCase():tmpModel.toUpperCase();
+										var tmpWtype = util_game.showTxt(xmlnode.Node(tmp_game, "WTYPE_"+getType).innerHTML);
+										nowWtype = _wtype.replace(new RegExp(_wtype, "gi"), tmpWtype);
+										nowRtype = _rtype.replace(new RegExp(_wtype, "gi"), tmpWtype);
+									}else{
+										nowWtype = _wtype;
+										nowRtype = _rtype;
+									}
+									
+									if(_gid !=null && ECID !=null && nowRtype !=null){
+										var chg_ior = nowOBTGameHash[ECID][gid]["ior_"+_rtype.toLowerCase()];
+										chgColorID = "OBT_bet_"+_gid+"_"+ECID+"_"+_rtype;
+										var isChg = (typeof(gid_rtype_ior[chgColorID]) != "undefined" && gid_rtype_ior[chgColorID] != chg_ior && chg_ior*1!=0 && gid_rtype_ior[chgColorID]*1!=0 && !isClickOBT);
+										chgColorIor[chgColorID]=isChg;
+										gid_rtype_ior[chgColorID] = chg_ior;
+									}
+		
+									if(obj){
+										obj.gtype = top.choice_gtype;
+										var tmpShowType = "";
+										if(top.choice_showtype == "mygame"){
+											tmpShowType = top["myGameHash"][top.choice_gtype][ECID]["showtype"];
+										}else if(isSpecialGame == "Y"){
+											var myGameShowtype = more_param_obj[ECID].myGameShowtype;
+											tmpShowType = top.choice_showtype;
+											switch(myGameShowtype){
+												case "rb":
+													tmpShowType = "live";
+													break;
+												case "fu":
+												case "em":
+													tmpShowType = "early";
+													break;
+		
+											}
+										}else{
+											tmpShowType = top.choice_showtype;
+										}
+		
+										obj.showtype = tmpShowType;
+										obj.gid = _gid;
+										obj.ecid = ECID;
+										obj.rtype = nowRtype;
+										obj.wtype = nowWtype;
+										obj.chose_team = nowRtype.substr(nowRtype.length-1,1);
+										if(util.in_array(_wtype, needsTransWtype)) obj.remain_rtype = _rtype;
+										if(util_game.checkWtypeIsSingle2016(nowWtype) || util_game.checkWtypeIsDouble2016(nowWtype) || util_game.checkWtypeIsSingle2017(nowWtype)){
+											obj.chose_team = nowRtype;
+										}
+										obj.is_rb = is_rb;
+										obj.imp = _imp;
+										obj.ptype = _ptype;
+										obj.gameObj = tmp_game;
+										obj.ioratio = util_game.getIoratio(chg_ior, null, _rtype);
+										var typeName = "";
+										if(top.specialClick=="special")typeName = "special";
+										if(top.choice_showtype=="mygame")typeName = "mygame";
+										obj.f = util_game.checkBetFrom(typeName,"O");
+									
+										util.addEvent(obj, "click", _self.showBetEvent, obj);
+										
+									}
+								}
+								
+								
+							}
+						}
+					}
+				}else{
+					if(model == "SFS"){
+						var data = new Object();
+						data["imp"] = _imp;
+						data["tmp_game"] = tmp_game;
+						data["ptype"] = _ptype;
+						data["ecid"] = ECID;
+						_self.setSFSClick(data);
+					}else{
+						var wtype_ary = IOR[ior_key];
+						var pdIorAry = new Array();
+						for(var _wtype in wtype_ary){
+							if(model.match(/PD/)){
+								if(model.match(/\bH|\bETH/)){
+									pdIorAry = pdIorAry.concat(pdIorHead["ec"+ECID+"_H"]);
+								}else{
+									pdIorAry = pdIorAry.concat(pdIorHead["ec"+ECID]);
+								}
+								wtype_ary[_wtype] = pdIorAry;
+							}
+							for(var a=0 ; a < wtype_ary[_wtype].length; a++){
+								var _rtype = wtype_ary[_wtype][a];
+								var gidAry = new Array(gid, hgid);
+								if(gid2!=null) gidAry.push(gid2);
+								var obj = null;
+								var _gid = null;
+								var nowWtype = "";
+								var nowRtype = "";
+								for(var i=0; i<gidAry.length; i++){
+									obj = _self.getIorObj(gidAry[i], ECID, _rtype, true);
+									if(obj){
+										_gid = gidAry[i];
+										break;
+									}
+								}
+								
+								if(util.in_array(_wtype, needsTransWtype)){
+									if(model.indexOf("ET")!=-1 && model!="ET") model = model.replace(/ET/,"");
+									var getType = (model.match(/PK|CN|RN/) || model=="ET")?_wtype.toUpperCase():model.toUpperCase();
+									var tmpWtype = util_game.showTxt(xmlnode.Node(tmp_game, "WTYPE_"+getType).innerHTML);
+									nowWtype = _wtype.replace(new RegExp(_wtype, "gi"), tmpWtype);
+									nowRtype = _rtype.replace(new RegExp(_wtype, "gi"), tmpWtype);
+								}else{
+									if(_wtype.match(/PD/) && model.match(/\bH|\bETH/)){
+										nowWtype = "H"+_wtype;
+									}else{
+										nowWtype = _wtype;
+									}
+									nowRtype = _rtype;
+								}
+								
+								if(_gid !=null && ECID !=null && nowRtype !=null){
+									var chg_ior = nowOBTGameHash[ECID][gid]["ior_"+_rtype.toLowerCase()]; 
+									chgColorID = "OBT_bet_"+_gid+"_"+ECID+"_"+_rtype;
+									var isChg = (typeof(gid_rtype_ior[chgColorID]) != "undefined" && gid_rtype_ior[chgColorID] != chg_ior && chg_ior*1!=0 && gid_rtype_ior[chgColorID]*1!=0 && !isClickOBT);
+									chgColorIor[chgColorID]=isChg;
+									gid_rtype_ior[chgColorID] = chg_ior;
+								}
+
+								if(obj){
+
+									obj.gtype = top.choice_gtype;
+
+									var tmpShowType = "";
+									if(top.choice_showtype == "mygame"){
+										tmpShowType = top["myGameHash"][top.choice_gtype][ECID]["showtype"];
+									}else if(isSpecialGame == "Y"){
+										var myGameShowtype = more_param_obj[ECID].myGameShowtype;
+										tmpShowType = top.choice_showtype;
+										switch(myGameShowtype){
+											case "rb":
+												tmpShowType = "live";
+												break;
+											case "fu":
+											case "em":
+												tmpShowType = "early";
+												break;
+
+										}
+									}else{
+										tmpShowType = top.choice_showtype;
+									}
+
+									obj.showtype = tmpShowType;
+									obj.gid = _gid;
+									obj.ecid = ECID;
+									obj.rtype = nowRtype;
+									obj.wtype = nowWtype;
+									obj.chose_team = nowRtype.substr(nowRtype.length-1,1);
+									if(util.in_array(_wtype, needsTransWtype)) obj.remain_rtype = _rtype;
+									if(util_game.checkWtypeIsSingle2016(nowWtype) || util_game.checkWtypeIsDouble2016(nowWtype) || util_game.checkWtypeIsSingle2017(nowWtype)){
+										obj.chose_team = nowRtype;
+									}
+									obj.is_rb = is_rb;
+									obj.imp = _imp;
+									obj.ptype = _ptype;
+									obj.gameObj = tmp_game;
+									obj.ioratio = util_game.getIoratio(chg_ior, null, _rtype);
+									var typeName = "";
+									if(top.specialClick=="special")typeName = "special";
+									if(top.choice_showtype=="mygame")typeName = "mygame";
+									obj.f = util_game.checkBetFrom(typeName,"O");
+									
+									util.addEvent(obj, "click", _self.showBetEvent, obj);
+									
+								}
+							}	
+						}
+					}
+					
+				}
+
+				
+			}
+		}
+	}
+
+	_self.setSFSClick = function(data){
+		var obj = null;
+		var targetECID = data.ecid;
+		for(var _id in sfsClickHash){
+			var splitObj = _id.split("_");
+			var _sgid = splitObj[1];
+			var _ecid = splitObj[2];
+			var _rtype = splitObj[3];
+			var tmp_game = data.tmp_game;
+			var _imp = data.imp;
+			var _ptype = data.ptype;
+			var ior_val = sfsClickHash[_id]["ioratio"];
+
+			obj = dom.getElementById(_id);
+			obj.gid = _sgid;
+			obj.ecid = _ecid;
+			obj.gtype = top.choice_gtype.toUpperCase();
+			obj.showtype = top.choice_showtype;
+			obj.rtype = _rtype;
+			obj.ioratio = ior_val;
+			obj.rtype_name = sfsClickHash[_id]["rtype_name"];
+			obj.gameObj = tmp_game;
+			obj.bet_now = "SFS";
+			obj.wtype = "FS";
+			obj.chose_team = _rtype;
+			obj.imp = _imp;
+			obj.ptype = _ptype;
+
+			var chgColorID = "bet_"+_sgid+"_"+_ecid+"_"+_rtype;
+			var isChg = (typeof(gid_rtype_ior[chgColorID]) != "undefined" && gid_rtype_ior[chgColorID] != ior_val && ior_val*1!=0 && gid_rtype_ior[chgColorID]*1!=0);
+			chgColorIor[chgColorID]=isChg;
+			gid_rtype_ior[chgColorID] = ior_val;
+
+			var typeName = "";
+			if(top.specialClick=="special")typeName = "special";
+			if(top.choice_showtype=="mygame")typeName = "mygame";
+			obj.f = util_game.checkBetFrom(typeName,"R");
+			util.addEvent(obj, "click", _self.showBetEvent, obj);
+		}
+	}
+
+	_self.getOBTLayer = function(ecid, _name ,strongMODEL){
+			var is_rb = isP3_R[ecid];
+			var type = _name.toUpperCase();
+			var strR = (isMixPage && !is_rb && type.match(/CN|RN|PD|WI/))? type+"_R":type;
+			var isMyGameR = (top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][ecid]["showtype"]!="live");
+			var isMyGameLive = (top.choice_showtype=="mygame" && top["myGameHash"][top.choice_gtype][ecid]["showtype"]=="live");
+			var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+			if((isMyGameR || (isSpecialGame == "Y" && !is_rb)) && type.match(/CN|RN|PD|WI/)) var strR = type+"_R";
+			if(type.indexOf("MIX") != -1 && (isMyGameLive || (isSpecialGame == "Y" && is_rb) || (isMixPage && is_rb)))var strR = type+"_live";
+			if(type.match(/PD/)){
+				var tmpStr = "DRAW";
+				if(strongMODEL != "N")tmpStr = (strongMODEL == "H")?"HOST":"CUSTOMER";
+				strR += "_"+tmpStr;
+			}
+			return dom.getElementById("model_OBT_"+strR);
+	}
+
+	_self.closeOBT = function(MouseClick, tarObj){
+			OBT_closed = tarObj["ECID"];
+			if(clusterize_sw) _self.updateOBTRowData("remove", "");
+			top["showOBT"] = "";
+			var menuShow = dom.getElementById("div_OBT_menu_"+tarObj["ECID"]);
+			util.removeClass(menuShow, "on");
+			util.removeEvent(tarObj["closeBtn"],"click");
+			if(_lastOBT_tab!=null) util.removeClass(_lastOBT_tab, "on");
+			if(tarObj["closeBtn"]!=null) tarObj["closeBtn"].style.display = "none";
+			if(tarObj["closeObj"]!=null) tarObj["closeObj"].style.display = "none";
+			_lastOBT_tab = null;
+			_lastOBT_div = null;
+			_self.showOBTLoading(tarObj["ECID"], false);
+	}
+
+	_self.initCourt = function(){
+		if(_lastOBT_div!=null){
+			_lastOBT_div.innerHTML = "";
+			_lastOBT_div.style.display = "none";
+		}
+	}
+
+	_self.getCourtOpen = function(gameObj, _courtMode ,model){
+		var hash = new Object();
+		hash["FT"] = new Array("REH","REC","ROUH","ROUC","RH","RC","OUH","OUC");
+		hash["HT"] = new Array("HREH","HREC","HROUH","HROUC","HRH","HRC","HOUH","HOUC");
+		var Court = hash[_courtMode];
+		for(var i=0; i < gameObj.length; i++){
+			var tmp_game = gameObj[i];
+			var _gid = _xmlnode.Node(tmp_game, "GID").innerHTML;
+			if(model.match(/PD/)){
+				if(_courtMode == "FT"){
+					var gopen = _xmlnode.Node(tmp_game, "GOPEN").innerHTML;
+					var pd_sw = _xmlnode.Node(tmp_game, "PD_SW").innerHTML;
+					if(gopen == "N" || pd_sw == "N")return false;
+					else return true;
+				}else{
+					var hgopen = _xmlnode.Node(tmp_game, "HGOPEN").innerHTML;
+					var hpd_sw = _xmlnode.Node(tmp_game, "HPD_SW").innerHTML;
+					if(hgopen == "N" || hpd_sw == "N")return false;
+					else return true;
+				}
+			}
+			for(var a=0;a<Court.length;a++){
+				var _val = "";
+				if(mainIor["gid_"+_gid]){
+					_val = mainIor["gid_"+_gid]["IOR_"+Court[a]];
+				}else{
+					_val = _xmlnode.Node(tmp_game, "IOR_"+Court[a]).innerHTML;
+				}
+				if(_xmlnode.Node(tmp_game, "IOR_"+Court[a], false).length!=0 && _val!="" && _val*1!=0) return true;
+			}
+		}
+		return false;
+	}
+
+	_self.getHNIKE = function(gameObj){
+		for(var i=0; i < gameObj.length; i++){
+			var tmp_game = gameObj[i];
+			var _hnike = _xmlnode.Node(tmp_game, "HNIKE").innerHTML;
+			if(_hnike=="Y") return false;
+		}
+		return true;
+	}
+
+    _self.initOBTChgCourt = function (xmlnode, ecObj, divShow) {
+			var tmp_ec = ecObj[0];
+			var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+			var model = xmlnode.Node(tmp_ec, "model").innerHTML.toUpperCase();
+			
+			var menuObj = dom.getElementById("div_OBT_show_"+ECID);
+			if(menuObj==null) return;
+			var pageIndex = top["showOBT"].split("_")[2];
+			var gameIndex = top["showOBT"].split("_")[3];
+			var isEarly = top["showOBT"].split("_")[4];
+			var objidsAry = new Object();
+			objidsAry["RE"] = ",COURT_RE,COURT_HRE,";
+			objidsAry["ROU"] = ",COURT_ROU,COURT_HROU,";
+			objidsAry["R"] = ",COURT_R,COURT_HR,";
+			objidsAry["OU"] = ",COURT_OU,COURT_HOU,";
+			objidsAry["MIX"] = ",COURT_MIX,COURT_HMIX,";
+			objidsAry["PD"] = ",COURT_PD,COURT_HPD,";
+			var courtAry = new Object();
+			courtAry["RE"] = new Array("RE","HRE");
+			courtAry["ROU"] = new Array("ROU","HROU");
+			courtAry["R"] = new Array("R","HR");
+			courtAry["OU"] = new Array("OU","HOU");
+			courtAry["MIX"] = new Array("MIX","HMIX");
+			courtAry["PD"] = new Array("PD","HPD");
+			var _model = model.replace(/H/,"").replace(/ET/,"");
+			var isET = (model.indexOf("ET")!=-1);
+			var objids = objidsAry[_model];
+			var CourtAry = courtAry[_model];
+			var ary = util.getObjAry(menuObj, objids);
+			var gameObj = xmlnode.Node(tmp_ec, "game", false);
+			var is_rb = (isP3_R[ECID]?"Y":"N");
+			if(CourtAry){
+				for(var i = 0; i < CourtAry.length; i++){
+					var chose_model = (isET)? "ET"+CourtAry[i] : CourtAry[i];
+					util.addEvent(ary["COURT_"+CourtAry[i]], "click", _self.chgCourt, {"obj":ary["COURT_"+CourtAry[i]],"ECID":ECID,"chose_model":chose_model,"pageIndex":pageIndex,"gameIndex":gameIndex,"isEarly":isEarly});
+				}
+				
+				if(top.choice_showtype!="live" && is_rb=="N"){
+					var needFT = _self.getCourtOpen(gameObj, "FT" ,model);
+					var needHT = _self.getCourtOpen(gameObj, "HT" ,model);
+					// ary["COURT_"+CourtAry[0]].style.display = (needFT)?"":"none";
+					ary["COURT_"+CourtAry[1]].style.display = (needHT)?"":"none";
+
+					if(_lastCourt_tab==null){
+						
+						if(!needFT && needHT){
+							_lastCourt_tab = ary["COURT_"+CourtAry[1]];
+							top["showOBT"] = ECID+"_"+CourtAry[1] + "_" + pageIndex + "_" + gameIndex + "_" + isEarly;
+						}else{
+							_lastCourt_tab = ary["COURT_"+CourtAry[0]];
+							top["showOBT"] = ECID+"_"+CourtAry[0] + "_" + pageIndex + "_" + gameIndex + "_" + isEarly;
+						}
+					}
+					
+					var lastTab_id = _lastCourt_tab.getAttribute("id");
+					var isHalf = lastTab_id.split("_")[1].match(/\bH/);
+					var FT_model = model.replace(/H/,"");
+                    if(!needHT && isHalf && (model!=FT_model)){
+                        _self.showOBTLoading(ECID, true);
+                        top["showOBT"] = top["showOBT"].replace(/H/,"");
+                        _lastCourt_tab = ary["COURT_"+CourtAry[0]];
+                        _self.getOBT(FT_model, ECID, true ,isEarly);
+                    }
+					if(_model.match(/PD/)){
+						if(!needHT)util.addClass(ary["COURT_PD"], "off");
+						if(!needFT && needHT){
+							util.addClass(ary["COURT_HPD"], "off");
+							if(!model.match(/HPD|ETHPD/)){
+								var tmpHalfWtype = model.match(/ET/)?"ETHPD":"HPD";
+								_self.showOBTLoading(ECID, true);
+								top["showOBT"] = ECID+"_"+tmpHalfWtype + "_" + pageIndex + "_" + gameIndex + "_" + isEarly;
+								_lastCourt_tab = ary["COURT_"+CourtAry[1]];
+								_self.getOBT(tmpHalfWtype, ECID, true ,isEarly);
+							}
+						}
+					}
+				}else{
+					var hideHT = false;
+					var hideFT = false;
+					if(_model.match(/PD/)){
+						var hgopen = xmlnode.Node(gameObj[0], "hgopen").innerHTML.toUpperCase();
+						var pd_sw = xmlnode.Node(gameObj[0], "pd_sw").innerHTML.toUpperCase();
+						var hpd_sw = xmlnode.Node(gameObj[0], "hpd_sw").innerHTML.toUpperCase();
+						var hnike = xmlnode.Node(gameObj[0], "hnike").innerHTML.toUpperCase();
+						hideHT = (hgopen == "N" || hpd_sw == "N" || hnike == "N");
+						hideFT = (pd_sw == "N");
+						if(hideHT)util.addClass(ary["COURT_PD"], "off");
+						if(hideFT && !hideHT){
+							util.addClass(ary["COURT_HPD"], "off");
+							if(!model.match(/HPD|ETHPD/)){
+								var tmpHalfWtype = model.match(/ET/)?"ETHPD":"HPD";
+								_self.showOBTLoading(ECID, true);
+								top["showOBT"] = ECID + "_" + tmpHalfWtype + "_" + pageIndex + "_" + gameIndex + "_" + isEarly;
+								_lastCourt_tab = ary["COURT_"+CourtAry[1]];
+								_self.getOBT(tmpHalfWtype, ECID, true ,isEarly);
+							}
+						}
+					}else{
+						hideHT = _self.getHNIKE(gameObj);
+					}
+					ary["COURT_"+CourtAry[1]].style.display = (hideHT)?"none":"";
+					if(_lastCourt_tab==null) _lastCourt_tab = ary["COURT_"+CourtAry[0]];
+
+					var lastTab_id = _lastCourt_tab.getAttribute("id");
+					var isHalf = lastTab_id.split("_")[1].match(/\bH/);
+					var FT_model = model.replace(/H/,"");
+                    if( hideHT && isHalf && (model!=FT_model)){
+                        _self.showOBTLoading(ECID, true);
+                        top["showOBT"] = top["showOBT"].replace(/H/,"");
+                        _lastCourt_tab = ary["COURT_"+CourtAry[0]];
+                        _self.getOBT(FT_model, ECID, true ,isEarly);
+                    }
+				}
+			}
+	}
+
+	_self.chgCourt = function(evt, hash){
+			isClickOBT = (evt!=null);
+			nowOBTShow = "FT";
+			var tarObj = hash["obj"];
+			var tarECID = hash["ECID"];
+			var courtname = top["showOBT"];
+			var isEarly = hash["isEarly"];
+			if(_lastCourt_tab!=null) util.removeClass(_lastCourt_tab, "on");
+			if(tarObj) util.addClass(tarObj, "on");
+			_lastCourt_tab = tarObj;
+			
+			var chose_model = hash["chose_model"];
+			if(chose_model.match(/\bH|\bETH/)){
+				nowOBTShow = "HT";
+			}
+			if(evt!=null) _self.showOBTLoading(tarECID, true);
+			
+			_self.getOBT(chose_model, tarECID, isClickOBT ,isEarly);
+			top["showOBT"] = tarECID + "_" + chose_model + "_" + hash["pageIndex"] + "_" + hash["gameIndex"] + "_" + hash["isEarly"];
+	}
+
+	_self.getModelComplete_FS = function (par) {
+		if(par.action == "click")openHash = new Object();
+		if (par.needGet) {
+			_self.getData_FS();
+		} else {
+			_self.parseData_FS(_xmlnode);
+		}
+	}
+
+	_self.getData_FS=function(){
+		var param = "";
+		var gtype = (top.choice_gtype != "")?top.choice_gtype.toUpperCase():postHash["gtype"].toUpperCase();
+		param += top.param;
+		param += "&p=get_game_list_FS";
+		if (postHash["url_param"]) param += "&" + postHash["url_param"];
+
+		param += "&gtype=" + gtype;
+		var showtypeTrans = new Object; 
+		showtypeTrans["today"] = "FT"; 
+		showtypeTrans["early"] = "FU"; 
+		showtypeTrans["live"] = "RB";
+		if(top.specialClick == "special" || top.outrightsClick == "outrights"){
+			param += "&search=all";
+			if(postHash["nowClickTabTs"]){
+				param += "&nowClickTabTs=" + postHash["nowClickTabTs"];
+			}
+
+		}
+		else param += "&showtype=" + showtypeTrans[top.choice_showtype];
+		param += "&rtype=" + top.choice_rtype;
+		if(_self.paramHash["lid"])param += "&league_id=" + _self.paramHash["lid"];
+		param += "&date="+(postHash["date"]||"");
+		param += "&special="+top.specialClick;
+		
+		if(top.specialClick == "special")param += "&fs_count="+top.specialGame.FS;
+		
+
+		
+		hr = new win.HttpRequestRetry(win.HttpRequest, config_set.get("RETRY_TIME"), config_set.get("RETRY_LIMIT"),null);
+		hr.setParentclass(childClass);
+		hr.addEventListener("onError", _self.onError);
+		hr.addEventListener("LoadComplete", _self.LoadGameComplete_FS);
+		hr.loadURL(top.m2_url, "POST", param);
+	}
+
+	_self.LoadGameComplete_FS = function (xml) {
+		var tmp_xml;
+		_self.paramHash["errorMsg"] = util.showConnectMsg(xml);
+		if(util.alertConnectMsg(_self.paramHash["errorMsg"]))  return;
+		if(top.specialClick == "special"){
+			if(top.specialGame.cup_postToFrontend_sw!="Y" && top.specialGame.mode=="CUP"){
+				parentClass.dispatchEvent("GoHome", {});
+				return;
+			}
+			var nowModelRtype = top.game_model.split("_")[2];
+			if(nowModelRtype != top.choice_rtype){
+				return;
+			}
+		}
+		tmp_xml = util.parseXml(xml);
+		_xmlnode = tmp_xml;
+		var nowClickTabTs = _xmlnode.Node(_xmlnode.Root[0],"nowClickTabTs").innerHTML;
+		if(postHash["back"] != "Y" && nowClickTabTs != ""){
+			if(nowClickTabTs != top["specialGame"]["clickTabTs"]){
+				console.log("冠軍特殊TS不同，阻擋!!!! [ts] = ",nowClickTabTs,"top值ts = ",top["specialGame"]["clickTabTs"]);
+				return;
+			}
+		}
+
+
+		_self.parseData_FS(tmp_xml);
+	}
+
+	_self.parseData_FS = function (xmlnode) {
+
+		var div_show = dom.getElementById("div_show");
+		var xmdObj = new Object();
+		var codeAry = new Array("607","619","621");
+		sportFrame.setPostHash(postHash);
+
+		xmdObj["code"] = xmlnode.Node(xmlnode.Root[0],"code");
+		if(xmdObj["code"].innerHTML=="noSpecialGameData"){
+			sportFrame.showSportMenu({"isShow": false });
+			dom.getElementById("div_nodata").style.display="";
+			div_show.innerHTML = "";
+			sportFrame.setTitle("special",{"title":top.specialGame.title});
+			parentClass.dispatchEvent("showLoading",{"isShow":false});
+			_self.showGameLoading(false);
+			return;
+		}
+
+		if(util.in_array(xmdObj["code"].innerHTML,codeAry)){
+			var zero_ary = new Array();
+			var zeroObj = new Object();
+			var needHideGid = new Array();
+			xmdObj["game"] = xmlnode.Node(xmlnode.Root[0],"game", false);
+			if(top.specialClick == "")sportFrame.showSportMenu({"isShow":true});
+			// if(top.choice_filter == "FS" || top.outrightsClick == "outrights")sportFrame.showSportMenu({"isShow":true});
+			// else sportFrame.showSportMenu({"isShow":false});
+			if(xmdObj["game"].length > 0){
+				dom.getElementById("main_content").className = "content_sport "+top.choice_gtype;
+				var close_count = 0;
+				for(var i = 0 ; i < xmdObj["game"].length; i++){
+					var sw_gopen = xmlnode.Node(xmdObj["game"][i],"gopen").innerHTML;
+					if(sw_gopen=="Y"){
+						dom.getElementById("div_nodata").style.display="none";
+						break;
+					}else{
+						close_count++;
+					}
+				}
+				if(close_count==xmdObj["game"].length){
+					dom.getElementById("div_nodata").style.display="";
+					div_show.innerHTML = "";
+					if(top.specialClick == "special"){
+						sportFrame.setTitle("special",{"title": top.specialGame.title});
+					}else{
+						var tmpLegName = "";
+						if(top.choice_showtype == "early" && top.choice_filter == "FS"){
+							tmpLegName = postHash["headername"];
+						}else tmpLegName = LS.get("showtype_fs");
+	
+						sportFrame.setTitle("league",{"gtype":top.choice_gtype, "league":tmpLegName});
+					}
+					parentClass.dispatchEvent("showLoading",{"isShow":false});
+					_self.showGameLoading(false);
+					return;
+				}
+			}else{
+				dom.getElementById("div_nodata").style.display="";
+				div_show.innerHTML = "";
+				if(top.specialClick == "special"){
+					sportFrame.setTitle("special",{"title": top.specialGame.title});
+				}else{
+					var tmpLegName = "";
+					if(top.choice_showtype == "early" && top.choice_filter == "FS"){
+						tmpLegName = postHash["headername"];
+					}else tmpLegName = LS.get("showtype_fs");
+
+					sportFrame.setTitle("league",{"gtype":top.choice_gtype, "league":tmpLegName});
+				}
+				parentClass.dispatchEvent("showLoading",{"isShow":false});
+				_self.showGameLoading(false);
+				return;
+			}
+
+			for(var _gid in swHash){  
+				if(xmdObj["game"]["gid"+_gid]==null){
+					swHash[_gid]=null;
+				}
+			}
+
+			var tmp_screen="";
+			var fs_lastTime="";
+			var fs_lastLeague="";
+			var fs_def_open = 0;
+			for(var j=0; j<xmdObj["game"].length; j++){
+				fs_def_open++;
+				var tmp_game = xmdObj["game"][j];
+				xmdObj["gtype"] = xmlnode.Node(tmp_game,"FStype");
+				var gtype = xmlnode.Node(tmp_game,"FStype").innerHTML;
+				if(util.in_array(gtype, config_set.get("GTYPEARY"))){																
+					var tmp_body_screen="";
+					var zeroCount = 0;
+					var ior_all_zero = true;
+					xmdObj["rtypes"] = xmlnode.Node(tmp_game,"rtypes", false);
+					for(var k=0; k<xmdObj["rtypes"].length; k++){
+						var ioratio = xmlnode.Node(xmdObj["rtypes"][k],"ioratio").innerHTML;
+						var rtype = xmlnode.Node(xmdObj["rtypes"][k],"rtype").innerHTML;
+						var gid = xmlnode.Node(tmp_game,"gid").innerHTML;
+						if(ioratio*1==0){
+							zero_ary.push("bet_"+gid+"_"+gid+"_"+rtype);
+							zeroCount++;
+						}else{
+							ior_all_zero = false;
+						}
+							
+						if(gid !=null && rtype !=null){
+							chgColorID = "bet_"+gid+"_"+gid+"_"+rtype;
+							var isChg = (typeof(gid_rtype_ior[chgColorID]) != "undefined" && gid_rtype_ior[chgColorID] != ioratio && ioratio*1!=0 && gid_rtype_ior[chgColorID]*1!=0);
+							chgColorIor[chgColorID]=isChg;
+							gid_rtype_ior[chgColorID] = ioratio;
+						}
+
+						var model_game_body = dom.getElementById("model_game_body").innerHTML;
+						model_game_body = model_game_body.replace("<XMP>","").replace("</XMP>","").replace("<xmp>","").replace("</xmp>","");
+						model_game_body = model_game_body.replace(/\*RTYPE\*/g, util.showTxt(xmlnode.Node(xmdObj["rtypes"][k],"rtype").innerHTML));
+						model_game_body = model_game_body.replace(/\*RTYPE_NAME\*/g, util.showTxt(xmlnode.Node(xmdObj["rtypes"][k],"teams").innerHTML));
+						model_game_body = model_game_body.replace(/\*IORATIO\*/g, util.showTxt(util_game.getIoratio(ioratio, null, "FS")));
+						model_game_body = model_game_body.replace(/\*GID\*/g, util.showTxt(xmlnode.Node(tmp_game,"gid").innerHTML));
+						model_game_body = model_game_body.replace(/\*ECID\*/g, util.showTxt(xmlnode.Node(tmp_game,"gid").innerHTML));
+						tmp_body_screen+=model_game_body;
+					}
+																																						
+					var model_game_head = dom.getElementById("model_game_head").innerHTML;
+					model_game_head = model_game_head.replace("<XMP>","").replace("</XMP>","").replace("<xmp>","").replace("</xmp>","");
+					
+					
+					if(ior_all_zero) {
+						fs_def_open--;
+						if(!clickedHash[gid])openHash["game_movie_"+gid] = false; 
+						needHideGid.push(gid);
+					}
+					var body_display = (fs_def_open<2&&!ior_all_zero)? "":"none"; 
+
+					if(openHash["game_movie_"+gid]==null){
+						if(body_display=="none")openHash["game_movie_"+gid] = false;
+						else openHash["game_movie_"+gid] = true;
+					}
+					
+					var _league = (xmdObj["code"].innerHTML=="621" && top.specialGame.mode=="CUP")?xmlnode.Node(tmp_game,"leaguename").innerHTML:xmlnode.Node(tmp_game,"league").innerHTML;
+					var _datetime = xmlnode.Node(tmp_game,"datetime").innerHTML;
+
+					var diff = util.getTimeDiff(top["userData"].timetype);
+					if(Math.abs(diff)>0){
+						var _tmpDate = new Date(_datetime.replace(/-/g,"/")); //safari 15.5版 2024-05-23 00:00:00 (會壞) 2024/05/23 00:00:00 (正常)
+						var newDate = new Date(_tmpDate.getTime()+diff*60*60*1000);
+						var newYear = newDate.getFullYear();
+						var newMonth = util.setZero(newDate.getMonth()+1);
+						var newDay = util.setZero(newDate.getDate());
+						var newHour = util.setZero(newDate.getHours());
+						var newMin = util.setZero(newDate.getMinutes());
+						_datetime = newYear+"-"+newMonth+"-"+newDay+" "+newHour+":"+newMin;
+					}
+					
+					var title_display = "";
+					if( (fs_lastTime==_datetime) && (fs_lastLeague == _league)){
+						title_display = "none";
+					}
+					if(!ior_all_zero)fs_lastTime = _datetime;
+					fs_lastLeague = _league;
+
+					
+					if(swHash[gid]!=null) body_display=swHash[gid];
+					zeroObj[gid] = zeroCount;
+					model_game_head = model_game_head.replace(/\*GAME_TITLE_DISPLAY\*/g, util.showTxt(title_display));
+					model_game_head = model_game_head.replace(/\*GAME_LEAGUE_NAME\*/g, util.showTxt(_league));
+					model_game_head = model_game_head.replace(/\*GAME_DATETIME\*/g, util.showTxt(util.transDateFS(_datetime,top["userData"].langx)));
+					model_game_head = model_game_head.replace(/\*GAME_BODY_DISPLAY\*/g, util.showTxt(body_display));
+					model_game_head = model_game_head.replace(/\*GAME_BODY_CONTENT\*/g, util.showTxt(tmp_body_screen));
+					model_game_head = model_game_head.replace(/\*TEAM_NAME\*/g, util.showTxt(xmlnode.Node(tmp_game,"teamsname").innerHTML));
+					model_game_head = model_game_head.replace(/\*GID\*/g, util.showTxt(xmlnode.Node(tmp_game,"gid").innerHTML));
+					tmp_screen+=model_game_head;		
+				}
+			}	
+			div_show.innerHTML = tmp_screen;																									
+			for(var k=0; k< xmdObj["game"].length; k++){
+				var tmp_game = xmdObj["game"][k];
+				var gtype = xmlnode.Node(tmp_game,"FStype").innerHTML;
+				var last_game = xmdObj["game"][xmdObj["game"].length-1];
+				
+				if(util.in_array(gtype, config_set.get("GTYPEARY"))){
+					var gid = xmlnode.Node(tmp_game,"gid").innerHTML;
+					var last_gid = xmlnode.Node(last_game,"gid").innerHTML;
+					_mc["game_head_"+gid] = dom.getElementById("game_head_"+gid);
+					_mc["game_movie_"+gid] = dom.getElementById("game_movie_"+gid);
+					_mc["fs_show_more_"+gid] = dom.getElementById("fs_show_more_"+gid);
+					_mc["game_head_"+gid].data = gid;
+					
+					util.addEvent(_mc["game_head_"+gid], "click", _self.playMovie, {"body":_mc["game_movie_"+gid],"gid":gid,"LastGid":last_gid});
+
+					if(openHash["game_movie_"+gid]!=null){
+						if(!openHash["game_movie_"+gid]){
+							if(k<1 && !clickedHash[gid] && !util.in_array(gid,needHideGid)){
+								openHash["game_movie_"+gid] = true;
+								_mc["game_movie_"+gid].style.display="";
+								util.addClass(_mc["game_head_"+gid], "on");
+							}
+							else {
+								_mc["game_movie_"+gid].style.display="none";
+								util.removeClass(_mc["game_head_"+gid], "on");
+							}
+						}
+						else {
+							_mc["game_movie_"+gid].style.display="";
+							util.addClass(_mc["game_head_"+gid], "on");
+						}
+					}
+					
+					xmdObj["rtypes"] = xmlnode.Node(tmp_game,"rtypes", false);
+
+					orientationgid.push(gid);
+					orientationxml[gid] = xmlnode.Node(tmp_game,"rtypes", false);
+					orientationobj = zeroObj;
+					var isClick = fsMoreHash.indexOf("fs_show_more_"+gid) != -1;
+					if(getView().viewportwidth < 640){ 
+						_mc["fs_show_more_"+gid].style.display=(xmdObj["rtypes"].length-zeroObj[gid] > 12 && !isClick)?"":"none";
+					}else{ 
+						_mc["fs_show_more_"+gid].style.display=(xmdObj["rtypes"].length-zeroObj[gid] > 24 && !isClick)?"":"none";
+					}
+
+					if(!openHash2["game_movie_"+gid]){
+						util.removeClass(_mc["game_movie_"+gid], "on");
+					}else{
+						util.addClass(_mc["game_movie_"+gid], "on");
+					}
+
+					util.addEvent(_mc["fs_show_more_"+gid], "click", _self.showFSMore, _mc["game_movie_"+gid]);
+		
+					for(var a=0; a< xmdObj["rtypes"].length; a++){
+
+							var rtype = xmlnode.Node(xmdObj["rtypes"][a],"rtype").innerHTML;
+							var rtype_name = xmlnode.Node(xmdObj["rtypes"][a],"teams").innerHTML;
+							var ioratio = xmlnode.Node(xmdObj["rtypes"][a],"ioratio").innerHTML;
+							
+							if(!util_game.checkIoratio(ioratio)) continue;
+							var obj = dom.getElementById("bet_"+gid+"_"+gid+"_"+rtype);
+							obj.gtype = top.choice_gtype;
+							obj.showtype = top.choice_showtype;
+							obj.gid = gid;
+							obj.ecid = gid;
+							obj.rtype = rtype;
+							obj.ioratio = ioratio;
+							obj.rtype_name = rtype_name;
+							obj.gameObj = tmp_game;
+
+							var typeName = "";
+							if(top.specialClick=="special")typeName = "special";
+							if(top.outrightsClick=="outrights")typeName = "outrights";
+							obj.f = util_game.checkBetFrom(typeName,"R");
+							util.addEvent(obj, "click", _self.showBetEventFS, obj);												
+					}																	
+				}									
+			}
+
+			for(var i=0; i<zero_ary.length; i++){														
+				var _id = zero_ary[i];
+				var obj = dom.getElementById(_id);
+				obj.style.display = "none";
+			}
+			var ioratio_closeCount = 0;
+			for(var k=0; k< xmdObj["game"].length; k++){
+				var tmp_game = xmdObj["game"][k];
+				var gid = xmlnode.Node(tmp_game,"gid").innerHTML;
+				var all_close = true;
+				var ior_div = _mc["game_movie_"+gid].children[0];
+				for(var j=0; j<ior_div.children.length; j++){
+					if(ior_div.children[j].style.display==""){
+							all_close = false;
+							break;
+					}
+				}
+				
+				if(all_close) {
+					dom.getElementById("title_fs_"+gid).style.display="none";
+					_mc["game_head_"+gid].style.display="none";		
+					_mc["game_movie_"+gid].style.display="none";		
+					ioratio_closeCount++;
+				}	
+			}
+
+			var isEarlyFS = (top.choice_showtype == "early" && top.choice_filter == "FS" && top.outrightsClick=="")
+
+			if(ioratio_closeCount == xmdObj["game"].length){
+				dom.getElementById("div_nodata").style.display="";
+				div_show.innerHTML = "";
+				if(top.specialClick == "special"){
+					sportFrame.setTitle("special",{"title": top.specialGame.title});
+				}else{
+					if(isEarlyFS){
+						sportFrame.setTitle("league",{"gtype":top.choice_gtype, "league":postHash["headername"]});
+					}else{
+						sportFrame.setTitle("league",{"gtype":top.choice_gtype, "league":LS.get("showtype_fs")});
+					}
+				}	
+				parentClass.dispatchEvent("showLoading",{"isShow":false});	
+				_self.showGameLoading(false);			
+				return;
+			}
+			
+			chgColorIor = util_game.chgIorColor(dom, util, chgColorIor,CookieManager);
+
+					
+			util_game.initSelect(util);
+			if(top.specialClick == "special"){
+				sportFrame.setTitle("special",{"title": top.specialGame.title});
+			}else{
+				if(isEarlyFS){
+					sportFrame.setTitle("league",{"gtype":top.choice_gtype, "league":postHash["headername"]});
+				}else{
+					sportFrame.setTitle("league",{"gtype":top.choice_gtype, "league":LS.get("showtype_fs")});
+				}
+			}
+			parentClass.dispatchEvent("showLoading",{"isShow":false});
+			_self.showGameLoading(false);
+		}
+	}
+
+	_self.playMovie=function(e, targetObj){
+		var gid = targetObj.gid;
+		var game_body = targetObj.body;
+		var last_gid = targetObj.LastGid;
+		var body_show = dom.getElementById("body_show");
+		var title_fs = dom.getElementById("title_fs_"+gid);
+		var game_head = dom.getElementById("game_head_"+gid);
+		var targetPosition = 0;
+		clickedHash[gid] = true;
+		if(openHash[game_body.id] == null){
+			if(game_body.style.display=="none"){
+				openHash[game_body.id] = true;
+				game_body.style.display="";
+				util.addClass(game_head, "on");
+			}else{
+				openHash[game_body.id] = false;
+				game_body.style.display="none";
+				util.removeClass(game_head, "on");
+			}
+		}else{
+			if(openHash[game_body.id]){
+				openHash[game_body.id] = false;
+				util.removeClass(game_head, "on");
+			}else if (!openHash[game_body.id]){
+				openHash[game_body.id] = true;
+				util.addClass(game_head, "on");
+			}
+			game_body.style.display=(!openHash[game_body.id])?"none":"";
+		} 
+
+		if(title_fs.style.display == "none")targetPosition = game_head.offsetTop;
+		else targetPosition = title_fs.offsetTop;
+		if(game_body.style.display == "" && game_body.id == "game_movie_"+last_gid)_self.goToTargetPosition(body_show,targetPosition);
+	}
+
+	_self.goToTargetPosition=function(target,px){
+		target.scrollTop = px;
+	}
+
+	_self.showFSMore = function(e, tarObj){
+		// if(openHash2[tarObj.id] == null){
+		// 	openHash2[tarObj.id] = true;
+		// }else if(openHash2[tarObj.id]){
+		// 	openHash2[tarObj.id] = false
+		// }else if(!openHash2[tarObj.id]){
+		// 	openHash2[tarObj.id] = true;
+		// }
+
+		// if(!openHash2[tarObj.id]){
+		// 	util.removeClass(tarObj, "on");
+		// }else{
+		// 	util.addClass(tarObj, "on");
+		// }
+		if(fsMoreHash.indexOf(e.target.id) == -1)fsMoreHash.push(e.target.id);
+		dom.getElementById(e.target.id).style.display = "none";
+		openHash2[tarObj.id] = true;
+		util.addClass(tarObj, "on");
+		
+	}
+
+	_self.initCheckScroll = function(totalObj, divObj, leftObj, rightObj){
+			var total_w = totalObj.clientWidth;
+			var menu_w = divObj.clientWidth;
+			var scroll_w = divObj.scrollLeft;
+			if(total_w > menu_w){
+				if(scroll_w != 0) util.addClass(leftObj, "on");
+				if(scroll_w != menu_w) util.addClass(rightObj, "on");
+			}else{
+				if(leftObj.classList.contains("on")){
+					util.removeClass(leftObj, "on");
+					util.removeEvent(leftObj, "click");
+				}
+				if(rightObj.classList.contains("on")){
+					util.removeClass(rightObj, "on");
+					util.removeEvent(rightObj, "click");
+				} 
+			}
+			if(leftObj.classList.contains("on")) util.addEvent(leftObj, "click", _self.move, {"click":leftObj ,"div":divObj, "direction":"left", "opposite":rightObj});
+			if(rightObj.classList.contains("on")) util.addEvent(rightObj, "click", _self.move, {"click":rightObj ,"div":divObj, "direction":"right", "opposite":leftObj});
+	}
+
+	_self.move = function(e, hash){
+			var clickObj = hash.click;
+			var divObj = hash.div;
+			var movePix = divObj.clientWidth;
+			var move = (hash.direction=="right")?movePix:movePix*-1;
+			_self.checkScrolltoShow(clickObj, hash.direction, hash.opposite, divObj, move);
+	}
+
+	_self.checkScrolltoShow = function(clickObj, _dir, _oppositeObj, divObj, move){
+			var dirAry = new Object();
+			dirAry["left"] = "right";
+			dirAry["right"] = "left";
+			if(!_oppositeObj.classList.contains("on")){
+				util.addClass(_oppositeObj, "on");
+				util.addEvent(_oppositeObj, "click", _self.move, {"click":_oppositeObj ,"div":divObj, "direction":dirAry[_dir], "opposite":clickObj});
+			}
+			var sl = divObj.scrollLeft + move;
+			divObj.scrollLeft += move;
+
+			if(_dir=="right"){
+				var scroll_w = sl + divObj.clientWidth;
+				if(scroll_w >= divObj.scrollWidth) util.removeClass(clickObj, "on");
+			}else{
+				if(sl <= 0) util.removeClass(clickObj, "on");
+			}	
+	}
+
+	_self.setData=function(_name, count){
+			if(count*1<=0){
+					_mc["symbol_"+_name].style.display = "none";
+			}else{
+					_mc["symbol_"+_name].style.display = "";
+			}
+	}
+
+	_self.showExtraInfo = function(e, hash){
+			var ptype = hash.ptype;
+			var hasEC = hash.hasEC;
+			var _main = hash.mainScore;
+			var _extra = hash.extraScore;
+			var midfield = hash.midfield;
+			var dots = (top["userData"].langx=="en-us")?".":"。";
+			var _msg = "";
+			var _title = "";
+			if(ptype != ""){
+				_msg += "<li>" + LS_game.get("str_ExtraInfo_"+ptype)+ "</li>";
+				if(hasEC=="Y"){
+					if(_main!="" && _extra!=""){
+						var splitMain = _main.split(" - ");
+						var splitExtra = _extra.split(" - ");
+						var HScore = splitMain[0]*1+splitExtra[0]*1;
+						var CScore = splitMain[1]*1+splitExtra[1]*1;
+						var finalScore = HScore + " - " + CScore;
+						_msg += "<br><li>" + LS_game.get("str_ExtraScore_ET") + finalScore + dots + "</li>";
+					}else{
+						if(_main != "")_msg += "<br><li>" + LS_game.get("str_ExtraScore_FULL") + _main + dots + "</li>";
+						else if(_extra != "")_msg += "<br><li>" + LS_game.get("str_ExtraScore_ET") + _extra + dots + "</li>";
+					}
+					if(midfield == "Y")_msg += "<br><li>" + LS.get("mid_content")+"</li>";
+					_title = "<li>" + LS_game.get("str_ExtraTitle_"+ptype)+ "</li>";
+				}
+			}else{
+				if(midfield == "Y"){
+					_title = "<li>" + LS.get("mid_title")+ "</li>";
+					_msg = LS.get("mid_content");
+				}
+			}
+
+			var _par = new Object();
+			_par["_id"] = "info_pop"; 
+			_par["title"] = _title;
+			_par["msg"] = _msg;
+			parentClass.dispatchEvent("showAlertMsg", _par);
+	}
+
+	_self.AlertFantasyInfo = function(e, hash){
+		parentClass.dispatchEvent("showFantasyInfo", hash);
+    }
+
+	_self.clickMore = function(MouseEvent, tarObj){
+			var obj = MouseEvent.target;
+			var playDone = false;
+			var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+			if(obj.id.indexOf("icon_tv_")!=-1){
+				if(getView().viewportwidth >= 1024){		
+					if(dom.getElementById("R_tv_error_msg"))dom.getElementById("R_tv_error_msg").innerHTML = "";
+					if(top.choice_gtype=="ft" && isMixPage && tarObj.isRB=="Y"){
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+						parentClass.dispatchEvent("loadRightScore", {"scFun":_self.playRightTV,"tarObj":tarObj,"obj":obj});
+						parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+					}else{
+						parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+						var tmpShowtype = util_game.transMyGameShowtype(tarObj.myGameShowtype);
+						if((top.choice_showtype.match(/mygame|today|soon|hot/) || isSpecialGame == "Y") && (top.rightShowType!=tmpShowtype) && top.choice_gtype!="ft"){
+							top.rightShowType = tmpShowtype;
+							playDone = parentClass.dispatchEvent("loadRightScore", {"scFun":_self.playRightTV,"tarObj":tarObj,"obj":obj});
+							if(playDone)parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+						}else{
+							playDone = _self.playRightTV(tarObj,obj); 
+							if(playDone)parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+						}
+						
+					}
+				}else{
+					_self.showMore(tarObj);
+				} 
+			}else if(obj.id.indexOf("star_")!=-1 && top.myGame_sw){
+				_self.setMyGame(tarObj,obj);
+			}else if(obj.id.indexOf("icon_forecast_")!=-1){
+				_self.forecastBtnOn(obj.id,true);
+				_self.showForecast(tarObj);
+			}else if(obj.id.indexOf("icon_HT_")!=-1){
+				//var ecid = obj.id.split("icon_HT_")[1];
+				var ecid = tarObj.ECID;
+				if(nowHTECID.indexOf(ecid) != -1)nowHTECID.splice(nowHTECID.indexOf(ecid),1);
+				else nowHTECID.push(ecid);
+				_self.showHalf(ecid);
+				//_self.getData();
+			}else if(obj.id.indexOf("icon_sc_")!=-1){
+				analysisStatus = true;
+				var last_peid = top.rightECID;
+				if(document.getElementById("icon_sc_"+last_peid))document.getElementById("icon_sc_"+last_peid).classList.remove("on");
+				statisticsID = tarObj.peid;
+				nowScoreType = tarObj.scoreType;
+				nowScoreObj = tarObj.mainGame;
+				rightScData["tarObj"] = tarObj;
+				rightScData["obj"] = obj;
+				// if(top.rightECID!=""){
+					parentClass.dispatchEvent("resetRate");
+					parentClass.dispatchEvent("clearJsonData");
+				// }
+				if(document.getElementById(obj.id))document.getElementById(obj.id).classList.add("on");
+				top.rightNowPlay = "ES";
+				top.rightGtype = top.choice_gtype;
+				var tmpShowtype = util_game.transMyGameShowtype(tarObj.myGameShowtype);
+				if((top.choice_showtype.match(/mygame|today|hot/) || isSpecialGame == "Y") && (top.rightShowType!=tmpShowtype) && top.choice_gtype=="es"){
+					top.rightShowType = tarObj.showtype;
+				}else{
+					top.rightShowType = top.choice_showtype;
+				}
+				if(getView().viewportwidth >= 1024){
+					parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+					tarObj["scoreObj"] = null;
+					playDone = parentClass.dispatchEvent("loadRightScore", {"scFun":_self.playRightTV,"tarObj":tarObj,"obj":obj});
+					// var _showtype = (tarObj.isRB=="Y")?"live":top.choice_showtype;
+					// parentClass.dispatchEvent("getAnalysisData", {"peid":tarObj.peid,"showtype":_showtype,"gtype":"es","scoreType":nowScoreType});
+					if(playDone)parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+				}else{
+					top.rightECID = statisticsID;
+					parentClass.dispatchEvent("showAnalysis", {"peid":tarObj.peid,"showtype":top.rightShowType,"gtype":top.choice_gtype,"scoreType":tarObj.scoreType});
+				}
+				last_nowGame = tarObj.nowGame;
+			}else{
+				if(top.choice_gtype=="es"){
+					parentClass.dispatchEvent("resetRate");
+					parentClass.dispatchEvent("clearJsonData");
+				}
+				_self.showMore(tarObj); 
+			}
+	}
+
+	_self.showHalf = function(ecid,dontClear){
+		var icon_HTObj = dom.getElementById("icon_HT_"+ecid);
+		if(icon_HTObj){
+			if(icon_HTObj.classList.contains("on") && !dontClear){
+				util.removeClass(icon_HTObj,"on");
+				_self.parseTmpDataProc({"ecid":ecid,"model":"FT","rtype":"rnou"});
+			}else{
+				util.addClass(icon_HTObj,"on");
+				_self.parseTmpDataProc({"ecid":ecid,"model":"HT","rtype":"rnou"});
+			}
+		}else{
+			// console.log("此ecid : ",ecid,"抓不到物件");
+		}
+	}
+
+	_self.clickHalf = function(e,obj){
+		var ecid = obj.ecid;
+		var model = obj.model;
+		var targetObj = dom.getElementById("icon_"+model+"_"+ecid);
+		var tpyeAry = new Array("FT","HT");
+		var targetData = lastDataHash["ec"+ecid];
+		for(var t=0; t<tpyeAry.length ; t++){
+			util.removeClass(dom.getElementById("icon_"+tpyeAry[t]+"_"+ecid),"on");
+		}
+		if(model == "HT"){
+			util.addClass(targetObj,"on");
+			if(nowHTECID.indexOf(ecid) == -1){
+				nowHTECID.push(ecid);
+			}
+		}else{
+			util.addClass(targetObj,"on");
+			if(nowHTECID.indexOf(ecid) != -1)nowHTECID.splice(nowHTECID.indexOf(ecid),1);
+		}
+		if(obj.rtype == "pd" && pdShowMoreHash.hasOwnProperty(ecid)){
+			pdShowMoreHash[ecid]["heightDiff"]=0;
+		}
+		
+		if(showMoreECID.indexOf(ecid)>=0)showMoreECID.splice(showMoreECID.indexOf(ecid),1);
+		if(clusterize_sw && top.nowPDMode == "all")_self.parseData(_xmlnode);
+		else _self.parseTmpDataProc({"ecid":ecid,"model":model,"rtype":"pd","chgCourt":"Y"});
+	}
+
+	_self.parseTmpDataProc = function(obj){
+		var ecid = obj.ecid;
+		var model = obj.model;
+		var rtype = obj.rtype;
+		var chgCourt = obj.chgCourt;
+		var targetData = lastDataHash["ec"+ecid];
+		var isHalf =  (nowHTECID.indexOf(ecid) == -1)?"N":"Y";
+		var halfStr =  (isHalf == "Y")?"_H":"";
+		var tmpGid =  (isHalf == "Y")?targetData["hgid"]:targetData["gid"];
+		var strongMODEL = (isHalf == "N")?targetData["pd_strong"]:targetData["hpd_strong"];
+		var tmpLayer = _self.getRatioLayer(model,targetData["is_rb"],targetData["isfantasy"],strongMODEL,isHalf).cloneNode(true);
+		var nowZero = (isHalf == "Y")?targetData["ht_allzero"] : targetData["ft_allzero"];
+		var keyAry = new Array("mother","a","b","c","d","e","f","g");
+		var ratioObj = dom.getElementById("ratioShow_"+ecid);
+		
+		
+		var tmpRtype = (targetData["is_rb"] == "Y")?"r"+rtype : rtype;
+		var rAry = GameRatio[tmpRtype];
+		var gameSum = 0;
+		if(top.choice_rtype.match(/pd/)){
+			var targetRtype = (isHalf == "Y")?targetData["hpd_rtypes"] : targetData["pd_rtypes"];
+			if(top.nowPDMode == "choice"){
+				var nowScore = "0-0";
+				if(chgCourt == "Y"){
+					if(top["bet_select"]["ec_"+ecid]){
+						var rtype = top["bet_select"]["ec_"+ecid].split("_")[3];
+						var selectGid = top["bet_select"]["ec_"+ecid].split("_")[1];
+						var isPDrtype = rtype.match(/^H?R?H[1-2]?[0-9]C[1-2]?[0-9]/);
+						if(isPDrtype && (selectGid == tmpGid)){
+							var tmpScore = rtype.replace(/R/,"").replace(/H/,"").replace(/H/,"").replace(/C/,"-");
+							if(targetRtype.match(tmpScore))nowScore = tmpScore;
+							else{
+								if(targetData["score_h"] != "" && targetData["score_c"] != ""){
+									nowScore = targetData["score_h"]+"-"+targetData["score_c"];
+								}
+							}
+						}else{
+							if(targetData["score_h"] != "" && targetData["score_c"] != ""){
+								nowScore = targetData["score_h"]+"-"+targetData["score_c"];
+							}
+						}
+					}else{
+						if(targetData["score_h"] != "" && targetData["score_c"] != ""){
+							nowScore = targetData["score_h"]+"-"+targetData["score_c"];
+						}
+					}
+				}else{
+					if(pdSortHash["ec"+ecid+halfStr] && pdSortHash["ec"+ecid+halfStr]["choice"] != ""){
+						nowScore = pdSortHash["ec"+ecid+halfStr]["choice"];
+					}
+				}
+				// console.log("[ECID] = ",ecid,"[isHalf] = ",isHalf," [目前設定比分] = ",nowScore);
+				_self.setPDHash("ec"+ecid,targetRtype,isHalf,targetData["is_rb"],nowScore);
+
+				if(model == "HT"){
+					tmpLayer.innerHTML = tmpLayer.innerHTML.replace(new RegExp("\\\*GID\\\*", "gi"), targetData["hgid"]);
+				}
+				if(nowZero == "Y"){
+					tmpLayer.innerHTML = tmpLayer.innerHTML.replace(new RegExp("\\\*ALLCLOSE\\\*", "gi"), "lock");
+				}
+				var splitScore = nowScore.split("-");
+				var newHScore = splitScore[0];
+				var newCScore = splitScore[1];
+				tmpLayer.innerHTML = tmpLayer.innerHTML.replace(new RegExp("\\\*SCORE_H\\\*", "gi"), newHScore);
+				tmpLayer.innerHTML = tmpLayer.innerHTML.replace(new RegExp("\\\*SCORE_C\\\*", "gi"), newCScore);
+
+			}else{
+				_self.setPDHash("ec"+ecid,targetRtype,isHalf,targetData["is_rb"]);
+				if(model == "HT"){
+					tmpLayer.innerHTML = tmpLayer.innerHTML.replace(new RegExp("\\\*GID\\\*", "gi"), targetData["hgid"]);
+				}
+				if(nowZero == "Y")tmpLayer.innerHTML = tmpLayer.innerHTML.replace(new RegExp("\\\*ALLZERO\\\*", "gi"), "no_event_pd");
+			}
+			var pdObj = {"ecid":ecid,"div":tmpLayer,"strongMODEL":strongMODEL};
+			tmpLayer = _self.getPDModel(pdObj);
+			rAry = rAry.concat(pdHeadHash["ec"+ecid+halfStr]);
+		}
+		var tmpHTML = tmpLayer.innerHTML;
+		for(var k=0;k<keyAry.length;k++){
+			var nowType = keyAry[k];
+			if(nowType == "mother" || (nowType != "mother" && targetData[nowType+"_sub_gid"])){
+				gameSum++;
+				for(var i =0 ; i < rAry.length; i++){
+					var keys = rAry[i].toUpperCase();
+					var tmpkeys = keys;
+					if(keys.match(/^RATIO_H?RE?[H|C]$/g)){
+						tmpkeys = keys.substring(0, keys.length-1);
+					}
+					if(nowType == "mother"){
+						var vals = targetData[tmpkeys.toLowerCase()]; 
+					}else{
+						if(targetData["now_model"] == "PK")nowType = "pk"+nowType;
+						var vals = targetData[nowType+"_sub_"+tmpkeys.toLowerCase()]; 
+					}
+					if(keys=="ECID" && vals==""){
+						vals = targetData["gidm"];
+					}else if(keys.indexOf("WTYPE")!=-1){ 
+						vals = LS_game.get("str_"+vals);
+					}else if(keys.match(/^RATIO_H?R?RE?[H|C]$/g) && vals!=0){
+						vals = _self.checkRatioR(keys, vals, targetData, nowType);
+						if(keys.indexOf("RATIO_H") != -1)var _key = (nowType == "mother")?"HSTRONG_"+targetData["hstrong"]:nowType.toUpperCase()+"HSTRONG_"+targetData[nowType+"_sub_hstrong"];
+						else _key = (nowType == "mother")?"STRONG_"+targetData["strong"]:nowType.toUpperCase()+"STRONG_"+targetData[nowType+"_sub_strong"];
+						tmpHTML = tmpHTML.replace(new RegExp("\\\*"+_key+"\\\*", "gi"), "strong_team");
+					}else if(keys.match(/^RATIO_H?R?OU?[O|U]$/g) && vals!=0){
+						vals = _self.checkRatioOU(keys, vals, targetData);
+					}else if(keys.indexOf("IOR")!=-1 ){
+						var tag = keys.split("_")[1];
+						var tmp_rtype = tag;
+
+						vals = util_game.getIoratio(vals, null, tmp_rtype);
+						vals = util_game.showTxt(vals);
+						var closeKey = (nowType == "mother")?"CLOSE_"+tag:nowType.toUpperCase()+"CLOSE_"+tag;
+						if(vals*1 == -99){
+							var tmpWtype = tag.substr(0,tag.length-1);
+							tmpHTML = tmpHTML.replace(new RegExp("\\\*"+tmpWtype+"_"+nowType.toUpperCase()+"BLANK\\\*", "gi"), "odd_empty");
+						}
+						else tmpHTML = tmpHTML.replace(new RegExp("\\\*" + closeKey + "\\\*", "i"), util_game.lockIor(vals));
+					}
+					if(nowType == "mother")tmpHTML = tmpHTML.replace(new RegExp("\\\*" + keys + "\\\*", "gi"), util_game.showTxt(vals));
+					else tmpHTML = tmpHTML.replace(new RegExp("\\\*" + nowType.toUpperCase()+keys + "\\\*", "gi"), util_game.showTxt(vals));
+				
+				}
+			}else{
+				var blankKey = nowType.toUpperCase()+"BLANK";
+                tmpHTML = tmpHTML.replace(new RegExp("\\\*" + blankKey + "\\\*", "gi"), "odd_empty");
+			}
+			
+		}
+		if(top.choice_rtype.match(/rnou/))tmpHTML = tmpHTML.replace(new RegExp("\\\*SUM\\\*", "gi"), gameSum);
+		ratioObj.innerHTML = tmpHTML;
+		util_game.initSelect(util);
+		var _xmdObj = new Object();
+		_xmdObj["ec"] = _xmlnode.Node(_xmlnode.Root[0],"ec", false);
+		
+		for(var x=0;x<_xmdObj["ec"].length;x++){
+			var tmp_ec = _xmdObj["ec"][x];
+			var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+			if(ECID != ecid)continue;
+			else {
+				var tmpObj = new Array();
+				tmpObj[0] = tmp_ec;
+				_self.initIorBtn(_xmlnode,tmpObj);
+				if(top.choice_rtype.match(/pd/)){
+					var gameObj = {"ECID":ECID,"GID":targetData["gid"],"HGID":targetData["hgid"]};
+					var nowGID = (isHalf == "Y")?targetData["hgid"]:targetData["gid"];
+					_self.setPDBtn(gameObj);
+					if(top.nowPDMode == "choice")_self.chkPDLimit(ECID,nowGID);
+				}
+				if(top.choice_rtype.match(/rnou/)){
+					var ratioOBJ = _self.setRatioScroll(ECID,"update");
+
+					if(top.mobile == "N"){
+						var iorRDragObj = {"tagName":"ratioR_"+ECID,"total":ratioOBJ["r_total"],"scroll":ratioOBJ["r_scroll"],"isRatio":"Y"};
+						var iorOUDragObj = {"tagName":"ratioOU_"+ECID,"total":ratioOBJ["ou_total"],"scroll":ratioOBJ["ou_scroll"],"isRatio":"Y"};
+						util.dragScroll(dom,"ratioR_"+ECID,_self.startIorClick,_self.stopIorClick,iorRDragObj);
+						util.dragScroll(dom,"ratioOU_"+ECID,_self.startIorClick,_self.stopIorClick,iorOUDragObj);
+					}
+					_self.initSubIorBtn(_xmlnode,ecid);
+				}
+			}
+		}
+	}
+
+	_self.setRatioScroll = function(ecid,action){
+		var retData = new Array();
+		var R_totalObj = dom.getElementById("ratioR_total_"+ecid);
+		var R_scrollObj = dom.getElementById("ratioR_"+ecid);
+		var R_rightObj = dom.getElementById("ratioR_right_"+ecid);
+		var R_leftObj = dom.getElementById("ratioR_left_"+ecid);
+		var totalWidthR = dom.getElementById("totalWidthR_"+ecid);
+
+		var OU_totalObj = dom.getElementById("ratioOU_total_"+ecid);
+		var OU_scrollObj = dom.getElementById("ratioOU_"+ecid);
+		var OU_rightObj = dom.getElementById("ratioOU_right_"+ecid);
+		var OU_leftObj = dom.getElementById("ratioOU_left_"+ecid);
+		var totalWidthOU = dom.getElementById("totalWidthOU_"+ecid);
+
+		if(R_totalObj && R_scrollObj && R_rightObj && R_leftObj){
+			retData["r_total"] = R_totalObj;
+			retData["r_scroll"] = R_scrollObj;
+			if(action == "check")_self.chkRatioScroll(totalWidthR,R_scrollObj,R_rightObj,R_leftObj);
+			else _self.ratioScroll(totalWidthR,R_scrollObj,R_rightObj,R_leftObj);
+		}
+		if(OU_totalObj && OU_scrollObj && OU_rightObj && OU_leftObj){
+			retData["ou_total"] = OU_totalObj;
+			retData["ou_scroll"] = OU_scrollObj;
+			if(action == "check")_self.chkRatioScroll(totalWidthOU,OU_scrollObj,OU_rightObj,OU_leftObj);
+			else _self.ratioScroll(totalWidthOU,OU_scrollObj,OU_rightObj,OU_leftObj);
+		}
+		return retData;
+	}
+
+	_self.forecastBtnOn = function(id,sw){
+		if(id){
+			var tmpObj = dom.getElementById(id);
+			if(tmpObj){
+				if(!sw)util.removeClass(tmpObj,"on");
+				else {
+					nowOpenForecastECID = id;
+					util.addClass(tmpObj,"on");
+				}
+			}
+		}
+	}
+
+	_self.playRightTV = function(tarObj,obj){
+		top["pageTS"]["rightTV"] = util.getTimestamp();
+		var _ecid = tarObj.ECID;
+		var gidm = (top.choice_gtype=="es")?tarObj.peid:tarObj.gidm;
+		var tmpID = (top.choice_gtype=="ft")?_ecid:gidm;
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+
+		if(top.choice_gtype!="es"){
+			var lastObj = document.getElementById("icon_tv_"+top.rightECID);
+			if(top.rightECID != tmpID){
+				if(lastObj)lastObj.classList.remove("now");
+				obj.classList.add("now");
+			}else if(top.rightECID==""){
+				obj.classList.add("now");
+			}
+		}
+
+		top.rightECID = tmpID;
+		top.rightGtype = top.choice_gtype;
+		top.rightRB = tarObj.isRB;
+		if(top.choice_showtype=="mygame" || isSpecialGame == "Y" || isMixPage){
+			top.rightShowType = util_game.transMyGameShowtype(tarObj.myGameShowtype);
+		}else {
+			top.rightShowType = top.choice_showtype;
+		}
+		var mt_icon = dom.getElementById("R_mt_btn"); 
+		if(obj.className.indexOf("icon_tv")!=-1){
+			top.rightNowPlay="TV";
+			if(mt_icon)mt_icon.classList.remove("on");
+		}else if(obj.className.indexOf("icon_match")!=-1){
+			top.rightNowPlay="MT";
+			if(mt_icon)mt_icon.classList.add("on");
+		}else if(obj.className.indexOf("es_statistic")!=-1){
+			top.rightNowPlay="ES";
+			var _showtype = (tarObj.isRB=="Y")?"live":top.choice_showtype;
+			var analysisHash = (tarObj.scoreObj)?tarObj.scoreObj:null;
+			parentClass.dispatchEvent("getAnalysisData", {"peid":top.rightECID,"showtype":_showtype,"gtype":"es","scoreType":nowScoreType,"scoreObj":analysisHash});
+		}
+
+		scDataObj = _self.getScDataObj(tarObj.gameObj,tarObj.mainGame);
+		top.scDataObj = scDataObj;
+		top.resize_mainGame = tarObj.mainGame;
+		top.rightFrom = "game_list";
+
+		parentClass.dispatchEvent("parseRightScoreBoard", scDataObj);
+		echo("[game_list][scDataObj]:",scDataObj);
+		parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":scDataObj["mainGame"], "from":"game_list"});
+
+		if(top.rightNowPlay=="TV" && ( (top.choice_showtype=="live"||(isMixPage && tarObj.isRB=="Y")||((top.choice_showtype=="mygame" || isSpecialGame == "Y") && tarObj.myGameShowtype=="rb") )))parentClass.dispatchEvent("playRightTV", {});
+		dom.getElementById("right_show").scrollTop = 0;
+		first_no_tvmt = false;
+		return true;
+	}
+
+	_self.showMore = function(tarObj){
+		var isFantasy = tarObj.isFantasy;
+        var isToday = tarObj.isToday;
+		var _ecid = tarObj.ECID;
+		var _gidm = tarObj.gidm;
+		var lid = tarObj.lid;
+		var isRB = (tarObj.isRB!=null)?tarObj.isRB:"N";
+		var param = new Object();
+		var choiceGtype = top.choice_gtype.toUpperCase();
+		var _postHash = new Object();
+		var tmpID = (top.choice_gtype=="ft")?_ecid:_gidm;
+		var _myGameShowtype = util_game.transMyGameShowtype(tarObj.myGameShowtype);
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		top.rightRB = isRB;
+		if(isFantasy == "Y"){
+			top.specialClick = "";
+			isSpecialGame = "N";
+            if(isToday == "Y")top.choice_showtype = "today";
+            else top.choice_showtype = "early";
+        }
+		
+		if(top.specialClick == "special")_postHash["specialClick"] = top.specialClick;
+		
+		_postHash["gtype"] = top.choice_gtype;
+		_postHash["showtype"] = (top.choice_showtype.match(/mygame|soon|hot/) || isSpecialGame == "Y" || top.choice_filter == "RB" || (top.choice_filter == "MIX" && isRB=="Y"))?_myGameShowtype:top.choice_showtype;
+		_postHash["isRB"] = isRB;
+		_postHash["lid"] = lid;
+		_postHash["peid"] = tarObj.peid;
+		_postHash["scoreType"] = tarObj.scoreType;
+		_postHash["nowGameNum"] = tarObj.nowGame;
+		_postHash["nowBest"] = tarObj.nowBest;
+		_postHash["league"] = tarObj.league;
+		_postHash["team_h"] = tarObj.team_h;
+		_postHash["team_c"] = tarObj.team_c;
+		_postHash["score_h"] = tarObj.score_h;
+		_postHash["score_c"] = tarObj.score_c;
+		_postHash["retime"] = tarObj.retime;
+		_postHash["datetime"] = tarObj.datetime;
+		_postHash["gid"] = tarObj.gid;
+		_postHash["ptype"] = tarObj.ptype;
+
+		if(top.choice_showtype.match(/mygame|soon|hot/) || isSpecialGame == "Y" || top.choice_filter == "RB" || (top.choice_filter == "MIX" && isRB=="Y"))param["post"] = "showtype="+_myGameShowtype+"&isRB="+isRB;
+		else param["post"] = "showtype="+top.choice_showtype+"&isRB="+isRB;
+
+		
+		_postHash["ecid"] = _ecid;
+		_postHash["gidm"] = _gidm;
+		param["page"] = "game_more_"+choiceGtype;
+	
+		param["postHash"] = _postHash;
+		param["isRB"] = isRB;
+		param["isMyGame"] = (top.choice_showtype=="mygame")?"Y":"N";
+		param["extendsClass"] = "game_more";
+		parentClass.dispatchEvent("bodyGoToPage", param);
+	}
+
+	_self.showGameLoading = function(isShow){
+		_mc["game_loading"].style.display = (isShow)?"":"none";
+		if(isShow){
+			util.addClass(_mc["game_loading"],"loading_on");
+		}else{
+			util.removeClass(_mc["game_loading"],"loading_on");
+		}
+
+		if(needRename && !isShow){
+			_self.bodyRename();
+			needRename = false;
+			top.chgBodyDone = true;
+		}
+	}
+
+	_self.showPDLoading = function(isShow){
+		var pdLoadingObj = dom.getElementById("pd_loading");
+		pdLoadingObj.style.display = (isShow)?"":"none";
+		if(isShow){
+			util.addClass(pdLoadingObj,"pd_loading_on");
+		}else{
+			util.removeClass(pdLoadingObj,"pd_loading_on");
+		}
+	}
+
+	_self.showBetEvent = function(MouseEvent, tarObj){
+		if(isMoving == "Y"){
+			// console.log("移動中，不執行");
+			return;
+		}
+		var _size = util.countSize(top["bet_select"]);
+		if(_size < 10 || util.in_object("ec_"+tarObj.ecid, top["bet_viewdata"])){
+			top.betMode = "fast";
+			var _par = new Object();
+			_par.showtype = tarObj.showtype;
+			_par.ecid = tarObj.ecid;
+			if(FantasyDataHash["ec"+tarObj.ecid]!=null){
+				var tmpfanObj = FantasyDataHash["ec"+tarObj.ecid];
+				var obj = {"system_time":tmpfanObj.systime,
+						"game1_datetime":tmpfanObj.GAMEH_DATETIME,"game1_Leg":tmpfanObj.GAMEH_LEAGUE,"teamA":tmpfanObj.GAMEH_TEAM_H,"teamB":tmpfanObj.GAMEH_TEAM_C,
+						"game2_datetime":tmpfanObj.GAMEC_DATETIME,"game2_Leg":tmpfanObj.GAMEC_LEAGUE,"teamC":tmpfanObj.GAMEC_TEAM_H,"teamD":tmpfanObj.GAMEC_TEAM_C,
+						"fantasy_teamh":tmpfanObj.fantasy_teamh,"fantasy_teamc":tmpfanObj.fantasy_teamc,"isToday":tmpfanObj.isToday};
+				_par.isFantasy = "Y";
+				_par.fantasyObj = obj;
+			}else{
+				_par.isFantasy = "N";
+				_par.fantasyObj = "";
+			}
+			_par.gid = tarObj.gid;
+			_par.wtype = util_game.filterP(tarObj.wtype,false);
+			_par.rtype = util_game.filterP(tarObj.rtype,false);
+			_par.gtype = tarObj.gtype.toUpperCase();
+			_par.chose_team = tarObj.chose_team;
+			_par.imp = tarObj.imp;
+			if(top.choice_gtype=="es"){
+				_par.period = tarObj.period;
+				_par.nowGame = tarObj.nowGame;
+				_par.gameType = tarObj.gameType;
+			}
+			_par.isFromOutside = "Y";
+			if(tarObj.bet_now == "SFS")_par.rtype_name = tarObj.rtype_name;
+			if(tarObj.is_rb!=null) _par.is_rb = tarObj.is_rb;
+			_par.ptype = tarObj.ptype;
+			_par.f = tarObj.f;
+			_par.MSorPOINT = tarObj.MSorPOINT;
+			if(tarObj.bet_now)_par.bet_now = tarObj.bet_now;
+			_par.ioratio = tarObj.ioratio;
+			echo(_par, "showBetEvent");
+
+			if(top["openBets"] && !top["isOrderView"]) parentClass.dispatchEvent("clearBets",{});
+			if(tarObj.remain_rtype!=null) _par.remain_rtype = tarObj.remain_rtype;
+			
+			var game_information = util_game.setSelect(dom,util,{"obj":tarObj, "paramHash":_par});
+			if(!game_information.isRepeat){
+				parentClass.dispatchEvent("showBetSlip",{"isShow":true, "xmlnode":_xmlnode, "gameObj":tarObj.gameObj, "paramHash":_par, "isSameEcid":game_information.isSameEcid});
+			}else{
+				if(top.isSameGame.indexOf(_par.ecid) == -1)top.isSameGame.push(_par.ecid);
+				parentClass.dispatchEvent("reCalcBetslip", {"isRepeat":game_information.isRepeat});
+			}
+		}else{
+			parentClass.dispatchEvent("showAlertMsg", { "target":"message_pop_nobtn", "msg":LS.get("order_limit"), "confirm":"N", "retFun": "" });
+		}
+	}
+
+	_self.showBetEventFS = function(MouseEvent, tarObj){
+		var _size = util.countSize(top["bet_select"]);
+		if(_size < 10 || util.in_object("ec_"+tarObj.ecid, top["bet_viewdata"])){
+			top.betMode = "fast";
+			var _par = new Object();
+			_par.showtype = tarObj.showtype;
+			_par.gid = tarObj.gid;
+			_par.ecid = tarObj.ecid;
+			_par.gtype = tarObj.gtype.toUpperCase();
+			_par.rtype = tarObj.rtype;
+			_par.rtype_name = tarObj.rtype_name;
+			_par.ioratio = tarObj.ioratio;
+			_par.bet_now = "FS";
+			_par.isFromOutside = "Y";
+			_par.f = tarObj.f;
+			echo(_par, "showBetEvent");
+			if(top["openBets"] && !top["isOrderView"]) parentClass.dispatchEvent("clearBets",{});
+			var game_information = util_game.setSelect(dom,util,{"obj":tarObj, "paramHash":_par});
+			if(!game_information.isRepeat){
+				parentClass.dispatchEvent("showBetSlip",{"isShow":true, "xmlnode":_xmlnode, "gameObj":tarObj.gameObj, "paramHash":_par, "isSameEcid":game_information.isSameEcid});
+			}else{
+				parentClass.dispatchEvent("reCalcBetslip", {"isRepeat":game_information.isRepeat});
+			}
+		}else{
+			parentClass.dispatchEvent("showAlertMsg", { "target":"message_pop_nobtn", "msg":LS.get("order_limit"), "confirm":"N", "retFun": "" });
+		}
+	}
+
+	_self.replacePtype=function(ptype){
+			var tmp_ptype = ptype;
+			var base_ary = Array(" - "," -","- ","-");
+			for(i=0; i<base_ary.length; i++){
+					var base = base_ary[i]
+					var pos = tmp_ptype.indexOf(base);
+					if(pos==0){
+						tmp_ptype = tmp_ptype.replace(base, "");
+						break;
+					}
+			}
+			return tmp_ptype;
+	}
+
+	_self.checkRatioR = function(keys, vals, tmp_game_copy ,nowType){
+		var subKey = "";
+		if(nowType && nowType != "mother")subKey = nowType + "_sub_";
+		if(keys.match(/[HALF|MS|POINT]_RATIO_RE?[H|C]$/g)){
+			var HForMS = keys.split("_")[0];
+			var tag = keys.split("_")[2];
+			var tagWtype = tag.substring(0, tag.length-1);
+			var _strRatio = HForMS+"_RATIO_"+tagWtype;
+			var ratio = tmp_game_copy[subKey+_strRatio.toLowerCase()];
+			var _strStrong = HForMS+"_STRONG";
+			var strong = tmp_game_copy[subKey+_strStrong.toLowerCase()];
+			vals = ratio;
+			if(ratio != 0)vals = (( new RegExp(strong + "$").test(tag) )?"-":"+") + ratio;
+			if(vals) vals = vals.replace(/\s/g,"");
+		}else if(keys.match(/^RATIO_H?RE?[H|C]$/g)){
+			var tag = keys.split("_")[1];
+			var strH =  ( /^H/.test(tag) )?"H":"";
+			var tagWtype = tag.substring(0, tag.length-1);
+			var _strRatio = "RATIO_"+tagWtype;
+			var ratio = tmp_game_copy[subKey+_strRatio.toLowerCase()];
+			vals = ratio;
+			var _strStrong = strH+"STRONG";
+			var strong = tmp_game_copy[subKey+_strStrong.toLowerCase()];
+			if(ratio != 0)vals = (( new RegExp(strong + "$").test(tag) )?"-":"+") + ratio;
+			if(vals) vals = vals.replace(/\s/g,"");
+		}
+		return vals;
+	}
+	
+	_self.checkRatioOU = function(keys, vals, tmp_game_copy){
+		if(keys.match(/^RATIO_H?R?OU[O|U]$/g) || keys.match(/^RATIO_R?OU[H|C][O|U]$/g) || keys.match(/[HALF|MS|POINT]?_RATIO_R?OU[H|C]?[O|U]$/g)){
+			if(vals) vals = vals.replace(/U/,"").replace(/O/,"");
+			if(vals) vals = vals.replace(/\s/g,"");
+		}
+		return vals;
+	}
+
+	_self.orientationchange = function(){
+		var orientation = win.Math.abs(win.orientation);
+		if(orientation==90||orientation==0){
+			if(page_sw) RESIZE = true;
+			if(postHash["rtype"]=="fs"){
+				if(navigator.userAgent.indexOf('MIX') > -1 || !isIOS) {
+					setTimeout(_self.orientation90or0,250)
+				}else{
+					setTimeout(_self.orientation90or0,50)
+				}
+			}
+			if(page_sw && !isIOS) _self.showPagination(_totalPage,true);
+		}
+	};
+
+	_self.orientation90or0 = function(){
+		var nowWidth = getView().viewportwidth;
+		for(key in SFSDataHash){
+			var tmpTeamCCount = SFSDataHash[key]["C_LIST"].length;
+			var tmpTeamHCount = SFSDataHash[key]["H_LIST"].length;
+			var tmpTeam = sfsChoseTeam[key].substr(-1);
+			var sfsECID = key.replace(/ec/,"");
+			var show = "";
+			if(showMoreECID.indexOf(sfsECID) == -1){
+				if(nowWidth < 640){
+					show = (tmpTeam=="C" && tmpTeamCCount > 5) || (tmpTeam=="H" && tmpTeamHCount > 5)?"":"none";
+				}else{
+					show = (tmpTeamHCount > 5 || tmpTeamCCount > 5)?"":"none";
+				}
+				if(dom.getElementById("sfs_show_more_"+sfsECID))dom.getElementById("sfs_show_more_"+sfsECID).style.display = show;	
+			}
+		}
+		for(var k=0; k< orientationgid.length; k++){
+			_mc["fs_show_more_"+orientationgid[k]] = dom.getElementById("fs_show_more_"+orientationgid[k]);
+			var isClick = fsMoreHash.indexOf("fs_show_more_"+orientationgid[k]) != -1;
+			var numLimit = 24;
+			if(nowWidth < 640){ 
+				numLimit = 12;
+			}
+			_mc["fs_show_more_"+orientationgid[k]].style.display=(orientationxml[orientationgid[k]].length-orientationobj[orientationgid[k]] > numLimit && !isClick)?"":"none";
+		}
+	}
+
+	_self.exitEvent=function(){
+		_self.removeTouch();
+		parentClass.dispatchEvent("resetHeaderTimer","create");
+		win.removeEventListener("orientationchange", _self.orientationchange);
+		if(clusterize_sw && clusterize) _self.clusterizeDestroy();
+		if(worker_sw && window.Worker && _worker) {
+			_worker.postMessage({"cmd":"closeWorker"});
+		}
+		return true;
+	}
+
+	_self.clusterizeDestroy = function(){
+		clusterize.destroy();
+		clusterize = null;
+	}
+
+	function get(_id){
+		return dom.getElementById(_id);
+	}
+
+	_self.resizeEvent = function(width1024){
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";	
+		if(width1024){
+			if(top.rightECID!=""){
+				if(top.rightNowPlay=="ES"){
+					parentClass.dispatchEvent("closeAnalysis",true);
+					var analysisGameNum = nowScoreObj["SCORE"]["ANALYSIS_GAME"];
+					rightScData["tarObj"]["scoreObj"] = (nowScoreObj["SCORE"])?{"score":nowScoreObj["SCORE"],"nowGame":analysisGameNum}:null;
+					playDone = parentClass.dispatchEvent("loadRightScore", {"scFun":_self.playRightTV,"tarObj":rightScData["tarObj"],"obj":rightScData["obj"]});
+					if(playDone)parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+				}
+				if(top.choice_rtype=="fs" || top.choice_rtype.match("pd"))scDataObj = top.scDataObj;
+				parentClass.dispatchEvent("parseRightScoreBoard", scDataObj);
+			}
+			if(top.rightECID!="")parentClass.dispatchEvent("checkRightLive", {"xmlnode":_xmlnode, "mainGame":top.resize_mainGame, "from":"game_list"});
+			echo("告訴我現在rightPlay的值：",rightPlay);
+			if(rightPlay)parentClass.dispatchEvent("rightResizeEvent", {"act":"defalutPlay"});
+			setTimeout(_self.closeRightLoadingSlowly,"500");
+			if(document.getElementById("icon_tv_"+top.rightECID))document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+		}else{
+			if(top.rightNowPlay=="ES"){
+				var analysisGameNum = nowScoreObj["SCORE"]["ANALYSIS_GAME"];
+				var analysisHash = {"score":nowScoreObj["SCORE"],"nowGame":analysisGameNum};
+				parentClass.dispatchEvent("showAnalysis", {"peid":top.rightECID,"showtype":top.rightShowType,"gtype":"es","scoreType":nowScoreType,"scoreObj":analysisHash});
+			}
+			rightPlay = parentClass.chkTvPlaying();
+			if(top.rightNowPlay!="MT")parentClass.dispatchEvent("resetRightTV", {});
+			if(document.getElementById("icon_tv_"+top.rightECID))document.getElementById("icon_tv_"+top.rightECID).classList.remove("now");
+		}
+	}	
+
+	_self.closeRightLoadingSlowly = function(){
+		parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+	}
+
+    _self.obtScroll = function(e){
+		var xmdObj = new Object();
+		xmdObj["ec"] = _xmlnode.Node(_xmlnode.Root[0],"ec", false);
+
+		for(var j=0; j < xmdObj["ec"].length; j++){
+			var tmp_ec = xmdObj["ec"][j];
+			var ECID = tmp_ec.getAttribute("id").replace(/ec/,"");
+
+			var menuObj = dom.getElementById("div_OBT_menu_"+ECID);
+			if(!menuObj) continue;
+			var tarObj = dom.getElementById("OBT_total_"+ECID);
+			var leftObj = dom.getElementById("OBT_left_"+ECID);
+			var rightObj = dom.getElementById("OBT_right_"+ECID);
+			_self.initCheckScroll(tarObj, menuObj, leftObj, rightObj);
+		}
+	}
+
+	_self.addOBTClick = function(param){
+		var ECID = param.tagName;
+		var nowModel = param.nowModel;
+		var getEarlyGame = param.isEarly;
+		var myGameShowtype = param.myGameShowtype;
+		var isSpecialGame = (top.specialClick != "" && !top.specialGame.isFantasy && top.choice_rtype != "fs")?"Y":"N";
+		var menuObj = dom.getElementById("div_OBT_menu_"+ECID);
+		var isRP3 = (top.choice_showtype == "parlay" && myGameShowtype=="rb")?"Y":"N";
+		var objids = ( (top.choice_showtype == "live" || isRP3 == "Y")?",OBT_RE,OBT_ROU," : ",OBT_R,OBT_OU,");
+		objids+=",OBT_MIX,OBT_CN,OBT_RN,OBT_WI,OBT_ET,OBT_PK,OBT_PD,OBT_SFS,";
+		var pageIndex = (menuObj)?menuObj.getAttribute("data-page"):0;
+		var gameIndex = (menuObj)?menuObj.getAttribute("data-gameindex"):0;
+		var ary = util.getObjAry(menuObj, objids);
+		for(var i = 0; i < OBTAry.length; i++){
+			var tmp_type = (top.choice_showtype.match(/live/) && OBT_rb_Ary[OBTAry[i]]!=null) ? OBT_rb_Ary[OBTAry[i]] : OBTAry[i];
+			if(top.choice_showtype.match(/mygame|parlay|today|soon|hot/) || isSpecialGame == "Y") tmp_type = (myGameShowtype=="rb" && OBT_rb_Ary[OBTAry[i]]!=null)?OBT_rb_Ary[OBTAry[i]] : OBTAry[i];
+			if(OBT_mix_Ary.indexOf(tmp_type) != -1){
+				MixObtRtype[ECID] = tmp_type;
+				tmp_type = "MIX";
+			}
+			var click_type = tmp_type;
+			if(nowModel=="ET") click_type = "ET"+tmp_type;
+			util.addEvent(ary["OBT_" + tmp_type], "click", _self.chgDiv, {"obj" : ary["OBT_" + tmp_type], "ECID" : ECID, "model" : click_type, "pageIndex" : pageIndex, "gameIndex" : gameIndex, "isEarly" : getEarlyGame});
+		}
+	}
+
+	_self.removeOBTClick = function(param){
+		var ECID = param.tagName;
+		var myGameShowtype = param.myGameShowtype;
+		var isRP3 = (top.choice_showtype == "parlay" && myGameShowtype=="rb")?"Y":"N";
+		var menuObj = dom.getElementById("div_OBT_menu_"+ECID);
+		var objids = ( (top.choice_showtype=="live" || isRP3 == "Y")?",OBT_RE,OBT_ROU," : ",OBT_R,OBT_OU,");
+		objids+=",OBT_MIX,OBT_CN,OBT_RN,OBT_WI,OBT_ET,OBT_PK,OBT_PD,OBT_SFS,";
+		var ary = util.getObjAry(menuObj, objids);
+		for(var i = 0; i < OBTAry.length; i++){
+			var tmp_type = ((top.choice_showtype == "live" || isRP3 == "Y") && OBT_rb_Ary[OBTAry[i]]!=null) ? OBT_rb_Ary[OBTAry[i]] : OBTAry[i];
+			if(OBT_mix_Ary.indexOf(tmp_type) != -1)tmp_type = "MIX";
+			if(ary["OBT_" + tmp_type])util.removeEvent(ary["OBT_" + tmp_type], "click");
+		}
+	}
+
+	_self.setMyGame = function(tarObj,obj){
+		var ecidHash = top["myGameHash"][top.choice_gtype];
+		var myGameCnt = util.countSize(ecidHash);
+		var tmpShowType = "";
+		parentClass.dispatchEvent("showGreenBtnProc", true);
+
+		if(!ecidHash[tarObj.myGameID]){
+
+			if(myGameCnt>=25){
+				parentClass.dispatchEvent("showAlertMsg", { "target":"message_pop_nobtn", "msg":LS.get("addMyGame_block"), "confirm":"N", "retFun": "" });
+				return;
+			}
+			ecidHash[tarObj.myGameID] = new Object();
+			if(isMixPage || top.specialClick == "special"){
+				if(tarObj.isRB=="Y"){
+					tmpShowType = "live";
+				}else{
+					tmpShowType = (tarObj.isToday=="Y")?"today":"early"; 
+				}
+			}else{
+				tmpShowType = top.choice_showtype;
+			}
+			ecidHash[tarObj.myGameID]["showtype"] = tmpShowType;
+
+			if(obj) util.addClass(obj, "on");
+
+			parentClass.dispatchEvent("showAlertMsg", { "target":"message_pop_nobtn", "msg":LS.get("addMyGame_success"), "confirm":"N", "retFun": "" });
+			parentClass.dispatchEvent("addMyEventAnimation", {"action":"add"});
+		}else{
+			delete ecidHash[tarObj.myGameID];
+			var totalDataCount = util.getMyGameTotalCount("all");
+			parentClass.dispatchEvent("showMyGameCount", totalDataCount);
+			var noShowFilterMenu = true;
+			if(top.choice_showtype=="mygame" && (my_rightTV[tarObj.myGameID]!=null || statisticsID!="")){ 
+				delete my_rightTV[tarObj.myGameID];
+				var pos = my_rightTVAry.indexOf(tarObj.myGameID);
+				my_rightTVAry.splice(pos,1);
+				var needReloadScore = false;
+				if(tarObj.myGameID==top.rightECID){ 
+					top.rightNowPlay = "";
+					if(my_rightTVAry.length==0){
+						if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+						if(top.rightGtype=="es"){
+							parentClass.dispatchEvent("closeAnalysis");
+							statisticsID = "";
+						}
+						top.rightNowPlay = "";
+						top.rightECID = "";
+						top.rightGtype = "";
+						top.rightRB = "";
+						top.rightShowType = "";
+						parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+					}else{
+						for(var x=0;x<my_rightTVAry.length;x++){
+							var tmp_ecid = my_rightTVAry[x];
+							if(my_rightTV[tmp_ecid]["hasTV"]){ 
+								top.rightECID = my_rightTV[tmp_ecid]["ecid"];
+								top.rightGtype = top.choice_gtype;
+								top.rightNowPlay = "TV";
+								top.rightRB = my_rightTV[tmp_ecid]["isRB"];
+								if((top.rightShowType!=my_rightTV[tmp_ecid]["rightShowType"])&&top.choice_gtype!="ft") needReloadScore = true;
+								top.rightShowType = my_rightTV[tmp_ecid]["rightShowType"];
+								break;
+							}
+							if(top.rightNowPlay=="" && my_rightTV[tmp_ecid]["hasMT"]){ 
+								top.rightECID = my_rightTV[tmp_ecid]["ecid"];
+								top.rightGtype = top.choice_gtype;
+								top.rightNowPlay = "MT";
+								top.rightRB = my_rightTV[tmp_ecid]["isRB"];
+								if((top.rightShowType!=my_rightTV[tmp_ecid]["rightShowType"])&&top.choice_gtype!="ft") needReloadScore = true;
+								top.rightShowType = my_rightTV[tmp_ecid]["rightShowType"];
+							}
+						}
+						
+						if(needReloadScore)parentClass.dispatchEvent("loadRightScore", {"scFun":_self.setRightScore,"tarObj":my_rightTV[top.rightECID]["dataHash"],"obj":my_rightTV[top.rightECID]["xmlHash"]});
+						else _self.setRightScore(my_rightTV[top.rightECID]["dataHash"],my_rightTV[top.rightECID]["xmlHash"]);
+
+						if(getView().viewportwidth >= 1024){
+							parentClass.dispatchEvent("setRightLoading", {"isShow":true});
+							if(top.rightECID!="")parentClass.dispatchEvent("resetRightTV", {});
+							if(document.getElementById("icon_tv_"+top.rightECID))document.getElementById("icon_tv_"+top.rightECID).classList.add("now");
+							parentClass.dispatchEvent("setRightTVDefaultPlay", my_rightTV[top.rightECID]);
+							setTimeout(_self.closeRightLoadingSlowly,"500");
+						}
+					}
+				}
+			}
+
+			if(top.choice_showtype=="mygame"){
+				var _gidm = (top.choice_gtype=="es")?tarObj.peid:tarObj.gidm;
+				var del_id = (tarObj.hasEC=="N")?_gidm:tarObj.myGameID;
+				del_EC=del_id;
+				// dom.getElementById("game_"+del_id).style.display="none";
+				var pos = myLeg[tarObj.lid].indexOf(del_id);
+				if(pos!=-1) myLeg[tarObj.lid].splice(pos,1);
+				var disLeague = true;
+				for(var z=0;z<myLeg[tarObj.lid].length;z++){
+					var gameID = myLeg[tarObj.lid][z];
+					if(dom.getElementById("game_"+gameID).style.display!="none"){
+						disLeague = false;
+						break;
+					}
+				}
+
+				if(top.choice_gtype=="es" && (myGamePageCountHash["main"]*1)>1){
+					noShowFilterMenu = false;
+				}
+				if(disLeague) dom.getElementById("LEG_"+tarObj.lid).style.display="none";
+				var gameType = top.choice_gtype;
+				var GameHash = top.myGameHash[gameType];
+				if(del_EC!="" && Object.keys(GameHash).length != 0){//clusterize_sw && 
+					// var htmlTarget=dom.getElementById("game_"+del_EC);
+					var xmlTarget = "";
+					if(top.choice_gtype=="ft") {
+						xmlTarget = _xmlnode.Node(_xmlnode.Root[0],"ec",false)["ec"+del_EC];
+						xmlTarget.parentNode.removeChild(xmlTarget);
+					}else{
+						for(var key in _jsonData["response"]){
+							var delID = (top.choice_gtype=="es")? _jsonData["response"][key]["PARENT_ID"] : _jsonData["response"][key]["GIDM"];
+							if(delID==del_EC){
+								//console.log(">>>>> 被刪除了，key="+key+",delID="+delID+",del_EC="+del_EC);
+								delete _jsonData["response"][key];
+							}
+						}
+					}
+					
+					var tmpECID = top["showOBT"].split("_")[0];
+					// htmlTarget.parentNode.removeChild(htmlTarget);
+					if(tmpECID == del_EC)top["showOBT"] = "";
+					if(top.choice_gtype=="ft"){
+						_self.workerPost(_worker, {"action":"leagueChg", "xml":_xmlnode});
+					// }else if(top.choice_gtype=="es" || top.choice_gtype=="bk"){//改OP
+					// 	_self.workerPostJsonOthers(_worker, {"action":"leagueOthersJsonChg", "json":_jsonData});
+					}else{
+						_self.workerPostJsonOthers(_worker, {"action":"leagueOthersJsonChg", "json":_jsonData});
+						// _self.workerPostOthers(_worker, {"action":"leagueOthersChg", "xml":_xmlnode});
+					}
+				}
+			}
+
+			var allZero = util.chkAllMyGameHash(true);
+			if(allZero && noShowFilterMenu){
+				if(top.choice_showtype=="mygame"){
+					if(top.choice_rtype.match(/pd/))_self.setPDtabVisible(false);
+					dom.getElementById("sport_menu").style.display="none";
+					dom.getElementById("total_tab").style.display="none";
+					dom.getElementById("showtype_now").innerHTML = "";
+					dom.getElementById("gtype_now").innerHTML = util.showTxt(LS.get("showtype_mygame"));
+					dom.getElementById("head_league").className = "head_league all";
+					_self.showNoData_myGame(true);
+				}
+				parentClass.dispatchEvent("showGreenBtnProc", false);
+			}else{
+				if(top.choice_showtype=="mygame"){
+					dom.getElementById("head_league").className = "head_league "+top.choice_gtype;
+					myGameCnt = util.countSize(ecidHash);
+					if(myGameCnt==0){
+						_self.showNoData(true);
+					}else{
+						var isNoData = true;
+						for(var ecid in ecidHash){
+							if(my_ecidAry.indexOf(ecid) != -1 && (ecidHash[ecid]["ts"]==null || ecidHash[ecid]["ts"]=="")){
+								isNoData=false;
+								break;
+							}
+						}
+						if(isNoData){
+							// console.log("這個頁籤["+top.choice_rtype+"]無賽事,秀狗圖!!");
+							if(top.choice_rtype.match(/pd/))_self.setPDtabVisible(false);
+							_self.showNoData(true);
+						}
+					}
+				}
+			}
+
+			if(obj) util.removeClass(obj, "on");
+
+			parentClass.dispatchEvent("addMyEventAnimation", {"action":"remove"});
+		}
+
+		util.setMyGameCookie(CookieManager,ecidHash,top.choice_gtype);
+
+	}
+
+	_self.checkMyGame = function(ecid_ary){
+		var ecidHash = top["myGameHash"][top.choice_gtype];
+		for(var ecid in ecidHash){
+				if(ecid_ary.indexOf(ecid)==-1){
+					if( top.choice_showtype=="mygame"){
+						if(filterRtypeAry.indexOf(top.choice_rtype) == -1 && top.choice_gtype!="es")util.delMyGameHash(ecidHash,ecid,config_set);
+					} 
+				}else{
+					if(ecidHash[ecid]["ts"]!=null && ecidHash[ecid]["ts"]!=""){
+						ecidHash[ecid]["ts"] = "";
+						_self.getMyGameCnt();
+					} 
+					if(dom.getElementById("star_"+ecid))util.addClass(dom.getElementById("star_"+ecid),"on");
+				}
+		}
+		util.setMyGameCookie(CookieManager,ecidHash,top.choice_gtype);
+		
+
+		var allZero = util.chkAllMyGameHash(true);
+		if(allZero){
+			if(top.choice_showtype=="mygame"){
+				if(filterRtypeAry.indexOf(top.choice_rtype) == -1){
+					dom.getElementById("sport_menu").style.display="none";
+					dom.getElementById("total_tab").style.display="none";
+					dom.getElementById("showtype_now").innerHTML = "";
+					dom.getElementById("gtype_now").innerHTML = util.showTxt(LS.get("showtype_mygame"));
+					dom.getElementById("head_league").className = "head_league all";
+					_self.showNoData_myGame(true);
+				}else{
+					// console.log("這個頁籤["+top.choice_rtype+"]無賽事,秀狗圖!!");
+					_self.showNoData(true);
+				}
+			}
+			parentClass.dispatchEvent("showGreenBtnProc", false);
+		}else{
+			if(top.choice_showtype=="mygame"){
+				dom.getElementById("head_league").className = "head_league "+top.choice_gtype;
+				var myGameCnt = util.countSize(top["myGameHash"][top.choice_gtype]);
+				if(myGameCnt==0){
+					_self.showNoData(true);
+				}else{
+					var isNoData = true;
+					for(var ecid in ecidHash){
+						if(ecidHash[ecid]["ts"]==null || ecidHash[ecid]["ts"]==""){
+							isNoData=false;
+							break;
+						}
+					}
+					if(isNoData)_self.showNoData(true);
+				}
+			}
+		}
+
+	}
+
+	_self.myGameClose = function(){
+		parentClass.dispatchEvent("bodyGoToPage", { "page": "home" });
+		parentClass.dispatchEvent("showAlertMsg", { "target":"message_pop_nobtn", "msg":LS.get("myGame_backToHome"), "confirm":"N", "retFun": "" });
+		parentClass.dispatchEvent("hideAlertMsg", {"use":"noPopAllClear"});
+	}
+
+	_self.starShow = function(isShow){
+		var starObj = dom.querySelectorAll(".box_star");
+
+		for(var i = 0; i < starObj.length; i++){ 
+			starObj[i].style.display=(isShow)?"":"none";
+		}
+	}
+
+	_self.getMyGameCnt = function(){
+		if(sportFrame!=null)sportFrame.getMyGameData();
+	}
+
+	_self.noDataProc = function(){
+		_self.showGameLoading(false);
+		parentClass.dispatchEvent("showLoading", { "isShow": false });
+
+		if(filterRtypeAry.indexOf(top.choice_rtype) == -1){	
+			if(top.rightECID != "")parentClass.dispatchEvent("resetRightTV", {});
+			parentClass.dispatchEvent("setRightLoading", {"isShow":false});
+			parentClass.dispatchEvent("setRightVisible", {"isShow":false});
+			top.rightNowPlay = "";
+			top.rightECID = "";
+			top.rightGtype = "";
+		}
+
+		if(top.rightECID!="")parentClass.dispatchEvent("setRightTimer", "start");
+	}
+
+	_self.updateMyGame = function(ecid, gameDate, showtype){
+		var ecidHash = top["myGameHash"][top.choice_gtype];
+		if(ecidHash[ecid]!=null){
+			if(ecidHash[ecid]["showtype"]!=showtype){
+				ecidHash[ecid]["showtype"]=showtype;
+			}
+		}	
+		util.setMyGameCookie(CookieManager,ecidHash,top.choice_gtype);
+	}
+
+	_self.isToday = function(xml_datetime,sys_time){
+		var isToday = "N";
+		if(xml_datetime!=null && xml_datetime!=""){
+		   try{
+			  var tmpdate = xml_datetime.split(" "); 
+			  var tmpdate = tmpdate[0];
+			  var gmt = new Date(sys_time.replace(/-/g,"/")); 
+			  var now_m = parseInt(gmt.getMonth()+1);
+			  var game_m = parseInt(tmpdate.split("-")[0]);
+			  if(now_m > game_m) gmt.setFullYear(gmt.getFullYear() +1);
+			  var y = gmt.getFullYear();
+			  tmpdate = y+"-"+tmpdate;
+			  isToday = (util_game.isToday(tmpdate))?"Y":"N";
+		   }catch(e){
+			  console.log(e);
+		   }
+		}
+		return isToday;
+	 }
+
+	 _self.tabScroll = function(e){
+        var _total = dom.getElementById("tab_total");
+        var _scroll = dom.getElementById("tab_scroll");
+        var _left = dom.getElementById("tab_left");
+        var _right = dom.getElementById("tab_right");
+        
+		if(_total.clientWidth > _scroll.clientWidth){
+			util.addClass(_right,"on");
+			util.addEvent(_right,"click",util.move,{"click":_right ,"div":_scroll, "direction":"right", "opposite":_left});
+		}else {
+            util.removeClass(_right,"on");
+			util.removeEvent(_right, "click");
+        }
+		util.addEvent(_scroll,"scroll",_self.addScrollEvent,{"total":_total ,"scroll":_scroll , "left":_left , "right":_right});
+		
+		if(_scroll.clientWidth!=0)top.tab_scroll_clientWidth = _scroll.clientWidth;
+		if(_total.clientWidth!=0)top.tab_total_clientWidth = _total.clientWidth;
+	}
+	
+	_self.addScrollEvent=function(e,param){
+		var scroll = param.scroll.scrollLeft;
+		
+		if(param.isRatio == "Y"){
+			var totalWidth = parseFloat(window.getComputedStyle(param.total).width);
+			var scrollWidth = parseFloat(window.getComputedStyle(param.scroll).width);
+			var menuW = Math.floor(totalWidth - scrollWidth);
+		}else{
+			var menuW = param.scroll.scrollWidth - param.scroll.clientWidth;
+		}
+		if (scroll > 0) {
+			util.addClass(param.left,"on");
+		}  
+		if (scroll == 0) {
+			util.removeClass(param.left,"on");
+		}
+		if (scroll < menuW) {
+			util.addClass(param.right,"on");
+		}
+		if (scroll >= menuW) {
+			util.removeClass(param.right,"on");
+		}
+		if(param.total) util.initCheckScroll(param.total, param.scroll, param.left, param.right ,param.isRatio);
+	}
+
+	_self.new_eval = function(str) {
+        var fn = Function;
+        return new fn('return ' + str)();
+	}
+
+	_self.showForecast = function(par){
+		if(timerHash["gameTimer"] != null)timerHash["gameTimer"].stopTimer();
+		if(top.rightShowTV && getView().viewportwidth >= 1024){
+			if(timerHash["rightPanelTimer"] == null)parentClass.dispatchEvent("setRightTimer", "create");
+			timerHash["rightPanelTimer"].startTimer();
+		}
+		par["from"] = "game_list";
+		if(par.ptype!=""){
+			par.team_h = par.team_h.replace(par.ptype, "");
+			par.team_c = par.team_c.replace(par.ptype, "");
+		}
+		parentClass.dispatchEvent("showForecast",par);
+	}
+
+	_self.restartTimer = function(){
+		_self.getData();
+		top.rightFrom = "game_list";
+		if(timerHash["gameTimer"] != null)timerHash["gameTimer"].startTimer();
+		if(timerHash["rightPanelTimer"] != null)timerHash["rightPanelTimer"].stopTimer();
+	}
+
+	_self.chkBannerCount=function(count){
+        parentClass.dispatchEvent("chkBannerCount",count);
+    }
+
+	_self.showPageProc=function(pageCnt){
+		if(postHash["back"] != "Y" && postHash["nowClickTabTs"]  && postHash["nowClickTabTs"] != ""){
+			if(postHash["nowClickTabTs"] != top["specialGame"]["clickTabTs"]){
+				console.log("showPageProc TS不同，阻擋!!!! [ts] = ",postHash["nowClickTabTs"],"top值ts = ",top["specialGame"]["clickTabTs"]);
+				return;
+			}
+		}
+		pageCountHash = pageCnt;
+		var _tabHash = (top.choice_gtype=="es")?es_tabHash:TAB_ary;
+		var _filterRtypeAry = (top.choice_gtype=="es")?es_tabHash:filterRtypeAry;
+		var SPorMYGAME_str = "";
+		if(top.specialGame.gtype=="ES" && top.specialClick!="")SPorMYGAME_str="SP";
+		else if(top.choice_gtype=="es" && top.choice_showtype=="mygame")SPorMYGAME_str="MY";
+		var isES = (top.choice_gtype=="es")?SPorMYGAME_str+"ES_":"";
+		var nowRtype = (top.choice_showtype == "live")?top.choice_rtype.substr(1):top.choice_rtype;
+		if(_filterRtypeAry.indexOf(nowRtype) != -1){
+			if(pageCountHash[nowRtype] == 0 || pageCountHash[nowRtype] ==undefined){
+				// console.log("選擇的過濾頁籤已消失,自動跳到主要玩法頁籤");
+				_self.showGameLoading(true);
+				if(top.choice_gtype=="es" && top.rightECID!=""){
+					parentClass.dispatchEvent("closeAnalysis");
+					_self.set_statisticsID("");
+				}
+				nowRtype = (top.choice_showtype.match(/live|parlay/))?"rb":"r";
+				sportFrame.chgTab("",{"rtype":nowRtype});
+				return;
+			}else{
+				sportFrame.setMainCount(pageCountHash["main"]);
+				if(pageCountHash["main"] == 0){
+					sportFrame.setShowDataSw(false);
+					sportFrame.showTab(false);
+					return;
+				}
+			}
+		}else{
+			sportFrame.setMainCount(pageCountHash["main"]);
+			if(pageCountHash["main"] == 0){
+				sportFrame.setShowDataSw(false);
+				sportFrame.showTab(false);
+				sportFrame.showESTab(false);
+				sportFrame.showSPESTab(false);
+				return;
+			}
+		}
+		var menuCount = 0;
+		var _gameType = "";
+		for(var t=0; t<_tabHash.length; t++){
+			var tmpTab = dom.getElementById(isES+"tab_"+_tabHash[t]);
+			if(tmpTab){
+				if(pageCountHash[_tabHash[t]] == 0 || isNaN(pageCountHash[_tabHash[t]])){
+					tmpTab.style.display = "none";
+				}else {
+					if(_tabHash[t]!="sprb")menuCount++;
+					if(_tabHash[t]!="main" && _tabHash[t]!="sprb")_gameType=_tabHash[t];
+					tmpTab.style.display = "";
+				}
+				if(top.specialGame.isFantasy){
+					if(_tabHash[t] == "fantasy")tmpTab.style.display = "none";
+				}
+			}
+		}
+		if(top.choice_gtype=="es"){
+			if(menuCount <= 2){
+				sportFrame.setMainCount(0);
+				sportFrame.showESTab(false);
+				if(top.choice_showtype=="mygame")_self.showMYESTab(false);
+				if(specialClick=="" || menuCount==0)sportFrame.showSPESTab(false);
+				else {
+					sportFrame.showSPESTab(true);
+					dom.getElementById("SPES_tab_"+_gameType).style.display = "none";
+				}
+				return;
+			}else {
+				sportFrame.setMainCount(menuCount);
+				if(top.specialClick==""){
+					if(top.choice_showtype=="mygame"){
+						_self.showMYESTab(true);
+						_self.setMyGameESTabEvent();
+					}else sportFrame.showESTab(true);
+				}else if(top.specialGame.gtype=="ES" && top.specialClick!=""){
+					sportFrame.showSPESTab(true);
+				}
+			}
+		}
+		if(top.choice_gtype=="ft" && dom.getElementById("total_tab").clientWidth > 0)sportFrame.filterScroll("filter");
+		else if(lastMenuCount!=menuCount){
+			var filterTag = "filter";
+			if(top.choice_gtype=="es" && top.specialClick=="")filterTag=(top.choice_showtype=="mygame")?"MYES_tab":"ES_tab";
+			else if(top.specialGame.gtype=="ES" && top.specialClick!="")filterTag="SPES_tab";
+			setTimeout(sportFrame.filterScroll,1000,filterTag);
+			lastMenuCount = menuCount;
+		}
+	}
+
+	_self.clearHTECID=function(){
+		nowHTECID = new Array();
+	}
+
+	_self.clearSFSTeam=function(){
+		sfsChoseTeam = new Array();
+	}
+
+	_self.setPDtabVisible = function(show){
+		if(top.choice_rtype.match(/pd/)){
+			var tab_PDswitch = dom.getElementById("tab_PDswitch");
+			tab_PDswitch.style.display = (!show)?"none":"";
+		}
+	}
+
+	_self.setPDModeBtn = function(){
+		var allObj = dom.getElementById("tab_pd_all");
+		var choiceObj = dom.getElementById("tab_pd_choice");
+		if(allObj){
+			util.addEvent(allObj, "click", _self.chgMode, {"mode":"all"});
+		}
+		if(choiceObj){
+			util.addEvent(choiceObj, "click", _self.chgMode, {"mode":"choice"});
+		}
+	}
+
+	_self.pdTabLight = function(mode){
+		var pdTabAry = Array("tab_pd_all","tab_pd_choice");
+		for(var p=0;p<pdTabAry.length;p++){
+			util.removeClass(dom.getElementById(pdTabAry[p]),"on");
+		}
+		util.addClass(dom.getElementById("tab_pd_"+mode),"on");
+	}
+
+	_self.chgMode = function(e, param){
+		top.nowPDMode = param.mode;
+		chgColorIor = new Object();
+		gid_rtype_ior = new Object();
+		_self.pdTabLight(param.mode);
+		_self.clearHTECID();
+		_self.chgPDMode();
+	}
+
+	_self.showLegSetting = function(){
+		parentClass.dispatchEvent("showLegSetting");
+	}
+
+	_self.set_first_no_tvmt = function(sw){
+		first_no_tvmt = sw;
+	}
+
+	_self.set_statisticsID = function(id){
+		statisticsID = id;
+		if(id==""){
+			if(document.getElementById("icon_sc_"+top.rightECID))document.getElementById("icon_sc_"+top.rightECID).classList.remove("on");
+			rightScData = new Object();
+			analysisStatus = false;
+			first_no_tvmt = true;
+			top.rightNowPlay = "";
+			nowScoreType = "";
+			nowScoreObj = null;
+			top.rightECID = "";
+			top.rightGtype = "";
+			top.rightRB = "";
+			top.rightShowType = "";
+		}
+	}
+
+	_self.upAnalysis_status = function(status){
+		analysisStatus = status;
+		if(!status && getView().viewportwidth < 1024)_self.set_statisticsID("");
+	}
+
+	_self.showMYESTab = function(show){
+		if(dom.getElementById("MYES_tab"))dom.getElementById("MYES_tab").style.display=(show)?"":"none";
+	}
+
+	_self.setMyGameESTabEvent = function(){
+		var _tabHash = es_tabHash;
+		var tmpRtype = "r";
+		var isES = (top.choice_gtype=="es")?"MYES_":"";
+		for(var t=0; t<_tabHash.length; t++){
+			var tmpTab = dom.getElementById(isES+"tab_"+_tabHash[t]);
+			if(top.choice_showtype == "parlay" && (_tabHash[t].match(/sfs|fantasy/)))continue;
+			if(_tabHash[t] != "main")tmpRtype = _tabHash[t];
+			util.addEvent(tmpTab, "click", sportFrame.chgTab, {"rtype":tmpRtype});
+		}
+	}
+
+	_self.setMyGameEStabScroll = function(_scroll){
+		filterScrollHash["chgTab"] = _scroll;
+	}
+
+	_self.getPageCountData=function(json){
+        var pageCountHash = new Object();
+		if(json=="noData"){
+			_self.showPageProc(pageCountHash);
+			return;
+		}
+        for(var key in json){
+            var lid = key;
+			for(var _key in json[lid]){
+				var _type = _key.toLowerCase();
+				var tmp_count = json[lid][_key];
+				if(pageCountHash[_type]){
+					pageCountHash[_type] += parseInt(tmp_count);
+				}else {
+					pageCountHash[_type] = parseInt(tmp_count);
+				}
+			}
+        }
+        _self.showPageProc(pageCountHash);
+
+    }
+}
