@@ -41,6 +41,11 @@ button{font-family:inherit;border:none;cursor:pointer}
 .btn-primary:hover{background:var(--blue-dark);transform:translateY(-1px);box-shadow:0 10px 28px rgba(59,130,246,.5)}
 
 .shell{max-width:1280px;margin:0 auto;padding:1.5rem;display:grid;grid-template-columns:240px 1fr 320px;gap:20px;align-items:start}
+/* Desktop: keep the league sidebar (left) and bet-slip (right) in view while
+   the match list scrolls. The asides must be the sticky elements themselves —
+   align-items:start makes each aside content-height, so a sticky child alone
+   would have no travel room and would scroll away with the page. */
+@media (min-width:1181px){.shell>aside{position:sticky;top:84px;align-self:start;max-height:calc(100vh - 100px);overflow-y:auto;scrollbar-width:none}.shell>aside::-webkit-scrollbar{display:none}}
 
 .side-card{background:var(--white);border-radius:var(--r-card);padding:1.25rem;box-shadow:0 2px 12px rgba(15,23,42,.04);transition:all .3s cubic-bezier(.4,0,.2,1)}
 .side-card + .side-card{margin-top:16px}
@@ -1808,6 +1813,10 @@ button{font-family:inherit;border:none;cursor:pointer}
           : items.slice().sort((a,b) => {
               const al = isLive(a), bl = isLive(b);
               if(al !== bl) return al ? -1 : 1;
+              // Live: freshest kickoff on top (newest commence_ts first) so the
+              // top cards have a running clock + open markets, not 截单/finished.
+              if(al && bl) return (b.commence_ts||0) - (a.commence_ts||0);
+              // Upcoming: soonest kickoff first.
               return (a.commence_ts||0) - (b.commence_ts||0);
             });
         const show = ordered.slice(0, MAX_PER_LEAGUE);
