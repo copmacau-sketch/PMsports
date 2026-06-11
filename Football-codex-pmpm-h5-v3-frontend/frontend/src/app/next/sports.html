@@ -238,6 +238,67 @@
     .recordCard{border:1px solid var(--line);border-radius:14px;background:#fff;padding:11px;margin-bottom:10px}.recordTop{display:flex;justify-content:space-between;gap:10px}.recordStatus{height:24px;border-radius:999px;padding:0 9px;display:grid;place-items:center;font-size:12px;font-weight:950;background:#fff4df;color:#b76b00}.recordStatus.win{background:#e5f8ef;color:var(--green)}.recordCard b{font-size:14px}.recordCard p{margin:5px 0 0;color:#64758d;font-size:12px;line-height:1.5}.recordMoney{text-align:right}.recordMoney strong{display:block;color:var(--blue);font-size:17px}.recordMoney small{display:block;color:#72839b;margin-top:2px}
     .settingsList{display:grid;gap:8px}.settingsItem{height:48px;border-radius:13px;background:#f8fbff;border:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 12px;font-weight:900;color:#263854;transition:.16s ease}.settingsItem:active,.primaryBtn:active,.secondaryBtn:active,.sheetPrimary:active,.iconBtn:active,.walletBtn:active,.detailOddsBtn:active,.oddsBtn:active{transform:scale(.98)}.settingsItem span{font-size:13px;color:#74849b;font-weight:850}.settingsValue{display:flex;align-items:center;gap:6px;color:#74849b;font-size:13px;font-weight:850}.settingsValue::after{content:"›";color:#a0adbf;font-size:18px;line-height:1}.switch{width:48px;height:28px;border-radius:999px;background:#dbe4ee;padding:3px;transition:.2s;flex:0 0 auto}.switch::after{content:"";display:block;width:22px;height:22px;border-radius:50%;background:#fff;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.15)}.switch.on{background:var(--blue)}.switch.on::after{transform:translateX(20px)}
     .amountPanel{display:grid;gap:10px}.fieldBlock label{display:block;margin-bottom:7px;font-size:12px;color:#61738d;font-weight:900}.moneyInput{height:50px;border-radius:14px;border:1px solid var(--line);background:#fbfdff;padding:0 12px;display:flex;align-items:center;gap:7px}.moneyInput b{color:#72839b}.moneyInput input{flex:1;min-width:0;font-size:20px;font-weight:950}.channelGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.channelBtn{height:44px;border-radius:12px;background:#f7fbff;border:1px solid var(--line);font-weight:900;color:#2f4058}.channelBtn.active{background:#eaf3ff;border-color:rgba(47,125,246,.35);color:var(--blue)}.sheetNote{border-radius:14px;background:#f8fbff;border:1px solid var(--line);padding:10px 12px;color:#60728a;font-size:12px;line-height:1.55;font-weight:850}.twoActions{display:grid;grid-template-columns:1fr 1.4fr;gap:10px;margin-top:12px}.confirmPick{border:1px solid var(--line);border-radius:13px;background:#fff;padding:10px;margin-bottom:8px}.confirmPick b{display:block;color:var(--blue);font-size:13px}.confirmPick p{margin:5px 0 0;color:#5d6f86;font-size:12px;line-height:1.45;font-weight:850}
+
+    @media (min-width:1024px){
+      body{background:linear-gradient(180deg,#eaf1fa 0%,#dfe8f4 100%)}
+      .app{
+        max-width:min(1320px,calc(100vw - 32px));
+        height:min(920px,calc(100dvh - 32px));
+        min-height:720px;
+        border-radius:28px;
+        display:grid;
+        grid-template-columns:minmax(0,1fr) 360px;
+        grid-template-rows:64px 54px minmax(0,1fr);
+        grid-template-areas:"top top" "tabs tabs" "main slip";
+      }
+      .status-safe{display:none}
+      .topbar{grid-area:top;height:64px;padding:0 22px}
+      .brandName{font-size:19px}.pillStatus{height:32px}.iconBtn,.walletBtn{height:38px}.iconBtn{width:38px}
+      .mainTabs{grid-area:tabs;height:54px;padding:0 18px;gap:8px}
+      .mainTab{height:36px;padding:0 14px}
+      .scroll{grid-area:main;position:relative;inset:auto;min-height:0;height:100%;padding:16px 16px 24px;border-right:1px solid var(--line)}
+      .searchRow{display:grid;grid-template-columns:minmax(280px,1fr) auto;margin-bottom:12px}
+      .quickPanel{padding:12px;margin-bottom:12px}
+      .leagueStrip{flex-wrap:wrap;overflow:visible;gap:10px}.leagueItem{width:62px}.leagueItem.worldcup{width:82px}
+      .livePhaseStrip,.dateChips{margin-left:0;margin-right:0;padding-left:0;padding-right:0;flex-wrap:wrap;overflow:visible}
+      .matchCard{margin-bottom:10px}.matchTop{margin-bottom:9px}
+      .worldCupView{grid-template-columns:1fr;align-items:start;gap:12px}.wcBlock{align-self:start}
+      .bottomBar{display:none}
+      #slipSheet{
+        grid-area:slip;
+        position:relative;
+        left:auto;right:auto;bottom:auto;
+        max-height:none;height:100%;
+        transform:none!important;
+        visibility:visible;
+        pointer-events:auto;
+        border-radius:0;
+        border-left:1px solid var(--line);
+        box-shadow:none;
+        z-index:3;
+      }
+      #slipSheet.show{height:100%}
+      #slipSheet .sheetHandle,#slipSheet .sheetClose{display:none}
+      #slipSheet .sheetHead{height:54px;padding:0 18px}
+      #slipSheet .sheetBody{padding:14px 16px 22px;display:flex;flex-direction:column;min-height:0}
+      #slipItems{flex:1;min-height:0;overflow:auto;padding-right:2px;scrollbar-width:none}#slipItems::-webkit-scrollbar{width:0}
+      #slipSheet .summaryBox{flex:0 0 auto;margin-top:10px}
+      #slipSheet .sheetPrimary{flex:0 0 auto}
+      .sheet:not(#slipSheet){left:50%;right:auto;width:min(560px,calc(100% - 48px));transform:translateX(-50%) translateY(105%)}
+      .sheet:not(#slipSheet).show{transform:translateX(-50%) translateY(0)}
+      .detailScreen{inset:118px 360px 0 0}
+      .detailTop{height:56px;padding:0 16px}.detailTitle{max-width:520px}
+      .detailHero{padding:18px 18px 16px}.detailTeam b{max-width:180px}
+      .detailInfoPanel{padding:12px 18px}.marketTabs{padding-left:18px;padding-right:18px}
+      .marketsScroll{padding:14px 18px 24px}.detailOddsGrid{grid-template-columns:repeat(3,1fr)}.detailOddsGrid.score{grid-template-columns:repeat(4,1fr)}
+      .detailBottom{display:none}
+    }
+    @media (min-width:1180px){
+      #matchList>section:not(.worldCupView){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 10px}
+      #matchList>section:not(.worldCupView)>.leagueHeader{grid-column:1/-1}
+      .worldCupView{grid-template-columns:minmax(0,.9fr) minmax(0,1.12fr)}
+      .wcHero,.wcGroupTabs{grid-column:1/-1}
+    }
   </style>
 </head>
 <body>
@@ -698,15 +759,25 @@
   }
   function showToast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(showToast.timer); showToast.timer=setTimeout(()=>t.classList.remove('show'),1500); }
   let lastFocus=null;
+  const isDesktopLayout = () => window.matchMedia('(min-width:1024px)').matches;
   function syncLayerState(){
-    const sheetShown=$$('.sheet.show').length>0;
-    $$('.sheet').forEach(s=>{const shown=s.classList.contains('show'); s.setAttribute('aria-hidden', shown?'false':'true'); if(shown) s.removeAttribute('inert'); else s.setAttribute('inert','');});
+    const desktop=isDesktopLayout();
+    const sheetShown=$$('.sheet.show').some(s=>!(desktop && s.id==='slipSheet'));
+    $$('.sheet').forEach(s=>{
+      const desktopSlip=desktop && s.id==='slipSheet';
+      const shown=s.classList.contains('show') || desktopSlip;
+      s.setAttribute('aria-hidden', shown?'false':'true');
+      if(shown) s.removeAttribute('inert'); else s.setAttribute('inert','');
+    });
     const detail=$('#detailScreen'); const detailActive=detail.classList.contains('show') && !sheetShown; detail.setAttribute('aria-hidden', detailActive?'false':'true'); if(detailActive) detail.removeAttribute('inert'); else detail.setAttribute('inert','');
   }
   function rememberFocus(){ if(document.activeElement && !document.activeElement.closest('.sheet')) lastFocus=document.activeElement; }
   function restoreFocus(){ const target=lastFocus; lastFocus=null; if(target && document.contains(target) && typeof target.focus==='function') setTimeout(()=>target.focus({preventScroll:true}),0); }
   function focusLayer(layer){ const target=layer.querySelector('button,input,[tabindex]:not([tabindex="-1"])'); if(target) setTimeout(()=>target.focus({preventScroll:true}),260); }
-  function openSheet(id){ rememberFocus(); $$('.sheet').forEach(s=>s.classList.remove('show')); $('#overlay').classList.add('show'); const sheet=$(id); sheet.classList.add('show'); syncLayerState(); focusLayer(sheet); }
+  function openSheet(id){
+    if(isDesktopLayout() && id==='#slipSheet'){ renderSlip(); syncLayerState(); showToast('投注单已在右侧显示'); return; }
+    rememberFocus(); $$('.sheet').forEach(s=>s.classList.remove('show')); $('#overlay').classList.add('show'); const sheet=$(id); sheet.classList.add('show'); syncLayerState(); focusLayer(sheet);
+  }
   function closeSheets(){ $('#overlay').classList.remove('show'); $$('.sheet').forEach(s=>s.classList.remove('show')); syncLayerState(); restoreFocus(); }
   function closeDetail(){ $('#detailScreen').classList.remove('show'); syncLayerState(); restoreFocus(); }
   function trapFocus(e){
@@ -1101,6 +1172,7 @@
   $('#marketTabs').addEventListener('click',e=>{const b=e.target.closest('[data-market]'); if(!b) return; state.detailMarket=b.dataset.market; $$('#marketTabs .marketTab').forEach(x=>x.classList.toggle('active',x===b)); renderDetailMarkets();});
   $('#wsBtn').addEventListener('click',()=>{const btn=$('#wsBtn'); btn.querySelector('.dot').style.background=btn.querySelector('.dot').style.background?'':'#16b978'; showToast('连接正常，盘口实时更新');});
   document.addEventListener('keydown',e=>{ trapFocus(e); if(e.key==='Escape'){ if($('#detailScreen').classList.contains('show')) closeDetail(); else closeSheets(); }});
+  window.addEventListener('resize',syncLayerState);
   let ws=0; setInterval(()=>{$('#wsText').textContent='WS · '+(ws++%6)+'s';},1000);
   setInterval(()=>{const btns=$$('.oddsBtn:not(.selected), .detailOddsBtn:not(.selected)'); if(btns.length){const b=btns[Math.floor(Math.random()*btns.length)]; b.classList.add('changed'); setTimeout(()=>b.classList.remove('changed'),1600);}},6500);
   syncLayerState(); renderAll(false);
