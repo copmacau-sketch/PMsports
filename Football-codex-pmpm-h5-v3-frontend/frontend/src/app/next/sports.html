@@ -4,11 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
 <meta name="theme-color" content="#3B82F6">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHJlY3Qgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIiByeD0iNyIgZmlsbD0iIzNCODJGNiIvPjxjaXJjbGUgY3g9IjE2IiBjeT0iMTYiIHI9IjkuNSIgZmlsbD0iI0ZGRkZGRiIvPjxwYXRoIGQ9Ik0xNiAxMi41TDE5LjMgMTQuOUwxOC4xIDE4LjhIMTMuOUwxMi43IDE0LjlaIiBmaWxsPSIjMUQ0RUQ4Ii8+PGcgc3Ryb2tlPSIjMUQ0RUQ4IiBzdHJva2Utd2lkdGg9IjEuMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIj48cGF0aCBkPSJNMTYgOS44VjEyLjUiLz48cGF0aCBkPSJNMjEuNiAxNC4yTDE5LjMgMTQuOSIvPjxwYXRoIGQ9Ik0xOS43IDIwLjlMMTguMSAxOC44Ii8+PHBhdGggZD0iTTEyLjMgMjAuOUwxMy45IDE4LjgiLz48cGF0aCBkPSJNMTAuNCAxNC4yTDEyLjcgMTQuOSIvPjwvZz48L3N2Zz4=">
 <title>PM体育 · 足球</title>
 <meta name="description" content="PM体育 投注平台：足球全市场、信用账户、单关 / 串关、赛前卖出。">
 <style>
 :root{
-  --white:#FFFFFF; --blue:#3B82F6; --blue-dark:#2563EB;
+  --white:#FFFFFF; --blue:#3B82F6; --blue-dark:#2563EB; --blue-deep:#1D4ED8;
   --blue-bg:#EFF6FF; --blue-mid:#DBEAFE;
   --border:#F0F2F5; --border-mid:#E9EDF2;
   --text-dark:#0F172A; --text-mid:#475569; --text-light:#94A3B8;
@@ -75,7 +76,11 @@ button{font-family:inherit;border:none;cursor:pointer}
 .league-row .lg-ct{font-size:.7rem;color:var(--text-light);font-weight:700;background:var(--border);padding:1px 7px;border-radius:var(--r-tag)}
 
 .main{display:flex;flex-direction:column;gap:18px}
-.hero{background:var(--blue);border-radius:var(--r-hero);padding:1.75rem 2rem;color:#fff;position:relative;overflow:hidden;box-shadow:0 20px 48px rgba(59,130,246,.25)}
+.hero{display:block;text-decoration:none;background:var(--blue);border-radius:var(--r-hero);padding:.7rem 1.5rem;color:#fff;position:relative;overflow:hidden;box-shadow:0 20px 48px rgba(59,130,246,.25);transition:all .25s cubic-bezier(.4,0,.2,1)}
+.hero:hover{transform:translateY(-2px);box-shadow:0 24px 54px rgba(59,130,246,.32)}
+.hero .hero-tag{margin-bottom:0}
+.hero-wc-main{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hero-wc-title{font-size:1.05rem;font-weight:900;letter-spacing:-.01em;line-height:1.2}
 .hero .deco-a{position:absolute;top:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.07)}
 .hero .deco-b{position:absolute;bottom:-30px;left:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.06)}
 .hero-inner{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
@@ -129,6 +134,12 @@ button{font-family:inherit;border:none;cursor:pointer}
 .settings-btn:hover{border-color:var(--blue);color:var(--blue);transform:rotate(60deg)}
 .league-row .chk{font-size:13px;color:var(--text-light);min-width:14px}
 .league-row.active .chk{color:#fff}
+.league-row .lg-caret{font-size:10px;color:var(--text-light);min-width:12px;text-align:center}
+.league-row.active .lg-caret{color:#fff}
+.league-row.lg-all{font-weight:700;color:var(--text-dark)}
+.league-row.lg-wc{background:rgba(245,158,11,.10)}
+.league-row.lg-wc .lg-name{font-weight:800;color:#b45309}
+.league-row.lg-wc.active .lg-name{color:#fff}
 .slip-mode-toggle{display:inline-flex;background:#f1f5f9;border-radius:8px;padding:3px;margin-left:8px}
 .slip-mode-toggle button{flex:1;border:none;background:transparent;padding:4px 12px;border-radius:6px;color:var(--text-mid);font-size:.74rem;font-weight:700;cursor:pointer;transition:all .15s}
 .slip-mode-toggle button.active{background:#fff;color:var(--blue);box-shadow:0 1px 3px rgba(0,0,0,.08)}
@@ -158,6 +169,8 @@ button{font-family:inherit;border:none;cursor:pointer}
 .league-head .lh-cn{font-size:.78rem;color:var(--text-light);font-weight:500}
 .league-head .lh-ct{margin-left:auto;font-size:.72rem;color:var(--blue);background:var(--blue-bg);padding:3px 10px;border-radius:var(--r-tag);font-weight:700}
 .match-grid{display:flex;flex-direction:column;gap:14px}
+.league-more{width:100%;margin-top:12px;padding:12px;border-radius:var(--r-card);background:var(--blue-bg);border:1.5px solid var(--border);color:var(--blue);font-weight:700;font-size:.86rem;cursor:pointer;transition:all .2s}
+.league-more:hover{background:var(--blue-mid);border-color:var(--blue-mid)}
 .match{background:var(--white);border-radius:var(--r-card);border:1.5px solid var(--border);padding:1.1rem 1.25rem;transition:all .3s cubic-bezier(.4,0,.2,1);display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
 .match:hover{transform:translateY(-3px);box-shadow:0 14px 32px rgba(59,130,246,.12);border-color:var(--blue-mid)}
 .m-left{min-width:0}
@@ -223,8 +236,17 @@ button{font-family:inherit;border:none;cursor:pointer}
 .outcome-pill:hover{border-color:var(--blue);background:var(--blue-bg);transform:translateY(-1px)}
 .outcome-pill.selected{background:var(--blue);color:#fff;border-color:var(--blue);box-shadow:0 4px 10px rgba(59,130,246,.3)}
 .outcome-pill .op-label{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:160px}
+.outcome-pill .op-line{flex-shrink:0;font-weight:800;color:var(--text-mid);font-variant-numeric:tabular-nums}
 .outcome-pill .op-odds{font-weight:800;font-variant-numeric:tabular-nums;color:var(--blue)}
-.outcome-pill.selected .op-odds{color:#fff}
+.outcome-pill.selected .op-odds,.outcome-pill.selected .op-line{color:#fff}
+.outcome-pill.readonly .op-line{color:var(--text-light)}
+/*  Read-only outcome — passthrough markets we can't yet auto-settle are shown
+ *  for reference only (no bet button) so they don't look broken.            */
+.outcome-pill.readonly{cursor:default;background:#f1f5f9;color:var(--text-mid);border-color:var(--border)}
+.outcome-pill.readonly:hover{background:#f1f5f9;color:var(--text-mid);border-color:var(--border);transform:none}
+.outcome-pill.readonly .op-odds{color:var(--text-mid)}
+.ix-ro,.mc-ro{font-size:.62rem;font-weight:700;color:var(--text-light);background:#eef2f7;border-radius:6px;padding:1px 6px;flex-shrink:0}
+.ix-ro-note{font-size:.72rem;color:var(--text-light);padding:2px 2px 8px;text-align:center}
 /* Correct-score grid: 3 columns side-by-side, one per outcome side. */
 .cs-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px}
 .cs-col{display:flex;flex-direction:column;gap:4px;min-width:0}
@@ -233,7 +255,7 @@ button{font-family:inherit;border:none;cursor:pointer}
 /* Generic stacked list: one card per market_name, pills wrap inside.   */
 .ix-list{display:flex;flex-direction:column;gap:8px}
 .ix-card{background:#fff;border-radius:8px;border:1px solid var(--border);overflow:hidden}
-.ix-card .ix-h{padding:6px 10px;background:#f8fafc;border-bottom:1px solid var(--border);font-size:.74rem;font-weight:800;color:var(--text-dark)}
+.ix-card .ix-h{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 10px;background:#f8fafc;border-bottom:1px solid var(--border);font-size:.74rem;font-weight:800;color:var(--text-dark)}
 .ix-card .ix-pills{display:flex;flex-wrap:wrap;gap:5px;padding:8px}
 /*  ProScreen tab strip — rendered above the bookmaker section inside the
  *  match-detail modal's markets pane.  9 chips mirror sports/page.tsx#358.
@@ -421,6 +443,9 @@ button{font-family:inherit;border:none;cursor:pointer}
 .mkt-card .mc-odds .o.selected{background:var(--blue);color:#fff}
 .mkt-card .mc-odds .o .ol{font-size:.62rem;color:var(--text-light);font-weight:600}
 .mkt-card .mc-odds .o:hover .ol,.mkt-card .mc-odds .o.selected .ol{color:rgba(255,255,255,.85)}
+.mkt-card .mc-odds .o.readonly{background:#f1f5f9;color:var(--text-mid);cursor:default}
+.mkt-card .mc-odds .o.readonly:hover{background:#f1f5f9;color:var(--text-mid)}
+.mkt-card .mc-odds .o.readonly .ol{color:var(--text-light)}
 
 /* Stats / events / H2H / lineups / standings widgets */
 .stats-table{width:100%;border-collapse:collapse}
@@ -494,6 +519,12 @@ button{font-family:inherit;border:none;cursor:pointer}
 .bet-row .br-status.lost{background:var(--red);color:#fff}
 .bet-row .br-status.settled{background:var(--blue);color:#fff}
 .bet-row .br-status.failed{background:var(--text-light);color:#fff}
+.bet-row .br-status.refund{background:var(--text-light);color:#fff}
+.bet-row .br-pl{display:block;font-size:.78rem;font-weight:800;margin-bottom:3px}
+.bet-row .br-pl.win{color:var(--green)}
+.bet-row .br-pl.lose{color:var(--red)}
+.bet-row .br-pl.open{color:var(--text-mid)}
+.bet-row .br-pl.flat{color:var(--text-light)}
 
 /* Login form */
 .login-form{display:flex;flex-direction:column;gap:14px}
@@ -642,6 +673,127 @@ button{font-family:inherit;border:none;cursor:pointer}
   .filter-strip .chip{padding:9px 15px;font-size:.96rem}
   .date-pill{padding:11px 18px;font-size:.96rem}
 }
+
+/* ════════════════════════════════════════════════════════════════════
+ *  方案B — Tom H5 移动端视觉移植  (PORTRAIT-ONLY · 桌面端零影响)
+ *  桌面为横屏,@media (orientation:portrait) 对其永不匹配。本块只重塑
+ *  现有共用 DOM 的视觉属性(颜色/圆角/阴影/间距),不改任何 DOM 结构、
+ *  事件绑定或下单逻辑函数。色板取自 Tom pm-sports-mobile styles.css:
+ *    blue #2f7df6 / blue2 #166ce8 / blueBg #eef6ff,#eaf3ff
+ *    card 圆角 14px · 软阴影 0 8px 24px rgba(14,60,130,.07)
+ *    red #ee475a · green #16b978 · orange #b96b08 · 页底 #f4f7fc
+ *  排在所有 portrait 规则之后,以同等特异性覆盖取胜。
+ * ════════════════════════════════════════════════════════════════════ */
+@media (orientation:portrait){
+  body{background:#f4f7fc}
+
+  /* ───── Block4 · 顶栏 chrome ───── */
+  .nav{background:rgba(255,255,255,.96);border-bottom:1px solid rgba(30,64,120,.1)}
+  .logo-icon{background:linear-gradient(135deg,#1d74ff,#48a0ff);border-radius:10px;box-shadow:0 6px 18px rgba(47,125,246,.28)}
+  .ws-badge{background:#f1f6fd;border:none;border-radius:999px;color:#213a5f;font-weight:800;box-shadow:inset 0 0 0 1px rgba(46,104,200,.05)}
+  .ws-badge .dot{box-shadow:0 0 0 3px rgba(22,185,120,.12)}
+  .settings-btn{background:#f7faff;border:none;color:#42526b;box-shadow:inset 0 0 0 1px rgba(40,80,150,.08)}
+  .settings-btn:hover{transform:none;border:none;color:#2f7df6}
+  .balance-chip{background:#eef6ff;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(47,125,246,.08)}
+  .balance-chip:hover{background:#dfefff}
+  .balance-chip .avatar{background:#2f7df6}
+  .btn-primary{background:linear-gradient(135deg,#2f7df6,#166ce8);box-shadow:0 8px 18px rgba(47,125,246,.28)}
+
+  /* 主筛选 chips + 日期 pills + 搜索框 */
+  .filter-strip .chip{border:none;border-radius:999px;background:#f3f7fc;color:#516279;font-weight:850;box-shadow:inset 0 0 0 1px rgba(30,64,120,.06)}
+  .filter-strip .chip:hover{border:none;color:#516279}
+  .filter-strip .chip.active{background:#2f7df6;color:#fff;box-shadow:0 8px 16px rgba(47,125,246,.22)}
+  .date-pill{border:none;border-radius:999px;background:#fff;color:#495b73;font-weight:850;box-shadow:inset 0 0 0 1px rgba(30,64,120,.1)}
+  .date-pill:hover{transform:none;border:none;color:#495b73}
+  .date-pill.active{background:#2f7df6;color:#fff;box-shadow:0 8px 18px rgba(47,125,246,.25)}
+  .search-box input{border:none;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(30,64,120,.1)}
+  .search-box input:focus{border:none;box-shadow:inset 0 0 0 1px #2f7df6,0 0 0 4px rgba(47,125,246,.12)}
+
+  /* hero 渐变 + 底部 tab 栏 + 联赛行 */
+  .hero{background:linear-gradient(135deg,#1269e8,#3b87ff)}
+  .bottom-nav{background:rgba(255,255,255,.97);border-top:1px solid rgba(30,64,120,.12)}
+  .bnav-item.active{color:#2f7df6}
+  .league-row.active{background:#eaf3ff;color:#2f7df6}
+  .league-row.active .lg-ct{background:rgba(47,125,246,.12);color:#2f7df6}
+
+  /* ───── Block1 · 赛事卡片 MatchCard ───── */
+  .match{border:1px solid rgba(22,52,96,.08);border-radius:14px;padding:12px;box-shadow:0 8px 24px rgba(14,60,130,.07)}
+  .match:hover{transform:none;border-color:rgba(22,52,96,.08);box-shadow:0 8px 24px rgba(14,60,130,.07)}
+  .m-meta .live-chip{background:#fff0f1;color:#ee475a;border-radius:999px}
+  .m-meta .live-chip .dot{background:#ee475a;box-shadow:0 0 0 3px rgba(238,71,90,.12)}
+  .m-meta .time-chip{background:#eef6ff;color:#2f7df6;border-radius:999px}
+  .m-meta .upc-chip{background:#fff8e9;color:#b96b08;border-radius:999px}
+  .m-meta .bet-stop{background:#fff4df;color:#b76b00;border-radius:999px}
+  .m-team .badge{border-radius:999px}                 /* Tom 圆形头像;每队底色仍来自内联调色板 */
+  .m-team .nm{color:#18233a;font-weight:900}
+  .m-score{background:#eef6ff;color:#2f7df6;border-radius:999px;font-weight:950;letter-spacing:-.04em}
+  .m-vs{background:#eef6ff;color:#86a0c1;border-radius:999px}
+  .odds-btn{background:#eef6ff;border-radius:10px;min-height:44px;padding:8px 6px}
+  .odds-btn .ol{color:#6c7f98;font-weight:800}
+  .odds-btn .ov{color:#2f7df6;font-weight:950}
+  .odds-btn:hover{background:#eef6ff;transform:none;box-shadow:none}
+  .odds-btn:hover .ol{color:#6c7f98}
+  .odds-btn:hover .ov{color:#2f7df6}
+  .odds-btn.selected{background:#2f7df6;box-shadow:0 8px 16px rgba(47,125,246,.22)}
+  .odds-btn.selected .ol,.odds-btn.selected .ov{color:#fff}
+  .inline-toggle{border:none;border-radius:999px;background:#f8fbff;color:#5c6d84;font-weight:900;box-shadow:inset 0 0 0 1px rgba(30,64,120,.1)}
+  .inline-toggle:hover{border:none;background:#eef6ff;color:#2f7df6}
+  .see-more{border-radius:999px;color:#2f7df6;font-weight:900}
+  .inline-chip.active{background:#2f7df6;border-color:#2f7df6;box-shadow:0 2px 6px rgba(47,125,246,.28)}
+
+  /* ───── Block2 · 投注单 BetSlipSheet(仅换皮,容器定位沿用原规则) ───── */
+  .slip-card{border-radius:22px 22px 0 0}
+  .slip-title .ic{background:#2f7df6;border-radius:10px}
+  .slip-count{background:#eaf3ff;color:#2f7df6;border-radius:999px;font-weight:900}
+  .slip-mode-toggle{background:#f4f7fb;border-radius:9px}
+  .slip-mode-toggle button.active{background:#2f7df6;color:#fff;box-shadow:0 8px 16px rgba(47,125,246,.22)}
+  .slip-item{background:#fff;border:1px solid rgba(30,64,120,.1);border-radius:14px;box-shadow:0 8px 18px rgba(14,60,130,.06)}
+  .slip-item:hover{background:#fff}
+  .slip-item .si-mkt{color:#2f7df6;font-weight:950}
+  .slip-item .si-pick .val{color:#2f7df6}
+  .slip-item .si-stake{border-top:1px dashed rgba(30,64,120,.12)}
+  .slip-item .si-stake input{border:none;border-radius:11px;background:#fbfdff;box-shadow:inset 0 0 0 1px rgba(30,64,120,.1)}
+  .slip-item .si-stake input:focus{border:none;box-shadow:inset 0 0 0 1px #2f7df6,0 0 0 3px rgba(47,125,246,.12)}
+  .stake-input input{border:none;border-radius:11px;background:#fbfdff;box-shadow:inset 0 0 0 1px rgba(30,64,120,.1)}
+  .stake-input input:focus{border:none;box-shadow:inset 0 0 0 1px #2f7df6,0 0 0 4px rgba(47,125,246,.12)}
+  .stake-quick button{border-radius:999px;background:#edf6ff;color:#2f7df6;font-weight:950}
+  .stake-quick button:hover{background:#2f7df6;color:#fff}
+  .slip-row.payout .v{color:#16b978}
+  .slip-place{border-radius:15px;background:linear-gradient(135deg,#2f7df6,#166ce8);font-weight:950;box-shadow:0 12px 24px rgba(47,125,246,.22)}
+  .slip-place:hover{background:linear-gradient(135deg,#2f7df6,#166ce8);transform:translateY(-1px)}
+  .slip-place.disabled{background:#e2e8f0;color:#90a0b6;box-shadow:none}
+  .slip-place.disabled:hover{transform:none}
+  .slip-fab{background:linear-gradient(135deg,#2f7df6,#166ce8)}
+
+  /* ───── Block3 · 赛事详情(全屏 drawer + scoreHero 蓝渐变) ───── */
+  #match-modal{padding:0;background:rgba(15,28,50,.4)}
+  #match-modal .modal{width:100%;max-width:none;height:100%;max-height:100%;border-radius:0;padding:0}
+  #match-modal .md-scoreboard{margin:0 0 14px;padding:18px 14px 16px;border:none;border-radius:0 0 16px 16px;background:linear-gradient(135deg,#1269e8,#3b87ff);color:#fff}
+  #match-modal .md-scoreboard .team .nm{color:#fff}
+  #match-modal .md-scoreboard .team .badge{background:rgba(255,255,255,.16);color:#fff;border-radius:999px}
+  #match-modal .md-scoreboard .score-big{color:#fff}
+  #match-modal .md-scoreboard .kickoff{color:rgba(255,255,255,.85)}
+  #match-modal .md-scoreboard .live-mini{background:#fff1f1;color:#ee475a}
+  .modal-tab.active{color:#2f7df6;border-bottom-color:#2f7df6}
+  .pro-chip.active{background:#2f7df6;border-color:#2f7df6;box-shadow:0 4px 10px rgba(47,125,246,.28)}
+  .outcome-pill{border-radius:11px;background:#eef6ff;border:1px solid rgba(47,125,246,.06);color:#60728a}
+  .outcome-pill:hover{background:#dfefff;border-color:rgba(47,125,246,.2)}
+  .outcome-pill .op-odds{color:#2f7df6}
+  .outcome-pill.selected{background:#2f7df6;border-color:#2f7df6;color:#fff;box-shadow:0 8px 16px rgba(47,125,246,.22)}
+  .outcome-pill.selected .op-odds{color:#fff}
+  .md-slip-bar .msb-go{background:linear-gradient(135deg,#2f7df6,#166ce8);border-radius:14px;font-weight:950}
+
+  /* ───── Block4(续)· 弹窗(我的注单 / 设定 / 冠军) ───── */
+  .modal-close{background:#f2f6fb;color:#5d6c82}
+  .opt-btn.active{background:linear-gradient(135deg,#2f7df6,#166ce8)}
+  .orders-chip.active{background:#2f7df6;border-color:#2f7df6}
+  .order-row{border-radius:14px}
+}
+
+/* ===== TEMP 封控「冠军」/outrights 入口 —— 删除本整块即恢复 ===== */
+.nav-link[data-screen="outrights"],
+.bnav-item[data-screen="outrights"],
+.filter-strip .chip[data-filter="outrights"]{display:none!important}
 </style>
 </head>
 <body>
@@ -653,6 +805,7 @@ button{font-family:inherit;border:none;cursor:pointer}
       <div class="nav-link active" data-screen="all">全部</div>
       <div class="nav-link" data-screen="live">滚球</div>
       <div class="nav-link" data-screen="upcoming">早盘</div>
+      <div class="nav-link" data-screen="wc">世界杯</div>
       <div class="nav-link" data-screen="outrights">冠军</div>
       <div class="nav-link" data-screen="mybets">注单</div>
     </div>
@@ -695,18 +848,17 @@ button{font-family:inherit;border:none;cursor:pointer}
 
   <main class="main">
 
-    <div class="hero">
+    <a class="hero" href="worldcup.html">
       <div class="deco-a"></div>
       <div class="deco-b"></div>
       <div class="hero-inner">
-        <div>
-          <span class="hero-tag"><span class="pulse"></span>实时赔率 · 毫秒更新</span>
-          <h1 id="hero-title">实时滚球 · 火热进行中</h1>
-          <p id="hero-sub">连接后端中…</p>
+        <div class="hero-wc-main">
+          <span class="hero-tag"><span class="pulse"></span>2026 世界杯</span>
+          <span class="hero-wc-title">小组积分 · 射手榜</span>
         </div>
-        <button class="hero-cta" id="hero-cta">查看全部 →</button>
+        <span class="hero-cta">查看 →</span>
       </div>
-    </div>
+    </a>
 
     <div class="tab-row">
       <div class="search-box">
@@ -721,21 +873,6 @@ button{font-family:inherit;border:none;cursor:pointer}
         <button class="date-pill" data-date="today">今天</button>
         <button class="date-pill" data-date="tomorrow">明天</button>
       </div>
-    </div>
-
-    <!-- 10-filter chip strip mirrors FootballListFilter from
-         sports/page.tsx.  setStatusFilter() in JS owns the active class. -->
-    <div class="filter-strip" id="filter-strip">
-      <button class="chip active" data-filter="all">🔥 全部</button>
-      <button class="chip" data-filter="live">🔴 滚球 <span class="badge" id="live-badge">…</span></button>
-      <button class="chip" data-filter="today">📅 今日</button>
-      <button class="chip" data-filter="soon">⏱ 即将开赛</button>
-      <button class="chip" data-filter="early">🌅 早盘</button>
-      <button class="chip" data-filter="hot">🔥 热门</button>
-      <button class="chip" data-filter="wc">🏆 世界杯</button>
-      <button class="chip" data-filter="parlay">🔗 串关</button>
-      <button class="chip" data-filter="favorites">★ 收藏 <span class="badge" id="fav-badge">0</span></button>
-      <button class="chip" data-filter="outrights">👑 冠军</button>
     </div>
 
     <div id="match-area">
@@ -996,21 +1133,35 @@ button{font-family:inherit;border:none;cursor:pointer}
     ['svenska cupen','瑞典杯'],['liga women','女足联赛'],
     ['apertura','开赛'],['clausura','关赛'],
     ['promotion play offs','升级附加赛'],['promotion - play offs','升级附加赛'],['relegation group','降级组'],
+    ['liga profesional','阿甲'],['primera division','甲级联赛'],['segunda division','乙级联赛'],
+    ['reserve league','预备队联赛'],['reserves','预备队'],['reserve','预备队'],['youth league','青年联赛'],
     ['nations league','国家联赛'],['cup',' 杯']
   ];
   function translateLeagueTitle(suffix){
     if(!suffix) return suffix;
     let s = suffix;
-    const lower = s.toLowerCase();
-    // Greedy longest-first match
+    // Greedy longest-first match so multi-word names win over their prefixes
+    // (e.g. "liga profesional" beats "liga pro").  Match only on WORD
+    // BOUNDARIES so a key never rewrites a longer word it is a prefix of —
+    // the old substring replace turned "Liga Profesional" into "厄甲fesional".
     const sorted = I18N_LEAGUE.slice().sort((a,b) => b[0].length - a[0].length);
     for(const [en, zh] of sorted){
-      if(lower.includes(en)){
-        const re = new RegExp(en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'gi');
-        s = s.replace(re, zh);
-      }
+      const esc = en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      // (^|non-letter) … key … (?!letter)  — capture the leading delimiter so
+      // we can put it back; avoids lookbehind for older mobile Safari.
+      const re = new RegExp('(^|[^a-z\\u4e00-\\u9fff])(' + esc + ')(?![a-z])', 'gi');
+      s = s.replace(re, (m, pre) => pre + zh);
     }
-    return s;
+    // Translate a leading country token (longest match) for no-colon league
+    // names like "Argentina Reserve League" → "阿根廷 预备队联赛"; the colon form
+    // ("Argentina: …") is handled separately by countryOf().
+    const lc = s.toLowerCase();
+    let bestC = '';
+    for(const k in I18N_COUNTRY){
+      if((lc === k || lc.startsWith(k + ' ')) && k.length > bestC.length) bestC = k;
+    }
+    if(bestC) s = I18N_COUNTRY[bestC] + s.slice(bestC.length);
+    return s.replace(/\s{2,}/g, ' ').trim();
   }
   function shortLeague(name){
     if(!name) return '其他';
@@ -1091,7 +1242,80 @@ button{font-family:inherit;border:none;cursor:pointer}
     'half time result':'半场胜负','both teams to score ht':'上半场双方都进球',
     'both teams to score (2nd half)':'下半场双方都进球',
     'result/both teams to score':'胜负+双方进球','goals odd/even':'进球单双',
-    'last team to score (3 way)':'最后进球队(三项)'
+    'last team to score (3 way)':'最后进球队(三项)',
+    /* ---- Full Goalserve in-play catalogue (harvested 2026-06, 172 names) ---- */
+    /* 1X2 / 胜负 */
+    'fulltime result':'全场独赢','1x2 (1st half)':'上半场独赢','half time/full time':'半全场',
+    '1st half winner':'上半场胜负','2nd half winner':'下半场胜负','first 10 min winner':'前10分钟胜负',
+    'method of victory':'获胜方式','game decided after penalties':'点球大战决胜','game decided in extra time':'加时决胜','to qualify':'晋级',
+    /* 让球 / handicap */
+    'asian handicap':'让球','asian handicap (1st half)':'上半场让球','asian handicap first half':'上半场让球',
+    '3-way handicap':'三项让球','european handicap (1st half)':'上半场欧洲让球',
+    'handicap result':'让球胜平负','handicap result 1st half':'上半场让球胜平负',
+    /* 大小球 / totals */
+    'over/under line':'大小球','over/under (1st half)':'上半场大小球','over/under line (1st half)':'上半场大小球',
+    'goals over/under':'进球大小球','goals over/under 2nd half':'下半场大小球','match goals':'全场进球大小',
+    'goal line':'进球线','goal line (1st half)':'上半场进球线',
+    'total - home':'主队进球大小','total - away':'客队进球大小',
+    'home team goals':'主队进球大小','away team goals':'客队进球大小',
+    'home team total':'主队进球大小','away team total':'客队进球大小',
+    /* 精确进球 / 单双 */
+    'exact goals number':'精确进球数','1st half exact goals number':'上半场精确进球数','2nd half exact goals number':'下半场精确进球数',
+    'home team exact goals number':'主队精确进球数','away team exact goals number':'客队精确进球数',
+    'odd/even':'单双','odd/even 1st half':'上半场单双','odd/even (2nd half)':'下半场单双',
+    'home odd/even':'主队单双','away odd/even':'客队单双','goals odd/even':'进球单双',
+    /* 双方进球 / BTTS */
+    'both teams to score':'双方都进球','both teams to score (1st half)':'上半场双方都进球','both teams to score (2nd half)':'下半场双方都进球',
+    'both teams to score - 1st half':'上半场双方都进球','both teams to score - 2nd half':'下半场双方都进球',
+    /* 波胆 */
+    'final score':'波胆','correct score':'波胆','correct score (1st half)':'上半场波胆','correct score 1st half':'上半场波胆',
+    /* 双重机会 / 平局退款 */
+    'double chance':'双重机会','double chance - 1st half':'上半场双重机会','draw no bet':'平局退款',
+    /* 半场 / 零封 / 净胜 */
+    'highest scoring half':'进球最多半场','home highest scoring half':'主队进球最多半场','away highest scoring half':'客队进球最多半场',
+    'win both halves':'两半场全胜','to win either half':'任一半场获胜','win to nil':'零封获胜','to win from behind':'落后逆转取胜',
+    'to win 2nd half':'赢下半场','to score in both halves by teams':'球队两半场均进球',
+    'home team to score in both halves':'主队两半场均进球','away team to score in both halves':'客队两半场均进球',
+    'home team score a goal (2nd half)':'主队下半场进球','away team score a goal (2nd half)':'客队下半场进球',
+    'clean sheet - home':'主队零封','clean sheet - away':'客队零封','winning margin':'净胜球',
+    /* 进球队 / 进球时间 */
+    'team to score first':'最先进球队','team to score last':'最后进球队','last team to score (3 way)':'最后进球队(三项)',
+    '1st goal in interval':'首球时间区间','home 1st goal in interval':'主队首球时间区间','away 1st goal in interval':'客队首球时间区间',
+    'next 10 minutes total':'未来10分钟',
+    /* 组合盘 */
+    'result / both teams to score':'胜负+双方进球','results/both teams to score':'胜负+双方进球',
+    'result/total goals':'胜负+总进球','result/total goals (1st half)':'上半场胜负+总进球','total goals/both teams to score':'总进球+双方进球',
+    /* 进球球员 / 进球方式 */
+    'first goal scorer':'首位进球者','last goal scorer':'最后进球者','anytime goal scorer':'任意时间进球者',
+    'home anytime goal scorer':'主队任意时间进球者','away anytime goal scorer':'客队任意时间进球者',
+    'home first goal scorer':'主队首位进球者','away first goal scorer':'客队首位进球者',
+    'home last goal scorer':'主队最后进球者','away last goal scorer':'客队最后进球者',
+    'own goal':'乌龙球','first goal method':'首球进球方式','goal method outside the box':'禁区外进球方式',
+    'home goal method header':'主队头球进球','away goal method header':'客队头球进球',
+    'home goal method outside the box':'主队禁区外进球','away goal method outside the box':'客队禁区外进球',
+    /* 角球 / corners */
+    'match corners':'全场角球','total corners':'角球大小','total corners (1st half)':'上半场角球大小',
+    'total corners (3 way)':'角球总数(三项)','total corners (3 way) (1st half)':'上半场角球总数(三项)','total corners (3way) (2nd half)':'下半场角球总数(三项)',
+    'asian corners':'角球让球','corners asian handicap':'角球让球','corners asian handicap (1st half)':'上半场角球让球',
+    'corners over under':'角球大小','corners over/under':'角球大小','home corners over/under':'主队角球大小','away corners over/under':'客队角球大小',
+    'corners race to':'角球率先到','corners. european handicap':'角球欧洲让球',
+    'corners. total (range)':'角球总数范围','corners. total between 0 and 10m':'角球总数(0-10分钟)','multicorners':'多重角球',
+    'first corner':'第一个角球','last corner':'最后一个角球','most corners':'角球最多方',
+    /* 红黄牌 / cards */
+    'cards over/under':'红黄牌大小','cards over/under between 0 and 10 m':'红黄牌大小(0-10分钟)',
+    'cards asian handicap':'红黄牌让球','cards european handicap':'红黄牌欧洲让球',
+    'home team total cards':'主队红黄牌总数','away team total cards':'客队红黄牌总数','first card received (3 way)':'首张牌(三项)',
+    /* 射门 / 射正 / shots */
+    'shots.1x2':'射门数独赢','shotontarget 1x2':'射正数独赢','total shotongoal':'射正总数',
+    'shots. away total':'客队射门总数','shots. home total':'主队射门总数',
+    'total shots on goal':'射正球门次数','home total shots on goal':'主队射正球门次数','away total shots on goal':'客队射正球门次数',
+    'player shots':'球员射门数','home player shots':'主队球员射门数','away player shots':'客队球员射门数',
+    'player shots on target':'球员射正数','home player shots on target total':'主队球员射正总数','away player shots on target total':'客队球员射正总数',
+    /* 越位 / 抢断 / 助攻 / 传球 / 犯规 / 扑救 / 点球 */
+    'offsides total':'越位总数','offsides home total':'主队越位总数','offsides away total':'客队越位总数',
+    'total tackles':'抢断总数','player tackles':'球员抢断数','player assists':'球员助攻','away player assists':'客队球员助攻',
+    'player passes':'球员传球数','player fouls committed':'球员犯规数','goalkeeper saves':'门将扑救数',
+    'to score a penalty':'罚入点球','to miss a penalty':'射失点球'
   };
   /* Token fallback — applied when neither the exact map nor a pattern hits.
    * Longest-first so multi-word tokens win.  Yields Chinese even for the long
@@ -1101,12 +1325,25 @@ button{font-family:inherit;border:none;cursor:pointer}
     ['both teams to score','双方都进球'],['draw no bet','平局退款'],['double chance','双重机会'],
     ['anytime goal scorer','任意时间进球者'],['first goal scorer','首位进球者'],['last goal scorer','最后进球者'],
     ['goal scorer','进球者'],['goalscorer','进球者'],['correct score','波胆'],['clean sheet','零封'],
+    ['player shots on target total','球员射正总数'],['player shots on target','球员射正数'],['shots on target','射正数'],['shot on target','射正数'],['on target','射正'],
+    ['goal method outside the box','禁区外进球方式'],['outside the box','禁区外'],['goal method header','头球进球'],['goal method','进球方式'],['method of victory','获胜方式'],
+    ['player fouls committed','球员犯规数'],['fouls committed','犯规数'],['goalkeeper saves','门将扑救数'],
+    ['to score a penalty','罚入点球'],['to miss a penalty','射失点球'],['to score in both halves','两半场均进球'],
+    ['win both halves','两半场全胜'],['win either half','任一半场获胜'],['win from behind','落后逆转'],['highest scoring half','进球最多半场'],
+    ['cards over/under','红黄牌大小'],['cards asian handicap','红黄牌让球'],['cards european handicap','红黄牌欧洲让球'],
+    ['corners race to','角球率先到'],['multicorners','多重角球'],['asian corners','角球让球'],['corners over under','角球大小'],['corners over/under','角球大小'],
+    ['exact goals number','精确进球数'],['exact goals','精确进球数'],
+    ['total shotongoal','射正总数'],['total corners','角球总数'],['total cards','红黄牌总数'],['total tackles','抢断总数'],
+    ['player shots','球员射门数'],['player assists','球员助攻'],['player passes','球员传球数'],['player tackles','球员抢断数'],['player fouls','球员犯规数'],
     ['asian handicap','让球'],['european handicap','欧洲让球'],['handicap result','让球胜平负'],['3-way handicap','三项让球'],['handicap','让球'],
     ['over/under','大小'],['odd/even','单双'],['winning margin','净胜球'],['win to nil','零封获胜'],
     ['race to','率先到'],['next team to score','下一个进球队'],['last team to score','最后进球队'],['first team to score','最先进球队'],
     ['team to score first','最先进球队'],['team to score last','最后进球队'],['to win','获胜'],['to score','进球'],['to qualify','晋级'],
     ['or more','或以上'],['1st half','上半场'],['2nd half','下半场'],['first half','上半场'],['second half','下半场'],['half time','半场'],
     ['home team','主队'],['away team','客队'],['minutes','分钟'],['minute','分钟'],['interval','时间区间'],
+    ['shotontarget','射正'],['shotongoal','射正'],['shots','射门'],['shot','射门'],['offsides','越位'],['offside','越位'],
+    ['assists','助攻'],['passes','传球'],['tackles','抢断'],['fouls','犯规'],['saves','扑救'],
+    ['penalties','点球'],['penalty','点球'],['header','头球'],['own goal','乌龙球'],['method','方式'],['multi','多重'],['range','范围'],['offsides','越位'],
     ['corners','角球'],['corner','角球'],['bookings','红黄牌'],['booking','罚牌'],['cards','红黄牌'],['card','黄牌'],
     ['goals','进球'],['goal','进球'],['result','赛果'],['winner','胜出'],['1x2','独赢'],['total','总数'],
     ['home','主队'],['away','客队'],['team','队'],['half','半场'],['score','比分'],['win','胜'],['most','最多'],
@@ -1133,14 +1370,20 @@ button{font-family:inherit;border:none;cursor:pointer}
   function translateMarket(name){
     if(!name) return name;
     const raw = String(name).trim();
-    const k = raw.toLowerCase();
+    const k = raw.toLowerCase().replace(/\s+/g,' ');
     if(I18N_MARKET[k]) return I18N_MARKET[k];
     /* bare numeric Goalserve id leaked through → generic Chinese label */
     if(/^0*\d+$/.test(raw)) return '特别盘口';
     const pat = translateMarketPattern(k);
     if(pat) return pat;
-    /* token replacement fallback (longest-first) */
+    /* token replacement fallback (longest-first).  First normalise the
+     * parametric Goalserve fragments the dictionary can't enumerate:
+     * minute buckets「between 0 and 10m」, 「(range)」, 「multi…」, and the
+     * stray period in 「Corners. Total」/「Shots.1x2」.   */
     let s = k;
+    s = s.replace(/\bbetween (\d+) and (\d+)\s*m\b/g, '（$1-$2分钟）');
+    s = s.replace(/\(range\)/g, '（范围）');
+    s = s.replace(/\./g, ' ');
     for(const [en, zh] of MARKET_TOKENS){
       if(s.includes(en)){
         const re = new RegExp(en.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'g');
@@ -1255,7 +1498,28 @@ button{font-family:inherit;border:none;cursor:pointer}
     if(sameDay(d,tom)) return `明天 ${hh}:${mm}`;
     return `${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${hh}:${mm}`;
   }
-  function fmtOdds(v){ return (v == null || !isFinite(v) || Number(v) <= 0) ? '—' : Number(v).toFixed(2); }
+  /*  亚洲（香港）赔率显示 —— 全站赔率统一用香港盘呈现：香港赔率 = 欧洲小数赔率 − 1。
+   *  本换算只发生在「显示层」：所有内部数值、data-odds、传给后端校验/下注的价格、
+   *  注单 ioratio 存储、settle_bets 结算公式一律保持欧洲小数赔率不变，因此派彩金额
+   *  完全不受影响（本金×小数 ≡ 本金×(1+香港)）。要切回欧赔显示，删除此函数体内的
+   *  「- 1」即可。  */
+  function toAsianOdds(v){
+    const n = Number(v);
+    return isFinite(n) ? n - 1 : v;
+  }
+  function fmtOdds(v){ return (v == null || !isFinite(v) || Number(v) <= 0) ? '—' : toAsianOdds(v).toFixed(2); }
+  /*  波胆 (correct-score) display rule — mirrors the backend _cs_price floor:
+   *  <100 → 1 decimal place (trailing ".0" trimmed: 1.9 / 65), ≥100 → integer
+   *  (146).  The VALUE is already floored house-favourable on the backend; this
+   *  only drops the cosmetic trailing zero that the generic 2dp fmtOdds adds.
+   *  Display is converted to 香港盘 (decimal − 1); the <100/≥100 branch stays
+   *  keyed on the raw decimal so it mirrors the backend's rounding precision.  */
+  function fmtCsOdds(v){
+    if(v == null || !isFinite(v) || Number(v) <= 0) return '—';
+    const n = Number(v);
+    const hk = toAsianOdds(n);
+    return n < 100 ? hk.toFixed(1).replace(/\.0$/, '') : hk.toFixed(0);
+  }
   function fmtMoney(v){
     if(v == null || !isFinite(v)) return '—';
     const n = Number(v);
@@ -1347,6 +1611,9 @@ button{font-family:inherit;border:none;cursor:pointer}
     'Rosario Central':'罗萨里奥中央','Talleres':'塔列雷斯','Argentinos Juniors':'阿根廷青年',
     'Huracan':'飓风','Defensa y Justicia':'防卫者','Godoy Cruz':'戈多伊克鲁斯','Tigre':'老虎',
     'Belgrano':'贝尔格拉诺','Platense':'普拉滕斯','Union Santa Fe':'圣塔菲联','Central Cordoba':'科尔多瓦中央',
+    'Colon':'科隆','Colon Santa Fe':'科隆','Atletico Tucuman':'图库曼竞技','Deportivo Riestra':'里斯特拉',
+    'Sarmiento':'萨米恩托','Barracas Central':'巴拉卡斯中央','Instituto':'科尔多瓦学院','Gimnasia L.P.':'拉普拉塔体操',
+    'Gimnasia La Plata':'拉普拉塔体操','Independiente Rivadavia':'里瓦达维亚独立','Deportivo Riestra Reserves':'里斯特拉(预备队)',
     /* Chile / Uruguay / Ecuador / Colombia / Paraguay */
     'Colo Colo':'科洛科洛','U. Catolica':'天主教大学','Universidad Catolica':'天主教大学',
     'Universidad de Chile':'智利大学','Cobreloa':'科布雷洛阿','Huachipato':'瓦奇巴托',
@@ -1425,6 +1692,8 @@ button{font-family:inherit;border:none;cursor:pointer}
     const t = String(en).trim();
     if(TEAM_CN[en]) return TEAM_CN[en];
     if(TEAM_CN[t]) return TEAM_CN[t];
+    /* national teams: fall back to the country map (e.g. South Africa→南非) */
+    if(I18N_COUNTRY[t.toLowerCase()]) return I18N_COUNTRY[t.toLowerCase()];
     /* esports / virtual format: "Italy (ITA) Valessimus" → "意大利 Valessimus"
      * (translate the leading country, keep the player handle).            */
     let m = t.match(/^(.+?)\s*\(([A-Za-z]{2,4})\)\s*(.+)$/);
@@ -1439,6 +1708,18 @@ button{font-family:inherit;border:none;cursor:pointer}
       const q = m[2].toLowerCase();
       const qmap = {'w':'(女)','women':'(女)','reserve':'(预备队)','reserves':'(预备队)','ii':'(二队)','b':'(B队)'};
       return base + (qmap[q] || ('('+m[2]+')'));
+    }
+    /* Same qualifiers WITHOUT parentheses: "River Plate Reserves",
+     * "Boca Juniors U20", "Palmeiras B".  Strip the suffix, translate the
+     * base from the curated map, and re-tag in Chinese.  Only fires when the
+     * base is actually known so we never emit a half-English "X 预备队".      */
+    m = t.match(/^(.+?)\s+(Reserves?|U-?\s?\d{2}|III|II|B|W|Women|Youth|Academy)$/i);
+    if(m && TEAM_CN[m[1].trim()]){
+      const q = m[2].toLowerCase().replace(/[\s-]/g, '');
+      const qmap = {'reserve':'(预备队)','reserves':'(预备队)','iii':'(三队)','ii':'(二队)',
+        'b':'(B队)','w':'(女)','women':'(女)','youth':'(青年)','academy':'(青年)'};
+      const tag = qmap[q] || (/^u\d{2}$/.test(q) ? '(' + q.toUpperCase() + ')' : '');
+      return TEAM_CN[m[1].trim()] + tag;
     }
     return t;
   }
@@ -1469,17 +1750,30 @@ button{font-family:inherit;border:none;cursor:pointer}
 
   /* ── API client ──────────────────────────────────────────────── */
   async function api(path, init){
-    const r = await fetch(path, Object.assign({credentials:'include', cache:'no-store'}, init || {}));
+    init = init || {};
+    const _to = (init.timeoutMs != null) ? init.timeoutMs : 15000;
+    const _ac = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+    const _tid = (_ac && _to > 0) ? setTimeout(() => _ac.abort(), _to) : null;
+    let r;
+    try{
+      r = await fetch(path, Object.assign({credentials:'include', cache:'no-store'}, init, _ac ? {signal: _ac.signal} : {}));
+    }catch(e){
+      if(_ac && e && e.name === 'AbortError'){ const te = new Error('请求超时，请重试'); te.timeout = true; throw te; }
+      throw e;
+    }finally{
+      if(_tid) clearTimeout(_tid);
+    }
     if(!r.ok){
       const txt = await r.text().catch(()=>'');
       const err = new Error(`HTTP ${r.status} on ${path}: ${txt.slice(0,160)}`);
       err.status = r.status;
+      try{ err.body = txt ? JSON.parse(txt) : null; }catch(_){ err.body = null; }
       throw err;
     }
     return r.json();
   }
   const API = {
-    listEvents:        () => api('/api/external/events?limit=2000'),
+    listEvents:        (limit, timeoutMs) => api('/api/external/events?limit=' + (Number(limit) > 0 ? Number(limit) : 2000), (timeoutMs != null ? { timeoutMs: timeoutMs } : undefined)),
     getEventMarkets:   id => api(`/api/external/events/${encodeURIComponent(id)}/markets`),
     /* Alias: inline panel & ProScreen call sites use eventMarkets;
      * keep both pointing at the same endpoint to avoid drift. */
@@ -1509,12 +1803,17 @@ button{font-family:inherit;border:none;cursor:pointer}
      *     minute, period, status, stats:[{key,label,home,away}], has_any }
      * Returns has_any=false when goalserve has literally nothing yet.   */
     inplayStats:       id => api(`/api/external/events/${encodeURIComponent(id)}/inplay-stats`),
-    /* H2H / lineups / standings were powered by api-sports.io.   We
-     * keep stubs so the modal tabs render the "暂无数据" placeholder
-     * cleanly until equivalent Goalserve-backed endpoints land.        */
-    matchH2H:          () => Promise.resolve({ ok: true, mapped: false }),
-    matchLineups:      () => Promise.resolve({ ok: true, mapped: false, teams: [] }),
-    matchStandings:    () => Promise.resolve({ ok: true, mapped: false, standings: [] }),
+    /* H2H / lineups / standings / post-match timeline — Goalserve getfeed
+     * (standings/{league}.xml + soccerfixtures/league/{league}) projected by
+     * routers/external.py into the exact shapes the modal renderers expect.
+     * Each degrades to {ok:true, mapped:false} so the pane shows its
+     * graceful "暂无…" placeholder when data is missing.                 */
+    matchH2H:          id => api(`/api/external/events/${encodeURIComponent(id)}/h2h`),
+    matchLineups:      id => api(`/api/external/events/${encodeURIComponent(id)}/lineups`),
+    matchStandings:    id => api(`/api/external/events/${encodeURIComponent(id)}/standings`),
+    /* Finished-match timeline (soccerfixtures goals/cards/subs) — used as a
+     * fallback when the live inplay snap is gone.  Same shape as inplayEvents. */
+    matchTimeline:     id => api(`/api/external/events/${encodeURIComponent(id)}/timeline`),
     /* Stream / tracker are external widget URLs (sportradar, livesport
      * etc.) — not api-sports data fetches.   Leave intact.             */
     matchStream:       id => api(`/api/external/match/${encodeURIComponent(id)}/stream`),
@@ -1560,10 +1859,12 @@ button{font-family:inherit;border:none;cursor:pointer}
     events: [],
     prevEventsMap: new Map(),
     leagueFilter: new Set(),
+    expandedLeagues: new Set(),
     dateFilter: 'all',
     statusFilter: 'all',
     query: '',
     lgSearchQuery: '',
+    leaguesExpanded: false,
     slip: [],
     slipMode: readPref(PREF_KEYS.slipMode, 'parlay'),
     stake: 100,
@@ -1597,6 +1898,10 @@ button{font-family:inherit;border:none;cursor:pointer}
      *  can re-render in place without a refetch.    */
     activeProTab: 'hot',
     activeMarketsData: null,
+    /*  prevOddsByKey — last numeric odds per stable outcome key (data-fk)
+     *  for the inline dropdown + detail-modal pills, so a re-render after a
+     *  WS frame can red/green-pulse only the prices that actually moved.   */
+    prevOddsByKey: new Map(),
     /*  Live WebSocket bridge.   `wsState` ∈ {connecting, open, closed,
      *  error}; `wsLastFrameAt` is the wall-clock ms of the last UPDATE
      *  frame (replay frames included) used by the badge tick.  The
@@ -1606,6 +1911,8 @@ button{font-family:inherit;border:none;cursor:pointer}
     wsLastFrameAt: 0,
     wsReconnectMs: 1500,
     wsLiveFramesSeen: 0,
+    eventsInFlight: false,
+    pollBackoffUntil: 0,
   };
   function persistFavorites(){
     writePref(PREF_KEYS.favorites, JSON.stringify(Array.from(state.favoriteMatchIds)));
@@ -1638,21 +1945,36 @@ button{font-family:inherit;border:none;cursor:pointer}
       const q = state.lgSearchQuery.toLowerCase();
       list = list.filter(lg => lg.name.toLowerCase().includes(q));
     }
+    // Pin the World Cup league(s) to the very top of the expanded list.
+    const isWcLg = lg => {
+      const n = (lg.name||'').toLowerCase();
+      return n.includes('world cup') || n.includes('fifa') || (lg.name_cn||'').includes('世界杯');
+    };
+    list.sort((a,b) => (isWcLg(b)?1:0) - (isWcLg(a)?1:0));
     list = list.slice(0, 80);
     $('#league-live-dot').classList.toggle('on', liveAny);
-    if(list.length === 0){ host.innerHTML = '<div class="loading">无匹配联赛</div>'; return; }
+    // "全部联赛" collapses the per-league list by default; a search query
+    // force-expands so matches are visible while typing.
+    const expanded = state.leaguesExpanded || !!state.lgSearchQuery;
     const noneSelected = state.leagueFilter.size === 0;
-    let html = `<button class="league-row ${noneSelected?'active':''}" data-lg="__all__">
-      <span class="flag">🌐</span><span class="lg-name">全部联赛</span><span class="lg-ct">${state.events.length}</span></button>`;
-    for(const lg of list){
-      const active = state.leagueFilter.has(lg.name);
-      const display = lg.name_cn || shortLeague(lg.name);
-      html += `<button class="league-row ${active?'active':''}" data-lg="${escHtml(lg.name)}" title="${escHtml(lg.name)}">
-        <span class="chk">${active?'☑':'☐'}</span>
-        <span class="flag">${flagFor(lg.name)}</span>
-        <span class="lg-name">${escHtml(display)}</span>
-        <span class="lg-ct">${lg.live>0?`🔴${lg.live}/`:''}${lg.count}</span>
-      </button>`;
+    let html = `<button class="league-row lg-all ${noneSelected?'active':''}" data-lg="__all__">
+      <span class="lg-caret">${expanded?'▾':'▸'}</span><span class="flag">🌐</span><span class="lg-name">全部联赛</span><span class="lg-ct">${state.events.length}</span></button>`;
+    if(expanded){
+      if(list.length === 0){
+        html += '<div class="loading">无匹配联赛</div>';
+      } else {
+        for(const lg of list){
+          const active = state.leagueFilter.has(lg.name);
+          const display = lg.name_cn || shortLeague(lg.name);
+          const wc = isWcLg(lg);
+          html += `<button class="league-row ${active?'active':''} ${wc?'lg-wc':''}" data-lg="${escHtml(lg.name)}" title="${escHtml(lg.name)}">
+            <span class="chk">${active?'☑':'☐'}</span>
+            <span class="flag">${wc?'🏆':flagFor(lg.name)}</span>
+            <span class="lg-name">${escHtml(display)}</span>
+            <span class="lg-ct">${lg.live>0?`🔴${lg.live}/`:''}${lg.count}</span>
+          </button>`;
+        }
+      }
     }
     host.innerHTML = html;
     host.querySelectorAll('.league-row').forEach(r => {
@@ -1660,6 +1982,7 @@ button{font-family:inherit;border:none;cursor:pointer}
         const lg = r.getAttribute('data-lg');
         if(lg === '__all__'){
           state.leagueFilter.clear();
+          state.leaguesExpanded = !state.leaguesExpanded;
         } else {
           if(state.leagueFilter.has(lg)) state.leagueFilter.delete(lg);
           else state.leagueFilter.add(lg);
@@ -1848,6 +2171,9 @@ button{font-family:inherit;border:none;cursor:pointer}
         groups.get(k).push(e);
       }
       const sortedLeagues = Array.from(groups.entries()).sort((a,b)=>{
+        /* 世界杯优先：把含世界杯赛事的联赛组排到最前(滚球之上)。 */
+        const aWc = a[1].some(isWorldCup), bWc = b[1].some(isWorldCup);
+        if(aWc !== bWc) return aWc ? -1 : 1;
         const aLive = a[1].some(isLive), bLive = b[1].some(isLive);
         if(aLive !== bLive) return aLive ? -1 : 1;
         return b[1].length - a[1].length;
@@ -1870,7 +2196,8 @@ button{font-family:inherit;border:none;cursor:pointer}
               // Upcoming: soonest kickoff first.
               return (a.commence_ts||0) - (b.commence_ts||0);
             });
-        const show = ordered.slice(0, MAX_PER_LEAGUE);
+        const isExpanded = state.expandedLeagues.has(lgName);
+        const show = isExpanded ? ordered : ordered.slice(0, MAX_PER_LEAGUE);
         const headLabel = (items[0] && items[0].league_cn) || shortLeague(lgName);
         const subLabel = countryOf(lgName) || '联赛';
         let body = '';
@@ -1886,6 +2213,9 @@ button{font-family:inherit;border:none;cursor:pointer}
         } else {
           body = show.map(renderMatchCard).join('');
         }
+        const moreBtn = ordered.length > MAX_PER_LEAGUE
+          ? `<button class="league-more" data-lg-more="${encodeURIComponent(lgName)}">${isExpanded ? '收起 ▴' : `查看全部 ${ordered.length} 场 ▾`}</button>`
+          : '';
         html += `<section class="league-group">
           <div class="league-head">
             <span class="flag">${flagFor(lgName)}</span>
@@ -1896,20 +2226,34 @@ button{font-family:inherit;border:none;cursor:pointer}
             <span class="lh-ct">${items.length} 场</span>
           </div>
           <div class="match-grid">${body}</div>
+          ${moreBtn}
         </section>`;
       }
     }
     host.innerHTML = html;
     wireMatchAreaBanners();
+    wireLeagueMore();
     wireOddsButtons();
     wireMatchOpen();
     wireFavoriteToggles();
     wireInlineToggles();
+    restoreInlineBody();
     flashChangedOdds();
+  }
+  function wireLeagueMore(){
+    document.querySelectorAll('.league-more').forEach(b => {
+      b.addEventListener('click', () => {
+        const lg = decodeURIComponent(b.getAttribute('data-lg-more') || '');
+        if(!lg) return;
+        if(state.expandedLeagues.has(lg)) state.expandedLeagues.delete(lg);
+        else state.expandedLeagues.add(lg);
+        renderMatches();
+      });
+    });
   }
   function wireMatchAreaBanners(){
     const retry = document.getElementById('banner-retry');
-    if(retry) retry.addEventListener('click', refreshEvents);
+    if(retry) retry.addEventListener('click', () => { state.pollBackoffUntil = 0; refreshEvents(); });
     const clr = document.getElementById('banner-clear-leagues');
     if(clr) clr.addEventListener('click', () => {
       state.leagueFilter.clear(); renderLeagueList(); renderMatches();
@@ -1962,6 +2306,7 @@ button{font-family:inherit;border:none;cursor:pointer}
 
   function liveTicker(e){
     var code = (e.status_short||'').toUpperCase();
+    var bc = e.betting_cutoff || e._betting_cutoff || {};
     var seen = e.apisports_seen_at;
     var fresh = seen && (Date.now()/1000 - seen) <= 300;
     // Discrete match states (half-time / finished / break / postponed) are
@@ -1980,6 +2325,12 @@ button{font-family:inherit;border:none;cursor:pointer}
     // "HT".  Show the explicit break label in the red live chip regardless of
     // the (frozen) elapsed minute, which would otherwise read "上半场 45'".
     if(code==='HT'||code==='BREAK') return '滚球 中场休息';
+    // Half-time inferred from the betting cutoff when Goalserve sent a blank
+    // frame at the break (empty period, frozen clock): the half-time board is
+    // closed (bc.ht) while the full-time / extra-time boards stay open, and
+    // this frame carries no live minute.  Distinguishes the break from live
+    // 40-45' play (which always carries an elapsed_minute).
+    if(bc.ht && !bc.ft && !bc.et && !(e.elapsed_minute!=null && isFinite(e.elapsed_minute))) return '滚球 中场休息';
     // Authoritative live clock: Goalserve `elapsed_minute` is the TRUE playing
     // minute (continuous 1..90+, already excludes the half-time break), pushed
     // in real time over the WS feed.
@@ -1999,32 +2350,28 @@ button{font-family:inherit;border:none;cursor:pointer}
       if(mm>90)  return "下半场 90+"+(mm-90)+"'";
       return '下半场 '+mm+"'";
     }
-    // Last-resort estimate when no elapsed_minute is present at all.
-    var ts = e.commence_ts;
-    if(ts){
-      var secs = Math.floor(Date.now()/1000 - ts);
-      if(secs>=0){
-        var m = Math.floor(secs/60);
-        if(m<=45) return '上半场 '+m+"'";
-        if(m<=50) return "上半场 45+'";
-        if(m<60) return '滚球 中场休息';
-        // 2nd-half minute = wall-clock − 45(1st half) − ~15(HT break) + 45.
-        var hm = m-15;
-        if(hm>=90) return "下半场 90+'";
-        return '下半场 '+hm+"'";
-      }
+    // No reliable clock/phase from the feed (lower-tier leagues whose Goalserve
+    // frames omit et/stp, or a blank frame right after an `avl` snapshot): show
+    // the KICKOFF clock time rather than a wall-clock-guessed minute, which can
+    // be ~30 min off the real match clock (late kickoff / long stoppages).
+    if(e.commence_ts){
+      var _kd = new Date(e.commence_ts*1000);
+      var _kh = String(_kd.getHours()).padStart(2,'0'), _km = String(_kd.getMinutes()).padStart(2,'0');
+      return '滚球 · '+_kh+':'+_km+' 开赛';
     }
     return '滚球';
   }
   /* When the in-play board for the phase currently shown on the card has
    * closed, return the Chinese notice to render beside the live ticker;
    * empty string while betting is still open (or the match is not live).
-   *   常规时间已停止下注 — 90' regular-time board closed (~85')
+   *   常规时间已停止下注 — 全场盘口在 92' 停售（90+2'），或收到 Goalserve 结束信号
    *   加时已停止下注     — extra-time board closed (~118')
    *   点球已停止下注     — penalty shootout phase
+   * 上半场盘口在 45' 停售，但【不显示】「半场已停止下注」——此时全场盘仍可下注，
+   * 不应给用户「整场已停」的错觉。
    * Prefers the backend `betting_cutoff` flags ({ft,ht,et}) carried on the
    * live WS frame / REST snap, and falls back to the elapsed-minute
-   * thresholds (mirroring server defaults GS_FT_CUTOFF_MIN=85 /
+   * thresholds (mirroring server defaults GS_FT_CUTOFF_MIN=92 /
    * GS_ET_CUTOFF_MIN=118) so the notice is correct on the very first paint
    * before the first WS frame arrives. */
   function betStopLabel(e){
@@ -2034,7 +2381,9 @@ button{font-family:inherit;border:none;cursor:pointer}
     var mm = (e.elapsed_minute!=null && isFinite(e.elapsed_minute)) ? Math.floor(e.elapsed_minute) : null;
     if(code==='PEN' || code==='P') return '点球已停止下注';
     if(code==='ET')  return (bc.et || (mm!=null && mm>=118)) ? '加时已停止下注' : '';
-    return (bc.ft || (mm!=null && mm>=85)) ? '常规时间已停止下注' : '';
+    /* 仅上半场盘口停售时不显示任何提示（全场盘仍开放）。 */
+    if(bc.ht && !bc.ft) return '';
+    return (bc.ft || (mm!=null && mm>=92)) ? '常规时间已停止下注' : '';
   }
   function renderMatchCard(e){
     const live = isLive(e);
@@ -2069,8 +2418,13 @@ button{font-family:inherit;border:none;cursor:pointer}
     /* 主盘统一显示「让球盘」(re_*)：全场胜平负(1X2)常被上游封盘，故卡片主盘不再展示 1X2。 */
     const rHome = mo.re_h, rAway = mo.re_c;
     const rLine = (mo.re_line != null && isFinite(Number(mo.re_line))) ? Number(mo.re_line) : null;
-    const rHomeLab = '主' + (rLine != null ? ' ' + formatHdp(rLine,'home') : '');
-    const rAwayLab = '客' + (rLine != null ? ' ' + formatHdp(rLine,'away') : '');
+    /*  剩余赛事 spread display (Bet365-style): shift by live goal diff so
+     *  主 +2 @ 0:2 → 主 0.  data-line below stays the FULL Goalserve line so
+     *  place-bet validation + settlement are unchanged (see _restHdpAdj).   */
+    const _spSd = (live && isFinite(Number(e.score_home)) && isFinite(Number(e.score_away))) ? (Number(e.score_home) - Number(e.score_away)) : 0;
+    const rLineDisp = (rLine != null) ? rLine + _spSd : null;
+    const rHomeLab = '主' + (rLineDisp != null ? ' ' + formatHdp(rLineDisp,'home') : '');
+    const rAwayLab = '客' + (rLineDisp != null ? ' ' + formatHdp(rLineDisp,'away') : '');
     const teamsStr = `${homeNm} vs ${awayNm}`;
     /* Color the placeholder crests using the upstream palette so the same
      * team always gets the same hue across renders.  Inline `style` keeps
@@ -2095,8 +2449,8 @@ button{font-family:inherit;border:none;cursor:pointer}
       </div>
       <div class="m-right">
         <div class="odds-row hdp">
-          <button class="odds-btn ${(!rHome||rHome<=0)?'muted':''}" data-eid="${e.id}" data-mkt="让球" data-pick="RH" data-odds="${(rHome>0)?rHome:''}" data-label="${escHtml(rHomeLab)}" data-teams="${escHtml(teamsStr)}"><span class="ol">${escHtml(rHomeLab)}</span><span class="ov">${fmtOdds(rHome)}</span></button>
-          <button class="odds-btn ${(!rAway||rAway<=0)?'muted':''}" data-eid="${e.id}" data-mkt="让球" data-pick="RC" data-odds="${(rAway>0)?rAway:''}" data-label="${escHtml(rAwayLab)}" data-teams="${escHtml(teamsStr)}"><span class="ol">${escHtml(rAwayLab)}</span><span class="ov">${fmtOdds(rAway)}</span></button>
+          <button class="odds-btn ${(!rHome||rHome<=0)?'muted':''}" data-eid="${e.id}" data-mkt="让球" data-pick="RH" data-mid="main_spread" data-field="home" data-line="${rLine != null ? rLine : ''}" data-odds="${(rHome>0)?rHome:''}" data-label="${escHtml(rHomeLab)}" data-teams="${escHtml(teamsStr)}"><span class="ol">${escHtml(rHomeLab)}</span><span class="ov">${fmtOdds(rHome)}</span></button>
+          <button class="odds-btn ${(!rAway||rAway<=0)?'muted':''}" data-eid="${e.id}" data-mkt="让球" data-pick="RC" data-mid="main_spread" data-field="away" data-line="${rLine != null ? rLine : ''}" data-odds="${(rAway>0)?rAway:''}" data-label="${escHtml(rAwayLab)}" data-teams="${escHtml(teamsStr)}"><span class="ol">${escHtml(rAwayLab)}</span><span class="ov">${fmtOdds(rAway)}</span></button>
         </div>
         <div class="m-actions">
           <button class="inline-toggle" data-inline-toggle="${e.id}" title="展开更多盘口">${expanded?'收起 ▴':'展开 ▾'}</button>
@@ -2140,6 +2494,27 @@ button{font-family:inherit;border:none;cursor:pointer}
   function isGoalscorerMarket(n){
     return /\b(goalscorer|goal method|multi scorers|to score|score or assist|first goalscorer)\b/.test(n);
   }
+  /*  Operator rule: show ONLY Asian handicap — hide every European / 3-way
+   *  handicap variant (goals, corners, cards).  Asian markets ("Spread",
+   *  "Asian Handicap", "Corners Asian Handicap", "Cards Asian Handicap") do
+   *  NOT match and stay visible.   */
+  function isHiddenHandicapMarket(name){
+    const n = String(name || '').toLowerCase();
+    return n.includes('european handicap')
+        || n.includes('3-way handicap') || n.includes('3 way handicap') || n.includes('3way handicap')
+        || n.includes('handicap result')
+        || n.includes('欧洲让球') || n.includes('欧式让球') || n.includes('三项让球') || n.includes('让球胜平负');
+  }
+  /*  Strip hidden markets from a /markets API response in place (every
+   *  bookmaker), so they never reach the cache / tabs / hot view / slip.   */
+  function stripHiddenMarkets(resp){
+    if(resp && Array.isArray(resp.bookmakers)){
+      for(const bk of resp.bookmakers){
+        if(bk && Array.isArray(bk.markets)) bk.markets = bk.markets.filter(m => !isHiddenHandicapMarket(m && m.market_name));
+      }
+    }
+    return resp;
+  }
   function marketMatchesTab(name, tab){
     const n = (name||'').toLowerCase();
     const isHalf  = isHalfTimeMarket(n);
@@ -2152,7 +2527,7 @@ button{font-family:inherit;border:none;cursor:pointer}
     if(tab === 'player')         return isPlay && !isCorn && !isCard;
     if(tab === 'goalscorer')     return isScor && !isCorn && !isCard && !isPlay;
     if(tab === 'specials')       return /\bspecials?\b/.test(n);
-    if(tab === 'correct_score')  return n.includes('correct score') && !isHalf;
+    if(tab === 'correct_score')  return (n.includes('correct score') || n.includes('final score') || n.includes('exact score')) && !isHalf;
     if(tab === 'halftime')       return isHalf && !isCorn && !isCard && !isPlay;
     if(tab === 'handicap'){
       if(isHalf || isCorn || isCard || isPlay) return false;
@@ -2202,11 +2577,29 @@ button{font-family:inherit;border:none;cursor:pointer}
    *  bookmaker book returns rows like { hdp: 0.5, home: 1.95, away: 1.85 }
    *  which we flatten into one OutcomeOption per (row × field).        */
   function formatHdp(hdp, side){
-    if(hdp === 0) return 'PK';
+    if(hdp === 0) return '让0';
     const v = side === 'home' ? hdp : -hdp;
     return (v > 0 ? '+' : '') + v;
   }
-  function outcomeLabel(field, row, ev, hdp){
+  /*  _restHdpAdj — 剩余赛事 (rest-of-match) display shift for the FULL-MATCH
+   *  goal Asian handicap.  Goalserve quotes the line on a FULL-MATCH basis
+   *  (current score baked in → 主 +2 @ 0:2); Bet365-style in-play Asian shows
+   *  it relative to the current score (主 0).  They settle identically:
+   *  L_rest = L_full + (主比分 − 客比分).  DISPLAY ONLY — the stored line /
+   *  data-line / outcome_line keep the FULL Goalserve value so place-bet
+   *  validation + settle_bets.php (line + 终场比分) stay correct.  Scoped to
+   *  goal AH; corner/card/half handicaps are NOT shifted.                   */
+  function _restHdpAdj(ev, marketName){
+    const n = String(marketName || '').toLowerCase();
+    if(/corner|card|booking|red|yellow|角球|红黄牌|罚牌/.test(n)) return 0;
+    if(/1st half|first half|2nd half|second half|half time|\bht\b|\b1h\b|\b2h\b|半场/.test(n)) return 0;
+    if(!(n === 'spread' || n === 'handicap' || n.includes('asian handicap') || n.includes('让球'))) return 0;
+    const sh = Number(ev && ev.score_home), sa = Number(ev && ev.score_away);
+    if(!isFinite(sh) || !isFinite(sa)) return 0;
+    return sh - sa;
+  }
+  function outcomeLabel(field, row, ev, hdp, adj){
+    adj = adj || 0;
     const home = ev.home_cn || teamCn(ev.home) || '主队';
     const away = ev.away_cn || teamCn(ev.away) || '客队';
     const rl = (typeof row.label === 'string' && row.label.trim()) ? row.label : null;
@@ -2222,8 +2615,8 @@ button{font-family:inherit;border:none;cursor:pointer}
       return _t;
     }
     switch(field){
-      case 'home':  return hdp == null ? home : `${home} ${formatHdp(hdp,'home')}`;
-      case 'away':  return hdp == null ? away : `${away} ${formatHdp(hdp,'away')}`;
+      case 'home':  return hdp == null ? home : `${home} ${formatHdp(hdp + adj,'home')}`;
+      case 'away':  return hdp == null ? away : `${away} ${formatHdp(hdp + adj,'away')}`;
       case 'draw':  return '平局';
       case 'over':  return hdp == null ? '大' : `大 ${hdp}`;
       case 'under': return hdp == null ? '小' : `小 ${hdp}`;
@@ -2236,19 +2629,52 @@ button{font-family:inherit;border:none;cursor:pointer}
    * a {selection, price, handicap} row, as opposed to a canon outcome key)
    * into a Chinese direction label.  Handles O/U, 1X2, home/away handicaps,
    * yes/no, odd/even, correct-score, and half/full combos.                  */
-  function selectionCn(sel, ev, hdp){
+  /*  Translate the English statistic prefix of a "Next 10 Minutes Total"
+   *  outcome leg (e.g. "goals", "corners 3-way", "goal kicks") to Chinese.
+   *  Returns the localized string, or null when the leg carries no known
+   *  stat token (so the caller can fall back to the generic selectionCn).  */
+  function next10StatCn(leg){
+    let t = String(leg || '').toLowerCase().trim();
+    if(!t) return null;
+    const map = [
+      ['goal kicks','球门球'], ['goalkicks','球门球'],
+      ['free kicks','任意球'], ['freekicks','任意球'],
+      ['throw-ins','界外球'], ['throw ins','界外球'], ['throwins','界外球'], ['throw-in','界外球'],
+      ['corners','角球'], ['corner','角球'],
+      ['cards','红黄牌'], ['card','红黄牌'],
+      ['goals','进球'], ['goal','进球'],
+    ];
+    let hit = false;
+    for(const [en, cn] of map){
+      if(t.indexOf(en) >= 0){ t = t.split(en).join(cn); hit = true; break; }
+    }
+    if(!hit) return null;
+    t = t.replace(/3\s*-?\s*way/g, '三项').replace(/\s+/g, '').trim();
+    return t;
+  }
+  function selectionCn(sel, ev, hdp, adj, marketName){
+    adj = adj || 0;
     if(sel == null) return '';
     const s = String(sel).trim();
     if(!s) return '';
     const low = s.toLowerCase();
     const home = (ev && (ev.home_cn || teamCn(ev.home))) || '主队';
     const away = (ev && (ev.away_cn || teamCn(ev.away))) || '客队';
+    if(/exact goals|how many goals|number of goals|goals number/.test(String(marketName||'').toLowerCase())){
+      let gm;
+      if((gm = low.match(/^(\d+)$/)))        return gm[1];
+      if((gm = low.match(/^more\s*(\d+)$/))) return gm[1] + '+';
+      if((gm = low.match(/^(\d+)\s*\+$/)))   return gm[1] + '+';
+    }
     switch(low){
-      case 'home': case '1': case 'home team': return hdp == null ? home : `${home} ${formatHdp(hdp,'home')}`;
-      case 'away': case '2': case 'away team': return hdp == null ? away : `${away} ${formatHdp(hdp,'away')}`;
+      case 'home': case '1': case 'home team': return hdp == null ? home : `${home} ${formatHdp(hdp + adj,'home')}`;
+      case 'away': case '2': case 'away team': return hdp == null ? away : `${away} ${formatHdp(hdp + adj,'away')}`;
       case 'draw': case 'x': case 'tie': case 'the draw': return '平局';
-      case 'over': return hdp == null ? '大' : `大 ${hdp}`;
-      case 'under': return hdp == null ? '小' : `小 ${hdp}`;
+      case '1x': case 'x1': case 'home/draw': case 'home or draw': return `${home}/平`;
+      case 'x2': case '2x': case 'draw/away': case 'draw or away': return `平/${away}`;
+      case '12': case '21': case 'home/away': case 'home or away': return `${home}/${away}`;
+      case 'over': case 'o': return hdp == null ? '大' : `大 ${hdp}`;
+      case 'under': case 'u': return hdp == null ? '小' : `小 ${hdp}`;
       case 'yes': return '是'; case 'no': return '否';
       case 'odd': return '单'; case 'even': return '双';
       case 'neither': case 'none': case 'no goal': case 'no goals': return '无';
@@ -2264,10 +2690,20 @@ button{font-family:inherit;border:none;cursor:pointer}
     if((m = low.match(/^exactly\s*(\d+)/)))   return '正好 ' + m[1];
     if((m = s.match(/^(\d+)\s*[-:]\s*(\d+)$/))) return m[1] + '-' + m[2];   /* correct score */
     if(s.indexOf('/') >= 0){                   /* half/full or combo legs */
-      return s.split('/').map(x => selectionCn(x.trim(), ev, null)).join('/');
+      /* pass the line only to an over/under leg (so 总进球+双方进球 shows
+       * 「大 2.5/是」); a team leg must NOT be turned into a handicap. */
+      return s.split('/').map(x => {
+        const leg = x.trim().toLowerCase();
+        const isOU = /^(o|u|over|under)$/.test(leg);
+        if(isOU) return selectionCn(x.trim(), ev, hdp);
+        /* stat prefix of a "未来10分钟" leg (goals/corners/cards/…) → 中文 */
+        const stat = next10StatCn(x.trim());
+        if(stat) return stat;
+        return selectionCn(x.trim(), ev, null);
+      }).join('/');
     }
-    if(ev && ev.home && s === ev.home) return hdp == null ? home : `${home} ${formatHdp(hdp,'home')}`;
-    if(ev && ev.away && s === ev.away) return hdp == null ? away : `${away} ${formatHdp(hdp,'away')}`;
+    if(ev && ev.home && s === ev.home) return hdp == null ? home : `${home} ${formatHdp(hdp + adj,'home')}`;
+    if(ev && ev.away && s === ev.away) return hdp == null ? away : `${away} ${formatHdp(hdp + adj,'away')}`;
     /* Fallback: localize a team name embedded in a longer label
      * (e.g. "Lanus U20 -1") using the Inplay-translated names. */
     let _o = s;
@@ -2279,6 +2715,22 @@ button{font-family:inherit;border:none;cursor:pointer}
   }
   function expandMarket(market, ev){
     const out = [];
+    /*  Backend market id the place-bet validator keys on (main_* semantic
+     *  key preferred, else the raw 6-digit canonical id).  Shared by every
+     *  outcome of this market.   */
+    const betMid = mainKeyForMarketName(market.market_name) || String(market.market_id || '');
+    /*  剩余赛事 display shift for goal Asian handicap (display-only).  */
+    const _adj = _restHdpAdj(ev, market.market_name);
+    /*  Goalserve in-play names the FT correct-score grid "Final Score" and the
+     *  HT grid "Correct Score (1st Half)".  _isCS only drives the fmtCsOdds
+     *  display rule now — bookability is unconditional (see below).          */
+    const _lowMN = String(market.market_name || '').toLowerCase();
+    const _isCS = _lowMN.includes('correct score') || _lowMN === 'final score' || _lowMN.includes('exact score');
+    /*  ALL markets are now bookable (the "仅供参考" read-only gate has been
+     *  removed at the operator's request).  Markets the PHP settlement engine
+     *  can't auto-grade (most exotic passthrough markets) are still accepted
+     *  and simply settle manually via the admin panel — they no longer render
+     *  as non-clickable.   _isCS is retained only to drive fmtCsOdds display. */
     (market.odds||[]).forEach((row, rowIdx) => {
       /* passthrough shape {selection, price, handicap?/line?} */
       if(row && Object.prototype.hasOwnProperty.call(row, 'price')){
@@ -2289,12 +2741,15 @@ button{font-family:inherit;border:none;cursor:pointer}
         out.push({
           id: `${ev.id}-${market.market_id}-${rowIdx}-sel`,
           marketId: `${ev.id}-${market.market_id}-${rowIdx}`,
+          betMid,
           marketTitle: market.market_name,
           eventId: String(ev.id),
-          label: selectionCn(row.selection, ev, ph),
+          label: selectionCn(row.selection, ev, ph, _adj, market.market_name),
           odds: price,
           line: ph == null ? undefined : ph,
           field: String(row.selection || 'sel'),
+          bettable: true,   /* all markets bookable (仅供参考 gate removed) */
+          isCs: _isCS,      /* drives fmtCsOdds (1dp <100 / int ≥100) in renderOutcomePill */
         });
         return;
       }
@@ -2307,12 +2762,14 @@ button{font-family:inherit;border:none;cursor:pointer}
         out.push({
           id: `${ev.id}-${market.market_id}-${rowIdx}-${field}`,
           marketId: `${ev.id}-${market.market_id}-${rowIdx}`,
+          betMid,
           marketTitle: market.market_name,
           eventId: String(ev.id),
-          label: outcomeLabel(field, row, ev, (hdp == null || isNaN(hdp)) ? null : hdp),
+          label: outcomeLabel(field, row, ev, (hdp == null || isNaN(hdp)) ? null : hdp, _adj),
           odds: price,
           line: (hdp == null || isNaN(hdp)) ? undefined : hdp,
           field,
+          bettable: true,  /* field-keyed canonical market → bookable */
         });
       }
     });
@@ -2326,7 +2783,7 @@ button{font-family:inherit;border:none;cursor:pointer}
     const k = String(eid);
     if(state.inlineMarketsCache.has(k)) return state.inlineMarketsCache.get(k);
     try{
-      const d = await API.eventMarkets(eid);
+      const d = stripHiddenMarkets(await API.eventMarkets(eid));
       const book = (d.bookmakers && d.bookmakers[0]) || null;
       const payload = { event: d.event || null, markets: book ? (book.markets||[]) : [] };
       state.inlineMarketsCache.set(k, payload);
@@ -2336,6 +2793,61 @@ button{font-family:inherit;border:none;cursor:pointer}
       state.inlineMarketsCache.set(k, payload);
       return payload;
     }
+  }
+  /*  refreshExpandedInlineMarkets — live-refresh the OPEN inline panel's odds
+   *  whenever a WS frame updates that match, so a punter can never stake on a
+   *  stale dropdown price.  We re-fetch /events/{id}/markets (which re-applies
+   *  the server-side decided-line / half-time-expiry filters) instead of
+   *  trusting the raw WS snap, overwrite the cache, then re-render the body in
+   *  place — preserving the active tab + slip selection and never flashing
+   *  「加载中」 (we only swap content on a successful fetch).  Debounced so a
+   *  burst of frames triggers at most one re-fetch per window.               */
+  function refreshExpandedInlineMarkets(eid){
+    if(!eid || String(eid) !== String(state.expandedMatchId)) return;
+    if(state._inlineRefreshTimer) return;            // a refresh is already queued
+    const MIN_GAP_MS = 1500;
+    const wait = Math.max(0, MIN_GAP_MS - (Date.now() - (state._inlineRefreshAt || 0)));
+    state._inlineRefreshTimer = setTimeout(async () => {
+      state._inlineRefreshTimer = null;
+      state._inlineRefreshAt = Date.now();
+      const id = state.expandedMatchId;
+      if(!id) return;
+      try{
+        const d = stripHiddenMarkets(await API.eventMarkets(id));
+        const book = (d.bookmakers && d.bookmakers[0]) || null;
+        state.inlineMarketsCache.set(String(id), { event: d.event || null, markets: book ? (book.markets||[]) : [] });
+        if(String(state.expandedMatchId) === String(id) && state.expandedTab){
+          renderInlineBody(id, state.expandedTab);
+        }
+      }catch(_e){ /* keep last-good cache on transient error — no flash */ }
+    }, wait);
+  }
+  /*  refreshActiveModalMarkets — detail-modal twin of refreshExpandedInline-
+   *  Markets.  Re-fetch /events/{id}/markets on a WS frame, overwrite the
+   *  cached payload, and re-render the active 盘口 tab in place (which also
+   *  red/green-flashes moved prices via _renderProTabBody → flashOddsChanges)
+   *  so the full-screen detail can never serve a stale dropdown price.       */
+  function refreshActiveModalMarkets(eid){
+    const modal = document.getElementById('match-modal');
+    if(!modal || !modal.classList.contains('on')) return;
+    if(!state.activeMatch || String(state.activeMatch.id) !== String(eid)) return;
+    if(!document.getElementById('md-markets-body')) return;   // 盘口 tab not active
+    if(state._modalRefreshTimer) return;
+    const MIN_GAP_MS = 1500;
+    const wait = Math.max(0, MIN_GAP_MS - (Date.now() - (state._modalRefreshAt || 0)));
+    state._modalRefreshTimer = setTimeout(async () => {
+      state._modalRefreshTimer = null;
+      state._modalRefreshAt = Date.now();
+      const m = document.getElementById('match-modal');
+      if(!m || !m.classList.contains('on')) return;
+      if(!state.activeMatch || String(state.activeMatch.id) !== String(eid)) return;
+      if(!document.getElementById('md-markets-body')) return;
+      try{
+        const data = stripHiddenMarkets(await API.getEventMarkets(eid));
+        state.activeMarketsData = data;
+        renderMarketsForProTab();
+      }catch(_e){ /* keep last-good payload on transient error */ }
+    }, wait);
   }
   function renderInlineTabsStrip(e){
     /* Pre-fetch hint: prefer the cached availableInlineTabsFromRaw, fall
@@ -2367,10 +2879,20 @@ button{font-family:inherit;border:none;cursor:pointer}
         away_cn: ev.away_cn || _listEv.away_cn,
         home:    ev.home    || _listEv.home,
         away:    ev.away    || _listEv.away,
+        score_home: (_listEv.score_home != null ? _listEv.score_home : ev.score_home),
+        score_away: (_listEv.score_away != null ? _listEv.score_away : ev.score_away),
       });
     }
     if(!tab){ host.innerHTML = `<div class="loading-mini">请选择上方盘口分类</div>`; return; }
-    const markets = cached.markets.filter(m => marketMatchesTab(m.market_name, tab));
+    /*  Drop first-half / decided-line markets once the first half is over —
+     *  same suppression the detail modal uses (hideStaleMarket).  The inline
+     *  panel previously skipped this, so half-time boards stayed bookable in
+     *  the 2nd half ("半场未封盘").  Prefer the list event for the live
+     *  clock/status/cutoff signals (the /markets event can lag).            */
+    const _evF = _listEv || ev;
+    const markets = cached.markets
+      .filter(m => marketMatchesTab(m.market_name, tab))
+      .filter(m => !hideStaleMarket(m, _evF));
     if(markets.length === 0){
       host.innerHTML = `<div class="loading-mini">该类别暂无可投盘口</div>`; return;
     }
@@ -2392,15 +2914,36 @@ button{font-family:inherit;border:none;cursor:pointer}
       const colHtml = (title, list) => `<div class="cs-col"><div class="cs-h">${escHtml(title)}</div>${list.slice(0,12).map(o => renderOutcomePill(o)).join('')}</div>`;
       const homeNm = ev.home_cn || teamCn(ev.home) || '主队';
       const awayNm = ev.away_cn || teamCn(ev.away) || '客队';
-      host.innerHTML = `<div class="cs-grid">${colHtml(homeNm, buckets.home)}${colHtml('平', buckets.draw)}${colHtml(awayNm, buckets.away)}</div>`;
+      const csBookable = opts.length > 0 && opts.every(o => o.bettable !== false);
+      const csNote = csBookable ? '' : `<div class="ix-ro-note">该盘口仅供参考，暂不支持投注</div>`;
+      host.innerHTML = `${csNote}<div class="cs-grid">${colHtml(homeNm, buckets.home)}${colHtml('平', buckets.draw)}${colHtml(awayNm, buckets.away)}</div>`;
     } else {
       /* Generic list view: each market_name becomes a section header,
        * outcomes flow as wrapping pill buttons (cap 12/section, 6 sections). */
       let html = '<div class="ix-list">';
       for(const m of markets.slice(0, 6)){
-        const opts = expandMarket(m, ev).slice(0, 12);
+        let opts = expandMarket(m, ev);
+        /*  C — align the detail 让球 to the card's balanced line: list the
+         *  rung whose handicap matches the card's main_odds.re_line first so
+         *  the detail's leading handicap row mirrors the card.  This only
+         *  reorders (stable) — the full ladder is still shown below it.   */
+        if(tab === 'handicap' && _listEv && _listEv.main_odds){
+          const reLine = Number(_listEv.main_odds.re_line);
+          if(isFinite(reLine)){
+            opts = opts
+              .map((o, i) => [o, i])
+              .sort((a, b) => {
+                const da = (a[0].line != null && isFinite(Number(a[0].line))) ? Math.abs(Number(a[0].line) - reLine) : 1e9;
+                const db = (b[0].line != null && isFinite(Number(b[0].line))) ? Math.abs(Number(b[0].line) - reLine) : 1e9;
+                return (da - db) || (a[1] - b[1]);
+              })
+              .map(pair => pair[0]);
+          }
+        }
+        opts = opts.slice(0, 12);
         if(opts.length === 0) continue;
-        html += `<div class="ix-card"><div class="ix-h">${escHtml(translateMarket(m.market_name))}</div><div class="ix-pills">${opts.map(renderOutcomePill).join('')}</div></div>`;
+        const roBadge = opts.every(o => o.bettable === false) ? `<span class="ix-ro">仅供参考</span>` : '';
+        html += `<div class="ix-card"><div class="ix-h"><span>${escHtml(translateMarket(m.market_name))}</span>${roBadge}</div><div class="ix-pills">${opts.map(renderOutcomePill).join('')}</div></div>`;
       }
       html += '</div>';
       host.innerHTML = html;
@@ -2408,18 +2951,66 @@ button{font-family:inherit;border:none;cursor:pointer}
     /* Wire each pill to the bet slip.  We store the OutcomeOption in
      * a per-button data-* JSON so the click handler can recover it
      * verbatim — no global lookup needed.   */
-    host.querySelectorAll('.outcome-pill').forEach(btn => {
+    host.querySelectorAll('.outcome-pill:not(.readonly)').forEach(btn => {
       btn.addEventListener('click', () => {
         const o = JSON.parse(btn.getAttribute('data-opt') || 'null');
         if(!o) return;
         addOutcomeToSlip(o, ev);
       });
     });
+    /*  Red/green-pulse any dropdown price that moved since the last render
+     *  (refreshExpandedInlineMarkets re-renders this body on WS frames).   */
+    flashOddsChanges(host);
+  }
+  /*  _pillLabelHtml — split a handicap label「队名 +2.5」into a truncatable
+   *  team span + a fixed-width 让球数 span so a long team name can never
+   *  ellipsis-eat the line value.  Only fires when the row carries a line
+   *  and the label ends in a signed handicap token (+2.5 / -2.5 / 让0);
+   *  over/under (「大 2.5」) and plain labels stay whole.                  */
+  function _pillLabelHtml(o){
+    const lab = String(o.label || '');
+    if(o.line != null && isFinite(Number(o.line))){
+      const mm = lab.match(/^(.*\S)\s+([+\-][\d.]+|让\d+)$/);
+      if(mm) return `<span class="op-label">${escHtml(mm[1])}</span><span class="op-line">${escHtml(mm[2])}</span>`;
+    }
+    return `<span class="op-label">${escHtml(lab)}</span>`;
   }
   function renderOutcomePill(o){
+    /*  Read-only (reference-only) outcomes: passthrough markets the
+     *  settlement engine can't auto-grade yet.  Render as a non-clickable
+     *  span so the price is visible but no bet can be attempted.          */
+    const _ov = o.isCs ? fmtCsOdds(o.odds) : fmtOdds(o.odds);
+    const _labelHtml = _pillLabelHtml(o);
+    /*  Stable, score-independent flash key — o.id bakes in event/market/row/
+     *  field but NOT odds or the (score-shifted) label, so a refresh can diff
+     *  prices for the same selection across WS frames.                      */
+    const _fk = 'p|' + (o.id || [o.eventId,o.marketTitle,o.field,(o.line!=null?o.line:'')].join('|'));
+    const _od = isFinite(Number(o.odds)) ? Number(o.odds) : '';
+    if(o.bettable === false){
+      return `<span class="outcome-pill readonly" data-fk="${escHtml(_fk)}" data-odds="${_od}" title="该盘口仅供参考，暂不支持投注">${_labelHtml}<span class="op-odds">${_ov}</span></span>`;
+    }
     const inSlip = !!state.slip.find(s => s.outcomeId === o.id);
     const safeOpt = JSON.stringify(o).replace(/'/g, '&#39;').replace(/"/g, '&quot;');
-    return `<button class="outcome-pill ${inSlip?'selected':''}" data-opt="${safeOpt}"><span class="op-label">${escHtml(o.label)}</span><span class="op-odds">${fmtOdds(o.odds)}</span></button>`;
+    return `<button class="outcome-pill ${inSlip?'selected':''}" data-fk="${escHtml(_fk)}" data-odds="${_od}" data-opt="${safeOpt}">${_labelHtml}<span class="op-odds">${_ov}</span></button>`;
+  }
+  /*  flashOddsChanges — red/green pulse any pill/button inside `host` whose
+   *  data-odds differs from the value recorded on the previous render (keyed
+   *  by the stable data-fk).  Used by the inline dropdown body and the detail
+   *  modal markets pane; the main card grid keeps its own diff path.  First
+   *  sighting of a key just seeds the map (no flash).                        */
+  function flashOddsChanges(host){
+    if(!host || !state.oddsFlashEnabled) return;
+    host.querySelectorAll('[data-fk]').forEach(btn => {
+      const key = btn.getAttribute('data-fk');
+      const nv = parseFloat(btn.getAttribute('data-odds'));
+      if(!key || !isFinite(nv)) return;
+      const prev = state.prevOddsByKey.get(key);
+      state.prevOddsByKey.set(key, nv);
+      if(prev == null || prev === nv) return;
+      const cls = nv > prev ? 'flash-up' : 'flash-down';
+      btn.classList.add(cls);
+      setTimeout(() => btn.classList.remove(cls), 1100);
+    });
   }
   /*  addOutcomeToSlip — bridge between the inline panel's OutcomeOption
    *  shape and the existing main-odds slip[] entries.  We synthesize a
@@ -2431,11 +3022,19 @@ button{font-family:inherit;border:none;cursor:pointer}
     const idx = state.slip.findIndex(s => s.key === key);
     if(idx >= 0){ state.slip.splice(idx, 1); }
     else {
+      /*  串关同场拦截：同一场比赛(相关盘口)不可进入同一串关。  */
+      if(state.slipMode === 'parlay' && state.slip.some(s => String(s.event_id) === String(o.eventId))){
+        toast('同一场比赛不能进入同一串关', 'err');
+        return;
+      }
       state.slip.push({
         key,
         event_id: o.eventId,
         market: o.marketTitle,
         pick: o.field,
+        market_id: o.betMid || '',
+        outcome_field: o.field || '',
+        outcome_line: (o.line != null && isFinite(Number(o.line))) ? Number(o.line) : null,
         label: o.label,
         odds: o.odds,
         outcomeId: o.id,
@@ -2495,6 +3094,35 @@ button{font-family:inherit;border:none;cursor:pointer}
     });
   }
 
+  /*  restoreInlineBody — every renderMatches() rebuild (incl. the 15s poll /
+   *  WS re-render) re-emits the expanded row with its body reset to the
+   *  hardcoded 「加载中…」 placeholder.  Only the expand *click* handler ever
+   *  called renderInlineBody, so after a poll the open panel's markets
+   *  vanished and never returned.  Repaint the body from inlineMarketsCache
+   *  (which survives repolls) so the markets persist; if not cached yet,
+   *  fetch once then paint.   */
+  function restoreInlineBody(){
+    const eid = state.expandedMatchId;
+    if(!eid || !state.expandedTab) return;
+    if(!document.getElementById('inline-body-' + eid)) return; /* row not in view */
+    if(state.inlineMarketsCache.has(String(eid))){
+      renderInlineBody(eid, state.expandedTab);
+      /*  Paint the cached book immediately, then freshen it in the
+       *  background (debounced) — covers the WS-down 15s-poll path so the
+       *  open panel can't keep serving a stale price.                      */
+      refreshExpandedInlineMarkets(eid);
+      return;
+    }
+    fetchInlineMarkets(eid).then(() => {
+      const cached = state.inlineMarketsCache.get(String(eid));
+      const realTabs = cached ? availableInlineTabsFromRaw(cached.markets) : null;
+      if(realTabs && realTabs.size && state.expandedTab && !realTabs.has(state.expandedTab)){
+        const first = INLINE_MARKET_TABS.find(t => realTabs.has(t.id));
+        if(first) state.expandedTab = first.id;
+      }
+      if(document.getElementById('inline-body-' + eid)) renderInlineBody(eid, state.expandedTab);
+    });
+  }
   function wireMatchOpen(){
     document.querySelectorAll('[data-open-match]').forEach(el => {
       el.addEventListener('click', ev => {
@@ -2530,7 +3158,7 @@ button{font-family:inherit;border:none;cursor:pointer}
     if(n.includes('ht') || n.includes('half') || n.includes('first half')
        || n.includes('2h') || n.includes('second half')
        || n.startsWith('1st half') || n.includes('minutes')) return 'half';
-    if(n.includes('correct score') || n.includes('goal method') || n.includes('exact total')) return 'score';
+    if(n.includes('correct score') || n.includes('final score') || n.includes('exact score') || n.includes('goal method') || n.includes('exact total')) return 'score';
     if(n.includes('goalscorer') || n.includes('team total') || n.includes('both teams')
        || n.includes('clean sheet') || n.includes('multi scorers')
        || n.includes('team shots') || n.includes('team corners') || n.includes('team cards')
@@ -2549,6 +3177,65 @@ button{font-family:inherit;border:none;cursor:pointer}
    *  renders every market unfiltered (legacy "all" view).   For other tabs we
    *  filter by classifyOddsMarket(market_name) so e.g. 角球 only sees corner
    *  markets, regardless of how the upstream names them.    */
+  /*  Stale-market suppression for the detail modal.   Two rules (user-chosen):
+   *   1) PHASE — once the match is past the first half (elapsed_minute>45),
+   *      first-half / half-time markets are already decided, so hide them.
+   *      HT/FT combos and 2nd-half markets are NOT decided at the break → kept.
+   *   2) DEAD LINE — a market with one outcome ≈1.00 AND another at a sky-high
+   *      price (>=15) is a settled/locked book (e.g. 半场胜负 1.00 / 41 / 501);
+   *      hide it regardless of clock.   */
+  function pastFirstHalf(ev){
+    if(!ev) return false;
+    /*  Mirror the backend `_is_first_half_over`: don't rely on the live
+     *  clock alone — lower-tier women's / reserve feeds often send a frozen
+     *  or missing `elapsed_minute`, which used to leave half-time markets
+     *  bookable deep into the 2nd half.   Any one signal suffices.   */
+    const bc = ev.betting_cutoff || ev._betting_cutoff || {};
+    if(bc.ht) return true;
+    const code = (ev.status_short || '').toUpperCase();
+    if(['HT','2H','BT','INT','ET','AET','P','PEN','FT'].includes(code)) return true;
+    const m = ev.elapsed_minute;
+    if(m != null && isFinite(m) && Number(m) > 45) return true;
+    // Kickoff-age fallback (~50 min) for matches with no reliable clock.
+    if(ev.commence_ts && (Date.now()/1000 - Number(ev.commence_ts)) > 50*60) return true;
+    return false;
+  }
+  function isFirstHalfMarket(n){
+    if(n.includes('ht/ft') || n.includes('half time/full time')
+       || n.includes('halftime/fulltime') || n.includes('half-time/full-time')
+       || n.includes('half/full')) return false;            // HT/FT combo — live
+    if(n.includes('2nd half') || n.includes('second half') || n.includes('2h')) return false;
+    return n.includes('1st half') || n.includes('first half')
+        || n.includes('half time') || n.includes('halftime')
+        || /(^|[^a-z])ht([^a-z]|$)/.test(n)
+        || n.includes('first 10') || n.includes('first 15');
+  }
+  function marketPrices(mkt){
+    const out = [];
+    for(const row of ((mkt && mkt.odds) || [])){
+      if(!row || typeof row !== 'object') continue;
+      if(Object.prototype.hasOwnProperty.call(row, 'price')){
+        const p = Number(row.price); if(isFinite(p) && p > 0) out.push(p);
+        continue;
+      }
+      for(const [k, v] of Object.entries(row)){
+        if(k === 'hdp' || k === 'label' || k === 'line' || k.endsWith('_line')) continue;
+        const p = Number(v); if(isFinite(p) && p > 0) out.push(p);
+      }
+    }
+    return out;
+  }
+  function isDeadLineMarket(mkt){
+    const ps = marketPrices(mkt);
+    if(ps.length < 2) return false;
+    return ps.some(p => p <= 1.02) && ps.some(p => p >= 15);
+  }
+  function hideStaleMarket(mkt, ev){
+    const n = (mkt && mkt.market_name || '').toLowerCase();
+    if(pastFirstHalf(ev) && isFirstHalfMarket(n)) return true;
+    if(isDeadLineMarket(mkt)) return true;
+    return false;
+  }
   function buildProGroups(markets, activeTab){
     if(!markets) return [];
     if(activeTab === 'hot') return markets.slice();
@@ -2562,6 +3249,31 @@ button{font-family:inherit;border:none;cursor:pointer}
 
   /* ── Bet slip ────────────────────────────────────────────────── */
   function slipKey(eid, mkt, pick){ return `${eid}|${mkt}|${pick}`; }
+  /*  Map a backend canonical English market_name to the `main_<key>`
+   *  semantic id the PHP place-bet validator understands: it resolves the
+   *  key by NAME (semanticMarketIdToName + resolveMainOddsHint), so the bet
+   *  validates + settles correctly REGARDLESS of the market's position in
+   *  the per-event list (the 6-digit "000001…" ids are positional and shift
+   *  when ML is suspended, which is exactly what made every 让球/大小/DNB
+   *  bet collide with the ML row → odds_changed/market_not_open).  Returns
+   *  '' for markets without a main_* mapping (caller falls back to the raw
+   *  6-digit market_id).   */
+  function mainKeyForMarketName(name){
+    const m = {
+      'ml':'main_ml',
+      'spread':'main_spread',
+      'totals':'main_ou',
+      'half time result':'main_html',
+      'spread ht':'main_htsp',
+      'totals ht':'main_htou',
+      'both teams to score':'main_btts',
+      'both teams to score ht':'main_bttsht',
+      'double chance':'main_dc',
+      'draw no bet':'main_dnb',
+      'corners totals':'main_corners',
+    };
+    return m[String(name||'').trim().toLowerCase()] || '';
+  }
   function wireOddsButtons(){
     document.querySelectorAll('.odds-btn').forEach(btn => {
       /*  Bind ALL buttons, including currently-muted ones.   repaintMatchCard
@@ -2577,8 +3289,12 @@ button{font-family:inherit;border:none;cursor:pointer}
         if(btn.classList.contains('muted')) return;
         const odds = parseFloat(btn.getAttribute('data-odds'));
         if(!odds || !isFinite(odds)) return;
+        const lineAttr = btn.getAttribute('data-line');
         toggleSlip({
           key, event_id: eid, market: mkt, pick,
+          market_id: btn.getAttribute('data-mid') || '',
+          outcome_field: btn.getAttribute('data-field') || '',
+          outcome_line: (lineAttr != null && lineAttr !== '') ? Number(lineAttr) : null,
           label: btn.getAttribute('data-label'),
           odds, teams: btn.getAttribute('data-teams')
         }, btn);
@@ -2591,6 +3307,12 @@ button{font-family:inherit;border:none;cursor:pointer}
       state.slip.splice(idx, 1);
       if(btn) btn.classList.remove('selected');
     } else {
+      /*  串关同场拦截：一场比赛只能有一个选项进同一串关(同场盘口相关)。
+       *  单关模式不受限，因为每个选项是独立单注。  */
+      if(state.slipMode === 'parlay' && state.slip.some(s => String(s.event_id) === String(item.event_id))){
+        toast('同一场比赛不能进入同一串关', 'err');
+        return;
+      }
       state.slip.push(item);
       if(btn){ btn.classList.add('flash-up','selected'); setTimeout(()=>btn.classList.remove('flash-up'), 1100); }
     }
@@ -2717,7 +3439,7 @@ button{font-family:inherit;border:none;cursor:pointer}
       const totalStake = state.slip.reduce((a, s) => a + (Number(s.stake) > 0 ? Number(s.stake) : 0), 0);
       const sumPayout = state.slip.reduce((a, s) => a + (Number(s.stake) > 0 ? s.odds * Number(s.stake) : 0), 0);
       const avgOdds = state.slip.reduce((a, s) => a + s.odds, 0) / state.slip.length;
-      oddsEl.textContent = state.slip.length > 1 ? `均 ${avgOdds.toFixed(2)}` : state.slip[0].odds.toFixed(2);
+      oddsEl.textContent = state.slip.length > 1 ? `均 ${toAsianOdds(avgOdds).toFixed(2)}` : toAsianOdds(state.slip[0].odds).toFixed(2);
       payoutEl.textContent = fmtMoney(sumPayout);
       stakeValEl.textContent = fmtMoney(totalStake);
       placeBtn.textContent = state.slip.length > 1
@@ -2725,67 +3447,188 @@ button{font-family:inherit;border:none;cursor:pointer}
         : `确认 单关 投注 →`;
     } else {
       const totalOdds = state.slip.reduce((a, s) => a * s.odds, 1);
-      oddsEl.textContent = totalOdds.toFixed(2);
+      oddsEl.textContent = toAsianOdds(totalOdds).toFixed(2);
       payoutEl.textContent = fmtMoney(totalOdds * state.stake);
       stakeValEl.textContent = fmtMoney(state.stake);
       placeBtn.textContent = `确认 ${state.slip.length > 1 ? '串关' : '单关'} 投注 →`;
     }
   }
 
+  /*  Map a place-bet 409/4xx reason code (+ structured body) to a concise
+   *  Chinese message so the slip surfaces WHY a bet failed instead of the
+   *  generic, misleading "请检查余额或登录状态".   */
+  function betFailReason(reason, body, err){
+    const st = err && err.status;
+    switch(reason){
+      case 'market_closed':      return '该盘口已封盘';
+      case 'market_not_open':    return '该盘口/让球档位已变动，请刷新后重试';
+      case 'phase_transitioned': return '赛事阶段已切换，请刷新后重试';
+      case 'odds_changed':       return (body && body.current != null) ? `赔率已变为 ${fmtOdds(Number(body.current))}` : '赔率已变动';
+      case 'account_disabled':   return '帐号已停用，无法下注';
+      case 'account_view_only':  return '帐号为只能看帐状态，无法下注';
+      case 'account_banned':     return '帐号已被禁止登入';
+      case 'account_expired':    return '帐号已到期';
+      case 'account_locked':     return '盘口已封，无法下注';
+      case 'account_logged_out': return '帐号已被强制登出，请重新登入';
+    }
+    if(body && body.message) return String(body.message);
+    if(st === 401) return '请先登录后再下注';
+    if(st === 400) return '投注金额或赔率无效';
+    if(st === 409) return '盘口状态已变动，请刷新后重试';
+    return (err && err.message) ? String(err.message).slice(0, 80) : '未知错误';
+  }
   /* ── Place bet ───────────────────────────────────────────────── */
   async function placeBet(){
     if(!state.user){ openModal('login-modal'); return; }
     if(state.slip.length === 0){ toast('请先添加选项', 'err'); return; }
-    /* Per-leg stake support (单关) vs shared parlay stake (串关):
-     *   parlay : ONE backend call with the FULL state.stake on each leg
-     *            (the legs get joined into a parlay slip server-side).
-     *   single : each leg sends its OWN s.stake.  Legs with stake≤0 are
-     *            skipped (user explicitly cleared that leg's amount).   */
     const isParlay = state.slipMode === 'parlay' && state.slip.length > 1;
-    if(isParlay && (!isFinite(state.stake) || state.stake <= 0)){
-      toast('投注金额无效', 'err'); return;
+    /*  串关 (parlay): submit the WHOLE slip as ONE bet — comma-joined gids,
+     *  combined odds (∏ leg decimal odds), a single shared stake.  The backend
+     *  re-validates each leg's live price, recomputes the authoritative combined
+     *  odds, and inserts ONE wtype=PARLAY row.  (Previously the loop below fired
+     *  one place-bet PER leg, so a 串关 silently became N independent 单关.)   */
+    if(isParlay){
+      if(!isFinite(state.stake) || state.stake <= 0){ toast('投注金额无效', 'err'); return; }
+      const gids = state.slip.map(s => String(s.event_id));
+      if(new Set(gids).size !== gids.length){
+        toast('同一场比赛不能进入同一串关，请移除重复选项或改为单关', 'err'); return;
+      }
+      const placeBtn = $('#slip-place');
+      placeBtn.disabled = true;
+      placeBtn.textContent = '投注中…';
+      const legs = state.slip.map(s => ({
+        event_id: String(s.event_id),
+        market_id: s.market_id || '',
+        market_name: s.market,
+        outcome_field: s.outcome_field
+          || ((s.pick === 'H' || s.pick === 'RH') ? 'home'
+              : s.pick === 'X' ? 'draw'
+              : (s.pick === 'C' || s.pick === 'RC') ? 'away' : ''),
+        outcome_line: (s.outcome_line != null && isFinite(Number(s.outcome_line))) ? Number(s.outcome_line) : null,
+        outcome_label: s.label,
+        odds: s.odds,
+        teams: s.teams,
+      }));
+      const combinedOdds = state.slip.reduce((a, s) => a * Number(s.odds), 1);
+      const betstr = state.slip.map(s => `${s.teams} ${s.market} ${s.label}`).join(' / ');
+      try{
+        await API.placeBet({
+          event_id: gids.join(','),
+          market_id: 'PARLAY',
+          market_name: '串关',
+          outcome_index: 0,
+          outcome_label: betstr,
+          amount_usdt: state.stake,
+          odds: combinedOdds,
+          stake_amount: state.stake,
+          stake_currency: 'USDT',
+          legs,
+        });
+        state.slip = [];
+        refreshBalance();
+        document.querySelectorAll('.odds-btn.selected,.mkt-card .mc-odds .o.selected').forEach(b => b.classList.remove('selected'));
+        renderSlip();
+        toast('成功下注 1 注串关', 'ok');
+      }catch(err){
+        console.error('[place-bet parlay]', err);
+        const b = (err && err.body) || {};
+        const reason = String(b.detail || '');
+        if(reason === 'odds_changed' && b.leg_index != null && state.slip[Number(b.leg_index)] && isFinite(Number(b.current))){
+          /*  A leg's live price moved: refresh that leg and let the user
+           *  re-confirm the whole parlay (mirrors the single-bet flow).   */
+          state.slip[Number(b.leg_index)].odds = Number(b.current);
+          renderSlip();
+          toast(`第 ${Number(b.leg_index)+1} 关赔率已更新为 ${fmtOdds(Number(b.current))}，请确认后重新提交`, 'err');
+        } else {
+          toast('串关投注失败：' + betFailReason(reason, b, err), 'err');
+        }
+        const btn = document.getElementById('slip-place');
+        if(btn){ btn.disabled = false; btn.textContent = '确认 串关 投注 →'; }
+      }
+      return;
     }
-    if(!isParlay){
-      const total = state.slip.reduce((a,s) => a + (Number(s.stake)>0 ? Number(s.stake) : 0), 0);
-      if(total <= 0){ toast('请为每一关填写投注金额', 'err'); return; }
-    }
+    /*  单关 (single): each leg is an INDEPENDENT bet with its OWN stake.
+     *  Legs with stake≤0 are skipped (user explicitly cleared that amount).  */
+    const total = state.slip.reduce((a,s) => a + (Number(s.stake)>0 ? Number(s.stake) : 0), 0);
+    if(total <= 0){ toast('请为每一关填写投注金额', 'err'); return; }
     const placeBtn = $('#slip-place');
     placeBtn.disabled = true;
     placeBtn.textContent = '投注中…';
     let okCt = 0, failCt = 0, skipCt = 0;
+    let priceUpdated = false;        // a leg's odds were refreshed → re-confirm
+    const failMsgs = [];
     for(const s of state.slip){
-      const legStake = isParlay ? state.stake : Number(s.stake || 0);
+      const legStake = Number(s.stake || 0);
       if(legStake <= 0){ skipCt++; continue; }
+      /*  Resolve the market id + side + line the backend validates against.
+       *  Each slip leg carries explicit market_id / outcome_field /
+       *  outcome_line set at click time (see wireOddsButtons, the detail
+       *  modal pill handler, and addOutcomeToSlip).   We ONLY fall back to
+       *  the legacy H/X/RH/RC derivation for old in-memory legs that predate
+       *  this — a fresh click always carries the explicit fields.  Hard-
+       *  coding market_id='000001' (ML) was the bug: it made every 让球 /
+       *  大小 / DNB / DC bet validate against the ML row → odds_changed.   */
+      const betField = s.outcome_field
+        || ((s.pick === 'H' || s.pick === 'RH') ? 'home'
+            : s.pick === 'X' ? 'draw' : 'away');
+      const betLine = (s.outcome_line != null && isFinite(Number(s.outcome_line)))
+        ? Number(s.outcome_line) : null;
+      const betIdx = (betField === 'home') ? 0 : (betField === 'draw') ? 1 : 2;
       try{
         await API.placeBet({
           event_id: String(s.event_id),
-          market_id: '000001',
+          market_id: s.market_id || '000001',
           market_name: s.market,
-          outcome_index: (s.pick === 'H' || s.pick === 'RH') ? 0 : s.pick === 'X' ? 1 : 2,
+          outcome_index: betIdx,
           outcome_label: s.label,
-          outcome_field: (s.pick === 'H' || s.pick === 'RH') ? 'home' : s.pick === 'X' ? 'draw' : 'away',
-          outcome_line: null,
+          outcome_field: betField,
+          outcome_line: betLine,
           amount_usdt: legStake,
           odds: s.odds,
           stake_amount: legStake,
           stake_currency: 'USDT'  // backend still uses USDT internally; UI shows ¥
         });
         okCt++;
+        s._placed = true;
       }catch(err){
         console.error('[place-bet]', err);
         failCt++;
+        const b = (err && err.body) || {};
+        const reason = String(b.detail || '');
+        if(reason === 'odds_changed' && b.current != null && isFinite(Number(b.current))){
+          /*  Live price moved between display and submit: refresh this leg to
+           *  the server's current price and let the user re-confirm in one tap
+           *  instead of dead-ending on a misleading "投注失败".   */
+          s.odds = Number(b.current);
+          priceUpdated = true;
+          failMsgs.push(`${s.market || '盘口'} 赔率已更新为 ${fmtOdds(Number(b.current))}`);
+        } else {
+          failMsgs.push(betFailReason(reason, b, err));
+        }
       }
     }
+    /*  Remove only the legs that actually went through; keep failed legs
+     *  (with any refreshed odds) in the slip so the user can re-confirm.   */
     if(okCt > 0){
-      toast(`成功下注 ${okCt} 注${failCt?'（失败 '+failCt+'）':''}`, failCt ? '' : 'ok');
-      state.slip = [];
-      renderSlip();
+      state.slip = state.slip.filter(s => !s._placed);
       refreshBalance();
       document.querySelectorAll('.odds-btn.selected,.mkt-card .mc-odds .o.selected').forEach(b => b.classList.remove('selected'));
+    }
+    /*  Re-render when legs were placed (removed) AND/OR an odds_changed leg
+     *  had its price refreshed, so the slip shows the live price to confirm. */
+    if(okCt > 0 || priceUpdated){ renderSlip(); }
+    if(okCt > 0 && failCt === 0){
+      toast(`成功下注 ${okCt} 注`, 'ok');
+    } else if(okCt > 0){
+      toast(`成功 ${okCt} 注 · ${failCt} 注未成功：${failMsgs[0] || ''}`, '');
     } else {
-      toast('投注失败：' + (failCt ? '请检查余额或登录状态' : '未知错误'), 'err');
-      placeBtn.disabled = false;
-      placeBtn.textContent = `确认投注 →`;
+      toast((priceUpdated ? '赔率已变动，请确认后重新提交：' : '投注失败：') + (failMsgs[0] || '未知错误'), 'err');
+    }
+    /*  Re-enable the submit control whenever legs remain (failed / refreshed).
+     *  Re-grab from the DOM in case renderSlip() rebuilt the bar.   */
+    if(state.slip.length > 0){
+      const btn = document.getElementById('slip-place');
+      if(btn){ btn.disabled = false; btn.textContent = priceUpdated ? '赔率已更新 · 确认投注' : '确认投注 →'; }
     }
   }
 
@@ -2805,11 +3648,13 @@ button{font-family:inherit;border:none;cursor:pointer}
     const host = $('#md-pane-markets');
     host.innerHTML = `<div class="loading"><div class="spinner"></div>加载盘口…</div>`;
     try{
-      const data = await API.getEventMarkets(eid);
+      const data = stripHiddenMarkets(await API.getEventMarkets(eid));
       state.activeMarketsData = data;
       renderMarkets(data);
     }catch(err){
-      host.innerHTML = `<div class="error-banner">⚠️ ${escHtml(err.message)}</div>`;
+      host.innerHTML = `<div class="error-banner">⚠️ ${escHtml(err.message || '加载失败')} <button class="link" id="md-mkt-retry">重试</button></div>`;
+      const rb = document.getElementById('md-mkt-retry');
+      if(rb) rb.addEventListener('click', () => openMatchDetail(eid));
     }
   }
   function renderMdScoreboard(e){
@@ -2859,6 +3704,17 @@ button{font-family:inherit;border:none;cursor:pointer}
       });
     }
     const bks = data.bookmakers || [];
+    /*  Drop stale/settled markets up front so they vanish from the tab counts
+     *  AND every tab body (incl. 全部盘口): decided first-half markets once we're
+     *  past 45', plus any locked "dead line" (one outcome ≈1.00 + a sky-high
+     *  counter-price).   Mutates the cached payload once — re-opening the modal
+     *  re-fetches fresh data, so this stays correct as the match progresses.   */
+    const _evForFilter = (data && data.event) || state.activeMatch || {};
+    for(const _bk of bks){
+      if(_bk && Array.isArray(_bk.markets)){
+        _bk.markets = _bk.markets.filter(m => !hideStaleMarket(m, _evForFilter));
+      }
+    }
     const source = data.source || '';
     if(bks.length === 0){
       host.innerHTML = `<div class="loading">暂无可用盘口（${escHtml(source||'无数据')}）</div>`;
@@ -2886,6 +3742,29 @@ button{font-family:inherit;border:none;cursor:pointer}
       }).join('')
     }</div>`;
     host.innerHTML = sourceLine + tabBar + '<div id="md-markets-body"></div>';
+    const _mdBody = document.getElementById('md-markets-body');
+    if(_mdBody && !_mdBody._slipWired){
+      _mdBody._slipWired = true;
+      _mdBody.addEventListener('click', e => {
+        const btn = e.target.closest('.mc-odds .o:not(.readonly)');
+        if(!btn || !_mdBody.contains(btn)) return;
+        const odds = parseFloat(btn.getAttribute('data-odds'));
+        if(!odds || !isFinite(odds)) return;
+        const lineAttr = btn.getAttribute('data-line');
+        toggleSlip({
+          key: slipKey(btn.getAttribute('data-eid'), btn.getAttribute('data-mkt'), btn.getAttribute('data-pick')),
+          event_id: btn.getAttribute('data-eid'),
+          market: btn.getAttribute('data-mkt'),
+          pick: btn.getAttribute('data-pick'),
+          market_id: btn.getAttribute('data-mid') || '',
+          outcome_field: btn.getAttribute('data-field') || '',
+          outcome_line: (lineAttr != null && lineAttr !== '') ? Number(lineAttr) : null,
+          label: btn.getAttribute('data-label'),
+          odds,
+          teams: btn.getAttribute('data-teams')
+        }, btn);
+      });
+    }
     document.querySelectorAll('#pro-tabs .pro-chip').forEach(c => {
       c.addEventListener('click', () => {
         if(c.classList.contains('disabled')) return;
@@ -2908,20 +3787,27 @@ button{font-family:inherit;border:none;cursor:pointer}
   function _renderProTabBody(body, data, tab){
     const bks = data.bookmakers || [];
     const teamsStr = `${data.event.home_cn || teamCn(data.event.home)} 对 ${data.event.away_cn || teamCn(data.event.away)}`;
-    let html = '';
+    /*  剩余赛事 spread shift (display-only): pull live score from events list
+     *  so the detail 让球 mirrors the card.   */
+    const _leSc = state.events.find(x => String(x.id) === String(data.event.id));
+    const _adjEv = _leSc ? Object.assign({}, data.event, {score_home: _leSc.score_home, score_away: _leSc.score_away}) : data.event;
+    let shells = '';
+    const pending = [];
+    let _secIdx = 0;
     for(const bk of bks){
       const filteredMarkets = buildProGroups(bk.markets || [], tab);
       if(filteredMarkets.length === 0){
-        html += `<div class="loading" style="padding:18px;text-align:center;color:var(--text-light);font-size:.82rem">该分类下暂无可投盘口</div>`;
+        shells += `<div class="loading" style="padding:18px;text-align:center;color:var(--text-light);font-size:.82rem">该分类下暂无可投盘口</div>`;
         continue;
       }
-      html += `<div class="bk-section">
+      const _listId = 'mkl-' + (_secIdx++);
+      shells += `<div class="bk-section">
         <div class="bk-section-head">
           <span class="ic">${escHtml(bk.bookmaker.slice(0,2).toUpperCase())}</span>
           <span>${escHtml(bk.bookmaker)}</span>
           <span class="bk-count">${filteredMarkets.length} / ${bk.market_count} 个市场</span>
         </div>
-        <div class="mkt-list">`;
+        <div class="mkt-list" id="${_listId}"></div></div>`;
       for(const mkt of filteredMarkets){
         /*  Group ALL rows of one market into a single card.  Necessary for
          *  correct-score / exact-score markets which carry 20+ rows each
@@ -2937,6 +3823,18 @@ button{font-family:inherit;border:none;cursor:pointer}
         let firstHdp = null;
         let outcomeCount = 0;
         const seenLabels = new Set();  /* de-dupe pp's `home`/`away` repeats */
+        /*  Backend market id the place-bet validator keys on.  Prefer the
+         *  main_* semantic key (resolves by NAME, robust to id reordering)
+         *  and fall back to the raw 6-digit canonical market_id.   */
+        const betMid = mainKeyForMarketName(mkt.market_name) || String(mkt.market_id || '');
+        const _adj = _restHdpAdj(_adjEv, mkt.market_name);
+        /*  Every market is bookable now (the "仅供参考" gate was removed at the
+         *  operator's request); markets the settlement engine can't auto-grade
+         *  settle manually via the admin panel.   _isCS only selects the
+         *  fmtCsOdds display rule + the stable CS slip label below.          */
+        const _lowMN = String(mkt.market_name || '').toLowerCase();
+        const _isCS = _lowMN.includes('correct score') || _lowMN === 'final score' || _lowMN.includes('exact score');
+        const _csIsHt = _isCS && (_lowMN.includes('1st half') || _lowMN.includes('first half') || _lowMN.includes('(1st') || /\bht\b/.test(_lowMN) || _lowMN.includes('半场'));
         for(const row of (mkt.odds || [])){
           /* passthrough shape {selection, price, handicap?/line?} → one pill */
           if(row && Object.prototype.hasOwnProperty.call(row, 'price')){
@@ -2945,15 +3843,23 @@ button{font-family:inherit;border:none;cursor:pointer}
             const hv = (row.handicap != null) ? row.handicap : row.line;
             const ph = (hv != null && isFinite(Number(hv))) ? Number(hv) : null;
             if(firstHdp == null && ph != null) firstHdp = ph;
-            const outLabel = selectionCn(row.selection, data.event, ph);
+            const outLabel = selectionCn(row.selection, data.event, ph, _adj, mkt.market_name);
             if(seenLabels.has(outLabel + '|' + price)) continue;
             seenLabels.add(outLabel + '|' + price);
-            const slipMkt = translateMarket(mkt.market_name) + (ph != null ? ` ${ph}` : '');
+            /*  Bookable pill.  Correct-score uses a STABLE Chinese label the
+             *  PHP validator maps via cnToEn (波胆→CS, 上半场波胆→HT_CS) and the
+             *  去尾零 fmtCsOdds display; every other passthrough market posts
+             *  its translated name (+line) and the standard 2dp fmtOdds.      */
+            const slipMkt = _isCS
+              ? (_csIsHt ? '上半场波胆' : '波胆')
+              : (translateMarket(mkt.market_name) + (ph != null ? ` ${ph}` : ''));
             const pickKey = String(row.selection || 'sel') + (ph != null ? '|' + ph : '');
             const sk = slipKey(data.event.id, slipMkt, pickKey);
             const sel = state.slip.find(s => s.key === sk) ? 'selected' : '';
-            buttons += `<button class="o ${sel}" data-eid="${data.event.id}" data-mkt="${escHtml(slipMkt)}" data-pick="${escHtml(pickKey)}" data-odds="${price}" data-label="${escHtml(outLabel)}" data-teams="${escHtml(teamsStr)}">
-              <span class="ol">${escHtml(outLabel)}</span><span class="ov">${fmtOdds(price)}</span>
+            const _ovD = _isCS ? fmtCsOdds(price) : fmtOdds(price);
+            const _dlD = (!_isCS && ph != null) ? ph : '';
+            buttons += `<button class="o ${sel}" data-fk="o|${escHtml(String(data.event.id))}|${escHtml(pickKey)}" data-eid="${data.event.id}" data-mkt="${escHtml(slipMkt)}" data-pick="${escHtml(pickKey)}" data-mid="${escHtml(betMid)}" data-field="${escHtml(String(row.selection || ''))}" data-line="${_dlD}" data-odds="${price}" data-label="${escHtml(outLabel)}" data-teams="${escHtml(teamsStr)}">
+              <span class="ol">${escHtml(outLabel)}</span><span class="ov">${_ovD}</span>
             </button>`;
             outcomeCount++;
             continue;
@@ -2966,14 +3872,14 @@ button{font-family:inherit;border:none;cursor:pointer}
             if(k === 'hdp' || k === 'label' || k.endsWith('_line') || k === 'line') continue;
             const price = Number(v);
             if(!isFinite(price) || price <= 0) continue;
-            const outLabel = outcomeLabel(k, row, data.event, validHdp);
+            const outLabel = outcomeLabel(k, row, data.event, validHdp, _adj);
             if(seenLabels.has(outLabel + '|' + price)) continue;
             seenLabels.add(outLabel + '|' + price);
             const slipMkt = translateMarket(mkt.market_name) + (validHdp != null ? ` ${validHdp}` : '');
             const pickKey = k + (row.label ? '|' + row.label : '');
             const sk = slipKey(data.event.id, slipMkt, pickKey);
             const sel = state.slip.find(s => s.key === sk) ? 'selected' : '';
-            buttons += `<button class="o ${sel}" data-eid="${data.event.id}" data-mkt="${escHtml(slipMkt)}" data-pick="${escHtml(pickKey)}" data-odds="${price}" data-label="${escHtml(outLabel)}" data-teams="${escHtml(teamsStr)}">
+            buttons += `<button class="o ${sel}" data-fk="o|${escHtml(String(data.event.id))}|${escHtml(pickKey)}" data-eid="${data.event.id}" data-mkt="${escHtml(slipMkt)}" data-pick="${escHtml(pickKey)}" data-mid="${escHtml(betMid)}" data-field="${escHtml(k)}" data-line="${validHdp != null ? validHdp : ''}" data-odds="${price}" data-label="${escHtml(outLabel)}" data-teams="${escHtml(teamsStr)}">
               <span class="ol">${escHtml(outLabel)}</span><span class="ov">${fmtOdds(price)}</span>
             </button>`;
             outcomeCount++;
@@ -2984,32 +3890,35 @@ button{font-family:inherit;border:none;cursor:pointer}
         /*  For correct-score-style markets (many outcomes) use a tighter
          *  3-column grid so 20+ pills don't blow up the modal height.  */
         const dense = outcomeCount > 4 ? ' dense' : '';
-        html += `<div class="mkt-card">
+        pending.push({listId: _listId, html: `<div class="mkt-card">
           <div class="mc-head">
             <span class="mc-name">${escHtml(translateMarket(mkt.market_name))}${escHtml(lineLabel)}</span>
             <span class="mc-bk">${outcomeCount} 项</span>
           </div>
           <div class="mc-odds${dense}">${buttons}</div>
-        </div>`;
+        </div>`});
       }
-      html += '</div></div>';
     }
-    body.innerHTML = html;
-    body.querySelectorAll('.mc-odds .o').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const odds = parseFloat(btn.getAttribute('data-odds'));
-        if(!odds || !isFinite(odds)) return;
-        toggleSlip({
-          key: slipKey(btn.getAttribute('data-eid'), btn.getAttribute('data-mkt'), btn.getAttribute('data-pick')),
-          event_id: btn.getAttribute('data-eid'),
-          market: btn.getAttribute('data-mkt'),
-          pick: btn.getAttribute('data-pick'),
-          label: btn.getAttribute('data-label'),
-          odds,
-          teams: btn.getAttribute('data-teams')
-        }, btn);
-      });
-    });
+    body.innerHTML = shells;
+    const _tok = state._mdRenderToken = (state._mdRenderToken || 0) + 1;
+    let _ci = 0;
+    const _FIRST = 16, _BATCH = 40;
+    const _flush = (n) => {
+      if(_tok !== state._mdRenderToken) return;
+      const end = Math.min(pending.length, _ci + n);
+      while(_ci < end){
+        const lid = pending[_ci].listId;
+        let chunk = '';
+        while(_ci < end && pending[_ci].listId === lid){ chunk += pending[_ci].html; _ci++; }
+        const el = document.getElementById(lid);
+        if(el) el.insertAdjacentHTML('beforeend', chunk);
+      }
+      if(_ci < pending.length){ requestAnimationFrame(() => _flush(_BATCH)); }
+      /*  Red/green-pulse any detail price that moved since the last render
+       *  (refreshActiveModalMarkets re-renders this pane on WS frames).      */
+      else { flashOddsChanges(body); }
+    };
+    _flush(_FIRST);
   }
 
   /* ── Match detail tabs ───────────────────────────────────────── */
@@ -3056,7 +3965,15 @@ button{font-family:inherit;border:none;cursor:pointer}
       try{
         const d = await API.inplayEvents(eid);
         evs = d.events || [];
-      }catch(_){ /* fall through to placeholder */ }
+      }catch(_){ /* fall through to timeline fallback */ }
+      /*  Live inplay snap is dropped once a match finishes, so fall back to
+       *  the soccerfixtures-derived post-match timeline (goals/cards/subs).  */
+      if(evs.length === 0){
+        try{
+          const d2 = await API.matchTimeline(eid);
+          evs = d2.events || [];
+        }catch(_){ /* fall through to placeholder */ }
+      }
       if(evs.length === 0){
         host.innerHTML = `<div class="loading">暂无赛事事件</div>`;
         return;
@@ -3171,7 +4088,12 @@ button{font-family:inherit;border:none;cursor:pointer}
     if(!state.user) return;
     try{
       const c = await API.creditMe();
-      state.balance = c.credit_balance;
+      // Member is an RMB credit account: balance_credit is stored in the
+      // member's native currency (RMB), so render the raw native value under
+      // the ¥ symbol. credit_balance is the USDT-converted figure and would
+      // mislabel e.g. ¥100,000 as "¥14,720.17". Fall back to credit_balance
+      // only if an older backend omits the raw field.
+      state.balance = (c.credit_balance_raw != null) ? c.credit_balance_raw : c.credit_balance;
       renderAuthChip();
     }catch(err){ /* keep last balance */ }
   }
@@ -3242,10 +4164,10 @@ button{font-family:inherit;border:none;cursor:pointer}
   ];
   const ORDERS_STATUS = [
     { id:'all',     label:'全部' },
-    { id:'open',    label:'进行中' },
+    { id:'open',    label:'等待结算' },
     { id:'won',     label:'赢' },
     { id:'lost',    label:'输' },
-    { id:'refund',  label:'退款 / 取消' },
+    { id:'refund',  label:'退回本金' },
   ];
   const ORDERS_TYPE = [
     { id:'all',    label:'全部' },
@@ -3255,13 +4177,72 @@ button{font-family:inherit;border:none;cursor:pointer}
   /*  Bet → status normaliser.  pmppm.com places-bet returns rows like
    *  {status:'open'|'won'|'lost'|...}, while Crown's BetRow uses
    *  isResult+cancel+result.  Map both into 'open'/'won'/'lost'/'refund'.  */
+  /*  Raw settle code from Crown's bet table: W / HW / HL / L / T(void).
+   *  api_v2.php passes it as result_raw; older shapes use result.  */
+  function betRawResult(b){ return String(b.result_raw || b.result || '').toUpperCase(); }
+  /*  A bet is SETTLED only when isResult=1 (or the API hands back a terminal
+   *  status string).  CRITICAL: db_client.bet.result DEFAULTS to 'T', so an
+   *  UNSETTLED row already reads result='T' — that placeholder must NOT be read
+   *  as a 走盘/退回 refund.  Gate every grade interpretation behind this flag,
+   *  otherwise every pending bet collapses to "走盘退回".                      */
+  function betSettled(b){
+    if(b.is_result === 1 || b.isResult === 1) return true;
+    const s = (b.status||'').toLowerCase();
+    return ['won','win','lost','lose','settled','refund','cancel','cancelled'].indexOf(s) !== -1;
+  }
   function normaliseBetStatus(b){
     const s = (b.status||'').toLowerCase();
-    if(s === 'won' || s === 'win' || (b.isResult === 1 && b.result === 'W')) return 'won';
-    if(s === 'lost' || s === 'lose' || (b.isResult === 1 && b.result === 'L')) return 'lost';
-    if(s === 'refund' || s === 'cancel' || s === 'cancelled' || b.cancel === 1 || (b.isResult === 1 && b.result === 'T')) return 'refund';
-    if(s === 'open' || s === 'pending' || (b.isResult === 0 && b.cancel !== 1)) return 'open';
-    return s || 'open';
+    const r = betRawResult(b);
+    if(!betSettled(b)) return 'open';                 // not graded yet → 等待结算
+    if(s === 'refund' || s === 'cancel' || s === 'cancelled' || b.cancel === 1) return 'refund';
+    /*  HW(赢一半) counts as a win, HL(输一半) as a loss; finer wording in betStatusLabel().  */
+    if(s === 'won' || s === 'win' || r === 'W' || r === 'HW') return 'won';
+    if(s === 'lost' || s === 'lose' || r === 'L' || r === 'HL') return 'lost';
+    if(r === 'T' || r === 'D') return 'refund';        // graded as push/void → 退回本金
+    return 'open';
+  }
+  /*  Signed settled net profit/loss (member's pocket change), in stake units:
+   *    W  → +profit        HW → +profit/2
+   *    L  → -stake         HL → -stake/2
+   *    T/refund/open → 0   (走盘退回现金, no win/loss)               */
+  function betNetPL(b){
+    const st = normaliseBetStatus(b);
+    const r  = betRawResult(b);
+    const stk = Number(b.amount_usdt || b.bet_golds || 0);
+    const profit = Math.max(0, Number(b.promised_payout || 0) - stk); /* promised_payout = stake×odds (total return) */
+    if(st === 'won')  return r === 'HW' ? profit/2 : profit;
+    if(st === 'lost') return r === 'HL' ? -stk/2  : -stk;
+    return 0;
+  }
+  /*  Status badge wording — 等待结算 / 赢 / 赢一半 / 输 / 输一半 / 退回本金.  */
+  function betStatusLabel(b){
+    const st = normaliseBetStatus(b);
+    const r  = betRawResult(b);
+    if(st === 'won')  return r === 'HW' ? '赢一半' : '赢';
+    if(st === 'lost') return r === 'HL' ? '输一半' : '输';
+    if(st === 'refund') return '退回本金';
+    return '等待结算';
+  }
+  /*  P/L line: shows 本金 (stake) + the real outcome.  Unsettled → 等待结算;
+   *  settled win/lose → 本金 ¥X，赢/输 ¥Y (half = /2); push/void (退回本金) → -.
+   *  Never shows the gross return, and never invents a result for pending bets. */
+  function betPLDisplay(b){
+    const st  = normaliseBetStatus(b);
+    const r   = betRawResult(b);
+    const stk = Number(b.amount_usdt || b.bet_golds || 0);
+    const profit = Math.max(0, Number(b.promised_payout || 0) - stk);
+    const stkTxt = escHtml(fmtMoney(stk));
+    if(st === 'open')   return `<span class="br-pl open">本金 ${stkTxt}，等待结算</span>`;
+    if(st === 'refund') return `<span class="br-pl flat">本金 ${stkTxt}，退回 -</span>`;
+    if(st === 'won'){
+      const amt = escHtml(fmtMoney(r === 'HW' ? profit/2 : profit));
+      return `<span class="br-pl win">本金 ${stkTxt}，${r === 'HW' ? '赢一半' : '赢'} ${amt}</span>`;
+    }
+    if(st === 'lost'){
+      const amt = escHtml(fmtMoney(r === 'HL' ? stk/2 : stk));
+      return `<span class="br-pl lose">本金 ${stkTxt}，${r === 'HL' ? '输一半' : '输'} ${amt}</span>`;
+    }
+    return `<span class="br-pl open">本金 ${stkTxt}，等待结算</span>`;
   }
   function normaliseBetType(b){
     const w = (b.wtype||'').toUpperCase();
@@ -3276,8 +4257,10 @@ button{font-family:inherit;border:none;cursor:pointer}
   function describeBetOutcomeLite(b){
     const w = (b.wtype||'').toUpperCase();
     if(w === 'PARLAY'){
-      const legs = (b.betstr||'').split(/\s*\/\s*/).filter(Boolean).slice(0,2);
-      return legs.length ? legs.join(' / ') + (legs.length<2?'':' …') : '串关';
+      const all = (b.betstr||'').split(/\s*\/\s*/).filter(Boolean);
+      if(!all.length) return '串关';
+      const shown = all.slice(0,2).join(' / ');
+      return all.length > 2 ? `${shown} …(共${all.length}关)` : shown;
     }
     const chose = (b.chose_team||'').toUpperCase();
     const teamH = b.team_h_cn || teamCn(b.team_h||'') || b.team_h || '';
@@ -3289,12 +4272,31 @@ button{font-family:inherit;border:none;cursor:pointer}
     /* Spread / Totals: tack on the line (e.g. "-1.25") so the row reads
      * "主队 -1.25" instead of an ambiguous "主队".  Crown writes the
      * line to the bet table's `spread` column (signed, dot-decimal).  */
-    if(pick && (b.spread !== undefined && b.spread !== null && String(b.spread).trim() !== '') &&
-       (w === 'SP' || w === 'HT_SP' || w === 'OU' || w === 'HT_OU' || w === 'FS')){
-      pick = pick + ' ' + b.spread;
+    if(pick && (w === 'SP' || w === 'HT_SP' || w === 'OU' || w === 'HT_OU' || w === 'FS')){
+      /*  让球(全场,SP) shows the 剩余赛事 line the customer actually bet, frozen
+       *  in betstr/outcome_label at click time (board uses _restHdpAdj).  Other
+       *  markets keep the stored spread.  Settlement uses the full spread column
+       *  regardless, so money is unaffected.                                   */
+      let lineStr = (b.spread !== undefined && b.spread !== null && String(b.spread).trim() !== '') ? String(b.spread) : '';
+      if(w === 'SP'){
+        const lab = String(b.betstr || b.outcome_label || '');
+        const mm = lab.match(/(让0|[+\-][0-9.]+)\s*$/);
+        if(mm) lineStr = mm[1];
+      }
+      if(lineStr !== '') pick = pick + ' ' + lineStr;
     }
     if(pick) return pick;
-    return b.outcome_label || b.betstr || '';
+    /*  No chose_team (正确比分/CS, 双方进球组合, 大小, 单双, 直传盘口…) → the
+     *  stored betstr carries the actual 下注方向 the user picked (e.g. "2-1",
+     *  "小 1.5", "南非/是").  Prefer it.  The server fills outcome_label with a
+     *  "队A vs 队B" matchup when it can't derive a side; never return that —
+     *  it just duplicates the teams line rendered right below.               */
+    const teamH2 = teamH || '', teamC2 = teamC || '';
+    const teamsVs = (teamH2 && teamC2) ? `${teamH2} vs ${teamC2}` : '';
+    const cand = [b.betstr, b.outcome_label]
+      .map(x => String(x == null ? '' : x).trim())
+      .find(x => x && x !== teamsVs && !/\bvs\b/i.test(x));
+    return cand || '';
   }
   /*  Filter the bet list against the three filter rails + render the
    *  summary metrics.   This is called whenever a chip is clicked and
@@ -3323,14 +4325,7 @@ button{font-family:inherit;border:none;cursor:pointer}
     /* Summary metrics over the filtered set. */
     const stake = filtered.reduce((a,b) => a + Number(b.amount_usdt || b.bet_golds || 0), 0);
     const settled = filtered.filter(b => normaliseBetStatus(b) !== 'open');
-    const pl = settled.reduce((a,b) => {
-      const st = normaliseBetStatus(b);
-      const stk = Number(b.amount_usdt || b.bet_golds || 0);
-      const payout = Number(b.promised_payout || 0);
-      if(st === 'won') return a + (payout - stk);
-      if(st === 'lost') return a - stk;
-      return a; /* refund: zero net */
-    }, 0);
+    const pl = settled.reduce((a,b) => a + betNetPL(b), 0); /* handles W/HW/HL/L; refund=0 */
     const summary = `<div class="orders-summary">
       <div class="os-card"><div class="os-l">注单数</div><div class="os-v">${filtered.length}</div></div>
       <div class="os-card"><div class="os-l">投注总额</div><div class="os-v">${escHtml(fmtMoney(stake))}</div></div>
@@ -3366,30 +4361,31 @@ button{font-family:inherit;border:none;cursor:pointer}
   function renderOrderRow(b){
     const st = normaliseBetStatus(b);
     const typ = normaliseBetType(b);
-    const statusZh = { open:'进行中', won:'赢', lost:'输', refund:'退款 / 取消' };
     const wtype = WTYPE_CN[(b.wtype||'').toUpperCase()] || b.wtype || (typ === 'parlay' ? '串关' : '单关');
     const outcome = describeBetOutcomeLite(b);
-    const stake = Number(b.amount_usdt || b.bet_golds || 0);
-    const payout = Number(b.promised_payout || 0);
     const odds = b.promised_odds || b.ioratio || '';
     const ts = betCreatedTs(b);
     const tsLabel = ts ? new Date(ts).toLocaleString('zh-CN', { hour12:false }) : '';
-    const teams = (b.team_h_cn || teamCn(b.team_h||'') || b.team_h || '') + ' vs ' + (b.team_c_cn || teamCn(b.team_c||'') || b.team_c || '');
+    /*  串关注单没有单一对阵，改用「N串1」表示 N 关串关；明细在 br-mkt 里。  */
+    const parlayLegN = typ === 'parlay' ? (b.betstr||'').split(/\s*\/\s*/).filter(Boolean).length : 0;
+    const teams = typ === 'parlay'
+      ? (parlayLegN ? `${parlayLegN}串1` : '串关')
+      : ((b.team_h_cn || teamCn(b.team_h||'') || b.team_h || '') + ' vs ' + (b.team_c_cn || teamCn(b.team_c||'') || b.team_c || ''));
     return `<div class="bet-row order-row ${st}">
       <div class="br-l">
         <div class="br-tags">
           <span class="otag wtype">${escHtml(wtype)}</span>
           ${typ==='parlay' ? '<span class="otag parlay">串</span>' : ''}
-          ${b.market_name ? `<span class="otag mkt">${escHtml(b.market_name)}</span>` : ''}
+          ${b.market_name && typ!=='parlay' ? `<span class="otag mkt">${escHtml(b.market_name)}</span>` : ''}
         </div>
         <div class="br-mkt">${escHtml(outcome || '—')}</div>
-        <div class="br-teams">${escHtml(teams.trim() === 'vs' ? ('事件 #' + (b.event_id||b.ID||'?')) : teams)}</div>
+        <div class="br-teams">${escHtml(typ==='parlay' ? teams : (teams.trim() === 'vs' ? ('事件 #' + (b.event_id||b.ID||'?')) : teams))}</div>
         <div class="br-meta">${escHtml(tsLabel)}${b.settled_at ? ` · 结算 ${escHtml(b.settled_at)}` : ''}</div>
       </div>
       <div class="br-r">
         <div class="br-odds">@ ${fmtOdds(odds)}</div>
-        <div class="br-amount">${escHtml(fmtMoney(stake))} → ${escHtml(fmtMoney(payout))}</div>
-        <span class="br-status ${st}">${escHtml(statusZh[st]||st)}</span>
+        ${betPLDisplay(b)}
+        <span class="br-status ${st}">${escHtml(betStatusLabel(b))}</span>
       </div>
     </div>`;
   }
@@ -3506,6 +4502,7 @@ button{font-family:inherit;border:none;cursor:pointer}
       if(screen === 'all')             setStatusFilter('all');
       else if(screen === 'live')       setStatusFilter('live');
       else if(screen === 'upcoming')   setStatusFilter('soon');
+      else if(screen === 'wc')         setStatusFilter('wc');
       else if(screen === 'outrights')  openOutrights();
       else if(screen === 'mybets')     openMyBets();
     }
@@ -3596,6 +4593,14 @@ button{font-family:inherit;border:none;cursor:pointer}
       console.log('[ws] open', url);
       state.wsState = 'open';
       state.wsReconnectMs = 1500; /* reset backoff on success */
+      /*  The socket being open IS a liveness signal: seed wsLastFrameAt so
+       *  the badge shows green 「WS」 immediately instead of falling through
+       *  to the idle 「连接中」 branch (which fires whenever wsState==='open'
+       *  but no UPDATE/ping frame has landed yet — i.e. right after every
+       *  (re)connect, until the 25s server ping).  A genuinely silent pipe
+       *  still ages into 「WS 闲」 after 30s, so this only suppresses the
+       *  spurious post-connect flash.                                       */
+      state.wsLastFrameAt = Date.now();
       updateWsBadge();
     });
     ws.addEventListener('message', ev => {
@@ -3603,6 +4608,9 @@ button{font-family:inherit;border:none;cursor:pointer}
       try { msg = JSON.parse(ev.data); } catch(_){ return; }
       if(msg.type === 'hello'){
         console.log('[ws] hello source=', msg.source);
+        /*  Server confirmed the pipe is alive — keep the badge green. */
+        state.wsLastFrameAt = Date.now();
+        updateWsBadge();
         return;
       }
       if(msg.type === 'ping'){
@@ -3630,8 +4638,9 @@ button{font-family:inherit;border:none;cursor:pointer}
     });
   }
   function scheduleWsReconnect(){
-    const delay = Math.min(state.wsReconnectMs, 30000);
+    const base = Math.min(state.wsReconnectMs, 30000);
     state.wsReconnectMs = Math.min(state.wsReconnectMs * 2, 30000);
+    const delay = Math.round(base * (0.5 + Math.random()));
     setTimeout(connectGoalserveWS, delay);
   }
   /*  applyWsSnap \u2014 merge an event snapshot from the WS into state.events.
@@ -3643,6 +4652,22 @@ button{font-family:inherit;border:none;cursor:pointer}
   function applyWsSnap(snap, isReplay){
     if(!snap || !snap.id) return;
     const sid = String(snap.id);
+    /*  比赛结束即从列表移除：Goalserve `finished` 置位时 is_finished=true。
+     *  加时/点球进行中 finished 仍为 0（status_short=ET/PEN，照常显示），故不会
+     *  误删带加时/点球的比赛——只有常规时间结束且无加时点球，或点球分出胜负后
+     *  才会 finished。REST 轮询本就过滤 is_finished，这里在收到结束帧瞬间同步
+     *  移除，避免最长一个轮询周期(~18s)的残留卡片。 */
+    if(snap.is_finished || ['finished','settled'].includes((snap.status||'').toLowerCase())){
+      const ridx = state.events.findIndex(e => String(e.id) === sid);
+      if(ridx >= 0){
+        state.events.splice(ridx, 1);
+        if(state.prevEventsMap) state.prevEventsMap.delete(sid);
+        const card = document.querySelector(`.match[data-eid="${CSS.escape(sid)}"]`);
+        if(card) card.remove();
+        setHero(state.events.length, state.events.filter(isLive).length);
+      }
+      return;
+    }
     const idx = state.events.findIndex(e => String(e.id) === sid);
     /* Stash prev for flashChangedOdds() before we replace. */
     if(idx >= 0){
@@ -3656,7 +4681,12 @@ button{font-family:inherit;border:none;cursor:pointer}
        *  Chinese names "flash then revert to English" (and could drop the
        *  logo) on the first WS frame ~1s after load.   Carry those fields
        *  forward whenever the incoming snap omits them.                    */
-      ['home_cn','away_cn','league_cn','home_team_gs_id','away_team_gs_id'].forEach(k => {
+      ['home_cn','away_cn','league_cn','home_team_gs_id','away_team_gs_id',
+       'commence_ts','commence_iso',
+       /*  A frame that omits the live score must NOT blank it out — keeping
+        *  the last-known goals stops the 0:2 → 0:0 → 0:2 flicker when a
+        *  partial Goalserve frame arrives without score fields.            */
+       'score_home','score_away','score_home_ht','score_away_ht'].forEach(k => {
         if((snap[k] == null || snap[k] === '') && prev[k] != null && prev[k] !== '') snap[k] = prev[k];
       });
       state.events[idx] = snap;
@@ -3680,6 +4710,10 @@ button{font-family:inherit;border:none;cursor:pointer}
     const liveCnt = state.events.filter(isLive).length;
     setHero(state.events.length, liveCnt);
     repaintMatchCard(sid);
+    /*  If this match's inline dropdown is open, live-refresh its odds too so
+     *  the punter can't stake on a stale price (debounced + in-place).       */
+    refreshExpandedInlineMarkets(sid);
+    refreshActiveModalMarkets(sid);
     updateWsBadge();
   }
   function repaintMatchCard(eid){
@@ -3731,9 +4765,14 @@ button{font-family:inherit;border:none;cursor:pointer}
     /* main odds = 让球盘 (re_*): keep value + signed-line label + muted/selected/flash in sync */
     const mo = e.main_odds || {};
     const rLine = (mo.re_line != null && isFinite(Number(mo.re_line))) ? Number(mo.re_line) : null;
+    /*  亚洲重置式 (rest-of-match) display shift — mirror renderMatchCard so a
+     *  live WS update can't overwrite the button with the FULL Goalserve line
+     *  (主 -2.25 @ 2:0 must show as 主 -0.25).  Display only (see _restHdpAdj). */
+    const _spSd = (isLive(e) && isFinite(Number(e.score_home)) && isFinite(Number(e.score_away))) ? (Number(e.score_home) - Number(e.score_away)) : 0;
+    const rLineDisp = (rLine != null) ? rLine + _spSd : null;
     const omap = {
-      RH: { odds: mo.re_h, label: '主' + (rLine != null ? ' ' + formatHdp(rLine,'home') : '') },
-      RC: { odds: mo.re_c, label: '客' + (rLine != null ? ' ' + formatHdp(rLine,'away') : '') },
+      RH: { odds: mo.re_h, label: '主' + (rLineDisp != null ? ' ' + formatHdp(rLineDisp,'home') : '') },
+      RC: { odds: mo.re_c, label: '客' + (rLineDisp != null ? ' ' + formatHdp(rLineDisp,'away') : '') },
     };
     card.querySelectorAll('.odds-btn').forEach(btn => {
       const pick = btn.getAttribute('data-pick');
@@ -3845,6 +4884,12 @@ button{font-family:inherit;border:none;cursor:pointer}
         state.slipMode = m;
         writePref(PREF_KEYS.slipMode, m);
         document.querySelectorAll('#slip-mode-toggle [data-slip-mode]').forEach(x => x.classList.toggle('active', x === b));
+        /*  切到串关时，若注单里已有同一场比赛的多个选项(单关模式下允许)，
+         *  提示用户：串关不允许同场相关盘口，需移除后才能提交。  */
+        if(m === 'parlay' && state.slip.length > 1){
+          const gids = state.slip.map(s => String(s.event_id));
+          if(new Set(gids).size !== gids.length) toast('串关不能包含同一场比赛的多个选项，请移除后再提交', 'err');
+        }
         renderSlip();
       });
     });
@@ -3865,18 +4910,14 @@ button{font-family:inherit;border:none;cursor:pointer}
       if(!state.user){ openModal('login-modal'); return; }
       toast('充值功能请前往代理端开通', '');
     });
-    $('#hero-cta').addEventListener('click', () => {
-      setStatusFilter('live');
-      window.scrollTo({top: document.querySelector('#match-area').offsetTop - 80, behavior: 'smooth'});
-    });
   }
 
   /* ── Hero summary ────────────────────────────────────────────── */
   function setHero(total, live){
-    $('#hero-title').textContent = live > 0 ? `${live} 场滚球 · 火热进行中` : `${total} 场实时赛事`;
-    $('#hero-sub').textContent = `数据来自 pmppm.com · 共 ${total} 场${live>0?` · ${live} 场滚球`:''}`;
-    $('#sport-ft-ct').textContent = total;
-    $('#live-badge').textContent = live;
+    const ht = $('#hero-title'); if(ht) ht.textContent = live > 0 ? `${live} 场滚球 · 火热进行中` : `${total} 场实时赛事`;
+    const hs = $('#hero-sub'); if(hs) hs.textContent = `数据来自 pmppm.com · 共 ${total} 场${live>0?` · ${live} 场滚球`:''}`;
+    const sc = $('#sport-ft-ct'); if(sc) sc.textContent = total;
+    const lb = $('#live-badge'); if(lb) lb.textContent = live;
     const fb = $('#fav-badge'); if(fb) fb.textContent = state.favoriteMatchIds.size;
   }
 
@@ -3886,7 +4927,11 @@ button{font-family:inherit;border:none;cursor:pointer}
    *  ws-badge is fed by lastPollAt/lastPollOk; per-section error stays
    *  in state.errors.events so renderMatches can paint the “连接失败”
    *  banner instead of nuking the entire grid.  */
-  async function refreshEvents(){
+  async function refreshEvents(opts){
+    /*  Optional limit override — the boot() two-phase loader passes a small
+     *  limit for the fast first paint, then the full 2000 for the backfill.
+     *  Timer/click callers pass no usable limit → full board.             */
+    const _limit = (opts && Number(opts.limit) > 0) ? Number(opts.limit) : 2000;
     /*  When the goalserve WS is open and frames are arriving (<30s
      *  since last frame), skip this poll — the WS already pushed any
      *  changed event.  Initial load (before any frame) still polls so
@@ -3897,8 +4942,11 @@ button{font-family:inherit;border:none;cursor:pointer}
       updateWsBadge();
       return;
     }
+    if(state.eventsInFlight) return;
+    if(state.pollBackoffUntil && Date.now() < state.pollBackoffUntil) return;
+    state.eventsInFlight = true;
     try{
-      const d = await API.listEvents();
+      const d = await API.listEvents(_limit, 25000);
       const next = (d.items || []).filter(e =>
         /* Accept any sport label here — the backend's /api/external/events
          * is football-only by design, but the slug field has flipped between
@@ -3917,6 +4965,7 @@ button{font-family:inherit;border:none;cursor:pointer}
       state.lastPollAt = Date.now();
       state.lastPollOk = true;
       state.errors.events = null;
+      state.pollBackoffUntil = 0;
       const liveCnt = state.events.filter(isLive).length;
       setHero(state.events.length, liveCnt);
       renderLeagueList();
@@ -3927,8 +4976,10 @@ button{font-family:inherit;border:none;cursor:pointer}
       state.lastPollOk = false;
       state.errors.events = err && err.message ? err.message : '未知错误';
       console.error('[sports] fetch error:', err);
+      state.pollBackoffUntil = Date.now() + 8000 + Math.floor(Math.random() * 12000);
       renderMatches();
     }finally{
+      state.eventsInFlight = false;
       updateWsBadge();
     }
   }
@@ -3958,6 +5009,12 @@ button{font-family:inherit;border:none;cursor:pointer}
     renderSlip();
     updateWsBadge();
     refreshAuth();
+    /*  Single full fetch.  (A two-phase small-limit first paint was tried and
+     *  reverted: /api/external/events latency is dominated by the Goalserve
+     *  snapshot re-scan in _goalserve_merge_list, which runs regardless of
+     *  limit — so a smaller limit isn't faster.  Real speedup must come from
+     *  caching that scan server-side.)   World-Cup-first ordering still floats
+     *  世界杯 to the top via the renderMatches league sort.                  */
     refreshEvents();
     /*  Open the goalserve WS bridge after the initial REST poll so the
      *  user sees a populated grid instantly while the socket warms up.
@@ -3987,6 +5044,7 @@ button{font-family:inherit;border:none;cursor:pointer}
   <button class="bnav-item active" data-screen="all"><span class="bic">⚽</span>全部</button>
   <button class="bnav-item" data-screen="live"><span class="bic">📡</span>滚球</button>
   <button class="bnav-item" data-screen="upcoming"><span class="bic">📅</span>早盘</button>
+  <button class="bnav-item" data-screen="wc"><span class="bic">🏆</span>世界杯</button>
   <button class="bnav-item" data-screen="outrights"><span class="bic">🏆</span>冠军</button>
   <button class="bnav-item" data-screen="mybets"><span class="bic">🎫</span>注单</button>
 </nav>
